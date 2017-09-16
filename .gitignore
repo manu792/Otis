@@ -1,0 +1,15 @@
+Otis.UI/bin
+Otis.UI/obj
+Otis.Commons/bin
+Otis.Commons/obj
+Otis.Data/bin
+Otis.Data/obj
+Otis.Security/bin
+Otis.Security/obj
+Otis.Services/bin
+Otis.Services/obj
+.vs/
+*.user
+*.suo
+_ReSharper.*
+*.sln.cache
