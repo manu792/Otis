@@ -17,7 +17,7 @@ Public Class Login
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles loginBtn.Click
         Dim user = New UserDto With
         {
-            .Username = UsernameTxt.Text,
+            .Id = UsernameTxt.Text,
             .Password = PasswordTxt.Text
         }
         If loginService.ValidateUser(user) Then

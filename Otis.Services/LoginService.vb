@@ -12,7 +12,7 @@ Public Class LoginService
         encryptor = New Encryptor()
     End Sub
     Public Function ValidateUser(user As UserDto) As Boolean
-        Dim retrievedUser As User = storage.GetUser(user.Username)
+        Dim retrievedUser As User = storage.GetUser(user.Id)
         If retrievedUser Is Nothing Then
             Return False
         End If
@@ -22,11 +22,11 @@ Public Class LoginService
     Public Function Register(user As UserDto) As UserDto
         user.Password = EncryptPassword(user.Password)
 
-        Dim registeredUser = storage.Register(New User With {.Username = user.Username, .Password = user.Password})
+        Dim registeredUser = storage.Register(New User With {.Id = user.Id, .Password = user.Password})
 
         Return New UserDto With
             {
-                .Username = registeredUser.Username,
+                .Id = registeredUser.Id,
                 .Password = registeredUser.Password
             }
     End Function

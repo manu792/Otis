@@ -2,6 +2,6 @@
 
 Public Class User
     <Key>
-    Property Username As String
+    Property Id As String
     Property Password As String
 End Class

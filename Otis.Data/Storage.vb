@@ -6,7 +6,7 @@
     End Sub
 
     Public Function GetUser(username As String) As User
-        Return otisContext.Users.FirstOrDefault(Function(us) us.Username.Equals(username))
+        Return otisContext.Users.FirstOrDefault(Function(us) us.Id.Equals(username))
     End Function
     Public Function Register(user As User) As User
         otisContext.Users.Add(user)

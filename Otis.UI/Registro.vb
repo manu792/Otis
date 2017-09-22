@@ -19,7 +19,7 @@ Public Class Registro
         If PasswordTxt.Text.Equals(ConfirmPasswordTxt.Text) Then
             Dim user = New UserDto With
             {
-                .Username = UsernameTxt.Text,
+                .Id = UsernameTxt.Text,
                 .Password = PasswordTxt.Text
             }
 
