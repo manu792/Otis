@@ -9,4 +9,8 @@ Public Class OtisContext
 
     Property Users As DbSet(Of User)
     Property Questions As DbSet(Of Question)
+    Property Answers As DbSet(Of Answer)
+    Property Categories As DbSet(Of Category)
+    Property Careers As DbSet(Of Career)
+    Property Students As DbSet(Of Student)
 End Class

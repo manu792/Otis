@@ -1,4 +1,4 @@
-﻿Public Class Storage
+﻿Public Class Login
 
     Private otisContext As OtisContext
     Public Sub New()

@@ -114,6 +114,7 @@ Partial Class Registro
         Me.Controls.Add(Me.UsernameTxt)
         Me.Controls.Add(Me.Label1)
         Me.Name = "Registro"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Registro"
         Me.ResumeLayout(False)
         Me.PerformLayout()

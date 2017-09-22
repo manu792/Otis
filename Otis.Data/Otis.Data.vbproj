@@ -86,10 +86,14 @@
       <DependentUpon>201709212348564_AddedNewModels.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201709212348564_AddedNewModels.vb" />
-    <Compile Include="Migrations\201709220036216_AddedCareerAndStudentModels.Designer.vb">
-      <DependentUpon>201709220036216_AddedCareerAndStudentModels.vb</DependentUpon>
+    <Compile Include="Migrations\201709221539195_NewMigration1.Designer.vb">
+      <DependentUpon>201709221539195_NewMigration1.vb</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201709220036216_AddedCareerAndStudentModels.vb" />
+    <Compile Include="Migrations\201709221539195_NewMigration1.vb" />
+    <Compile Include="Migrations\201709221542130_NewTables.Designer.vb">
+      <DependentUpon>201709221542130_NewTables.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709221542130_NewTables.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
@@ -113,7 +117,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Storage.vb" />
+    <Compile Include="Login.vb" />
+    <Compile Include="Test.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709152100313_InitialCreate.resx">
@@ -128,8 +133,11 @@
     <EmbeddedResource Include="Migrations\201709212348564_AddedNewModels.resx">
       <DependentUpon>201709212348564_AddedNewModels.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709220036216_AddedCareerAndStudentModels.resx">
-      <DependentUpon>201709220036216_AddedCareerAndStudentModels.vb</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709221539195_NewMigration1.resx">
+      <DependentUpon>201709221539195_NewMigration1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709221542130_NewTables.resx">
+      <DependentUpon>201709221542130_NewTables.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

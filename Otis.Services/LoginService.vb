@@ -5,10 +5,10 @@ Imports Otis.Security
 
 Public Class LoginService
 
-    Private storage As Storage
+    Private storage As Login
     Private encryptor As Encryptor
     Public Sub New()
-        storage = New Storage()
+        storage = New Login()
         encryptor = New Encryptor()
     End Sub
     Public Function ValidateUser(user As UserDto) As Boolean
