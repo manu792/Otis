@@ -86,10 +86,16 @@
       <DependentUpon>201709212348564_AddedNewModels.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201709212348564_AddedNewModels.vb" />
+    <Compile Include="Migrations\201709220036216_AddedCareerAndStudentModels.Designer.vb">
+      <DependentUpon>201709220036216_AddedCareerAndStudentModels.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709220036216_AddedCareerAndStudentModels.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
+    <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
     <Compile Include="Models\Question.vb" />
+    <Compile Include="Models\Student.vb" />
     <Compile Include="OtisContext.vb" />
     <Compile Include="Models\User.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -121,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709212348564_AddedNewModels.resx">
       <DependentUpon>201709212348564_AddedNewModels.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709220036216_AddedCareerAndStudentModels.resx">
+      <DependentUpon>201709220036216_AddedCareerAndStudentModels.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
