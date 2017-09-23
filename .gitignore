@@ -10,8 +10,8 @@ Otis.Services/bin
 Otis.Services/obj
 Otis.Repository/bin
 Otis.Repository/obj
-/bin
-/obj
+bin
+obj
 .vs/
 *.user
 *.suo
