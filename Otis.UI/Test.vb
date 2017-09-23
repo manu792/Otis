@@ -28,11 +28,14 @@ Public Class Test
             label = New Label() With
                 {
                     .Location = New Point(118, 80),
+                    .Size = New Drawing.Size(300, 150),
                     .Text = question.QuestionText
                 }
             textBox = New TextBox() With
                 {
-                    .Location = New Point(118, 80)
+                    .Location = New Point(171, 177),
+                    .Name = "answerTxt",
+                    .Size = New Drawing.Size(216, 20)
                 }
 
             Me.Controls.Add(label)
@@ -55,9 +58,7 @@ Public Class Test
     End Sub
 
     Private Sub RemoveControls()
-        For Each control As Control In Me.Controls
-            Me.Controls.Remove(control)
-        Next
+        Me.Controls.Clear()
     End Sub
     Private Sub AddControl()
         Dim controls As Control()
