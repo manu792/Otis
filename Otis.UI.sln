@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Otis.UI", "Otis.UI\Otis.UI.vbproj", "{E916DE4B-9610-4F69-91F5-0950F39EB9B9}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Otis.Services", "Otis.Services\Otis.Services.vbproj", "{6CEF1DB5-C681-46CB-92E0-8D16BB9B232F}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Otis.Security", "Otis.Security\Otis.Security.vbproj", "{3FE0988D-DED7-4BEA-AC1B-F29BFD17752D}"
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Otis.Repository", "Otis.Repository\Otis.Repository.vbproj", "{529C0057-D06F-47C7-AB5A-9D34B4D158B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3FE0988D-DED7-4BEA-AC1B-F29BFD17752D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FE0988D-DED7-4BEA-AC1B-F29BFD17752D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FE0988D-DED7-4BEA-AC1B-F29BFD17752D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{529C0057-D06F-47C7-AB5A-9D34B4D158B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{529C0057-D06F-47C7-AB5A-9D34B4D158B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{529C0057-D06F-47C7-AB5A-9D34B4D158B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{529C0057-D06F-47C7-AB5A-9D34B4D158B2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

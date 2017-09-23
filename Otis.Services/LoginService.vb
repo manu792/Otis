@@ -5,14 +5,14 @@ Imports Otis.Security
 
 Public Class LoginService
 
-    Private storage As Login
+    Private login As Login
     Private encryptor As Encryptor
     Public Sub New()
-        storage = New Login()
+        login = New Login()
         encryptor = New Encryptor()
     End Sub
     Public Function ValidateUser(user As UserDto) As Boolean
-        Dim retrievedUser As User = storage.GetUser(user.Id)
+        Dim retrievedUser As UserDto = login.GetUser(user.Id)
         If retrievedUser Is Nothing Then
             Return False
         End If
@@ -22,13 +22,9 @@ Public Class LoginService
     Public Function Register(user As UserDto) As UserDto
         user.Password = EncryptPassword(user.Password)
 
-        Dim registeredUser = storage.Register(New User With {.Id = user.Id, .Password = user.Password})
+        Dim registeredUser = login.Register(New UserDto With {.Id = user.Id, .Password = user.Password})
 
-        Return New UserDto With
-            {
-                .Id = registeredUser.Id,
-                .Password = registeredUser.Password
-            }
+        Return registeredUser
     End Function
 
     Private Function EncryptPassword(password As String) As String

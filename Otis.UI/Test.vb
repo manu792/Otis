@@ -23,7 +23,7 @@ Public Class Test
             label = New Label() With
                 {
                     .Location = New Point(118, 80),
-                    .Text = question.QuestionTest
+                    .Text = question.QuestionText
                 }
             textBox = New TextBox() With
                 {

@@ -43,12 +43,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -70,38 +65,6 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201709152100313_InitialCreate.Designer.vb">
-      <DependentUpon>201709152100313_InitialCreate.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709152100313_InitialCreate.vb" />
-    <Compile Include="Migrations\201709152239207_NewMigration.Designer.vb">
-      <DependentUpon>201709152239207_NewMigration.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709152239207_NewMigration.vb" />
-    <Compile Include="Migrations\201709212310483_ModelsChanged.Designer.vb">
-      <DependentUpon>201709212310483_ModelsChanged.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709212310483_ModelsChanged.vb" />
-    <Compile Include="Migrations\201709212348564_AddedNewModels.Designer.vb">
-      <DependentUpon>201709212348564_AddedNewModels.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709212348564_AddedNewModels.vb" />
-    <Compile Include="Migrations\201709221539195_NewMigration1.Designer.vb">
-      <DependentUpon>201709221539195_NewMigration1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709221539195_NewMigration1.vb" />
-    <Compile Include="Migrations\201709221542130_NewTables.Designer.vb">
-      <DependentUpon>201709221542130_NewTables.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709221542130_NewTables.vb" />
-    <Compile Include="Migrations\Configuration.vb" />
-    <Compile Include="Models\Answer.vb" />
-    <Compile Include="Models\Career.vb" />
-    <Compile Include="Models\Category.vb" />
-    <Compile Include="Models\Question.vb" />
-    <Compile Include="Models\Student.vb" />
-    <Compile Include="OtisContext.vb" />
-    <Compile Include="Models\User.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -121,24 +84,6 @@
     <Compile Include="Test.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709152100313_InitialCreate.resx">
-      <DependentUpon>201709152100313_InitialCreate.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709152239207_NewMigration.resx">
-      <DependentUpon>201709152239207_NewMigration.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709212310483_ModelsChanged.resx">
-      <DependentUpon>201709212310483_ModelsChanged.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709212348564_AddedNewModels.resx">
-      <DependentUpon>201709212348564_AddedNewModels.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709221539195_NewMigration1.resx">
-      <DependentUpon>201709221539195_NewMigration1.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709221542130_NewTables.resx">
-      <DependentUpon>201709221542130_NewTables.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -147,7 +92,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -157,7 +101,16 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
-    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Otis.Commons\Otis.Commons.vbproj">
+      <Project>{453555E3-BBC1-4D3B-AAFA-1CA39FD78185}</Project>
+      <Name>Otis.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Otis.Repository\Otis.Repository.vbproj">
+      <Project>{529c0057-d06f-47c7-ab5a-9d34b4d158b2}</Project>
+      <Name>Otis.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

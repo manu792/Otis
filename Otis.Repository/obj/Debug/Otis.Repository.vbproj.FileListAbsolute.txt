@@ -1,0 +1,16 @@
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\Otis.Repository.dll.config
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\Otis.Repository.dll
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\Otis.Repository.pdb
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\Otis.Repository.xml
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\EntityFramework.dll
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\EntityFramework.xml
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.Resources.resources
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.vbproj.GenerateResource.Cache
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.vbproj.CoreCompileInputs.cache
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.dll
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.xml
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.pdb
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.Migrations.Initial.resources
+C:\Users\Manuel\Documents\Visual Studio 2017\Projects\Otis.UI\Otis.Repository\obj\Debug\Otis.Repository.vbprojResolveAssemblyReference.cache
