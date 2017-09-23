@@ -80,8 +80,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Login.vb" />
-    <Compile Include="Test.vb" />
+    <Compile Include="UserRepository.vb" />
+    <Compile Include="TestRepository.vb" />
+    <Compile Include="UnitOfWork.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

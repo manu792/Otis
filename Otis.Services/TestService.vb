@@ -3,13 +3,13 @@ Imports Otis.Data
 
 Public Class TestService
 
-    Private test As Test
+    Private unitOfWork As UnitOfWork
 
     Public Sub New()
-        test = New Test()
+        unitOfWork = New UnitOfWork()
     End Sub
 
     Public Function GetRandomQuestion() As QuestionDto
-        Return test.NextQuestion()
+        Return unitOfWork.TestRepository.NextQuestion()
     End Function
 End Class

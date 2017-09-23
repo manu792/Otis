@@ -1,11 +1,11 @@
 ﻿Imports Otis.Commons
 Imports Otis.Repository
 
-Public Class Login
+Public Class UserRepository
 
     Private otisContext As OtisContext
-    Public Sub New()
-        otisContext = New OtisContext()
+    Public Sub New(context As OtisContext)
+        otisContext = context
     End Sub
 
     Public Function GetUser(username As String) As UserDto
@@ -27,4 +27,7 @@ Public Class Login
 
         Return userDto
     End Function
+    Public Sub SaveChanges()
+        otisContext.SaveChanges()
+    End Sub
 End Class

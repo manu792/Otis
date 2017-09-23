@@ -2,13 +2,13 @@
 Imports Otis.Commons
 Imports Otis.Repository
 
-Public Class Test
+Public Class TestRepository
 
     Private otisContext As OtisContext
     Private retrievedQuestions As Queue(Of Question)
 
-    Public Sub New()
-        otisContext = New OtisContext()
+    Public Sub New(context As OtisContext)
+        otisContext = context
         GetRandomQuestions()
     End Sub
 
@@ -30,6 +30,10 @@ Public Class Test
 
         Return QuestionDto
     End Function
+
+    Public Sub SaveChanges()
+        otisContext.SaveChanges()
+    End Sub
 
     Private Sub GetRandomQuestions()
         ' Uses the otiscontext to retrieve the question list randomly
