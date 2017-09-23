@@ -18,6 +18,11 @@ Public Class Test
         Dim label
         Dim textBox
 
+        If question Is Nothing Then
+            MessageBox.Show("Has completado el cuestionario. Los datos seran guardados.")
+            Return
+        End If
+
         If question.Answers Is Nothing Then
             ' Create interface that does NOT need pre-defined answers
             label = New Label() With
