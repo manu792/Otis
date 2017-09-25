@@ -74,6 +74,10 @@
       <DependentUpon>201709230251037_Initial.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201709230251037_Initial.vb" />
+    <Compile Include="Migrations\201709250032377_DataAnnotationsAdded.Designer.vb">
+      <DependentUpon>201709250032377_DataAnnotationsAdded.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709250032377_DataAnnotationsAdded.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
@@ -101,6 +105,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709230251037_Initial.resx">
       <DependentUpon>201709230251037_Initial.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709250032377_DataAnnotationsAdded.resx">
+      <DependentUpon>201709250032377_DataAnnotationsAdded.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

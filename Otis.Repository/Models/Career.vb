@@ -1,5 +1,8 @@
-﻿Public Class Career
+﻿Imports System.ComponentModel.DataAnnotations
+
+Public Class Career
     Property CareerId As Int32
+    <Required>
     Property CareerName As String
 
     'Navigation Property

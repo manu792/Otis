@@ -1,6 +1,11 @@
-﻿Public Class Question
+﻿Imports System.ComponentModel.DataAnnotations
+
+Public Class Question
     Property QuestionId As Int32
+    <Required>
     Property QuestionText As String
+    Property ImagePath As String
+    <Required>
     Property CategoryId As Int32
 
     'Navigation Properties

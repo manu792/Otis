@@ -14,67 +14,76 @@ Public Class Test
         testService = New TestService()
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim question = testService.GetRandomQuestion()
-        Dim label
-        Dim textBox
+        GetQuestion()
+    End Sub
+
+    Private Sub GetQuestion()
+        PrintQuestion(testService.GetRandomQuestion())
+    End Sub
+
+    Private Sub PrintQuestion(question As QuestionDto)
+        Dim controlList = New List(Of Control)
+        Dim y As Int32 = 105
 
         If question Is Nothing Then
             MessageBox.Show("Has completado el cuestionario. Los datos seran guardados.")
+            ReturnToMain()
             Return
         End If
 
-        If question.Answers Is Nothing Then
+        controlList.Add(New Label() With
+        {
+            .AutoSize = True,
+            .Location = New Point(45, 44),
+            .Size = New Drawing.Size(463, 46),
+            .Text = question.QuestionText
+        })
+        If question.Answers.Count = 0 Then
             ' Create interface that does NOT need pre-defined answers
-            label = New Label() With
-                {
-                    .Location = New Point(118, 80),
-                    .Size = New Drawing.Size(300, 150),
-                    .Text = question.QuestionText
-                }
-            textBox = New TextBox() With
-                {
-                    .Location = New Point(171, 177),
-                    .Name = "answerTxt",
-                    .Size = New Drawing.Size(216, 20)
-                }
-
-            Me.Controls.Add(label)
-            Me.Controls.Add(textBox)
+            controlList.Add(New TextBox() With
+            {
+                .Location = New Point(171, 177),
+                .Name = "answerTxt",
+                .Size = New Drawing.Size(216, 20)
+            })
         Else
             ' Create interface that does need pre-defined answers
+            For Each answer As AnswerDto In question.Answers
+                y = y + 23
+                controlList.Add(New RadioButton With
+                {
+                    .Location = New Point(144, y),
+                    .Size = New Drawing.Size(90, 17),
+                    .Text = answer.AnswerText
+                })
+            Next
         End If
+        Dim button = New Button() With
+        {
+            .Location = New Point(231, y + 100),
+            .Text = "Siguiente",
+            .Size = New Drawing.Size(95, 36),
+            .Name = "siguienteBtn"
+        }
+        AddHandler button.Click, AddressOf Button1_Click
 
-        'Dim textBox = New TextBox With {
-        '    .Size = New Drawing.Size(100, 20),
-        '    .Location = New Point(10, 10 + 25),
-        '    .Name = "TextBox"
-        '}
-        'Me.Controls.Add(textBox)
+        controlList.Add(button)
+        Controls.AddRange(controlList.ToArray())
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub ReturnToMain()
+        Dim main = New Main()
+
+        main.Show()
+        Me.Close()
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) 
         RemoveControls()
-        AddControl()
+        GetQuestion()
     End Sub
 
     Private Sub RemoveControls()
         Me.Controls.Clear()
-    End Sub
-    Private Sub AddControl()
-        Dim controls As Control()
-
-        Dim label = New Label With {
-         .Text = "What is your favorite color?",
-         .Size = New Drawing.Size(100, 20),
-         .Location = New Point(10, 10 + 25)
-        }
-        Dim textArea = New RichTextBox With {
-         .Size = New Drawing.Size(100, 100),
-         .Location = New Point(10, 10 + 50)
-        }
-
-        controls = {label, textArea}
-
-        Me.Controls.AddRange(controls)
     End Sub
 End Class

@@ -30,14 +30,15 @@ Public Class Login
 
     Private Sub NavigateToMain()
         Dim main = New Main()
+
         main.Show()
         Me.Close()
     End Sub
 
     Private Sub registrarBtn_Click(sender As Object, e As EventArgs) Handles registrarBtn.Click
         Dim registro = New Registro()
-        registro.Show()
 
+        registro.Show()
         Me.Close()
     End Sub
 End Class

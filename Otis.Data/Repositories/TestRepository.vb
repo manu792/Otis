@@ -13,22 +13,24 @@ Public Class TestRepository
     End Sub
 
     Public Function NextQuestion() As QuestionDto
-        Dim question = retrievedQuestions.Dequeue()
-
-        If question Is Nothing Then
+        If retrievedQuestions.Count = 0 Then
             Return Nothing
         End If
 
-        Dim questionDto = New QuestionDto()
+        Dim question = retrievedQuestions.Dequeue()
 
-        questionDto.QuestionId = question.QuestionId
-        questionDto.QuestionText = question.QuestionText
+        Dim questionDto = New QuestionDto() With
+            {
+                .QuestionId = question.QuestionId,
+                .QuestionText = question.QuestionText,
+                .Answers = New List(Of AnswerDto)
+            }
 
         For Each answer As Answer In question.Answers
-            QuestionDto.Answers.Add(New AnswerDto() With {.QuestionId = answer.QuestionId, .AnswerText = answer.AnswerText})
+            questionDto.Answers.Add(New AnswerDto() With {.QuestionId = answer.QuestionId, .AnswerText = answer.AnswerText})
         Next
 
-        Return QuestionDto
+        Return questionDto
     End Function
 
     Public Sub SaveChanges()

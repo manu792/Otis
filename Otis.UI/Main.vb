@@ -9,7 +9,8 @@
 
     Private Sub testBtn_Click(sender As Object, e As EventArgs) Handles testBtn.Click
         Dim test = New Test()
-        Me.Hide()
+
         test.Show()
+        Me.Close()
     End Sub
 End Class

@@ -5,7 +5,7 @@ Imports System.Linq
 
 Namespace Migrations
 
-    Friend NotInheritable Class Configuration 
+    Friend NotInheritable Class Configuration
         Inherits DbMigrationsConfiguration(Of OtisContext)
 
         Public Sub New()
@@ -13,17 +13,7 @@ Namespace Migrations
         End Sub
 
         Protected Overrides Sub Seed(context As OtisContext)
-            '  This method will be called after migrating to the latest version.
-
-            '  You can use the DbSet(Of T).AddOrUpdate() helper extension method 
-            '  to avoid creating duplicate seed data. E.g.
-            '
-            '    context.People.AddOrUpdate(
-            '       Function(c) c.FullName,
-            '       New Customer() With {.FullName = "Andrew Peters"},
-            '       New Customer() With {.FullName = "Brice Lambson"},
-            '       New Customer() With {.FullName = "Rowan Miller"})
-
+            ' This method will be called after migrating to the latest version
             ' Below I add some data to the DB
             AddCareersToDatabase(context)
             AddStudentsToDatabase(context)
@@ -49,12 +39,12 @@ Namespace Migrations
                 },
                 New Career() With
                 {
-                    .CareerId = 3,
+                    .CareerId = 4,
                     .CareerName = "Dibujo Arquitectonico"
                 },
                 New Career() With
                 {
-                    .CareerId = 4,
+                    .CareerId = 5,
                     .CareerName = "Medicina"
                 }
             )
@@ -104,24 +94,65 @@ Namespace Migrations
                 {
                     .CategoryId = 1,
                     .CategoryName = "Matematicas"
+                },
+                New Category() With
+                {
+                    .CategoryId = 2,
+                    .CategoryName = "Razonamiento Verbal"
                 }
             )
         End Sub
 
         Private Sub AddQuestionsToDatabase(context As OtisContext)
+            Dim answers = New List(Of Answer) From
+            {
+                New Answer() With
+                {
+                    .QuestionId = 3,
+                    .AnswerText = "Enemigo"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 3,
+                    .AnswerText = "Temor"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 3,
+                    .AnswerText = "Amor"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 3,
+                    .AnswerText = "Amigo"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 3,
+                    .AnswerText = "Alegria"
+                }
+            }
             context.Questions.AddOrUpdate(
                 New Question() With
                 {
+                    .QuestionId = 1,
                     .QuestionText = "Si tres lapices cuestan cinco pesos. Cuantos lapices podre comprar con cincuenta pesos?",
                     .CategoryId = 1
                 },
                 New Question() With
                 {
+                    .QuestionId = 2,
                     .QuestionText = "Si dos metros y medio de tela cuestan 30 pesos. Cuanto cuestan 10 metros?",
                     .CategoryId = 1
+                },
+                New Question() With
+                {
+                    .QuestionId = 3,
+                    .QuestionText = "Lo opuesto al odio es:",
+                    .CategoryId = 2,
+                    .Answers = answers
                 }
             )
         End Sub
     End Class
-
 End Namespace
