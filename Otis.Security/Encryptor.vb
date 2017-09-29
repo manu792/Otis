@@ -8,20 +8,18 @@ Public Class Encryptor
         Return CombineSaltAndHash(GetHash(password))
     End Function
 
-    Public Function ArePasswordsEqual(password As String, passwordHash As String) As Boolean
+    Public Function GetHashBytes(password As String, passwordHash As String) As PasswordsHash
         Dim hashBytes As Byte() = Convert.FromBase64String(passwordHash)
         Dim salt As Byte() = New Byte(15) {}
         Array.Copy(hashBytes, 0, salt, 0, 16)
         Dim pbkdf2 = New Rfc2898DeriveBytes(password, salt, 10000)
         Dim hash As Byte() = pbkdf2.GetBytes(20)
 
-        For i As Integer = 0 To i < 20
-            If hashBytes(i + 16) <> hash(i) Then
-                Return False
-            End If
-        Next
-
-        Return True
+        Return New PasswordsHash With
+        {
+            .StoredPasswordHashBytes = hashBytes,
+            .UserPasswordHashBytes = hash
+        }
     End Function
 
     Private Sub GetSalt()
