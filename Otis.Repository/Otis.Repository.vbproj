@@ -78,12 +78,21 @@
       <DependentUpon>201709250032377_DataAnnotationsAdded.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201709250032377_DataAnnotationsAdded.vb" />
+    <Compile Include="Migrations\201709291517196_AddTestHistoryEntity.Designer.vb">
+      <DependentUpon>201709291517196_AddTestHistoryEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709291517196_AddTestHistoryEntity.vb" />
+    <Compile Include="Migrations\201709291520073_UserEntityRequiredUserId.Designer.vb">
+      <DependentUpon>201709291520073_UserEntityRequiredUserId.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709291520073_UserEntityRequiredUserId.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
     <Compile Include="Models\Question.vb" />
     <Compile Include="Models\Student.vb" />
+    <Compile Include="Models\TestHistory.vb" />
     <Compile Include="Models\User.vb" />
     <Compile Include="OtisContext.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -108,6 +117,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709250032377_DataAnnotationsAdded.resx">
       <DependentUpon>201709250032377_DataAnnotationsAdded.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709291517196_AddTestHistoryEntity.resx">
+      <DependentUpon>201709291517196_AddTestHistoryEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709291520073_UserEntityRequiredUserId.resx">
+      <DependentUpon>201709291520073_UserEntityRequiredUserId.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

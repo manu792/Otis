@@ -9,7 +9,7 @@ Public Class UserRepository
     End Sub
 
     Public Function GetUser(username As String) As UserDto
-        Dim user = otisContext.Users.FirstOrDefault(Function(us) us.Id.Equals(username))
+        Dim user = otisContext.Users.FirstOrDefault(Function(us) us.UserId.Equals(username))
 
         If user Is Nothing Then
             Return Nothing
@@ -17,14 +17,14 @@ Public Class UserRepository
 
         Return New UserDto() With
         {
-            .Id = user.Id,
+            .Id = user.UserId,
             .Password = user.Password
         }
     End Function
     Public Function Register(userDto As UserDto) As UserDto
         Dim user = New User() With
         {
-            .Id = userDto.Id,
+            .UserId = userDto.Id,
             .Password = userDto.Password
         }
         otisContext.Users.Add(user)

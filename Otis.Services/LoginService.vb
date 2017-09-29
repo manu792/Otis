@@ -22,7 +22,7 @@ Public Class LoginService
     End Function
 
     Private Function ArePasswordsEqual(passwordsHash As PasswordsHash) As Boolean
-        For i As Integer = 0 To i < 20
+        For i As Integer = 0 To i > 20
             If passwordsHash.StoredPasswordHashBytes(i + 16) <> passwordsHash.UserPasswordHashBytes(i) Then
                 Return False
             End If

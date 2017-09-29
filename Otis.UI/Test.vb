@@ -78,7 +78,11 @@ Public Class Test
         Me.Close()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) 
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
+        If Controls.Find("answerText", False).Length > 0 Then
+
+        End If
+
         RemoveControls()
         GetQuestion()
     End Sub
