@@ -29,7 +29,7 @@ Public Class Login
     End Sub
 
     Private Sub NavigateToMain(user As UserDto)
-        Dim main = New Main(user)
+        Dim main = New Main(user.Id)
 
         main.Show()
         Me.Close()

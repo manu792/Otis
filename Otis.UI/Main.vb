@@ -1,18 +1,18 @@
 ﻿Imports Otis.Commons
 
 Public Class Main
-    Private user As UserDto
-    Public Sub New(loggedUser As UserDto)
+    Private userId As String
+    Public Sub New(loggedUserId As String)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        user = loggedUser
+        userId = loggedUserId
     End Sub
 
     Private Sub testBtn_Click(sender As Object, e As EventArgs) Handles testBtn.Click
-        Dim test = New Test(user)
+        Dim test = New Test(userId)
 
         test.Show()
         Me.Close()

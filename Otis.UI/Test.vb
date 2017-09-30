@@ -5,8 +5,7 @@ Public Class Test
 
     Private testService As TestService
     Private questionRetrieved As QuestionDto
-    Private sessionId As Guid
-    Private user As UserDto
+    Private session As SessionDto
     Private stopTime As DateTime
 
     Private Sub New()
@@ -16,12 +15,11 @@ Public Class Test
 
         ' Add any initialization after the InitializeComponent() call.
         testService = New TestService()
-        sessionId = Guid.NewGuid()
     End Sub
 
-    Public Sub New(loggedUser As UserDto)
+    Public Sub New(userId As String)
         Me.New()
-        user = loggedUser
+        session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = userId}
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetQuestion()
@@ -29,7 +27,7 @@ Public Class Test
     End Sub
 
     Private Sub StartTimer()
-        stopTime = DateTime.Now.AddMinutes(30)
+        stopTime = DateTime.Now.AddSeconds(12)
         Timer.Enabled = True
         Timer.Start()
     End Sub
@@ -83,36 +81,30 @@ Public Class Test
             .Size = New Drawing.Size(95, 36),
             .Name = "siguienteBtn"
         }
-        AddHandler button.Click, AddressOf Button1_Click
+        AddHandler button.Click, AddressOf SiguienteBtn_Click
 
         controlList.Add(button)
         Controls.AddRange(controlList.ToArray())
     End Sub
 
     Private Sub SaveAndReturnToMain(isTimeOut As Boolean)
-        MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado", "Has completado el cuestionario.") + "Los datos seran guardados.")
-        testService.SaveTest(New SessionDto With
-                             {
-                                .SessionId = sessionId,
-                                .UserId = user.Id,
-                                .TestDate = DateTime.Now
-                             }
-        )
+        MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
+        testService.SaveTest(session)
         ReturnToMain()
     End Sub
 
     Private Sub ReturnToMain()
-        Dim main = New Main(user)
+        Dim main = New Main(session.UserId)
 
         main.Show()
         Me.Close()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs)
+    Private Sub SiguienteBtn_Click(sender As Object, e As EventArgs)
         Dim testHistoryEntry = New TestHistoryDto With
         {
             .QuestionId = questionRetrieved.QuestionId,
-            .SessionId = sessionId
+            .SessionId = session.SessionId
         }
 
         If Controls.Find("answerTxt", False).Length > 0 Then
