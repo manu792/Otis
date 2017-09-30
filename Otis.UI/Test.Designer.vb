@@ -22,7 +22,23 @@ Partial Class Test
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Me.Timer = New System.Windows.Forms.Timer(Me.components)
+        Me.tiempoLabel = New System.Windows.Forms.Label()
         Me.SuspendLayout()
+        '
+        'Timer
+        '
+        Me.Timer.Interval = 1000
+        '
+        'tiempoLabel
+        '
+        Me.tiempoLabel.AutoSize = True
+        Me.tiempoLabel.Location = New System.Drawing.Point(12, 9)
+        Me.tiempoLabel.Name = "tiempoLabel"
+        Me.tiempoLabel.Size = New System.Drawing.Size(45, 13)
+        Me.tiempoLabel.TabIndex = 0
+        Me.tiempoLabel.Text = "Tiempo:"
         '
         'Test
         '
@@ -30,10 +46,15 @@ Partial Class Test
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoSize = True
         Me.ClientSize = New System.Drawing.Size(538, 407)
+        Me.Controls.Add(Me.tiempoLabel)
         Me.Name = "Test"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Test"
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents Timer As Timer
+    Friend WithEvents tiempoLabel As Label
 End Class

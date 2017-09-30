@@ -86,11 +86,20 @@
       <DependentUpon>201709291520073_UserEntityRequiredUserId.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201709291520073_UserEntityRequiredUserId.vb" />
+    <Compile Include="Migrations\201709301847534_AddSessionEntity.Designer.vb">
+      <DependentUpon>201709301847534_AddSessionEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709301847534_AddSessionEntity.vb" />
+    <Compile Include="Migrations\201709301938257_AddSessionEntity1.Designer.vb">
+      <DependentUpon>201709301938257_AddSessionEntity1.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709301938257_AddSessionEntity1.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
     <Compile Include="Models\Question.vb" />
+    <Compile Include="Models\Session.vb" />
     <Compile Include="Models\Student.vb" />
     <Compile Include="Models\TestHistory.vb" />
     <Compile Include="Models\User.vb" />
@@ -123,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709291520073_UserEntityRequiredUserId.resx">
       <DependentUpon>201709291520073_UserEntityRequiredUserId.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709301847534_AddSessionEntity.resx">
+      <DependentUpon>201709301847534_AddSessionEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709301938257_AddSessionEntity1.resx">
+      <DependentUpon>201709301938257_AddSessionEntity1.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

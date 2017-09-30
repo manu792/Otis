@@ -10,6 +10,15 @@ Public Class TestService
     End Sub
 
     Public Function GetRandomQuestion() As QuestionDto
-        Return unitOfWork.TestRepository.NextQuestion()
+        Return unitOfWork.QuestionRepository.NextQuestion()
     End Function
+
+    Public Sub AddTestEntry(testEntry As TestHistoryDto)
+        unitOfWork.TestHistoryRepository.AddTestEntry(testEntry)
+    End Sub
+
+    Public Sub SaveTest(sessionDto As SessionDto)
+        unitOfWork.SessionRepository.AddSession(sessionDto)
+        unitOfWork.SaveChanges()
+    End Sub
 End Class

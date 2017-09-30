@@ -22,14 +22,14 @@ Public Class Login
         }
         If loginService.ValidateUser(user) Then
             'Main window after successful login
-            NavigateToMain()
+            NavigateToMain(user)
         Else
             MessageBox.Show("Usuario o contraseña incorrectos", "Datos invalidos")
         End If
     End Sub
 
-    Private Sub NavigateToMain()
-        Dim main = New Main()
+    Private Sub NavigateToMain(user As UserDto)
+        Dim main = New Main(user)
 
         main.Show()
         Me.Close()

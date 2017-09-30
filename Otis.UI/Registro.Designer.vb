@@ -47,7 +47,7 @@ Partial Class Registro
         Me.loginBtn.Name = "loginBtn"
         Me.loginBtn.Size = New System.Drawing.Size(75, 23)
         Me.loginBtn.TabIndex = 10
-        Me.loginBtn.Text = "Entrar"
+        Me.loginBtn.Text = "Registrar"
         Me.loginBtn.UseVisualStyleBackColor = True
         '
         'PasswordTxt

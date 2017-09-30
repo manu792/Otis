@@ -13,5 +13,6 @@ Public Class OtisContext
     Property Categories As DbSet(Of Category)
     Property Careers As DbSet(Of Career)
     Property Students As DbSet(Of Student)
+    Property Sessions As DbSet(Of Session)
     Property TestHistories As DbSet(Of TestHistory)
 End Class

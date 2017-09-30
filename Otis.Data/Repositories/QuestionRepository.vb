@@ -2,7 +2,7 @@
 Imports Otis.Commons
 Imports Otis.Repository
 
-Public Class TestRepository
+Public Class QuestionRepository
 
     Private otisContext As OtisContext
     Private retrievedQuestions As Queue(Of Question)
