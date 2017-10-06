@@ -5,8 +5,9 @@ Public Class Session
     <Required>
     Property UserId As String
     <Required>
-    Property TestDate As DateTime
+    Property SessionDate As DateTime
 
     ' Navigation Property
+    Overridable Property User As User
     Overridable Property TestHistoryEntries As ICollection(Of TestHistory)
 End Class

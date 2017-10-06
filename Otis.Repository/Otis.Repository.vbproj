@@ -94,6 +94,14 @@
       <DependentUpon>201709301938257_AddSessionEntity1.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201709301938257_AddSessionEntity1.vb" />
+    <Compile Include="Migrations\201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.Designer.vb">
+      <DependentUpon>201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.vb" />
+    <Compile Include="Migrations\201710011459584_AddNavigationProperties.Designer.vb">
+      <DependentUpon>201710011459584_AddNavigationProperties.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710011459584_AddNavigationProperties.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
@@ -138,6 +146,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201709301938257_AddSessionEntity1.resx">
       <DependentUpon>201709301938257_AddSessionEntity1.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.resx">
+      <DependentUpon>201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710011459584_AddNavigationProperties.resx">
+      <DependentUpon>201710011459584_AddNavigationProperties.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

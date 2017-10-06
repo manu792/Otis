@@ -14,7 +14,7 @@ Public Class SessionRepository
         {
             .SessionId = sessionDto.SessionId,
             .UserId = sessionDto.UserId,
-            .TestDate = DateTime.Now
+            .SessionDate = DateTime.Now
         }
         otisContext.Sessions.Add(session)
     End Sub

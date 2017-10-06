@@ -8,4 +8,8 @@ Public Class TestHistory
     Property QuestionId As Int32
     Property UserAnswer As String
     Property CorrectAnswer As String
+
+    ' Navigation Properties
+    Overridable Property Session As Session
+    Overridable Property Question As Question
 End Class
