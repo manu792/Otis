@@ -22,21 +22,29 @@ Public Class UserRepository
         }
     End Function
     Public Function Register(userDto As UserDto) As UserDto
-        If GetUser(userDto.Id) IsNot Nothing Then
-            Return Nothing
+        If Not DoesUserExist(userDto.Id) Then
+            Dim user = New User() With
+            {
+                .UserId = userDto.Id,
+                .Password = userDto.Password
+            }
+            otisContext.Users.Add(user)
+            otisContext.SaveChanges()
+
+            Return userDto
         End If
 
-        Dim user = New User() With
-        {
-            .UserId = userDto.Id,
-            .Password = userDto.Password
-        }
-        otisContext.Users.Add(user)
-        otisContext.SaveChanges()
-
-        Return userDto
+        Return Nothing
     End Function
     Public Sub SaveChanges()
         otisContext.SaveChanges()
     End Sub
+
+    Private Function DoesUserExist(username As String) As Boolean
+        If GetUser(username) Is Nothing Then
+            Return False
+        End If
+
+        Return True
+    End Function
 End Class

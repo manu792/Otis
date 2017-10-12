@@ -17,4 +17,11 @@ Public Class Main
         test.Show()
         Me.Close()
     End Sub
+
+    Private Sub mantenimientoBtn_Click(sender As Object, e As EventArgs) Handles mantenimientoBtn.Click
+        Dim maintainance = New Mantenimiento()
+
+        maintainance.Show()
+        Me.Close()
+    End Sub
 End Class

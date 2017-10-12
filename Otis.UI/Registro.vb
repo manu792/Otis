@@ -27,7 +27,7 @@ Public Class Registro
                 MessageBox.Show("El usuario ha sido agregado correctamente", "Usuario agregado")
                 ReturnToLogin()
             Else
-                MessageBox.Show("El usuario ya existe en la base de datos.")
+                MessageBox.Show("El usuario ya existe en la base de datos.", "Error")
             End If
         Else
                 MessageBox.Show("Las contraseñas no coinciden. Deben ser iguales.", "Contraseñas invalidas")
