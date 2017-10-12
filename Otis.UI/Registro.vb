@@ -23,11 +23,14 @@ Public Class Registro
                 .Password = PasswordTxt.Text
             }
 
-            loginService.Register(user)
-            MessageBox.Show("El usuario ha sido agregado correctamente", "Usuario agregado")
-            ReturnToLogin()
+            If loginService.Register(user) IsNot Nothing Then
+                MessageBox.Show("El usuario ha sido agregado correctamente", "Usuario agregado")
+                ReturnToLogin()
+            Else
+                MessageBox.Show("El usuario ya existe en la base de datos.")
+            End If
         Else
-            MessageBox.Show("Las contraseñas no coinciden. Deben ser iguales.", "Contraseñas invalidas")
+                MessageBox.Show("Las contraseñas no coinciden. Deben ser iguales.", "Contraseñas invalidas")
         End If
     End Sub
 

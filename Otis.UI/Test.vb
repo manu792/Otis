@@ -61,6 +61,7 @@ Public Class Test
             {
                 .Name = "pictureBox",
                 .Size = New Size(300, 160),
+                .SizeMode = PictureBoxSizeMode.StretchImage,
                 .Location = New Point(121, 67),
                 .ImageLocation = question.ImagePath
             })

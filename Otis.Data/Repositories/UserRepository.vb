@@ -22,6 +22,10 @@ Public Class UserRepository
         }
     End Function
     Public Function Register(userDto As UserDto) As UserDto
+        If GetUser(userDto.Id) IsNot Nothing Then
+            Return Nothing
+        End If
+
         Dim user = New User() With
         {
             .UserId = userDto.Id,
