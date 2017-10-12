@@ -23,6 +23,7 @@ Public Class QuestionRepository
             {
                 .QuestionId = question.QuestionId,
                 .QuestionText = question.QuestionText,
+                .ImagePath = question.ImagePath,
                 .Answers = New List(Of AnswerDto)
             }
 

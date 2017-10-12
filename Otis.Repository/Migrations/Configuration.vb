@@ -151,6 +151,13 @@ Namespace Migrations
                     .QuestionText = "Lo opuesto al odio es:",
                     .CategoryId = 2,
                     .Answers = answers
+                },
+                New Question() With
+                {
+                    .QuestionId = 4,
+                    .QuestionText = "Que numero esta en el espacio que pertenece al rectangulo y al triangulo, pero no en el circulo?",
+                    .CategoryId = 1,
+                    .ImagePath = "C:\Users\MRoman\Documents\Projects\Otis\Otis\Images\PreguntaID4.png"
                 }
             )
         End Sub

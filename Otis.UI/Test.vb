@@ -27,7 +27,7 @@ Public Class Test
     End Sub
 
     Private Sub StartTimer()
-        stopTime = DateTime.Now.AddSeconds(12)
+        stopTime = DateTime.Now.AddMinutes(12)
         Timer.Enabled = True
         Timer.Start()
     End Sub
@@ -54,16 +54,30 @@ Public Class Test
             .Size = New Drawing.Size(463, 46),
             .Text = question.QuestionText
         })
+
+        If question.ImagePath IsNot Nothing Or question.ImagePath <> String.Empty Then
+            ' Create element that will contain question image
+            controlList.Add(New PictureBox() With
+            {
+                .Name = "pictureBox",
+                .Size = New Size(300, 160),
+                .Location = New Point(121, 67),
+                .ImageLocation = question.ImagePath
+            })
+            y = y + 43
+        End If
+
         If question.Answers.Count = 0 Then
             ' Create interface that does NOT need pre-defined answers
+            y = y + 133
             controlList.Add(New TextBox() With
             {
-                .Location = New Point(171, 177),
+                .Location = New Point(171, y),
                 .Name = "answerTxt",
                 .Size = New Drawing.Size(216, 20)
             })
         Else
-            ' Create interface that does need pre-defined answers
+            ' Create interface that DOES need pre-defined answers
             For Each answer As AnswerDto In question.Answers
                 y = y + 23
                 controlList.Add(New RadioButton With
