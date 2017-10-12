@@ -64,12 +64,12 @@ Public Class Test
                 .Location = New Point(121, 67),
                 .ImageLocation = question.ImagePath
             })
-            y = y + 43
+            y = y + 133
         End If
 
         If question.Answers.Count = 0 Then
             ' Create interface that does NOT need pre-defined answers
-            y = y + 133
+            y = y + 43
             controlList.Add(New TextBox() With
             {
                 .Location = New Point(171, y),

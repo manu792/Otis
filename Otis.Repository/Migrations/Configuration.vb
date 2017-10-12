@@ -104,7 +104,7 @@ Namespace Migrations
         End Sub
 
         Private Sub AddQuestionsToDatabase(context As OtisContext)
-            Dim answers = New List(Of Answer) From
+            Dim questionId3Answers = New List(Of Answer) From
             {
                 New Answer() With
                 {
@@ -132,6 +132,66 @@ Namespace Migrations
                     .AnswerText = "Alegria"
                 }
             }
+
+            Dim questionId4Answers = New List(Of Answer) From
+            {
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "3"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "4"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "5"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "6"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "7"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "8"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "9"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "10"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "11"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "12"
+                },
+                New Answer() With
+                {
+                    .QuestionId = 4,
+                    .AnswerText = "13"
+                }
+            }
+
             context.Questions.AddOrUpdate(
                 New Question() With
                 {
@@ -150,14 +210,15 @@ Namespace Migrations
                     .QuestionId = 3,
                     .QuestionText = "Lo opuesto al odio es:",
                     .CategoryId = 2,
-                    .Answers = answers
+                    .Answers = questionId3Answers
                 },
                 New Question() With
                 {
                     .QuestionId = 4,
                     .QuestionText = "Que numero esta en el espacio que pertenece al rectangulo y al triangulo, pero no en el circulo?",
                     .CategoryId = 1,
-                    .ImagePath = "C:\Users\MRoman\Documents\Projects\Otis\Otis\Images\PreguntaID4.png"
+                    .ImagePath = "C:\Users\MRoman\Documents\Projects\Otis\Otis\Images\PreguntaID4.png",
+                    .Answers = questionId4Answers
                 }
             )
         End Sub
