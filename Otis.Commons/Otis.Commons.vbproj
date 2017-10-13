@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AnswerDto.vb" />
+    <Compile Include="Models\CategoryDto.vb" />
     <Compile Include="Models\QuestionDto.vb" />
     <Compile Include="Models\SessionDto.vb" />
     <Compile Include="Models\TestHistoryDto.vb" />

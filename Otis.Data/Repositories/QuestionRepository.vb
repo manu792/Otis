@@ -11,7 +11,17 @@ Public Class QuestionRepository
         otisContext = context
         GetRandomQuestions()
     End Sub
-
+    Public Sub SaveQuestion(questionDto As QuestionDto)
+        Dim newQuestion = New Question() With
+        {
+            .QuestionText = questionDto.QuestionText,
+            .ImagePath = questionDto.ImagePath,
+            .CategoryId = 1,
+            .CorrectAnswerText = questionDto.CorrectAnswerTest,
+            .Answers = GetAnswersFromDto(questionDto.Answers)
+        }
+        otisContext.Questions.Add(newQuestion)
+    End Sub
     Public Function NextQuestion() As QuestionDto
         If retrievedQuestions.Count = 0 Then
             Return Nothing
@@ -42,4 +52,13 @@ Public Class QuestionRepository
         ' Uses the otiscontext to retrieve the question list randomly
         retrievedQuestions = New Queue(Of Question)((otisContext.Questions.Include(Function(a) a.Answers).ToList()))
     End Sub
+    Private Function GetAnswersFromDto(answersDto As IEnumerable(Of AnswerDto)) As IEnumerable(Of Answer)
+        Dim answers = New List(Of Answer)
+
+        For Each answer As AnswerDto In answersDto
+            answers.Add(New Answer() With {.AnswerText = answer.AnswerText})
+        Next
+
+        Return answers
+    End Function
 End Class

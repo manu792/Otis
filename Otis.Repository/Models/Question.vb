@@ -5,6 +5,7 @@ Public Class Question
     <Required>
     Property QuestionText As String
     Property ImagePath As String
+    Property CorrectAnswerText As String
     <Required>
     Property CategoryId As Int32
 

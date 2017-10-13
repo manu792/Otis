@@ -102,6 +102,10 @@
       <DependentUpon>201710011459584_AddNavigationProperties.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201710011459584_AddNavigationProperties.vb" />
+    <Compile Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.Designer.vb">
+      <DependentUpon>201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
@@ -152,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710011459584_AddNavigationProperties.resx">
       <DependentUpon>201710011459584_AddNavigationProperties.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.resx">
+      <DependentUpon>201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

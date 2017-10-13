@@ -24,8 +24,10 @@ Partial Class Mantenimiento
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.categoriesComboBox = New System.Windows.Forms.ComboBox()
         Me.btnGuardar = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnMarcar = New System.Windows.Forms.Button()
         Me.btnEliminar = New System.Windows.Forms.Button()
         Me.possibleAnswersCheckBox = New System.Windows.Forms.CheckedListBox()
         Me.txtPossibleAnswer = New System.Windows.Forms.TextBox()
@@ -33,10 +35,11 @@ Partial Class Mantenimiento
         Me.imagePathLabel = New System.Windows.Forms.Label()
         Me.btnBuscar = New System.Windows.Forms.Button()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtQuestionText = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
+        Me.imagePathLabelText = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -49,29 +52,39 @@ Partial Class Mantenimiento
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(662, 592)
+        Me.TabControl1.Size = New System.Drawing.Size(674, 675)
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.imagePathLabelText)
+        Me.TabPage1.Controls.Add(Me.categoriesComboBox)
         Me.TabPage1.Controls.Add(Me.btnGuardar)
         Me.TabPage1.Controls.Add(Me.GroupBox1)
         Me.TabPage1.Controls.Add(Me.imagePathLabel)
         Me.TabPage1.Controls.Add(Me.btnBuscar)
         Me.TabPage1.Controls.Add(Me.Label2)
-        Me.TabPage1.Controls.Add(Me.TextBox1)
+        Me.TabPage1.Controls.Add(Me.txtQuestionText)
         Me.TabPage1.Controls.Add(Me.Label1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(654, 566)
+        Me.TabPage1.Size = New System.Drawing.Size(666, 649)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Crear Pregunta"
         Me.TabPage1.UseVisualStyleBackColor = True
         '
+        'categoriesComboBox
+        '
+        Me.categoriesComboBox.FormattingEnabled = True
+        Me.categoriesComboBox.Location = New System.Drawing.Point(159, 166)
+        Me.categoriesComboBox.Name = "categoriesComboBox"
+        Me.categoriesComboBox.Size = New System.Drawing.Size(241, 21)
+        Me.categoriesComboBox.TabIndex = 8
+        '
         'btnGuardar
         '
-        Me.btnGuardar.Location = New System.Drawing.Point(268, 537)
+        Me.btnGuardar.Location = New System.Drawing.Point(298, 609)
         Me.btnGuardar.Name = "btnGuardar"
         Me.btnGuardar.Size = New System.Drawing.Size(75, 23)
         Me.btnGuardar.TabIndex = 7
@@ -80,16 +93,26 @@ Partial Class Mantenimiento
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnMarcar)
         Me.GroupBox1.Controls.Add(Me.btnEliminar)
         Me.GroupBox1.Controls.Add(Me.possibleAnswersCheckBox)
         Me.GroupBox1.Controls.Add(Me.txtPossibleAnswer)
         Me.GroupBox1.Controls.Add(Me.btnAgregar)
-        Me.GroupBox1.Location = New System.Drawing.Point(111, 233)
+        Me.GroupBox1.Location = New System.Drawing.Point(79, 305)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(398, 298)
+        Me.GroupBox1.Size = New System.Drawing.Size(462, 298)
         Me.GroupBox1.TabIndex = 6
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Posibles Respuestas"
+        '
+        'btnMarcar
+        '
+        Me.btnMarcar.Location = New System.Drawing.Point(300, 121)
+        Me.btnMarcar.Name = "btnMarcar"
+        Me.btnMarcar.Size = New System.Drawing.Size(126, 55)
+        Me.btnMarcar.TabIndex = 4
+        Me.btnMarcar.Text = "Marcar como respuesta correcta"
+        Me.btnMarcar.UseVisualStyleBackColor = True
         '
         'btnEliminar
         '
@@ -127,7 +150,7 @@ Partial Class Mantenimiento
         'imagePathLabel
         '
         Me.imagePathLabel.AutoSize = True
-        Me.imagePathLabel.Location = New System.Drawing.Point(108, 193)
+        Me.imagePathLabel.Location = New System.Drawing.Point(108, 265)
         Me.imagePathLabel.Name = "imagePathLabel"
         Me.imagePathLabel.Size = New System.Drawing.Size(93, 13)
         Me.imagePathLabel.TabIndex = 4
@@ -135,7 +158,7 @@ Partial Class Mantenimiento
         '
         'btnBuscar
         '
-        Me.btnBuscar.Location = New System.Drawing.Point(159, 158)
+        Me.btnBuscar.Location = New System.Drawing.Point(159, 230)
         Me.btnBuscar.Name = "btnBuscar"
         Me.btnBuscar.Size = New System.Drawing.Size(75, 23)
         Me.btnBuscar.TabIndex = 3
@@ -145,19 +168,19 @@ Partial Class Mantenimiento
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(108, 163)
+        Me.Label2.Location = New System.Drawing.Point(108, 235)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(45, 13)
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Imagen:"
         '
-        'TextBox1
+        'txtQuestionText
         '
-        Me.TextBox1.Location = New System.Drawing.Point(111, 43)
-        Me.TextBox1.Multiline = True
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(389, 99)
-        Me.TextBox1.TabIndex = 1
+        Me.txtQuestionText.Location = New System.Drawing.Point(111, 43)
+        Me.txtQuestionText.Multiline = True
+        Me.txtQuestionText.Name = "txtQuestionText"
+        Me.txtQuestionText.Size = New System.Drawing.Size(389, 99)
+        Me.txtQuestionText.TabIndex = 1
         '
         'Label1
         '
@@ -173,7 +196,7 @@ Partial Class Mantenimiento
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(654, 566)
+        Me.TabPage2.Size = New System.Drawing.Size(666, 649)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Editar Pregunta"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -182,11 +205,19 @@ Partial Class Mantenimiento
         '
         Me.OpenFileDialog.FileName = "OpenFileDialog1"
         '
+        'imagePathLabelText
+        '
+        Me.imagePathLabelText.AutoSize = True
+        Me.imagePathLabelText.Location = New System.Drawing.Point(207, 265)
+        Me.imagePathLabelText.Name = "imagePathLabelText"
+        Me.imagePathLabelText.Size = New System.Drawing.Size(0, 13)
+        Me.imagePathLabelText.TabIndex = 9
+        '
         'Mantenimiento
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(686, 616)
+        Me.ClientSize = New System.Drawing.Size(698, 699)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "Mantenimiento"
         Me.Text = "Mantenimiento"
@@ -202,7 +233,7 @@ Partial Class Mantenimiento
     Friend WithEvents TabControl1 As TabControl
     Friend WithEvents TabPage1 As TabPage
     Friend WithEvents TabPage2 As TabPage
-    Friend WithEvents TextBox1 As TextBox
+    Friend WithEvents txtQuestionText As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents imagePathLabel As Label
     Friend WithEvents btnBuscar As Button
@@ -214,4 +245,7 @@ Partial Class Mantenimiento
     Friend WithEvents txtPossibleAnswer As TextBox
     Friend WithEvents btnEliminar As Button
     Friend WithEvents possibleAnswersCheckBox As CheckedListBox
+    Friend WithEvents btnMarcar As Button
+    Friend WithEvents categoriesComboBox As ComboBox
+    Friend WithEvents imagePathLabelText As Label
 End Class
