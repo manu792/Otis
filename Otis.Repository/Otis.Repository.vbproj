@@ -106,10 +106,32 @@
       <DependentUpon>201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb" />
+    <Compile Include="Migrations\201710292118581_AddProfilesAndEntitlements.Designer.vb">
+      <DependentUpon>201710292118581_AddProfilesAndEntitlements.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710292118581_AddProfilesAndEntitlements.vb" />
+    <Compile Include="Migrations\201710292120537_T.Designer.vb">
+      <DependentUpon>201710292120537_T.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710292120537_T.vb" />
+    <Compile Include="Migrations\201710292212515_n.Designer.vb">
+      <DependentUpon>201710292212515_n.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710292212515_n.vb" />
+    <Compile Include="Migrations\201710292227085_F.Designer.vb">
+      <DependentUpon>201710292227085_F.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710292227085_F.vb" />
+    <Compile Include="Migrations\201710292238076_AddEmailAddressToUserEntity.Designer.vb">
+      <DependentUpon>201710292238076_AddEmailAddressToUserEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201710292238076_AddEmailAddressToUserEntity.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
+    <Compile Include="Models\Entitlement.vb" />
+    <Compile Include="Models\Profile.vb" />
     <Compile Include="Models\Question.vb" />
     <Compile Include="Models\Session.vb" />
     <Compile Include="Models\Student.vb" />
@@ -160,6 +182,21 @@
     <EmbeddedResource Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.resx">
       <DependentUpon>201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710292118581_AddProfilesAndEntitlements.resx">
+      <DependentUpon>201710292118581_AddProfilesAndEntitlements.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710292120537_T.resx">
+      <DependentUpon>201710292120537_T.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710292212515_n.resx">
+      <DependentUpon>201710292212515_n.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710292227085_F.resx">
+      <DependentUpon>201710292227085_F.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710292238076_AddEmailAddressToUserEntity.resx">
+      <DependentUpon>201710292238076_AddEmailAddressToUserEntity.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -179,6 +216,12 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Otis.Security\Otis.Security.vbproj">
+      <Project>{3FE0988D-DED7-4BEA-AC1B-F29BFD17752D}</Project>
+      <Name>Otis.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

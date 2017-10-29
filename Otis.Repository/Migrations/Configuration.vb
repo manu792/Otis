@@ -2,23 +2,191 @@ Imports System
 Imports System.Data.Entity
 Imports System.Data.Entity.Migrations
 Imports System.Linq
+Imports Otis.Security
 
 Namespace Migrations
 
     Friend NotInheritable Class Configuration
         Inherits DbMigrationsConfiguration(Of OtisContext)
 
+        Private encryptor As Encryptor
+
         Public Sub New()
             AutomaticMigrationsEnabled = False
+            encryptor = New Encryptor()
         End Sub
 
         Protected Overrides Sub Seed(context As OtisContext)
             ' This method will be called after migrating to the latest version
             ' Below I add some data to the DB
+            AddEntitlementsToDatabase(context)
+            AddProfilesToDatabase(context)
+            AssignEntitlementsToProfiles(context)
+            AddUsersToDatabase(context)
             AddCareersToDatabase(context)
             AddStudentsToDatabase(context)
             AddCategoriesToDatabase(context)
             AddQuestionsToDatabase(context)
+        End Sub
+        Private Sub AddEntitlementsToDatabase(context As OtisContext)
+            context.Entitlements.AddOrUpdate(
+                New Entitlement() With
+                {
+                    .EntitlementId = 1,
+                    .Name = "Crear Usuarios"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 2,
+                    .Name = "Editar Usuarios"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 3,
+                    .Name = "Eliminar Usuarios"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 4,
+                    .Name = "Crear Perfiles"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 5,
+                    .Name = "Editar Perfiles"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 6,
+                    .Name = "Eliminar Perfiles"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 7,
+                    .Name = "Crear Roles"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 8,
+                    .Name = "Editar Roles"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 9,
+                    .Name = "Eliminar Roles"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 10,
+                    .Name = "Crear Tests"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 11,
+                    .Name = "Editar Tests"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 12,
+                    .Name = "Eliminar Tests"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 13,
+                    .Name = "Crear Preguntas"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 14,
+                    .Name = "Editar Preguntas"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 15,
+                    .Name = "Eliminar Preguntas"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 16,
+                    .Name = "Ejecutar Test"
+                },
+                New Entitlement() With
+                {
+                    .EntitlementId = 17,
+                    .Name = "Revisar Test"
+                }
+        )
+        End Sub
+        Private Sub AddProfilesToDatabase(context As OtisContext)
+            context.Profiles.AddOrUpdate(
+                New Profile() With
+                {
+                    .ProfileId = 1,
+                    .Name = "Administrador"
+                },
+                New Profile() With
+                {
+                    .ProfileId = 2,
+                    .Name = "Estudiante"
+                },
+                New Profile() With
+                {
+                    .ProfileId = 3,
+                    .Name = "Especialista"
+                }
+            )
+        End Sub
+        Private Sub AssignEntitlementsToProfiles(context As OtisContext)
+            Dim entitlements = context.Entitlements.ToList()
+            Dim profiles = context.Profiles.ToList()
+
+            For Each profile As Profile In profiles
+                If profile.ProfileId = 1 Then
+                    profile.Entitlements = entitlements
+                ElseIf profile.ProfileId = 2 Then
+                    profile.Entitlements = entitlements.Where(Function(c) c.EntitlementId = 16).ToList()
+                ElseIf profile.ProfileId = 3 Then
+                    profile.Entitlements = entitlements.Where(Function(c) c.EntitlementId = 17).ToList()
+                End If
+            Next
+            context.Profiles.AddOrUpdate(profiles.ToArray())
+            context.SaveChanges()
+        End Sub
+        Private Sub AddUsersToDatabase(context As OtisContext)
+            context.Users.AddOrUpdate(
+                New User() With
+                {
+                    .UserId = "115190794",
+                    .Password = encryptor.Encrypt("ManuRoman"),
+                    .EmailAddress = "manu.roman792@gmail.com",
+                    .IsTemporaryPassword = False,
+                    .ProfileId = 2
+                },
+                New User() With
+                {
+                    .UserId = "125740692",
+                    .Password = encryptor.Encrypt("Test"),
+                    .EmailAddress = "test@gmail.com",
+                    .IsTemporaryPassword = False,
+                    .ProfileId = 2
+                },
+                New User() With
+                {
+                    .UserId = "111111111",
+                    .Password = encryptor.Encrypt("Admin"),
+                    .EmailAddress = "admin@gmail.com",
+                    .IsTemporaryPassword = False,
+                    .ProfileId = 1
+                },
+                New User() With
+                {
+                    .UserId = "7777777777",
+                    .Password = encryptor.Encrypt("Especialista"),
+                    .EmailAddress = "especialista@gmail.com",
+                    .IsTemporaryPassword = False,
+                    .ProfileId = 3
+                }
+            )
         End Sub
         Private Sub AddCareersToDatabase(context As OtisContext)
             context.Careers.AddOrUpdate(

@@ -8,6 +8,8 @@ Public Class OtisContext
     End Sub
 
     Property Users As DbSet(Of User)
+    Property Profiles As DbSet(Of Profile)
+    Property Entitlements As DbSet(Of Entitlement)
     Property Questions As DbSet(Of Question)
     Property Answers As DbSet(Of Answer)
     Property Categories As DbSet(Of Category)
