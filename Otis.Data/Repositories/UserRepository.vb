@@ -18,7 +18,9 @@ Public Class UserRepository
         Return New UserDto() With
         {
             .Id = user.UserId,
-            .Password = user.Password
+            .Password = user.Password,
+            .EmailAddress = user.EmailAddress,
+            .IsTemporaryPassword = user.IsTemporaryPassword
         }
     End Function
     Public Function Register(userDto As UserDto) As UserDto
@@ -29,6 +31,20 @@ Public Class UserRepository
                 .Password = userDto.Password
             }
             otisContext.Users.Add(user)
+            otisContext.SaveChanges()
+
+            Return userDto
+        End If
+
+        Return Nothing
+    End Function
+    Public Function SaveTemporaryPassword(userDto As UserDto) As UserDto
+        Dim user = otisContext.Users.Where(Function(c) c.UserId = userDto.Id).FirstOrDefault()
+        If Not user Is Nothing Then
+            user.Password = userDto.Password
+            user.IsTemporaryPassword = True
+
+            otisContext.Entry(user).State = Entity.EntityState.Modified
             otisContext.SaveChanges()
 
             Return userDto

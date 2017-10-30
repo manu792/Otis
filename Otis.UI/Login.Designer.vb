@@ -28,6 +28,7 @@ Partial Class Login
         Me.Label2 = New System.Windows.Forms.Label()
         Me.loginBtn = New System.Windows.Forms.Button()
         Me.registrarBtn = New System.Windows.Forms.Button()
+        Me.btnGetNewPassword = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -81,11 +82,21 @@ Partial Class Login
         Me.registrarBtn.Text = "Registrarse"
         Me.registrarBtn.UseVisualStyleBackColor = True
         '
+        'btnGetNewPassword
+        '
+        Me.btnGetNewPassword.Location = New System.Drawing.Point(84, 167)
+        Me.btnGetNewPassword.Name = "btnGetNewPassword"
+        Me.btnGetNewPassword.Size = New System.Drawing.Size(156, 23)
+        Me.btnGetNewPassword.TabIndex = 6
+        Me.btnGetNewPassword.Text = "He olvidado mi contraseña"
+        Me.btnGetNewPassword.UseVisualStyleBackColor = True
+        '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(340, 267)
+        Me.Controls.Add(Me.btnGetNewPassword)
         Me.Controls.Add(Me.registrarBtn)
         Me.Controls.Add(Me.loginBtn)
         Me.Controls.Add(Me.PasswordTxt)
@@ -106,4 +117,5 @@ Partial Class Login
     Friend WithEvents Label2 As Label
     Friend WithEvents loginBtn As Button
     Friend WithEvents registrarBtn As Button
+    Friend WithEvents btnGetNewPassword As Button
 End Class

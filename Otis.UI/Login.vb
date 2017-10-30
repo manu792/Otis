@@ -4,6 +4,7 @@ Imports Otis.Services
 Public Class Login
 
     Private loginService As LoginService
+    Private emailService As EmailService
     Public Sub New()
 
         ' This call is required by the designer.
@@ -11,7 +12,7 @@ Public Class Login
 
         ' Add any initialization after the InitializeComponent() call.
         loginService = New LoginService()
-
+        emailService = New EmailService()
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles loginBtn.Click
@@ -40,5 +41,13 @@ Public Class Login
 
         registro.Show()
         Me.Close()
+    End Sub
+
+    Private Sub btnGetNewPassword_Click(sender As Object, e As EventArgs) Handles btnGetNewPassword.Click
+        If UsernameTxt.Text <> String.Empty Then
+            emailService.SendEmail(UsernameTxt.Text)
+        Else
+            MessageBox.Show("Debes ingresar tu usuario para enviar el correo y recuperar tu contraseña.")
+        End If
     End Sub
 End Class

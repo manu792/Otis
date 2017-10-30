@@ -115,7 +115,8 @@ Namespace Migrations
                     .EntitlementId = 17,
                     .Name = "Revisar Test"
                 }
-        )
+            )
+            context.SaveChanges()
         End Sub
         Private Sub AddProfilesToDatabase(context As OtisContext)
             context.Profiles.AddOrUpdate(
@@ -135,6 +136,7 @@ Namespace Migrations
                     .Name = "Especialista"
                 }
             )
+            context.SaveChanges()
         End Sub
         Private Sub AssignEntitlementsToProfiles(context As OtisContext)
             Dim entitlements = context.Entitlements.ToList()
@@ -187,6 +189,7 @@ Namespace Migrations
                     .ProfileId = 3
                 }
             )
+            context.SaveChanges()
         End Sub
         Private Sub AddCareersToDatabase(context As OtisContext)
             context.Careers.AddOrUpdate(
@@ -216,6 +219,7 @@ Namespace Migrations
                     .CareerName = "Medicina"
                 }
             )
+            context.SaveChanges()
         End Sub
 
         Private Sub AddStudentsToDatabase(context As OtisContext)
@@ -254,6 +258,7 @@ Namespace Migrations
                     .CareerId = 1
                 }
             )
+            context.SaveChanges()
         End Sub
 
         Private Sub AddCategoriesToDatabase(context As OtisContext)
@@ -269,6 +274,7 @@ Namespace Migrations
                     .CategoryName = "Razonamiento Verbal"
                 }
             )
+            context.SaveChanges()
         End Sub
 
         Private Sub AddQuestionsToDatabase(context As OtisContext)
@@ -389,6 +395,7 @@ Namespace Migrations
                     .Answers = questionId4Answers
                 }
             )
+            context.SaveChanges()
         End Sub
     End Class
 End Namespace
