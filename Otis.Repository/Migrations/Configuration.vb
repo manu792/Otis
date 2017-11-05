@@ -187,6 +187,22 @@ Namespace Migrations
                     .EmailAddress = "especialista@gmail.com",
                     .IsTemporaryPassword = False,
                     .ProfileId = 3
+                },
+                New User() With
+                {
+                    .UserId = "115340073",
+                    .Password = encryptor.Encrypt("Gaby"),
+                    .EmailAddress = "ggchinchilla@gmail.com",
+                    .IsTemporaryPassword = False,
+                    .ProfileId = 2
+                },
+                New User() With
+                {
+                    .UserId = "184000235631",
+                    .Password = encryptor.Encrypt("Gaby"),
+                    .EmailAddress = "michaelcl14@hotmail.com",
+                    .IsTemporaryPassword = False,
+                    .ProfileId = 2
                 }
             )
             context.SaveChanges()

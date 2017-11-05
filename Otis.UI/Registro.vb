@@ -20,7 +20,9 @@ Public Class Registro
             Dim user = New UserDto With
             {
                 .Id = UsernameTxt.Text,
-                .Password = PasswordTxt.Text
+                .Password = PasswordTxt.Text,
+                .EmailAddress = "ggchinchilla@gmail.com",
+                .IsTemporaryPassword = False
             }
 
             If loginService.Register(user) IsNot Nothing Then

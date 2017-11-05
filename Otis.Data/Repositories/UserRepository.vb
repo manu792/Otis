@@ -28,7 +28,10 @@ Public Class UserRepository
             Dim user = New User() With
             {
                 .UserId = userDto.Id,
-                .Password = userDto.Password
+                .Password = userDto.Password,
+                .EmailAddress = userDto.EmailAddress,
+                .IsTemporaryPassword = userDto.IsTemporaryPassword,
+                .ProfileId = 2
             }
             otisContext.Users.Add(user)
             otisContext.SaveChanges()

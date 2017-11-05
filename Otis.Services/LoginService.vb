@@ -34,7 +34,13 @@ Public Class LoginService
     Public Function Register(user As UserDto) As UserDto
         user.Password = EncryptPassword(user.Password)
 
-        Dim registeredUser = unitOfWork.UserRepository.Register(New UserDto With {.Id = user.Id, .Password = user.Password})
+        Dim registeredUser = unitOfWork.UserRepository.Register(New UserDto With
+        {
+            .Id = user.Id,
+            .Password = user.Password,
+            .EmailAddress = user.EmailAddress,
+            .IsTemporaryPassword = user.IsTemporaryPassword
+        })
 
         Return registeredUser
     End Function

@@ -3,4 +3,5 @@
     Property Password As String
     Property EmailAddress As String
     Property IsTemporaryPassword As Boolean
+    Property ProfileId As Integer
 End Class
