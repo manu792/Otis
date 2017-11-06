@@ -50,7 +50,7 @@ Public Class QuestionRepository
 
     Private Sub GetRandomQuestions()
         ' Uses the otiscontext to retrieve the question list randomly
-        retrievedQuestions = New Queue(Of Question)((otisContext.Questions.Include(Function(a) a.Answers).ToList()))
+        retrievedQuestions = New Queue(Of Question)(otisContext.Questions.Include(Function(a) a.Answers).ToList())
     End Sub
     Private Function GetAnswersFromDto(answersDto As IEnumerable(Of AnswerDto)) As IEnumerable(Of Answer)
         Dim answers = New List(Of Answer)

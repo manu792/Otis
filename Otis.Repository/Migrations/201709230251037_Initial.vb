@@ -38,33 +38,16 @@ Namespace Migrations
                         .CategoryName = c.String()
                     }) _
                 .PrimaryKey(Function(t) t.CategoryId)
-            
+
             CreateTable(
                 "dbo.Careers",
                 Function(c) New With
                     {
-                        .CareerId = c.Int(nullable := False, identity := True),
+                        .CareerId = c.Int(nullable:=False, identity:=True),
                         .CareerName = c.String()
                     }) _
                 .PrimaryKey(Function(t) t.CareerId)
-            
-            CreateTable(
-                "dbo.Students",
-                Function(c) New With
-                    {
-                        .StudentId = c.String(nullable := False, maxLength := 128),
-                        .Name = c.String(),
-                        .LastName = c.String(),
-                        .SecondLastName = c.String(),
-                        .PhoneNumber = c.String(),
-                        .Address = c.String(),
-                        .EmailAddress = c.String(),
-                        .CareerId = c.Int(nullable := False)
-                    }) _
-                .PrimaryKey(Function(t) t.StudentId) _
-                .ForeignKey("dbo.Careers", Function(t) t.CareerId, cascadeDelete := True) _
-                .Index(Function(t) t.CareerId)
-            
+
             CreateTable(
                 "dbo.Users",
                 Function(c) New With
@@ -75,16 +58,13 @@ Namespace Migrations
                 .PrimaryKey(Function(t) t.Id)
             
         End Sub
-        
+
         Public Overrides Sub Down()
-            DropForeignKey("dbo.Students", "CareerId", "dbo.Careers")
             DropForeignKey("dbo.Questions", "CategoryId", "dbo.Categories")
             DropForeignKey("dbo.Answers", "QuestionId", "dbo.Questions")
-            DropIndex("dbo.Students", New String() { "CareerId" })
-            DropIndex("dbo.Questions", New String() { "CategoryId" })
-            DropIndex("dbo.Answers", New String() { "QuestionId" })
+            DropIndex("dbo.Questions", New String() {"CategoryId"})
+            DropIndex("dbo.Answers", New String() {"QuestionId"})
             DropTable("dbo.Users")
-            DropTable("dbo.Students")
             DropTable("dbo.Careers")
             DropTable("dbo.Categories")
             DropTable("dbo.Questions")

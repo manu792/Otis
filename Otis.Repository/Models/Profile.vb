@@ -5,6 +5,7 @@ Public Class Profile
     Property ProfileId As Integer
     <Required>
     Property Name As String
+    Property Description As String
 
     ' Navigation Property
     Overridable Property Entitlements As ICollection(Of Entitlement)

@@ -20,7 +20,12 @@ Public Class UserRepository
             .Id = user.UserId,
             .Password = user.Password,
             .EmailAddress = user.EmailAddress,
-            .IsTemporaryPassword = user.IsTemporaryPassword
+            .IsTemporaryPassword = user.IsTemporaryPassword,
+            .Name = user.Name,
+            .LastName = user.LastName,
+            .SecondLastName = user.SecondLastName,
+            .Profile = ConvertProfileToProfileDto(user.Profile),
+            .CareerId = user.CareerId
         }
     End Function
     Public Function Register(userDto As UserDto) As UserDto
@@ -41,6 +46,21 @@ Public Class UserRepository
 
         Return Nothing
     End Function
+    Public Function ChangePassword(userDto As UserDto) As String
+        Dim user = otisContext.Users.FirstOrDefault(Function(u) u.UserId = userDto.Id)
+
+        If Not user Is Nothing Then
+            user.Password = userDto.Password
+            user.IsTemporaryPassword = userDto.IsTemporaryPassword
+
+            otisContext.Entry(user).State = Entity.EntityState.Modified
+            otisContext.SaveChanges()
+
+            Return "Contraseña modificada correctamente."
+        End If
+
+        Return "El usuario no existe"
+    End Function
     Public Function SaveTemporaryPassword(userDto As UserDto) As UserDto
         Dim user = otisContext.Users.Where(Function(c) c.UserId = userDto.Id).FirstOrDefault()
         If Not user Is Nothing Then
@@ -58,6 +78,29 @@ Public Class UserRepository
     Public Sub SaveChanges()
         otisContext.SaveChanges()
     End Sub
+
+    Private Function ConvertProfileToProfileDto(profile As Profile) As ProfileDto
+        Return New ProfileDto() With
+        {
+            .ProfileId = profile.ProfileId,
+            .Description = profile.Description,
+            .Name = profile.Name,
+            .Entitlements = ConvertEntitlementsToEntitlementsDto(profile.Entitlements)
+        }
+    End Function
+    Private Function ConvertEntitlementsToEntitlementsDto(entitlements As ICollection(Of Entitlement)) As ICollection(Of EntitlementDto)
+        Dim entitlementList = New List(Of EntitlementDto)
+
+        For Each entitlement As Entitlement In entitlements
+            entitlementList.Add(New EntitlementDto() With
+            {
+                .EntitlementId = entitlement.EntitlementId,
+                .Name = entitlement.Name
+            })
+        Next
+
+        Return entitlementList
+    End Function
 
     Private Function DoesUserExist(username As String) As Boolean
         If GetUser(username) Is Nothing Then

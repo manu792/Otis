@@ -81,6 +81,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Repositories\CategoryRepository.vb" />
+    <Compile Include="Repositories\ExamRepository.vb" />
     <Compile Include="Repositories\SessionRepository.vb" />
     <Compile Include="Repositories\TestHistoryRepository.vb" />
     <Compile Include="Repositories\UserRepository.vb" />

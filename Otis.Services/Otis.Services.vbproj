@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EmailService.vb" />
-    <Compile Include="LoginService.vb" />
     <Compile Include="MaintainanceService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -81,7 +80,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="TestService.vb" />
+    <Compile Include="ExamService.vb" />
+    <Compile Include="UserService.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -110,6 +110,10 @@
     <ProjectReference Include="..\Otis.Data\Otis.Data.vbproj">
       <Project>{A67426B7-7ED5-43CD-9D96-D5D5CB03D65C}</Project>
       <Name>Otis.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Otis.Repository\Otis.Repository.vbproj">
+      <Project>{529C0057-D06F-47C7-AB5A-9D34B4D158B2}</Project>
+      <Name>Otis.Repository</Name>
     </ProjectReference>
     <ProjectReference Include="..\Otis.Security\Otis.Security.vbproj">
       <Project>{3FE0988D-DED7-4BEA-AC1B-F29BFD17752D}</Project>

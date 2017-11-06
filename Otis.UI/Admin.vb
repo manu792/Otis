@@ -2,18 +2,20 @@
 Imports Otis.Commons
 Imports Otis.Services
 
-Public Class Mantenimiento
+Public Class Admin
 
     Private correctAnswer As String
     Private maintainanceService As MaintainanceService
     Private categories As IEnumerable(Of CategoryDto)
+    Private user As UserDto
 
-    Public Sub New()
+    Public Sub New(userDto As UserDto)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
+        user = userDto
         maintainanceService = New MaintainanceService()
     End Sub
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load

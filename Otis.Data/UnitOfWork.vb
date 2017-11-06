@@ -7,6 +7,7 @@ Public Class UnitOfWork
     Private _sessionRepository As SessionRepository
     Private _testHistoryRepository As TestHistoryRepository
     Private _categoryRepository As CategoryRepository
+    Private _examRepository As ExamRepository
     Private otisContext As OtisContext
 
     Public Sub New()
@@ -19,6 +20,15 @@ Public Class UnitOfWork
                 _userRepository = New UserRepository(otisContext)
             End If
             Return _userRepository
+        End Get
+    End Property
+
+    Public ReadOnly Property ExamRepository() As ExamRepository
+        Get
+            If _examRepository Is Nothing Then
+                _examRepository = New ExamRepository(otisContext)
+            End If
+            Return _examRepository
         End Get
     End Property
 

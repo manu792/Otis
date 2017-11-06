@@ -11,7 +11,7 @@ Public Class EmailService
         encryptor = New Encryptor()
     End Sub
 
-    Public Sub SendEmail(userName As String)
+    Public Function SendEmail(userName As String) As String
         Try
             Dim user = unitOfWork.UserRepository.GetUser(userName)
             Dim newPassword As String = "Test123"
@@ -33,8 +33,10 @@ Public Class EmailService
 
 
             unitOfWork.UserRepository.SaveTemporaryPassword(user)
-        Catch ex As Exception
 
+            Return "Se ha enviado una contraseña temporal al correo electronico " & user.EmailAddress
+        Catch ex As Exception
+            Return "Se produjo un error al tratar de enviar el correo con la contraseña temporal. Favor contacte al administrador."
         End Try
-    End Sub
+    End Function
 End Class

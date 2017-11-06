@@ -3,10 +3,13 @@ Imports Otis.Services
 
 Public Class Test
 
-    Private testService As TestService
-    Private questionRetrieved As QuestionDto
+    Private examService As ExamService
+    Private questionId As Integer
+    Private questions As Queue(Of QuestionDto)
     Private session As SessionDto
     Private stopTime As DateTime
+    Private _examId As Integer
+    Private _userId As String
 
     Private Sub New()
 
@@ -14,12 +17,15 @@ Public Class Test
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        testService = New TestService()
+        examService = New ExamService()
     End Sub
 
-    Public Sub New(userId As String)
+    Public Sub New(userId As String, examId As Integer, questionsQuantity As Integer)
         Me.New()
+        questions = New Queue(Of QuestionDto)(examService.GetQuestionsForExam(examId, questionsQuantity))
         session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = userId}
+        _examId = examId
+        _userId = userId
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetQuestion()
@@ -33,19 +39,23 @@ Public Class Test
     End Sub
 
     Private Sub GetQuestion()
-        PrintQuestion(testService.GetRandomQuestion())
-    End Sub
+        'PrintQuestion(examService.GetRandomQuestion())
+        Dim question As QuestionDto
 
-    Private Sub PrintQuestion(question As QuestionDto)
-        questionRetrieved = question
-
-        Dim controlList = New List(Of Control)
-        Dim y As Int32 = 105
-
-        If question Is Nothing Then
+        If questions.Count = 0 Then
             SaveAndReturnToMain(False)
             Return
         End If
+
+        question = questions.Dequeue()
+        PrintQuestion(question)
+    End Sub
+
+    Private Sub PrintQuestion(question As QuestionDto)
+        questionId = question.QuestionId
+
+        Dim controlList = New List(Of Control)
+        Dim y As Int32 = 105
 
         controlList.Add(New Label() With
         {
@@ -92,7 +102,7 @@ Public Class Test
         Dim button = New Button() With
         {
             .Location = New Point(231, y + 100),
-            .Text = "Siguiente",
+            .Text = If(questions.Count = 0, "Terminar Examen", "Siguiente"),
             .Size = New Drawing.Size(95, 36),
             .Name = "siguienteBtn"
         }
@@ -104,21 +114,21 @@ Public Class Test
 
     Private Sub SaveAndReturnToMain(isTimeOut As Boolean)
         MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
-        testService.SaveTest(session)
+        examService.SaveTest(session, _examId, _userId)
         ReturnToMain()
     End Sub
 
     Private Sub ReturnToMain()
-        Dim main = New Main(session.UserId)
+        'Dim main = New Main(session.UserId)
 
-        main.Show()
-        Me.Close()
+        'main.Show()
+        'Me.Close()
     End Sub
 
     Private Sub SiguienteBtn_Click(sender As Object, e As EventArgs)
         Dim testHistoryEntry = New TestHistoryDto With
         {
-            .QuestionId = questionRetrieved.QuestionId,
+            .QuestionId = questionId,
             .SessionId = session.SessionId
         }
 
@@ -131,7 +141,7 @@ Public Class Test
             testHistoryEntry.UserAnswer = selectedRadioButton.Text
         End If
 
-        testService.AddTestEntry(testHistoryEntry)
+        examService.AddTestEntry(testHistoryEntry)
         UpdateForm()
     End Sub
 

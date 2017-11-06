@@ -126,17 +126,47 @@
       <DependentUpon>201710292238076_AddEmailAddressToUserEntity.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201710292238076_AddEmailAddressToUserEntity.vb" />
+    <Compile Include="Migrations\201711051515047_AddDescriptionToProfile.Designer.vb">
+      <DependentUpon>201711051515047_AddDescriptionToProfile.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711051515047_AddDescriptionToProfile.vb" />
+    <Compile Include="Migrations\201711051524250_AddExamEntity.Designer.vb">
+      <DependentUpon>201711051524250_AddExamEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711051524250_AddExamEntity.vb" />
+    <Compile Include="Migrations\201711051530238_AddManyToManyRelationshipExamAndQuestion.Designer.vb">
+      <DependentUpon>201711051530238_AddManyToManyRelationshipExamAndQuestion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711051530238_AddManyToManyRelationshipExamAndQuestion.vb" />
+    <Compile Include="Migrations\201711051544189_AddedPropsToUserEntity.Designer.vb">
+      <DependentUpon>201711051544189_AddedPropsToUserEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711051544189_AddedPropsToUserEntity.vb" />
+    <Compile Include="Migrations\201711051553343_CareerIdNotRequired.Designer.vb">
+      <DependentUpon>201711051553343_CareerIdNotRequired.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711051553343_CareerIdNotRequired.vb" />
+    <Compile Include="Migrations\201711052012484_B.Designer.vb">
+      <DependentUpon>201711052012484_B.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711052012484_B.vb" />
+    <Compile Include="Migrations\201711052102447_Test.Designer.vb">
+      <DependentUpon>201711052102447_Test.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711052102447_Test.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
     <Compile Include="Models\Entitlement.vb" />
+    <Compile Include="Models\Exam.vb" />
     <Compile Include="Models\Profile.vb" />
     <Compile Include="Models\Question.vb" />
     <Compile Include="Models\Session.vb" />
     <Compile Include="Models\Student.vb" />
     <Compile Include="Models\TestHistory.vb" />
     <Compile Include="Models\User.vb" />
+    <Compile Include="Models\UserExams.vb" />
     <Compile Include="OtisContext.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -196,6 +226,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710292238076_AddEmailAddressToUserEntity.resx">
       <DependentUpon>201710292238076_AddEmailAddressToUserEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711051515047_AddDescriptionToProfile.resx">
+      <DependentUpon>201711051515047_AddDescriptionToProfile.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711051524250_AddExamEntity.resx">
+      <DependentUpon>201711051524250_AddExamEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711051530238_AddManyToManyRelationshipExamAndQuestion.resx">
+      <DependentUpon>201711051530238_AddManyToManyRelationshipExamAndQuestion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711051544189_AddedPropsToUserEntity.resx">
+      <DependentUpon>201711051544189_AddedPropsToUserEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711051553343_CareerIdNotRequired.resx">
+      <DependentUpon>201711051553343_CareerIdNotRequired.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711052012484_B.resx">
+      <DependentUpon>201711052012484_B.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711052102447_Test.resx">
+      <DependentUpon>201711052102447_Test.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

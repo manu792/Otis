@@ -10,6 +10,7 @@ Public Class Question
     Property CategoryId As Int32
 
     'Navigation Properties
+    Overridable Property Exams As ICollection(Of Exam)
     Overridable Property Category As Category
     Overridable Property Answers As ICollection(Of Answer)
 End Class

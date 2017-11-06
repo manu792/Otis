@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class Mantenimiento
+Partial Class Admin
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -24,6 +24,7 @@ Partial Class Mantenimiento
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.imagePathLabelText = New System.Windows.Forms.Label()
         Me.categoriesComboBox = New System.Windows.Forms.ComboBox()
         Me.btnGuardar = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
@@ -39,7 +40,6 @@ Partial Class Mantenimiento
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
-        Me.imagePathLabelText = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -73,6 +73,14 @@ Partial Class Mantenimiento
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Crear Pregunta"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'imagePathLabelText
+        '
+        Me.imagePathLabelText.AutoSize = True
+        Me.imagePathLabelText.Location = New System.Drawing.Point(207, 265)
+        Me.imagePathLabelText.Name = "imagePathLabelText"
+        Me.imagePathLabelText.Size = New System.Drawing.Size(0, 13)
+        Me.imagePathLabelText.TabIndex = 9
         '
         'categoriesComboBox
         '
@@ -205,22 +213,14 @@ Partial Class Mantenimiento
         '
         Me.OpenFileDialog.FileName = "OpenFileDialog1"
         '
-        'imagePathLabelText
-        '
-        Me.imagePathLabelText.AutoSize = True
-        Me.imagePathLabelText.Location = New System.Drawing.Point(207, 265)
-        Me.imagePathLabelText.Name = "imagePathLabelText"
-        Me.imagePathLabelText.Size = New System.Drawing.Size(0, 13)
-        Me.imagePathLabelText.TabIndex = 9
-        '
-        'Mantenimiento
+        'Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(698, 699)
         Me.Controls.Add(Me.TabControl1)
-        Me.Name = "Mantenimiento"
-        Me.Text = "Mantenimiento"
+        Me.Name = "Admin"
+        Me.Text = "Administrador"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()

@@ -22,9 +22,8 @@ Namespace Migrations
             AddEntitlementsToDatabase(context)
             AddProfilesToDatabase(context)
             AssignEntitlementsToProfiles(context)
-            AddUsersToDatabase(context)
             AddCareersToDatabase(context)
-            AddStudentsToDatabase(context)
+            AddUsersToDatabase(context)
             AddCategoriesToDatabase(context)
             AddQuestionsToDatabase(context)
         End Sub
@@ -162,7 +161,11 @@ Namespace Migrations
                     .Password = encryptor.Encrypt("ManuRoman"),
                     .EmailAddress = "manu.roman792@gmail.com",
                     .IsTemporaryPassword = False,
-                    .ProfileId = 2
+                    .ProfileId = 2,
+                    .Name = "Manuel",
+                    .LastName = "Roman",
+                    .SecondLastName = "Soto",
+                    .CareerId = 2
                 },
                 New User() With
                 {
@@ -170,7 +173,11 @@ Namespace Migrations
                     .Password = encryptor.Encrypt("Test"),
                     .EmailAddress = "test@gmail.com",
                     .IsTemporaryPassword = False,
-                    .ProfileId = 2
+                    .ProfileId = 2,
+                    .Name = "Test",
+                    .LastName = "Test",
+                    .SecondLastName = "Test",
+                    .CareerId = 3
                 },
                 New User() With
                 {
@@ -178,7 +185,11 @@ Namespace Migrations
                     .Password = encryptor.Encrypt("Admin"),
                     .EmailAddress = "admin@gmail.com",
                     .IsTemporaryPassword = False,
-                    .ProfileId = 1
+                    .ProfileId = 1,
+                    .Name = "Admin",
+                    .LastName = "Admin",
+                    .SecondLastName = "Admin",
+                    .CareerId = 1
                 },
                 New User() With
                 {
@@ -186,23 +197,11 @@ Namespace Migrations
                     .Password = encryptor.Encrypt("Especialista"),
                     .EmailAddress = "especialista@gmail.com",
                     .IsTemporaryPassword = False,
-                    .ProfileId = 3
-                },
-                New User() With
-                {
-                    .UserId = "115340073",
-                    .Password = encryptor.Encrypt("Gaby"),
-                    .EmailAddress = "ggchinchilla@gmail.com",
-                    .IsTemporaryPassword = False,
-                    .ProfileId = 2
-                },
-                New User() With
-                {
-                    .UserId = "184000235631",
-                    .Password = encryptor.Encrypt("Gaby"),
-                    .EmailAddress = "michaelcl14@hotmail.com",
-                    .IsTemporaryPassword = False,
-                    .ProfileId = 2
+                    .ProfileId = 3,
+                    .Name = "Juan",
+                    .LastName = "Vasquez",
+                    .SecondLastName = "Jimenez",
+                    .CareerId = 1
                 }
             )
             context.SaveChanges()
@@ -212,21 +211,26 @@ Namespace Migrations
                 New Career() With
                 {
                     .CareerId = 1,
-                    .CareerName = "Ingenieria de Sistemas"
+                    .CareerName = "Usuario Admin/Especialista"
                 },
                 New Career() With
                 {
                     .CareerId = 2,
-                    .CareerName = "Electronica"
+                    .CareerName = "Ingenieria de Sistemas"
                 },
                 New Career() With
                 {
                     .CareerId = 3,
-                    .CareerName = "Electromecanica"
+                    .CareerName = "Electronica"
                 },
                 New Career() With
                 {
                     .CareerId = 4,
+                    .CareerName = "Electromecanica"
+                },
+                New Career() With
+                {
+                    .CareerId = 5,
                     .CareerName = "Dibujo Arquitectonico"
                 },
                 New Career() With
@@ -237,46 +241,6 @@ Namespace Migrations
             )
             context.SaveChanges()
         End Sub
-
-        Private Sub AddStudentsToDatabase(context As OtisContext)
-            context.Students.AddOrUpdate(
-                New Student() With
-                {
-                    .StudentId = 115190794,
-                    .Name = "Manuel",
-                    .LastName = "Roman",
-                    .SecondLastName = "Soto",
-                    .Address = "Concepcion Arriba de Alajuelita",
-                    .EmailAddress = "manu_rs792@hotmail.com",
-                    .PhoneNumber = "87130532",
-                    .CareerId = 1
-                },
-                New Student() With
-                {
-                    .StudentId = 113198794,
-                    .Name = "Mauricio",
-                    .LastName = "Vargas",
-                    .SecondLastName = "Miranda",
-                    .Address = "Concepcion Arriba de Alajuelita",
-                    .EmailAddress = "mau792@hotmail.com",
-                    .PhoneNumber = "88888888",
-                    .CareerId = 2
-                },
-                New Student() With
-                {
-                    .StudentId = 159198094,
-                    .Name = "Rafaela",
-                    .LastName = "Jimenez",
-                    .SecondLastName = "Ortiz",
-                    .Address = "Alajuela",
-                    .EmailAddress = "rafaela@gmail.com",
-                    .PhoneNumber = "21598745",
-                    .CareerId = 1
-                }
-            )
-            context.SaveChanges()
-        End Sub
-
         Private Sub AddCategoriesToDatabase(context As OtisContext)
             context.Categories.AddOrUpdate(
                 New Category() With
