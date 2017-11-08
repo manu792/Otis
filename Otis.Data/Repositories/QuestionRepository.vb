@@ -16,7 +16,7 @@ Public Class QuestionRepository
         {
             .QuestionText = questionDto.QuestionText,
             .ImagePath = questionDto.ImagePath,
-            .CategoryId = 1,
+            .CategoryId = questionDto.Category,
             .CorrectAnswerText = questionDto.CorrectAnswerTest,
             .Answers = GetAnswersFromDto(questionDto.Answers)
         }

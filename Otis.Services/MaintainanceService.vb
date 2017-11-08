@@ -11,8 +11,14 @@ Public Class MaintainanceService
     Public Function GetCategories() As IEnumerable(Of CategoryDto)
         Return unitOfWork.CategoryRepository.GetCategories()
     End Function
-    Public Sub SaveQuestion(questionDto As QuestionDto)
-        unitOfWork.QuestionRepository.SaveQuestion(questionDto)
-        unitOfWork.SaveChanges()
-    End Sub
+    Public Function SaveQuestion(questionDto As QuestionDto) As String
+        Try
+            unitOfWork.QuestionRepository.SaveQuestion(questionDto)
+            unitOfWork.SaveChanges()
+
+            Return "Pregunta guardada correctamente"
+        Catch ex As Exception
+            Return "Hubo un problema al tratar de guardar la pregunta. Favor contacte a soporte"
+        End Try
+    End Function
 End Class

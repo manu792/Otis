@@ -17,14 +17,16 @@ Public Class Main
 
     Private Sub testBtn_Click(sender As Object, e As EventArgs) Handles testBtn.Click
         If user.Profile.Entitlements.Any(Function(en) en.Name.Equals("Ejecutar Test")) Then
-            Dim examId = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("ExamId").Value)
-            Dim questionsQuantity = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("QuestionsQuantity").Value)
+            If PendingExams.SelectedRows.Count > 0 Then
+                Dim examId = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("ExamId").Value)
+                Dim questionsQuantity = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("QuestionsQuantity").Value)
 
 
-            Dim test = New Test(user.Id, examId, questionsQuantity)
+                Dim test = New Test(user.Id, examId, questionsQuantity)
 
-            test.Show()
-            Me.Close()
+                test.Show()
+                Me.Close()
+            End If
         Else
             MessageBox.Show("Permiso denegado", "Error")
         End If

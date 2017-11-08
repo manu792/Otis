@@ -28,45 +28,6 @@ Public Class Admin
         Next
     End Sub
 
-    Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
-        If OpenFileDialog.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-            Dim imagePath = OpenFileDialog.FileName
-            imagePathLabelText.Text = imagePath
-        End If
-    End Sub
-
-    Private Sub btnAgregar_Click(sender As Object, e As EventArgs) Handles btnAgregar.Click
-        ' Adds a new possible answer to the collection of answers for this question
-        If txtPossibleAnswer.Text <> String.Empty Then
-            possibleAnswersCheckBox.Items.Add(txtPossibleAnswer.Text)
-        End If
-    End Sub
-
-    Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-        For Each possibleAnswer As String In possibleAnswersCheckBox.CheckedItems.OfType(Of String).ToList()
-            possibleAnswersCheckBox.Items.Remove(possibleAnswer)
-        Next
-    End Sub
-
-    Private Sub btnMarcar_Click(sender As Object, e As EventArgs) Handles btnMarcar.Click
-        If possibleAnswersCheckBox.CheckedItems.Count = 1 Then
-            correctAnswer = possibleAnswersCheckBox.CheckedItems(0)
-        End If
-    End Sub
-    Private Sub btnGuardar_Click(sender As Object, e As EventArgs) Handles btnGuardar.Click
-        ' Saves new question with its respective possible answers to the DB
-        Dim category = CType(categoriesComboBox.SelectedItem, CategoryDto)
-        Dim questionDto As QuestionDto = New QuestionDto() With
-        {
-            .QuestionText = txtQuestionText.Text,
-            .Category = category.CategoryId,
-            .ImagePath = If(imagePathLabelText.Text = String.Empty, Nothing, imagePathLabelText.Text),
-            .CorrectAnswerTest = correctAnswer,
-            .Answers = GetPossibleAnswers()
-        }
-        maintainanceService.SaveQuestion(questionDto)
-    End Sub
-
     Private Function GetPossibleAnswers() As ICollection(Of AnswerDto)
         Dim answers = New List(Of AnswerDto)
 
@@ -77,4 +38,44 @@ Public Class Admin
 
         Return answers
     End Function
+
+    Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
+        If OpenFileDialog.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            Dim imagePath = OpenFileDialog.FileName
+            imagePathLabelText.Text = imagePath
+        End If
+    End Sub
+
+    Private Sub BtnAgregar_Click(sender As Object, e As EventArgs) Handles BtnAgregar.Click
+        ' Adds a new possible answer to the collection of answers for this question
+        If txtPossibleAnswer.Text <> String.Empty Then
+            possibleAnswersCheckBox.Items.Add(txtPossibleAnswer.Text)
+        End If
+    End Sub
+
+    Private Sub BtnEliminar_Click(sender As Object, e As EventArgs) Handles BtnEliminar.Click
+        For Each possibleAnswer As String In possibleAnswersCheckBox.CheckedItems.OfType(Of String).ToList()
+            possibleAnswersCheckBox.Items.Remove(possibleAnswer)
+        Next
+    End Sub
+
+    Private Sub BtnMarcar_Click(sender As Object, e As EventArgs) Handles BtnMarcar.Click
+        If possibleAnswersCheckBox.CheckedItems.Count = 1 Then
+            correctAnswer = possibleAnswersCheckBox.CheckedItems(0)
+        End If
+    End Sub
+
+    Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
+        ' Saves new question with its respective possible answers to the DB
+        Dim category = CType(categoriesComboBox.SelectedItem, CategoryDto)
+        Dim questionDto As QuestionDto = New QuestionDto() With
+        {
+            .QuestionText = txtQuestionText.Text,
+            .Category = category.CategoryId,
+            .ImagePath = If(imagePathLabelText.Text = String.Empty, Nothing, imagePathLabelText.Text),
+            .CorrectAnswerTest = correctAnswer,
+            .Answers = GetPossibleAnswers()
+        }
+        MessageBox.Show(maintainanceService.SaveQuestion(questionDto))
+    End Sub
 End Class
