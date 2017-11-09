@@ -21,8 +21,8 @@ Public Class Main
                 Dim examId = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("ExamId").Value)
                 Dim questionsQuantity = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("QuestionsQuantity").Value)
 
-
-                Dim test = New Test(user.Id, examId, questionsQuantity)
+                user.Exam = New ExamDto() With {.ExamId = examId, .QuestionsQuantity = questionsQuantity}
+                Dim test = New Test(user)
 
                 test.Show()
                 Me.Close()

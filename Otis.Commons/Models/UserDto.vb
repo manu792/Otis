@@ -8,4 +8,5 @@
     Property IsTemporaryPassword As Boolean
     Property Profile As ProfileDto
     Property CareerId As Integer
+    Property Exam As ExamDto
 End Class

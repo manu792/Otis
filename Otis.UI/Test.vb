@@ -8,8 +8,7 @@ Public Class Test
     Private questions As Queue(Of QuestionDto)
     Private session As SessionDto
     Private stopTime As DateTime
-    Private _examId As Integer
-    Private _userId As String
+    Private user As UserDto
 
     Private Sub New()
 
@@ -20,12 +19,11 @@ Public Class Test
         examService = New ExamService()
     End Sub
 
-    Public Sub New(userId As String, examId As Integer, questionsQuantity As Integer)
+    Public Sub New(userDto As UserDto)
         Me.New()
-        questions = New Queue(Of QuestionDto)(examService.GetQuestionsForExam(examId, questionsQuantity))
-        session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = userId}
-        _examId = examId
-        _userId = userId
+        questions = New Queue(Of QuestionDto)(examService.GetQuestionsForExam(user.Exam.ExamId, user.Exam.QuestionsQuantity))
+        session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = user.Id}
+        user = userDto
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetQuestion()
@@ -114,15 +112,15 @@ Public Class Test
 
     Private Sub SaveAndReturnToMain(isTimeOut As Boolean)
         MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
-        examService.SaveTest(session, _examId, _userId)
+        examService.SaveTest(session, user.Exam.ExamId, user.Id)
         ReturnToMain()
     End Sub
 
     Private Sub ReturnToMain()
-        'Dim main = New Main(session.UserId)
+        Dim main = New Main(user)
 
-        'main.Show()
-        'Me.Close()
+        main.Show()
+        Me.Close()
     End Sub
 
     Private Sub SiguienteBtn_Click(sender As Object, e As EventArgs)
