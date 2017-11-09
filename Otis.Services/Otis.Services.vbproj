@@ -63,8 +63,9 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CareerService.vb" />
+    <Compile Include="CategoryService.vb" />
     <Compile Include="EmailService.vb" />
-    <Compile Include="MaintainanceService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -81,6 +82,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ExamService.vb" />
+    <Compile Include="ProfileService.vb" />
+    <Compile Include="QuestionService.vb" />
     <Compile Include="UserService.vb" />
   </ItemGroup>
   <ItemGroup>

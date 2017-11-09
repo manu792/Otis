@@ -1,16 +1,14 @@
 ﻿Imports Otis.Commons
 Imports Otis.Data
 
-Public Class MaintainanceService
+Public Class QuestionService
 
     Private unitOfWork As UnitOfWork
 
     Public Sub New()
         unitOfWork = New UnitOfWork()
     End Sub
-    Public Function GetCategories() As IEnumerable(Of CategoryDto)
-        Return unitOfWork.CategoryRepository.GetCategories()
-    End Function
+
     Public Function SaveQuestion(questionDto As QuestionDto) As String
         Try
             unitOfWork.QuestionRepository.SaveQuestion(questionDto)

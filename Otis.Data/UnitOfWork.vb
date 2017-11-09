@@ -8,6 +8,8 @@ Public Class UnitOfWork
     Private _testHistoryRepository As TestHistoryRepository
     Private _categoryRepository As CategoryRepository
     Private _examRepository As ExamRepository
+    Private _profileRepository As ProfileRepository
+    Private _careerRepository As CareerRepository
     Private otisContext As OtisContext
 
     Public Sub New()
@@ -65,6 +67,24 @@ Public Class UnitOfWork
                 _categoryRepository = New CategoryRepository(otisContext)
             End If
             Return _categoryRepository
+        End Get
+    End Property
+
+    Public ReadOnly Property ProfileRepository() As ProfileRepository
+        Get
+            If _profileRepository Is Nothing Then
+                _profileRepository = New ProfileRepository(otisContext)
+            End If
+            Return _profileRepository
+        End Get
+    End Property
+
+    Public ReadOnly Property CareerRepository() As CareerRepository
+        Get
+            If _careerRepository Is Nothing Then
+                _careerRepository = New CareerRepository(otisContext)
+            End If
+            Return _careerRepository
         End Get
     End Property
 

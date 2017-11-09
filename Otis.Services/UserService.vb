@@ -12,13 +12,16 @@ Public Class UserService
     End Sub
 
     Public Function AddUser(user As UserDto) As UserDto
-        user.Password = EncryptPassword(user.Password)
-
         Dim registeredUser = unitOfWork.UserRepository.Register(New UserDto With
         {
             .Id = user.Id,
-            .Password = user.Password,
+            .Name = user.Name,
+            .LastName = user.LastName,
+            .SecondLastName = user.SecondLastName,
+            .CareerId = user.CareerId,
+            .Password = encryptor.Encrypt(user.Password),
             .EmailAddress = user.EmailAddress,
+            .Profile = user.Profile,
             .IsTemporaryPassword = user.IsTemporaryPassword
         })
 

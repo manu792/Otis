@@ -25,6 +25,7 @@ Partial Class Main
         Me.testBtn = New System.Windows.Forms.Button()
         Me.PendingExams = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         CType(Me.PendingExams, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -59,11 +60,21 @@ Partial Class Main
         Me.Label1.TabIndex = 2
         Me.Label1.Text = "Examenes Pendientes:"
         '
+        'BtnCerrarSesion
+        '
+        Me.BtnCerrarSesion.Location = New System.Drawing.Point(538, 22)
+        Me.BtnCerrarSesion.Name = "BtnCerrarSesion"
+        Me.BtnCerrarSesion.Size = New System.Drawing.Size(91, 28)
+        Me.BtnCerrarSesion.TabIndex = 3
+        Me.BtnCerrarSesion.Text = "Cerrar Sesion"
+        Me.BtnCerrarSesion.UseVisualStyleBackColor = True
+        '
         'Main
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(671, 486)
+        Me.Controls.Add(Me.BtnCerrarSesion)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PendingExams)
         Me.Controls.Add(Me.testBtn)
@@ -79,4 +90,5 @@ Partial Class Main
     Friend WithEvents testBtn As Button
     Friend WithEvents PendingExams As DataGridView
     Friend WithEvents Label1 As Label
+    Friend WithEvents BtnCerrarSesion As Button
 End Class

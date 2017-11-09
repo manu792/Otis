@@ -35,4 +35,13 @@ Public Class Main
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         PendingExams.DataSource = examService.GetExamsForUser(user.Id)
     End Sub
+
+    Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
+        Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
+        If dialogResult = DialogResult.Yes Then
+            Dim login = New Login()
+            login.Show()
+            Me.Close()
+        End If
+    End Sub
 End Class

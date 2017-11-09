@@ -41,7 +41,6 @@ Public Class ExamRepository
                 .QuestionText = question.QuestionText,
                 .Category = question.CategoryId,
                 .ImagePath = question.ImagePath,
-                .CorrectAnswerTest = question.CorrectAnswerText,
                 .Answers = ConvertAnswersToAnswersDto(question.Answers)
             })
         Next

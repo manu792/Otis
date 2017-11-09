@@ -6,7 +6,6 @@ Public Class User
     Property UserId As String
     <Required>
     Property Name As String
-    <Required>
     Property LastName As String
     Property SecondLastName As String
     <Required>

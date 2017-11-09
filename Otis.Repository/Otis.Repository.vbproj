@@ -154,6 +154,14 @@
       <DependentUpon>201711052102447_Test.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711052102447_Test.vb" />
+    <Compile Include="Migrations\201711091623228_RemovedCorrectAnswerTextProperty.Designer.vb">
+      <DependentUpon>201711091623228_RemovedCorrectAnswerTextProperty.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711091623228_RemovedCorrectAnswerTextProperty.vb" />
+    <Compile Include="Migrations\201711091728520_ChangedProperty.Designer.vb">
+      <DependentUpon>201711091728520_ChangedProperty.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711091728520_ChangedProperty.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
@@ -247,6 +255,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711052102447_Test.resx">
       <DependentUpon>201711052102447_Test.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091623228_RemovedCorrectAnswerTextProperty.resx">
+      <DependentUpon>201711091623228_RemovedCorrectAnswerTextProperty.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091728520_ChangedProperty.resx">
+      <DependentUpon>201711091728520_ChangedProperty.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

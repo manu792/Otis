@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AnswerDto.vb" />
+    <Compile Include="Models\CareerDto.vb" />
     <Compile Include="Models\CategoryDto.vb" />
     <Compile Include="Models\EntitlementDto.vb" />
     <Compile Include="Models\ExamDto.vb" />

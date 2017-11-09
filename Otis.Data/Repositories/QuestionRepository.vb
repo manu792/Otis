@@ -17,7 +17,6 @@ Public Class QuestionRepository
             .QuestionText = questionDto.QuestionText,
             .ImagePath = questionDto.ImagePath,
             .CategoryId = questionDto.Category,
-            .CorrectAnswerText = questionDto.CorrectAnswerTest,
             .Answers = GetAnswersFromDto(questionDto.Answers)
         }
         otisContext.Questions.Add(newQuestion)
