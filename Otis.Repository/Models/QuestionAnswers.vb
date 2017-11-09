@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
 
-Public Class Answer
+Public Class QuestionAnswers
     <Key>
     <Column(Order:=0)>
     Property QuestionId As Int32

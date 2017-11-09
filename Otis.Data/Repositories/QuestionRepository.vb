@@ -36,7 +36,7 @@ Public Class QuestionRepository
                 .Answers = New List(Of AnswerDto)
             }
 
-        For Each answer As Answer In question.Answers
+        For Each answer As QuestionAnswers In question.Answers
             questionDto.Answers.Add(New AnswerDto() With {.QuestionId = answer.QuestionId, .AnswerText = answer.AnswerText})
         Next
 
@@ -51,11 +51,11 @@ Public Class QuestionRepository
         ' Uses the otiscontext to retrieve the question list randomly
         retrievedQuestions = New Queue(Of Question)(otisContext.Questions.Include(Function(a) a.Answers).ToList())
     End Sub
-    Private Function GetAnswersFromDto(answersDto As IEnumerable(Of AnswerDto)) As IEnumerable(Of Answer)
-        Dim answers = New List(Of Answer)
+    Private Function GetAnswersFromDto(answersDto As IEnumerable(Of AnswerDto)) As IEnumerable(Of QuestionAnswers)
+        Dim answers = New List(Of QuestionAnswers)
 
         For Each answer As AnswerDto In answersDto
-            answers.Add(New Answer() With {.AnswerText = answer.AnswerText})
+            answers.Add(New QuestionAnswers() With {.AnswerText = answer.AnswerText})
         Next
 
         Return answers

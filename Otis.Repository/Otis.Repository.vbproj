@@ -166,8 +166,12 @@
       <DependentUpon>201711091812552_MadeCareerNullable.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711091812552_MadeCareerNullable.vb" />
+    <Compile Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.Designer.vb">
+      <DependentUpon>201711092201370_AddedIsActiveFlagToEntities.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.vb" />
     <Compile Include="Migrations\Configuration.vb" />
-    <Compile Include="Models\Answer.vb" />
+    <Compile Include="Models\QuestionAnswers.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
     <Compile Include="Models\Entitlement.vb" />
@@ -175,7 +179,6 @@
     <Compile Include="Models\Profile.vb" />
     <Compile Include="Models\Question.vb" />
     <Compile Include="Models\Session.vb" />
-    <Compile Include="Models\Student.vb" />
     <Compile Include="Models\TestHistory.vb" />
     <Compile Include="Models\User.vb" />
     <Compile Include="Models\UserExams.vb" />
@@ -268,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711091812552_MadeCareerNullable.resx">
       <DependentUpon>201711091812552_MadeCareerNullable.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.resx">
+      <DependentUpon>201711092201370_AddedIsActiveFlagToEntities.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

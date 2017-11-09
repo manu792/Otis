@@ -6,6 +6,8 @@ Public Class Profile
     <Required>
     Property Name As String
     Property Description As String
+    <Required>
+    Property IsActive As Boolean
 
     ' Navigation Property
     Overridable Property Entitlements As ICollection(Of Entitlement)

@@ -7,9 +7,11 @@ Public Class Question
     Property ImagePath As String
     <Required>
     Property CategoryId As Int32
+    <Required>
+    Property IsActive As Boolean
 
     'Navigation Properties
     Overridable Property Exams As ICollection(Of Exam)
     Overridable Property Category As Category
-    Overridable Property Answers As ICollection(Of Answer)
+    Overridable Property Answers As ICollection(Of QuestionAnswers)
 End Class

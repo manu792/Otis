@@ -13,8 +13,8 @@ Public Class ExamService
         Return unitOfWork.ExamRepository.GetExamsForUser(userId)
     End Function
 
-    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of QuestionDto)
-        Return unitOfWork.ExamRepository.GetQuestionsForExam(examId, questionsQuantity)
+    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer, time As Integer) As ExamDto
+        Return unitOfWork.ExamRepository.GetQuestionsForExam(examId, questionsQuantity, time)
     End Function
 
     Public Function GetRandomQuestion() As QuestionDto

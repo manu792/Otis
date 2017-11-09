@@ -20,8 +20,9 @@ Public Class Main
             If PendingExams.SelectedRows.Count > 0 Then
                 Dim examId = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("ExamId").Value)
                 Dim questionsQuantity = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("QuestionsQuantity").Value)
+                Dim time = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("Time").Value)
 
-                user.Exam = New ExamDto() With {.ExamId = examId, .QuestionsQuantity = questionsQuantity}
+                user.Exam = New ExamDto() With {.ExamId = examId, .QuestionsQuantity = questionsQuantity, .Time = time}
                 Dim test = New Test(user)
 
                 test.Show()

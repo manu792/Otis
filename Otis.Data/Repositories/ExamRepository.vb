@@ -28,24 +28,24 @@ Public Class ExamRepository
         Return examsDto
     End Function
 
-    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of QuestionDto)
-        Dim questionList = New List(Of QuestionDto)
+    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer, time As Integer) As ExamDto
 
-        Dim questions = otisContext.Questions.OrderBy(Function(f) Guid.NewGuid()).Take(questionsQuantity).
-            Where(Function(q) q.Exams.Any(Function(e) e.ExamId = examId)).ToList()
-
-        For Each question As Question In questions
-            questionList.Add(New QuestionDto() With
-            {
-                .QuestionId = question.QuestionId,
-                .QuestionText = question.QuestionText,
-                .Category = question.CategoryId,
-                .ImagePath = question.ImagePath,
-                .Answers = ConvertAnswersToAnswersDto(question.Answers)
-            })
-        Next
-
-        Return questionList
+        ' Dim exam = otisContext.Exams.Where(Function(e) e.ExamId = examId).FirstOrDefault()
+        Return New ExamDto() With
+        {
+            .ExamId = examId,
+            .QuestionsQuantity = questionsQuantity,
+            .Time = time,
+            .Questions = otisContext.Questions.OrderBy(Function(f) Guid.NewGuid()).Take(questionsQuantity).
+                    Where(Function(q) q.Exams.Any(Function(e) e.ExamId = examId)).ToList().Select(Function(q) New QuestionDto With
+                    {
+                        .QuestionId = q.QuestionId,
+                        .QuestionText = q.QuestionText,
+                        .Category = q.CategoryId,
+                        .ImagePath = q.ImagePath,
+                        .Answers = ConvertAnswersToAnswersDto(q.Answers)
+                    }).ToList()
+        }
     End Function
 
     Public Sub UpdateStatusForExamByUser(examId As Integer, userId As String, isCompleted As Boolean)
@@ -62,10 +62,10 @@ Public Class ExamRepository
         Return otisContext.UserExams.FirstOrDefault(Function(u) u.UserId = userId And u.ExamId = examId).Exam
     End Function
 
-    Private Function ConvertAnswersToAnswersDto(answers As ICollection(Of Answer)) As IEnumerable(Of AnswerDto)
+    Private Function ConvertAnswersToAnswersDto(answers As ICollection(Of QuestionAnswers)) As IEnumerable(Of AnswerDto)
         Dim answerList = New List(Of AnswerDto)
 
-        For Each answer As Answer In answers
+        For Each answer As QuestionAnswers In answers
             answerList.Add(New AnswerDto() With
             {
                 .QuestionId = answer.QuestionId,

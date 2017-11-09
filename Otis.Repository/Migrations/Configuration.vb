@@ -32,87 +32,104 @@ Namespace Migrations
                 New Entitlement() With
                 {
                     .EntitlementId = 1,
-                    .Name = "Crear Usuarios"
+                    .Name = "Crear Usuarios",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 2,
-                    .Name = "Editar Usuarios"
+                    .Name = "Editar Usuarios",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 3,
-                    .Name = "Eliminar Usuarios"
+                    .Name = "Eliminar Usuarios",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 4,
-                    .Name = "Crear Perfiles"
+                    .Name = "Crear Perfiles",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 5,
-                    .Name = "Editar Perfiles"
+                    .Name = "Editar Perfiles",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 6,
-                    .Name = "Eliminar Perfiles"
+                    .Name = "Eliminar Perfiles",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 7,
-                    .Name = "Crear Roles"
+                    .Name = "Crear Roles",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 8,
-                    .Name = "Editar Roles"
+                    .Name = "Editar Roles",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 9,
-                    .Name = "Eliminar Roles"
+                    .Name = "Eliminar Roles",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 10,
-                    .Name = "Crear Tests"
+                    .Name = "Crear Tests",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 11,
-                    .Name = "Editar Tests"
+                    .Name = "Editar Tests",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 12,
-                    .Name = "Eliminar Tests"
+                    .Name = "Eliminar Tests",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 13,
-                    .Name = "Crear Preguntas"
+                    .Name = "Crear Preguntas",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 14,
-                    .Name = "Editar Preguntas"
+                    .Name = "Editar Preguntas",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 15,
-                    .Name = "Eliminar Preguntas"
+                    .Name = "Eliminar Preguntas",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 16,
-                    .Name = "Ejecutar Test"
+                    .Name = "Ejecutar Test",
+                    .IsActive = True
                 },
                 New Entitlement() With
                 {
                     .EntitlementId = 17,
-                    .Name = "Revisar Test"
+                    .Name = "Revisar Test",
+                    .IsActive = True
                 }
             )
             context.SaveChanges()
@@ -122,17 +139,20 @@ Namespace Migrations
                 New Profile() With
                 {
                     .ProfileId = 1,
-                    .Name = "Administrador"
+                    .Name = "Administrador",
+                    .IsActive = True
                 },
                 New Profile() With
                 {
                     .ProfileId = 2,
-                    .Name = "Estudiante"
+                    .Name = "Estudiante",
+                    .IsActive = True
                 },
                 New Profile() With
                 {
                     .ProfileId = 3,
-                    .Name = "Especialista"
+                    .Name = "Especialista",
+                    .IsActive = True
                 }
             )
             context.SaveChanges()
@@ -165,7 +185,8 @@ Namespace Migrations
                     .Name = "Manuel",
                     .LastName = "Roman",
                     .SecondLastName = "Soto",
-                    .CareerId = 1
+                    .CareerId = 1,
+                    .IsActive = True
                 },
                 New User() With
                 {
@@ -177,7 +198,8 @@ Namespace Migrations
                     .Name = "Test",
                     .LastName = "Test",
                     .SecondLastName = "Test",
-                    .CareerId = 2
+                    .CareerId = 2,
+                    .IsActive = True
                 },
                 New User() With
                 {
@@ -189,7 +211,8 @@ Namespace Migrations
                     .Name = "Admin",
                     .LastName = "Admin",
                     .SecondLastName = "Admin",
-                    .CareerId = Nothing
+                    .CareerId = Nothing,
+                    .IsActive = True
                 },
                 New User() With
                 {
@@ -201,7 +224,8 @@ Namespace Migrations
                     .Name = "Juan",
                     .LastName = "Vasquez",
                     .SecondLastName = "Jimenez",
-                    .CareerId = Nothing
+                    .CareerId = Nothing,
+                    .IsActive = True
                 }
             )
             context.SaveChanges()
@@ -211,27 +235,32 @@ Namespace Migrations
                 New Career() With
                 {
                     .CareerId = 1,
-                    .CareerName = "Ingenieria de Sistemas"
+                    .CareerName = "Ingenieria de Sistemas",
+                    .IsActive = True
                 },
                 New Career() With
                 {
                     .CareerId = 2,
-                    .CareerName = "Electronica"
+                    .CareerName = "Electronica",
+                    .IsActive = True
                 },
                 New Career() With
                 {
                     .CareerId = 3,
-                    .CareerName = "Electromecanica"
+                    .CareerName = "Electromecanica",
+                    .IsActive = True
                 },
                 New Career() With
                 {
                     .CareerId = 4,
-                    .CareerName = "Dibujo Arquitectonico"
+                    .CareerName = "Dibujo Arquitectonico",
+                    .IsActive = True
                 },
                 New Career() With
                 {
                     .CareerId = 5,
-                    .CareerName = "Medicina"
+                    .CareerName = "Medicina",
+                    .IsActive = True
                 }
             )
             context.SaveChanges()
@@ -241,100 +270,102 @@ Namespace Migrations
                 New Category() With
                 {
                     .CategoryId = 1,
-                    .CategoryName = "Matematicas"
+                    .CategoryName = "Matematicas",
+                    .IsActive = True
                 },
                 New Category() With
                 {
                     .CategoryId = 2,
-                    .CategoryName = "Razonamiento Verbal"
+                    .CategoryName = "Razonamiento Verbal",
+                    .IsActive = True
                 }
             )
             context.SaveChanges()
         End Sub
 
         Private Sub AddQuestionsToDatabase(context As OtisContext)
-            Dim questionId3Answers = New List(Of Answer) From
+            Dim questionId3Answers = New List(Of QuestionAnswers) From
             {
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 3,
                     .AnswerText = "Enemigo"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 3,
                     .AnswerText = "Temor"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 3,
                     .AnswerText = "Amor"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 3,
                     .AnswerText = "Amigo"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 3,
                     .AnswerText = "Alegria"
                 }
             }
 
-            Dim questionId4Answers = New List(Of Answer) From
+            Dim questionId4Answers = New List(Of QuestionAnswers) From
             {
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "3"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "4"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "5"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "6"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "7"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "8"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "9"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "10"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "11"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "12"
                 },
-                New Answer() With
+                New QuestionAnswers() With
                 {
                     .QuestionId = 4,
                     .AnswerText = "13"
@@ -346,20 +377,23 @@ Namespace Migrations
                 {
                     .QuestionId = 1,
                     .QuestionText = "Si tres lapices cuestan cinco pesos. Cuantos lapices podre comprar con cincuenta pesos?",
-                    .CategoryId = 1
+                    .CategoryId = 1,
+                    .IsActive = True
                 },
                 New Question() With
                 {
                     .QuestionId = 2,
                     .QuestionText = "Si dos metros y medio de tela cuestan 30 pesos. Cuanto cuestan 10 metros?",
-                    .CategoryId = 1
+                    .CategoryId = 1,
+                    .IsActive = True
                 },
                 New Question() With
                 {
                     .QuestionId = 3,
                     .QuestionText = "Lo opuesto al odio es:",
                     .CategoryId = 2,
-                    .Answers = questionId3Answers
+                    .Answers = questionId3Answers,
+                    .IsActive = True
                 },
                 New Question() With
                 {
@@ -367,7 +401,8 @@ Namespace Migrations
                     .QuestionText = "Que numero esta en el espacio que pertenece al rectangulo y al triangulo, pero no en el circulo?",
                     .CategoryId = 1,
                     .ImagePath = "C:\Users\MRoman\Documents\Projects\Otis\Otis\Images\PreguntaID4.png",
-                    .Answers = questionId4Answers
+                    .Answers = questionId4Answers,
+                    .IsActive = True
                 }
             )
             context.SaveChanges()

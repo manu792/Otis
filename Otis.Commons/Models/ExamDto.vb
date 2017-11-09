@@ -6,4 +6,5 @@ Public Class ExamDto
     Property Description As String
     Property Time As Integer
     Property QuestionsQuantity As Integer
+    Property Questions As ICollection(Of QuestionDto)
 End Class

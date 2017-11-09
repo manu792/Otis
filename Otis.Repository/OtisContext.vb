@@ -11,7 +11,7 @@ Public Class OtisContext
     Property Profiles As DbSet(Of Profile)
     Property Entitlements As DbSet(Of Entitlement)
     Property Questions As DbSet(Of Question)
-    Property Answers As DbSet(Of Answer)
+    Property Answers As DbSet(Of QuestionAnswers)
     Property Categories As DbSet(Of Category)
     Property Careers As DbSet(Of Career)
     Property Sessions As DbSet(Of Session)

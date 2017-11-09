@@ -18,6 +18,8 @@ Public Class User
     Property CareerId As Nullable(Of Integer)
     <Required>
     Property IsTemporaryPassword As Boolean
+    <Required>
+    Property IsActive As Boolean
 
 
     ' Navigation Properties

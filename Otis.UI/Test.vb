@@ -21,9 +21,10 @@ Public Class Test
 
     Public Sub New(userDto As UserDto)
         Me.New()
-        questions = New Queue(Of QuestionDto)(examService.GetQuestionsForExam(user.Exam.ExamId, user.Exam.QuestionsQuantity))
-        session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = user.Id}
         user = userDto
+        session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = user.Id}
+        user.Exam = examService.GetQuestionsForExam(user.Exam.ExamId, user.Exam.QuestionsQuantity, user.Exam.Time)
+        questions = New Queue(Of QuestionDto)(user.Exam.Questions)
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetQuestion()
@@ -31,7 +32,7 @@ Public Class Test
     End Sub
 
     Private Sub StartTimer()
-        stopTime = DateTime.Now.AddMinutes(12)
+        stopTime = DateTime.Now.AddMinutes(user.Exam.Time)
         Timer.Enabled = True
         Timer.Start()
     End Sub
