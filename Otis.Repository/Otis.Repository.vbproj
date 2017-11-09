@@ -162,6 +162,10 @@
       <DependentUpon>201711091728520_ChangedProperty.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711091728520_ChangedProperty.vb" />
+    <Compile Include="Migrations\201711091812552_MadeCareerNullable.Designer.vb">
+      <DependentUpon>201711091812552_MadeCareerNullable.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711091812552_MadeCareerNullable.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\Answer.vb" />
     <Compile Include="Models\Career.vb" />
@@ -261,6 +265,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711091728520_ChangedProperty.resx">
       <DependentUpon>201711091728520_ChangedProperty.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711091812552_MadeCareerNullable.resx">
+      <DependentUpon>201711091812552_MadeCareerNullable.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

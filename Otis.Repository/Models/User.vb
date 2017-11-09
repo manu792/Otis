@@ -15,8 +15,7 @@ Public Class User
     Property Password As String
     <Required>
     Property ProfileId As Integer
-    <Required>
-    Property CareerId As Integer
+    Property CareerId As Nullable(Of Integer)
     <Required>
     Property IsTemporaryPassword As Boolean
 

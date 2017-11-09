@@ -165,7 +165,7 @@ Namespace Migrations
                     .Name = "Manuel",
                     .LastName = "Roman",
                     .SecondLastName = "Soto",
-                    .CareerId = 2
+                    .CareerId = 1
                 },
                 New User() With
                 {
@@ -177,7 +177,7 @@ Namespace Migrations
                     .Name = "Test",
                     .LastName = "Test",
                     .SecondLastName = "Test",
-                    .CareerId = 3
+                    .CareerId = 2
                 },
                 New User() With
                 {
@@ -189,7 +189,7 @@ Namespace Migrations
                     .Name = "Admin",
                     .LastName = "Admin",
                     .SecondLastName = "Admin",
-                    .CareerId = 1
+                    .CareerId = Nothing
                 },
                 New User() With
                 {
@@ -201,7 +201,7 @@ Namespace Migrations
                     .Name = "Juan",
                     .LastName = "Vasquez",
                     .SecondLastName = "Jimenez",
-                    .CareerId = 1
+                    .CareerId = Nothing
                 }
             )
             context.SaveChanges()
@@ -211,26 +211,21 @@ Namespace Migrations
                 New Career() With
                 {
                     .CareerId = 1,
-                    .CareerName = "Usuario Admin/Especialista"
-                },
-                New Career() With
-                {
-                    .CareerId = 2,
                     .CareerName = "Ingenieria de Sistemas"
                 },
                 New Career() With
                 {
-                    .CareerId = 3,
+                    .CareerId = 2,
                     .CareerName = "Electronica"
                 },
                 New Career() With
                 {
-                    .CareerId = 4,
+                    .CareerId = 3,
                     .CareerName = "Electromecanica"
                 },
                 New Career() With
                 {
-                    .CareerId = 5,
+                    .CareerId = 4,
                     .CareerName = "Dibujo Arquitectonico"
                 },
                 New Career() With
