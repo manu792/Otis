@@ -11,7 +11,9 @@ Public Class Admin
     Private careerService As CareerService
     Private userService As UserService
     Private categories As IEnumerable(Of CategoryDto)
-    Private user As UserDto
+    Private loggedUser As UserDto
+    Private users As IEnumerable(Of UserDto)
+    Private bindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -19,29 +21,60 @@ Public Class Admin
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        user = userDto
+        loggedUser = userDto
         questionService = New QuestionService()
         categoryService = New CategoryService()
         profileService = New ProfileService()
         careerService = New CareerService()
         userService = New UserService()
+        bindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        LoadCategories(categoryService.GetCategories())
-        LoadProfiles(profileService.GetProfiles())
-        LoadCareers(careerService.GetCareers())
+        UpdateCategories()
+        UpdateProfiles()
+        UpdateCareers()
+        UpdateUsers()
     End Sub
+
+    Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UserDto))
+        users = retrievedUsers
+        bindingSource.DataSource = ConvertUsersToDataTable(users)
+        UsuariosGrid.DataSource = bindingSource
+    End Sub
+
+    Private Function ConvertUsersToDataTable(users As IEnumerable(Of UserDto)) As DataTable
+        Dim table = New DataTable()
+        If users.Any() Then
+            table.Columns.Add("Cedula")
+            table.Columns.Add("Nombre")
+            table.Columns.Add("Primer Apellido")
+            table.Columns.Add("Segundo Apellido")
+            table.Columns.Add("Correo Electronico")
+            table.Columns.Add("Perfil")
+            table.Columns.Add("Carrera")
+            table.Columns.Add("Tiene Contraseña Temporal")
+            table.Columns.Add("Esta Activo")
+
+            For Each user As UserDto In users
+                table.Rows.Add(user.Id, user.Name, user.LastName, user.SecondLastName, user.EmailAddress, user.Profile.Name, user.Career.CareerName, user.IsTemporaryPassword, user.IsActive.ToString())
+            Next
+        End If
+
+        Return table
+    End Function
 
     Private Sub LoadProfiles(profiles As IEnumerable(Of ProfileDto))
         For Each item As ProfileDto In profiles
             ProfilesComboBox.Items.Add(item)
+            EditarUsuarioPerfilCombo.Items.Add(item)
         Next
     End Sub
 
     Private Sub LoadCareers(careers As IEnumerable(Of CareerDto))
         For Each item As CareerDto In careers
             CareersComboBox.Items.Add(item)
+            EditarUsuarioCarreraCombo.Items.Add(item)
         Next
     End Sub
 
@@ -102,7 +135,7 @@ Public Class Admin
     End Sub
 
     Private Sub BtnGuardarUsuario_Click(sender As Object, e As EventArgs) Handles BtnGuardarUsuario.Click
-        If TxtCedula.Text IsNot Nothing And TxtNombre.Text IsNot Nothing And TxtCorreo.Text IsNot Nothing And ProfilesComboBox.SelectedIndex <> -1 And CareersComboBox.SelectedIndex <> -1 And TxtContrasena.Text IsNot Nothing Then
+        If TxtCedula.Text IsNot Nothing And TxtNombre.Text IsNot Nothing And TxtCorreo.Text IsNot Nothing And ProfilesComboBox.SelectedIndex <> -1 And TxtContrasena.Text IsNot Nothing Then
             userService.AddUser(New UserDto() With
             {
                 .Id = TxtCedula.Text,
@@ -111,7 +144,7 @@ Public Class Admin
                 .SecondLastName = TxtSegundoApe.Text,
                 .EmailAddress = TxtCorreo.Text,
                 .Profile = CType(ProfilesComboBox.SelectedItem, ProfileDto),
-                .CareerId = CType(CareersComboBox.SelectedItem, CareerDto).CareerId,
+                .Career = If(CareersComboBox.Enabled, CType(CareersComboBox.SelectedItem, CareerDto), Nothing),
                 .Password = TxtContrasena.Text,
                 .IsTemporaryPassword = True
             })
@@ -120,7 +153,6 @@ Public Class Admin
 
     Private Sub ProfilesComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProfilesComboBox.SelectedIndexChanged
         If ProfilesComboBox.SelectedIndex = 0 Then
-            CareersComboBox.SelectedIndex = 0
             CareersComboBox.Enabled = False
         Else
             CareersComboBox.Enabled = True
@@ -134,5 +166,75 @@ Public Class Admin
             login.Show()
             Me.Close()
         End If
+    End Sub
+
+    Private Sub TxtBuscarUsuariosGrid_TextChanged(sender As Object, e As EventArgs) Handles TxtBuscarUsuariosGrid.TextChanged
+        bindingSource.Filter = String.Format("Cedula LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              [Primer Apellido] LIKE '%{0}%' Or 
+                                              [Segundo Apellido] LIKE '%{0}%' Or 
+                                              [Correo Electronico] LIKE '%{0}%' Or 
+                                              Perfil LIKE '%{0}%' Or 
+                                              Carrera LIKE '%{0}%' Or 
+                                              [Tiene Contraseña Temporal] LIKE '%{0}%' Or 
+                                              [Esta Activo] LIKE '%{0}%'", TxtBuscarUsuariosGrid.Text)
+    End Sub
+
+    Private Sub UsuariosGrid_SelectionChanged(sender As Object, e As EventArgs) Handles UsuariosGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Cedula").Value.ToString()
+            TxtEditarUsuarioCedula.Text = users.FirstOrDefault(Function(u) u.Id = id).Id
+            TxtEditarUsuarioNombre.Text = users.FirstOrDefault(Function(u) u.Id = id).Name
+            TxtEditarUsuarioApe1.Text = users.FirstOrDefault(Function(u) u.Id = id).LastName
+            TxtEditarUsuarioApe2.Text = users.FirstOrDefault(Function(u) u.Id = id).SecondLastName
+            TxtEditarUsuarioCorreo.Text = users.FirstOrDefault(Function(u) u.Id = id).EmailAddress
+            EditarUsuarioPerfilCombo.Text = users.FirstOrDefault(Function(u) u.Id = id).Profile.Name
+            EditarUsuarioCarreraCombo.Text = users.FirstOrDefault(Function(u) u.Id = id).Career.CareerName
+            EditarUsuarioCarreraCombo.Enabled = If(users.FirstOrDefault(Function(u) u.Id = id).Career.CareerName Is Nothing, False, True)
+            EditarUsuarioActivoCombo.Text = users.FirstOrDefault(Function(u) u.Id = id).IsActive.ToString()
+        End If
+    End Sub
+
+    Private Sub EditarUsuarioPerfilCombo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EditarUsuarioPerfilCombo.SelectedIndexChanged
+        If Not EditarUsuarioPerfilCombo.Text.Equals("Estudiante") Then
+            EditarUsuarioCarreraCombo.Enabled = False
+        Else
+            EditarUsuarioCarreraCombo.Enabled = True
+        End If
+    End Sub
+
+    Private Sub BtnActualizarUsuario_Click(sender As Object, e As EventArgs) Handles BtnActualizarUsuario.Click
+        Dim career = CType(EditarUsuarioCarreraCombo.SelectedItem, CareerDto)
+        userService.UpdateUser(New UserDto() With
+        {
+            .Id = TxtEditarUsuarioCedula.Text,
+            .Name = TxtEditarUsuarioNombre.Text,
+            .LastName = TxtEditarUsuarioApe1.Text,
+            .SecondLastName = TxtEditarUsuarioApe2.Text,
+            .EmailAddress = TxtEditarUsuarioCorreo.Text,
+            .Profile = CType(EditarUsuarioPerfilCombo.SelectedItem, ProfileDto),
+            .Career = If(career, Nothing),
+            .Password = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).Password,
+            .IsActive = CType(EditarUsuarioActivoCombo.Text, Boolean),
+            .IsTemporaryPassword = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).IsTemporaryPassword
+        })
+        UpdateUsers()
+    End Sub
+
+    Private Sub UpdateCategories()
+        LoadCategories(categoryService.GetCategories())
+    End Sub
+
+    Private Sub UpdateProfiles()
+        LoadProfiles(profileService.GetProfiles())
+    End Sub
+
+    Private Sub UpdateCareers()
+        LoadCareers(careerService.GetCareers())
+    End Sub
+
+    Private Sub UpdateUsers()
+        LoadUsers(userService.GetAllUsers())
     End Sub
 End Class

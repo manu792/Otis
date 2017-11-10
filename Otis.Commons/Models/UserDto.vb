@@ -7,6 +7,7 @@
     Property EmailAddress As String
     Property IsTemporaryPassword As Boolean
     Property Profile As ProfileDto
-    Property CareerId As Integer
-    Property Exam As ExamDto
+    ' Property CareerId As Nullable(Of Integer)
+    Property Career As CareerDto
+    Property IsActive As Boolean
 End Class

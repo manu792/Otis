@@ -9,12 +9,8 @@ Public Class CareerRepository
         otisContext = context
     End Sub
 
-    Public Function GetCareers() As IEnumerable(Of CareerDto)
-        Return otisContext.Careers.ToList().Select(Function(x) New CareerDto() With
-        {
-            .CareerId = x.CareerId,
-            .CareerName = x.CareerName
-        }).ToList()
+    Public Function GetCareers() As IEnumerable(Of Career)
+        Return otisContext.Careers.ToList()
     End Function
 
 End Class

@@ -1,5 +1,4 @@
-﻿Imports Otis.Commons
-Imports Otis.Repository
+﻿Imports Otis.Repository
 
 Public Class TestHistoryRepository
     Private otisContext As OtisContext
@@ -8,15 +7,8 @@ Public Class TestHistoryRepository
         otisContext = context
     End Sub
 
-    Public Sub AddTestEntry(testEntry As TestHistoryDto)
-        Dim testHistoryEntry = New TestHistory With
-        {
-            .QuestionId = testEntry.QuestionId,
-            .SessionId = testEntry.SessionId,
-            .UserAnswer = testEntry.UserAnswer,
-            .CorrectAnswer = testEntry.CorrectAnswer
-        }
-        otisContext.TestHistories.Add(testHistoryEntry)
+    Public Sub AddTestEntry(testEntry As TestHistory)
+        otisContext.TestHistories.Add(testEntry)
     End Sub
 
     Public Sub SaveChanges()

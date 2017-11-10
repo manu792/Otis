@@ -1,5 +1,6 @@
 ﻿Imports Otis.Commons
 Imports Otis.Data
+Imports Otis.Repository
 
 Public Class QuestionService
 
@@ -11,7 +12,17 @@ Public Class QuestionService
 
     Public Function SaveQuestion(questionDto As QuestionDto) As String
         Try
-            unitOfWork.QuestionRepository.SaveQuestion(questionDto)
+
+            unitOfWork.QuestionRepository.SaveQuestion(New Question() With
+            {
+                .QuestionText = questionDto.QuestionText,
+                .ImagePath = questionDto.ImagePath,
+                .CategoryId = questionDto.Category,
+                .Answers = questionDto.Answers.Select(Function(a) New QuestionAnswers() With
+                {
+                    .AnswerText = a.AnswerText
+                })
+            })
             unitOfWork.SaveChanges()
 
             Return "Pregunta guardada correctamente"

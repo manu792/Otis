@@ -9,6 +9,7 @@ Public Class Test
     Private session As SessionDto
     Private stopTime As DateTime
     Private user As UserDto
+    Private exam As ExamDto
 
     Private Sub New()
 
@@ -19,12 +20,13 @@ Public Class Test
         examService = New ExamService()
     End Sub
 
-    Public Sub New(userDto As UserDto)
+    Public Sub New(userDto As UserDto, examDto As ExamDto)
         Me.New()
         user = userDto
+        exam = examDto
         session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = user.Id}
-        user.Exam = examService.GetQuestionsForExam(user.Exam.ExamId, user.Exam.QuestionsQuantity, user.Exam.Time)
-        questions = New Queue(Of QuestionDto)(user.Exam.Questions)
+        exam.Questions = examService.GetQuestionsForExam(exam.ExamId, exam.QuestionsQuantity)
+        questions = New Queue(Of QuestionDto)(exam.Questions)
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetQuestion()
@@ -32,7 +34,7 @@ Public Class Test
     End Sub
 
     Private Sub StartTimer()
-        stopTime = DateTime.Now.AddMinutes(user.Exam.Time)
+        stopTime = DateTime.Now.AddMinutes(exam.Time)
         Timer.Enabled = True
         Timer.Start()
     End Sub
@@ -113,7 +115,7 @@ Public Class Test
 
     Private Sub SaveAndReturnToMain(isTimeOut As Boolean)
         MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
-        examService.SaveTest(session, user.Exam.ExamId, user.Id)
+        examService.SaveTest(session, exam.ExamId, user.Id)
         ReturnToMain()
     End Sub
 

@@ -1,5 +1,6 @@
 ﻿Imports Otis.Commons
 Imports Otis.Data
+Imports Otis.Repository
 Imports Otis.Security
 
 Public Class UserService
@@ -12,35 +13,77 @@ Public Class UserService
     End Sub
 
     Public Function AddUser(user As UserDto) As UserDto
-        Dim registeredUser = unitOfWork.UserRepository.Register(New UserDto With
+        Dim registeredUser = unitOfWork.UserRepository.Register(New User() With
+            {
+                .UserId = user.Id,
+                .Name = user.Name,
+                .LastName = user.LastName,
+                .SecondLastName = user.SecondLastName,
+                .Career = If(user.Career IsNot Nothing, New Career() With {.CareerId = user.Career.CareerId, .CareerName = user.Career.CareerName}, Nothing),
+                .Password = user.Password,
+                .EmailAddress = user.EmailAddress,
+                .ProfileId = user.Profile.ProfileId,
+                .IsTemporaryPassword = user.IsTemporaryPassword
+            })
+
+        Return user
+    End Function
+    Public Sub UpdateUser(user As UserDto)
+        unitOfWork.UserRepository.UpdateUser(New User() With
         {
-            .Id = user.Id,
+            .UserId = user.Id,
             .Name = user.Name,
             .LastName = user.LastName,
             .SecondLastName = user.SecondLastName,
-            .CareerId = user.CareerId,
-            .Password = encryptor.Encrypt(user.Password),
             .EmailAddress = user.EmailAddress,
-            .Profile = user.Profile,
+            .ProfileId = user.Profile.ProfileId,
+            .CareerId = user.Career?.CareerId,
+            .Password = user.Password,
+            .IsActive = user.IsActive,
             .IsTemporaryPassword = user.IsTemporaryPassword
         })
-
-        Return registeredUser
-    End Function
-    Public Sub UpdateUser()
-
     End Sub
     Public Sub RemoveUser()
 
     End Sub
-    Public Sub GetAllUsers()
-
-    End Sub
+    Public Function GetAllUsers() As IEnumerable(Of UserDto)
+        Return unitOfWork.UserRepository.GetAllUsers().ToList().
+                   Select(Function(u) New UserDto() With
+                   {
+                        .Id = u.UserId,
+                        .Name = u.Name,
+                        .LastName = u.LastName,
+                        .SecondLastName = u.SecondLastName,
+                        .EmailAddress = u.EmailAddress,
+                        .Career = If(u.Career IsNot Nothing, New CareerDto() With {.CareerId = u.Career.CareerId, .CareerName = u.Career.CareerName}, New CareerDto()),
+                        .Profile = New ProfileDto() With {.ProfileId = u.Profile.ProfileId, .Name = u.Profile.Name, .Description = u.Profile.Description},
+                        .IsTemporaryPassword = u.IsTemporaryPassword,
+                        .IsActive = u.IsActive,
+                        .Password = u.Password
+                   }).ToList()
+    End Function
     Public Function GetUserByUserName(userName As String) As UserDto
-        Return unitOfWork.UserRepository.GetUser(userName)
+        Dim user = unitOfWork.UserRepository.GetUser(userName)
+
+        If user Is Nothing Then
+            Return Nothing
+        End If
+
+        Return New UserDto() With
+        {
+            .Id = user.UserId,
+            .Password = user.Password,
+            .EmailAddress = user.EmailAddress,
+            .IsTemporaryPassword = user.IsTemporaryPassword,
+            .Name = user.Name,
+            .LastName = user.LastName,
+            .SecondLastName = user.SecondLastName,
+            .Profile = ConvertProfileToProfileDto(user.Profile),
+            .Career = If(user.Career IsNot Nothing, New CareerDto() With {.CareerId = user.Career.CareerId, .CareerName = user.Career.CareerName}, Nothing)
+        }
     End Function
     Public Function ValidateUser(user As UserDto) As UserDto
-        Dim retrievedUser As UserDto = unitOfWork.UserRepository.GetUser(user.Id)
+        Dim retrievedUser = unitOfWork.UserRepository.GetUser(user.Id)
         If Not retrievedUser Is Nothing Then
             If ArePasswordsEqual(encryptor.GetHashBytes(user.Password, retrievedUser.Password)) Then
                 user.IsTemporaryPassword = retrievedUser.IsTemporaryPassword
@@ -53,9 +96,9 @@ Public Class UserService
     Public Function ChangeUserPassword(user As UserDto) As String
         user.Password = EncryptPassword(user.Password)
 
-        Return unitOfWork.UserRepository.ChangePassword(New UserDto With
+        Return unitOfWork.UserRepository.ChangePassword(New User With
         {
-            .Id = user.Id,
+            .UserId = user.Id,
             .Password = user.Password,
             .IsTemporaryPassword = Not user.IsTemporaryPassword
         })
@@ -73,5 +116,29 @@ Public Class UserService
         Next
 
         Return True
+    End Function
+
+    Private Function ConvertProfileToProfileDto(profile As Profile) As ProfileDto
+        Return New ProfileDto() With
+        {
+            .ProfileId = profile.ProfileId,
+            .Description = profile.Description,
+            .Name = profile.Name,
+            .Entitlements = ConvertEntitlementsToEntitlementsDto(profile.Entitlements)
+        }
+    End Function
+
+    Private Function ConvertEntitlementsToEntitlementsDto(entitlements As ICollection(Of Entitlement)) As ICollection(Of EntitlementDto)
+        Dim entitlementList = New List(Of EntitlementDto)
+
+        For Each entitlement As Entitlement In entitlements
+            entitlementList.Add(New EntitlementDto() With
+            {
+                .EntitlementId = entitlement.EntitlementId,
+                .Name = entitlement.Name
+            })
+        Next
+
+        Return entitlementList
     End Function
 End Class

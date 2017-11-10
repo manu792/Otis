@@ -9,14 +9,7 @@ Public Class CategoryRepository
         otisContext = context
     End Sub
 
-    Public Function GetCategories() As IEnumerable(Of CategoryDto)
-        Dim categoriesDto = New List(Of CategoryDto)
-
-        Dim categories = otisContext.Categories.ToList()
-        For Each category As Category In categories
-            categoriesDto.Add(New CategoryDto() With {.CategoryId = category.CategoryId, .CategoryName = category.CategoryName})
-        Next
-
-        Return categoriesDto
+    Public Function GetCategories() As IEnumerable(Of Category)
+        Return otisContext.Categories.ToList()
     End Function
 End Class

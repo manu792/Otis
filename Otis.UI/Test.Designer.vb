@@ -34,7 +34,7 @@ Partial Class Test
         'tiempoLabel
         '
         Me.tiempoLabel.AutoSize = True
-        Me.tiempoLabel.Location = New System.Drawing.Point(12, 9)
+        Me.tiempoLabel.Location = New System.Drawing.Point(12, 385)
         Me.tiempoLabel.Name = "tiempoLabel"
         Me.tiempoLabel.Size = New System.Drawing.Size(45, 13)
         Me.tiempoLabel.TabIndex = 0

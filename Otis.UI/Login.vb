@@ -41,10 +41,6 @@ Public Class Login
 
     Private Sub NavigateToMain(user As UserDto)
         router.RedirectToFormByUserProfile(user.Id, Me)
-        'Dim main = New Main(user.Id)
-
-        'main.Show()
-        'Me.Close()
     End Sub
 
     Private Sub NavigateToChangePassword(user As UserDto)

@@ -10,6 +10,10 @@ Public Class CategoryService
     End Sub
 
     Public Function GetCategories() As IEnumerable(Of CategoryDto)
-        Return unitOfWork.CategoryRepository.GetCategories()
+        Return unitOfWork.CategoryRepository.GetCategories().Select(Function(c) New CategoryDto() With
+        {
+            .CategoryId = c.CategoryId,
+            .CategoryName = c.CategoryName
+        })
     End Function
 End Class

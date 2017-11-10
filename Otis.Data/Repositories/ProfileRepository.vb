@@ -1,5 +1,6 @@
 ﻿Imports Otis.Commons
 Imports Otis.Repository
+Imports System.Data.Entity
 
 Public Class ProfileRepository
 
@@ -9,28 +10,7 @@ Public Class ProfileRepository
         otisContext = context
     End Sub
 
-    Public Function GetProfiles() As IEnumerable(Of ProfileDto)
-        Return otisContext.Profiles.ToList().Select(Function(x) New ProfileDto With
-        {
-            .ProfileId = x.ProfileId,
-            .Description = x.Description,
-            .Name = x.Name,
-            .Entitlements = x.Entitlements.ToList().Select(Function(e) New EntitlementDto With
-            {
-                .EntitlementId = e.EntitlementId,
-                .Name = e.Name
-            }).ToList()
-        }).ToList()
-        'Return otisContext.Profiles.Select(Function(x) New ProfileDto With
-        '{
-        '    .ProfileId = x.ProfileId,
-        '    .Description = x.Description,
-        '    .Name = x.Name,
-        '    .Entitlements = x.Entitlements.Select(Function(e) New EntitlementDto With
-        '    {
-        '        .EntitlementId = e.EntitlementId,
-        '        .Name = e.Name
-        '    })
-        '}).ToList()
+    Public Function GetProfiles() As IEnumerable(Of Profile)
+        Return otisContext.Profiles.Include(Function(p) p.Entitlements).ToList()
     End Function
 End Class

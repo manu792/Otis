@@ -4,6 +4,7 @@ Imports Otis.Services
 Public Class Main
     Private user As UserDto
     Private examService As ExamService
+    Private pendingExamsList As IEnumerable(Of ExamDto)
 
     Public Sub New(loggedUser As UserDto)
 
@@ -19,11 +20,9 @@ Public Class Main
         If user.Profile.Entitlements.Any(Function(en) en.Name.Equals("Ejecutar Test")) Then
             If PendingExams.SelectedRows.Count > 0 Then
                 Dim examId = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("ExamId").Value)
-                Dim questionsQuantity = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("QuestionsQuantity").Value)
-                Dim time = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("Time").Value)
+                Dim exam = pendingExamsList.FirstOrDefault(Function(ex) ex.ExamId = examId)
 
-                user.Exam = New ExamDto() With {.ExamId = examId, .QuestionsQuantity = questionsQuantity, .Time = time}
-                Dim test = New Test(user)
+                Dim test = New Test(user, exam)
 
                 test.Show()
                 Me.Close()
@@ -34,7 +33,8 @@ Public Class Main
     End Sub
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        PendingExams.DataSource = examService.GetExamsForUser(user.Id)
+        pendingExamsList = examService.GetExamsForUser(user.Id)
+        PendingExams.DataSource = pendingExamsList
     End Sub
 
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click

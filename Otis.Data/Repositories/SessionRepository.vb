@@ -9,13 +9,7 @@ Public Class SessionRepository
         otisContext = context
     End Sub
 
-    Public Sub AddSession(sessionDto As SessionDto)
-        Dim session = New Session With
-        {
-            .SessionId = sessionDto.SessionId,
-            .UserId = sessionDto.UserId,
-            .SessionDate = DateTime.Now
-        }
+    Public Sub AddSession(session As Session)
         otisContext.Sessions.Add(session)
     End Sub
 

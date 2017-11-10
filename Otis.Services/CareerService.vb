@@ -10,7 +10,11 @@ Public Class CareerService
     End Sub
 
     Public Function GetCareers() As IEnumerable(Of CareerDto)
-        Return unitOfWork.CareerRepository.GetCareers()
+        Return unitOfWork.CareerRepository.GetCareers().Select(Function(x) New CareerDto() With
+        {
+            .CareerId = x.CareerId,
+            .CareerName = x.CareerName
+        }).ToList()
     End Function
 
 End Class

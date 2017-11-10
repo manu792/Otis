@@ -110,10 +110,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Otis.Commons\Otis.Commons.vbproj">
-      <Project>{453555E3-BBC1-4D3B-AAFA-1CA39FD78185}</Project>
-      <Name>Otis.Commons</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Otis.Repository\Otis.Repository.vbproj">
       <Project>{529c0057-d06f-47c7-ab5a-9d34b4d158b2}</Project>
       <Name>Otis.Repository</Name>
