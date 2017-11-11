@@ -92,7 +92,6 @@ Partial Class Admin
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.EditarPreguntaActivaCombo = New System.Windows.Forms.ComboBox()
         Me.BtnEditarPreguntaImagenBuscar = New System.Windows.Forms.Button()
-        Me.BtnEditarPreguntaActualizar = New System.Windows.Forms.Button()
         Me.Label23 = New System.Windows.Forms.Label()
         Me.EditarPreguntaCategoriaCombo = New System.Windows.Forms.ComboBox()
         Me.Label25 = New System.Windows.Forms.Label()
@@ -102,6 +101,7 @@ Partial Class Admin
         Me.Label27 = New System.Windows.Forms.Label()
         Me.TxtEditarPreguntaId = New System.Windows.Forms.TextBox()
         Me.Label28 = New System.Windows.Forms.Label()
+        Me.BtnEditarPreguntaActualizar = New System.Windows.Forms.Button()
         Me.TxtEditarPreguntaBuscar = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.PreguntasGrid = New System.Windows.Forms.DataGridView()
@@ -762,7 +762,10 @@ Partial Class Admin
         '
         Me.RespuestasGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.RespuestasGrid.Location = New System.Drawing.Point(6, 38)
+        Me.RespuestasGrid.MultiSelect = False
         Me.RespuestasGrid.Name = "RespuestasGrid"
+        Me.RespuestasGrid.ReadOnly = True
+        Me.RespuestasGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.RespuestasGrid.Size = New System.Drawing.Size(428, 171)
         Me.RespuestasGrid.TabIndex = 0
         '
@@ -803,15 +806,6 @@ Partial Class Admin
         Me.BtnEditarPreguntaImagenBuscar.TabIndex = 17
         Me.BtnEditarPreguntaImagenBuscar.Text = "Buscar"
         Me.BtnEditarPreguntaImagenBuscar.UseVisualStyleBackColor = True
-        '
-        'BtnEditarPreguntaActualizar
-        '
-        Me.BtnEditarPreguntaActualizar.Location = New System.Drawing.Point(408, 524)
-        Me.BtnEditarPreguntaActualizar.Name = "BtnEditarPreguntaActualizar"
-        Me.BtnEditarPreguntaActualizar.Size = New System.Drawing.Size(104, 36)
-        Me.BtnEditarPreguntaActualizar.TabIndex = 16
-        Me.BtnEditarPreguntaActualizar.Text = "Guardar Cambios"
-        Me.BtnEditarPreguntaActualizar.UseVisualStyleBackColor = True
         '
         'Label23
         '
@@ -890,6 +884,15 @@ Partial Class Admin
         Me.Label28.TabIndex = 0
         Me.Label28.Text = "Id"
         '
+        'BtnEditarPreguntaActualizar
+        '
+        Me.BtnEditarPreguntaActualizar.Location = New System.Drawing.Point(408, 524)
+        Me.BtnEditarPreguntaActualizar.Name = "BtnEditarPreguntaActualizar"
+        Me.BtnEditarPreguntaActualizar.Size = New System.Drawing.Size(104, 36)
+        Me.BtnEditarPreguntaActualizar.TabIndex = 16
+        Me.BtnEditarPreguntaActualizar.Text = "Guardar Cambios"
+        Me.BtnEditarPreguntaActualizar.UseVisualStyleBackColor = True
+        '
         'TxtEditarPreguntaBuscar
         '
         Me.TxtEditarPreguntaBuscar.Location = New System.Drawing.Point(112, 6)
@@ -936,6 +939,7 @@ Partial Class Admin
         Me.Controls.Add(Me.BtnCerrarSesion)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "Admin"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Administrador"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)

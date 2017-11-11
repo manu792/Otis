@@ -1,7 +1,7 @@
 ﻿Imports Otis.Commons
 Imports Otis.Services
 
-Public Class Main
+Public Class Student
     Private user As UserDto
     Private examService As ExamService
     Private pendingExamsList As IEnumerable(Of ExamDto)

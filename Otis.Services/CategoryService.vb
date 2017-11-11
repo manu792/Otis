@@ -13,7 +13,8 @@ Public Class CategoryService
         Return unitOfWork.CategoryRepository.GetCategories().Select(Function(c) New CategoryDto() With
         {
             .CategoryId = c.CategoryId,
-            .CategoryName = c.CategoryName
+            .CategoryName = c.CategoryName,
+            .IsActive = c.IsActive
         })
     End Function
 End Class

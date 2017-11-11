@@ -12,21 +12,26 @@ Public Class UserService
         encryptor = New Encryptor()
     End Sub
 
-    Public Function AddUser(user As UserDto) As UserDto
-        Dim registeredUser = unitOfWork.UserRepository.Register(New User() With
+    Public Function AddUser(user As UserDto) As String
+        Try
+            Dim registeredUser = unitOfWork.UserRepository.Register(New User() With
             {
                 .UserId = user.Id,
                 .Name = user.Name,
                 .LastName = user.LastName,
                 .SecondLastName = user.SecondLastName,
-                .Career = If(user.Career IsNot Nothing, New Career() With {.CareerId = user.Career.CareerId, .CareerName = user.Career.CareerName}, Nothing),
-                .Password = user.Password,
+                .CareerId = user.Career?.CareerId,
+                .Password = encryptor.Encrypt(user.Password),
                 .EmailAddress = user.EmailAddress,
                 .ProfileId = user.Profile.ProfileId,
-                .IsTemporaryPassword = user.IsTemporaryPassword
+                .IsTemporaryPassword = user.IsTemporaryPassword,
+                .IsActive = user.IsActive
             })
 
-        Return user
+            Return "Usuario creado correctamente."
+        Catch ex As Exception
+            Return "Hubo un problema al tratar de guardar el usuario. Favor contacte a soporte."
+        End Try
     End Function
     Public Sub UpdateUser(user As UserDto)
         unitOfWork.UserRepository.UpdateUser(New User() With

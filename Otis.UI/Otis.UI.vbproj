@@ -101,10 +101,10 @@
       <DependentUpon>Login.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main.Designer.vb">
-      <DependentUpon>Main.vb</DependentUpon>
+    <Compile Include="Student.Designer.vb">
+      <DependentUpon>Student.vb</DependentUpon>
     </Compile>
-    <Compile Include="Main.vb">
+    <Compile Include="Student.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Admin.Designer.vb">
@@ -127,6 +127,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="NewAnswerForm.Designer.vb">
+      <DependentUpon>NewAnswerForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NewAnswerForm.vb">
+      <SubType>Form</SubType>
     </Compile>
     <Compile Include="RecuperarPassword.Designer.vb">
       <DependentUpon>RecuperarPassword.vb</DependentUpon>
@@ -152,8 +158,8 @@
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main.resx">
-      <DependentUpon>Main.vb</DependentUpon>
+    <EmbeddedResource Include="Student.resx">
+      <DependentUpon>Student.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Admin.resx">
       <DependentUpon>Admin.vb</DependentUpon>
@@ -163,6 +169,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewAnswerForm.resx">
+      <DependentUpon>NewAnswerForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RecuperarPassword.resx">
       <DependentUpon>RecuperarPassword.vb</DependentUpon>

@@ -19,7 +19,7 @@ Public Class Router
             previousForm.Close()
         ElseIf user.Profile.ProfileId = 2 Then
             ' estudent
-            Dim main = New Main(user)
+            Dim main = New Student(user)
 
             main.Show()
             previousForm.Close()

@@ -26,6 +26,33 @@ Public Class QuestionService
         }).ToList()
     End Function
 
+    Public Function UpdateQuestion(questionId As Integer, question As QuestionDto) As String
+        Try
+            unitOfWork.QuestionRepository.UpdateQuestion(questionId, New Question() With
+            {
+                .QuestionId = question.QuestionId,
+                .QuestionText = question.QuestionText,
+                .ImagePath = question.ImagePath,
+                .CategoryId = question.Category.CategoryId,
+                .Category = New Category() With
+                {
+                    .CategoryId = question.Category.CategoryId,
+                    .CategoryName = question.Category.CategoryName,
+                    .IsActive = question.Category.IsActive
+                },
+                .IsActive = question.IsActive,
+                .Answers = question.Answers.Select(Function(a) New QuestionAnswers() With
+                {
+                    .QuestionId = a.QuestionId,
+                    .AnswerText = a.AnswerText
+                }).ToList()
+            })
+            Return "Cambios guardados correctamente."
+        Catch ex As Exception
+            Return "Hubo un problema al tratar de guardar los cambios. Favor contacte a soporte"
+        End Try
+    End Function
+
     Public Function SaveQuestion(questionDto As QuestionDto) As String
         Try
 
@@ -38,7 +65,7 @@ Public Class QuestionService
                 .Answers = questionDto.Answers.Select(Function(a) New QuestionAnswers() With
                 {
                     .AnswerText = a.AnswerText
-                })
+                }).ToList()
             })
             unitOfWork.SaveChanges()
 

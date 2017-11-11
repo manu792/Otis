@@ -61,6 +61,7 @@ Partial Class RecuperarPassword
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.txtEmailAddress)
         Me.Name = "RecuperarPassword"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Recuperar Contraseña"
         Me.ResumeLayout(False)
         Me.PerformLayout()

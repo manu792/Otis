@@ -16,6 +16,22 @@ Public Class QuestionRepository
     Public Sub SaveQuestion(questionDto As Question)
         otisContext.Questions.Add(questionDto)
     End Sub
+    Public Sub UpdateQuestion(questionId As Integer, question As Question)
+        Dim questionToUpdate = otisContext.Questions.Find(questionId)
+
+        'otisContext.Entry(questionToUpdate).CurrentValues.SetValues(question)
+        'otisContext.Entry(questionToUpdate.Answers).CurrentValues.SetValues(question.Answers)
+
+        questionToUpdate.QuestionId = question.QuestionId
+        questionToUpdate.QuestionText = question.QuestionText
+        questionToUpdate.ImagePath = question.ImagePath
+        questionToUpdate.IsActive = question.IsActive
+        questionToUpdate.CategoryId = question.CategoryId
+        questionToUpdate.Answers = question.Answers
+
+        otisContext.Entry(questionToUpdate).State = EntityState.Modified
+        otisContext.SaveChanges()
+    End Sub
 
     Public Sub SaveChanges()
         otisContext.SaveChanges()

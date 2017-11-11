@@ -120,7 +120,7 @@ Public Class Test
     End Sub
 
     Private Sub ReturnToMain()
-        Dim main = New Main(user)
+        Dim main = New Student(user)
 
         main.Show()
         Me.Close()

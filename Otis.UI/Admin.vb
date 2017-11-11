@@ -154,11 +154,12 @@ Public Class Admin
             .Answers = GetPossibleAnswers()
         }
         MessageBox.Show(questionService.SaveQuestion(questionDto))
+        UpdateQuestions()
     End Sub
 
     Private Sub BtnGuardarUsuario_Click(sender As Object, e As EventArgs) Handles BtnGuardarUsuario.Click
         If TxtCedula.Text IsNot Nothing And TxtNombre.Text IsNot Nothing And TxtCorreo.Text IsNot Nothing And ProfilesComboBox.SelectedIndex <> -1 And TxtContrasena.Text IsNot Nothing Then
-            userService.AddUser(New UserDto() With
+            MessageBox.Show(userService.AddUser(New UserDto() With
             {
                 .Id = TxtCedula.Text,
                 .Name = TxtNombre.Text,
@@ -168,8 +169,9 @@ Public Class Admin
                 .Profile = CType(ProfilesComboBox.SelectedItem, ProfileDto),
                 .Career = If(CareersComboBox.Enabled, CType(CareersComboBox.SelectedItem, CareerDto), Nothing),
                 .Password = TxtContrasena.Text,
-                .IsTemporaryPassword = True
-            })
+                .IsTemporaryPassword = True,
+                .IsActive = True
+            }))
             UpdateUsers()
         End If
     End Sub
@@ -288,8 +290,12 @@ Public Class Admin
             TxtEditarPreguntaImagen.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).ImagePath
             EditarPreguntaCategoriaCombo.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).Category.CategoryName
             EditarPreguntaActivaCombo.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).IsActive
-            RespuestasGrid.DataSource = If(questions.FirstOrDefault(Function(u) u.QuestionId = id).Answers.Count > 0, GetAnswersGrid(questions.FirstOrDefault(Function(u) u.QuestionId = id).Answers), Nothing)
+            UpdateRespuestasGrid(id)
         End If
+    End Sub
+
+    Private Sub UpdateRespuestasGrid(id As Integer)
+        RespuestasGrid.DataSource = If(questions.FirstOrDefault(Function(u) u.QuestionId = id).Answers.Count > 0, GetAnswersGrid(questions.FirstOrDefault(Function(u) u.QuestionId = id).Answers), Nothing)
     End Sub
 
     Private Function GetAnswersGrid(answers As ICollection(Of AnswerDto)) As DataTable
@@ -309,6 +315,50 @@ Public Class Admin
         If OpenFileDialog.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             Dim imagePath = OpenFileDialog.FileName
             TxtEditarPreguntaImagen.Text = imagePath
+        End If
+    End Sub
+
+    Private Sub BtnEditarPreguntaActualizar_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaActualizar.Click
+        Dim questionToModify = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text))
+        questionToModify.QuestionText = TxtEditarPreguntaTexto.Text
+        questionToModify.ImagePath = If(TxtEditarPreguntaImagen.Text.Equals(String.Empty), Nothing, TxtEditarPreguntaImagen.Text)
+        questionToModify.Category = CType(EditarPreguntaCategoriaCombo.SelectedItem, CategoryDto)
+        questionToModify.IsActive = Boolean.Parse(EditarPreguntaActivaCombo.Text)
+
+        MessageBox.Show(questionService.UpdateQuestion(questionToModify.QuestionId, questionToModify))
+        UpdateQuestions()
+    End Sub
+
+    Private Sub BtnEditarPreguntaEliminarRespuesta_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaEliminarRespuesta.Click
+        Dim answers = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text)).Answers
+
+        answers.Remove(answers.FirstOrDefault(Function(a) a.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text) And a.AnswerText.Equals(RespuestasGrid.SelectedRows(0).Cells("Pregunta Texto").Value.ToString())))
+        UpdateRespuestasGrid(Integer.Parse(TxtEditarPreguntaId.Text))
+    End Sub
+
+    Private Sub BtnEditarPreguntaAgregarRespuesta_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaAgregarRespuesta.Click
+        Dim answerForm = New NewAnswerForm(Integer.Parse(TxtEditarPreguntaId.Text), TxtEditarPreguntaTexto.Text)
+
+        If answerForm.ShowDialog(Me) = DialogResult.OK Then
+            Dim answers = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text)).Answers
+
+            answers.Add(New AnswerDto() With {.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text), .AnswerText = answerForm.TxtNewAnswer.Text})
+            UpdateRespuestasGrid(Integer.Parse(TxtEditarPreguntaId.Text))
+        End If
+    End Sub
+
+    Private Sub BtnEditarPreguntaEditarRespuesta_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaEditarRespuesta.Click
+        Dim answer = RespuestasGrid.SelectedRows(0).Cells("Pregunta Texto").Value.ToString()
+
+        Dim answerForm = New NewAnswerForm(Integer.Parse(TxtEditarPreguntaId.Text), TxtEditarPreguntaTexto.Text, answer)
+
+        If answerForm.ShowDialog(Me) = DialogResult.OK Then
+            Dim answers = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text)).Answers
+            Dim answerToUpdate = answers.FirstOrDefault(Function(a) a.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text) And a.AnswerText.Equals(answer))
+
+            answerToUpdate.AnswerText = answerForm.TxtNewAnswer.Text
+
+            UpdateRespuestasGrid(Integer.Parse(TxtEditarPreguntaId.Text))
         End If
     End Sub
 End Class

@@ -45,8 +45,8 @@ Public Class UserRepository
         Dim userToUpdate = otisContext.Users.FirstOrDefault(Function(u) u.UserId = user.UserId)
 
         If Not userToUpdate Is Nothing Then
-            user.Password = userToUpdate.Password
-            user.IsTemporaryPassword = userToUpdate.IsTemporaryPassword
+            userToUpdate.Password = user.Password
+            userToUpdate.IsTemporaryPassword = user.IsTemporaryPassword
 
             otisContext.Entry(userToUpdate).State = Entity.EntityState.Modified
             otisContext.SaveChanges()
