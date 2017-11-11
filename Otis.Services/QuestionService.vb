@@ -10,6 +10,22 @@ Public Class QuestionService
         unitOfWork = New UnitOfWork()
     End Sub
 
+    Public Function GetAllQuestions() As IEnumerable(Of QuestionDto)
+        Return unitOfWork.QuestionRepository.GetAllQuestions().Select(Function(q) New QuestionDto() With
+        {
+            .QuestionId = q.QuestionId,
+            .QuestionText = q.QuestionText,
+            .Category = New CategoryDto() With {.CategoryId = q.Category.CategoryId, .CategoryName = q.Category.CategoryName},
+            .ImagePath = q.ImagePath,
+            .IsActive = q.IsActive,
+            .Answers = q.Answers.Select(Function(a) New AnswerDto() With
+            {
+                .QuestionId = a.QuestionId,
+                .AnswerText = a.AnswerText
+            }).ToList()
+        }).ToList()
+    End Function
+
     Public Function SaveQuestion(questionDto As QuestionDto) As String
         Try
 
@@ -17,7 +33,8 @@ Public Class QuestionService
             {
                 .QuestionText = questionDto.QuestionText,
                 .ImagePath = questionDto.ImagePath,
-                .CategoryId = questionDto.Category,
+                .CategoryId = questionDto.Category.CategoryId,
+                .IsActive = questionDto.IsActive,
                 .Answers = questionDto.Answers.Select(Function(a) New QuestionAnswers() With
                 {
                     .AnswerText = a.AnswerText

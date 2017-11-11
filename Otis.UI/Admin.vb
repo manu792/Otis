@@ -4,7 +4,6 @@ Imports Otis.Services
 
 Public Class Admin
 
-    Private correctAnswer As String
     Private questionService As QuestionService
     Private categoryService As CategoryService
     Private profileService As ProfileService
@@ -13,7 +12,9 @@ Public Class Admin
     Private categories As IEnumerable(Of CategoryDto)
     Private loggedUser As UserDto
     Private users As IEnumerable(Of UserDto)
-    Private bindingSource As BindingSource
+    Private questions As IEnumerable(Of QuestionDto)
+    Private usersBindingSource As BindingSource
+    Private questionsBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -27,7 +28,8 @@ Public Class Admin
         profileService = New ProfileService()
         careerService = New CareerService()
         userService = New UserService()
-        bindingSource = New BindingSource()
+        usersBindingSource = New BindingSource()
+        questionsBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -35,12 +37,19 @@ Public Class Admin
         UpdateProfiles()
         UpdateCareers()
         UpdateUsers()
+        UpdateQuestions()
     End Sub
 
     Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UserDto))
         users = retrievedUsers
-        bindingSource.DataSource = ConvertUsersToDataTable(users)
-        UsuariosGrid.DataSource = bindingSource
+        usersBindingSource.DataSource = ConvertUsersToDataTable(users)
+        UsuariosGrid.DataSource = usersBindingSource
+    End Sub
+
+    Private Sub LoadQuestions(retrievedQuestions As IEnumerable(Of QuestionDto))
+        questions = retrievedQuestions
+        questionsBindingSource.DataSource = ConvertQuestionsToDataTable(questions)
+        PreguntasGrid.DataSource = questionsBindingSource
     End Sub
 
     Private Function ConvertUsersToDataTable(users As IEnumerable(Of UserDto)) As DataTable
@@ -64,6 +73,23 @@ Public Class Admin
         Return table
     End Function
 
+    Private Function ConvertQuestionsToDataTable(questions As IEnumerable(Of QuestionDto)) As DataTable
+        Dim table = New DataTable()
+        If questions.Any() Then
+            table.Columns.Add("Id")
+            table.Columns.Add("Pregunta")
+            table.Columns.Add("Imagen")
+            table.Columns.Add("Categoria")
+            table.Columns.Add("Esta Activa")
+
+            For Each question As QuestionDto In questions
+                table.Rows.Add(question.QuestionId, question.QuestionText, question.ImagePath, question.Category.CategoryName, question.IsActive)
+            Next
+        End If
+
+        Return table
+    End Function
+
     Private Sub LoadProfiles(profiles As IEnumerable(Of ProfileDto))
         For Each item As ProfileDto In profiles
             ProfilesComboBox.Items.Add(item)
@@ -81,6 +107,7 @@ Public Class Admin
     Private Sub LoadCategories(categories As IEnumerable(Of CategoryDto))
         For Each item As CategoryDto In categories
             categoriesComboBox.Items.Add(item)
+            EditarPreguntaCategoriaCombo.Items.Add(item)
         Next
     End Sub
 
@@ -115,20 +142,15 @@ Public Class Admin
         Next
     End Sub
 
-    Private Sub BtnMarcar_Click(sender As Object, e As EventArgs)
-        If possibleAnswersCheckBox.CheckedItems.Count = 1 Then
-            correctAnswer = possibleAnswersCheckBox.CheckedItems(0)
-        End If
-    End Sub
-
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         ' Saves new question with its respective possible answers to the DB
         Dim category = CType(categoriesComboBox.SelectedItem, CategoryDto)
         Dim questionDto As QuestionDto = New QuestionDto() With
         {
             .QuestionText = txtQuestionText.Text,
-            .Category = category.CategoryId,
+            .Category = New CategoryDto() With {.CategoryId = category.CategoryId, .CategoryName = category.CategoryName},
             .ImagePath = If(imagePathLabelText.Text = String.Empty, Nothing, imagePathLabelText.Text),
+            .IsActive = True,
             .Answers = GetPossibleAnswers()
         }
         MessageBox.Show(questionService.SaveQuestion(questionDto))
@@ -148,6 +170,7 @@ Public Class Admin
                 .Password = TxtContrasena.Text,
                 .IsTemporaryPassword = True
             })
+            UpdateUsers()
         End If
     End Sub
 
@@ -169,7 +192,7 @@ Public Class Admin
     End Sub
 
     Private Sub TxtBuscarUsuariosGrid_TextChanged(sender As Object, e As EventArgs) Handles TxtBuscarUsuariosGrid.TextChanged
-        bindingSource.Filter = String.Format("Cedula LIKE '%{0}%' Or 
+        usersBindingSource.Filter = String.Format("Cedula LIKE '%{0}%' Or 
                                               Nombre LIKE '%{0}%' Or 
                                               [Primer Apellido] LIKE '%{0}%' Or 
                                               [Segundo Apellido] LIKE '%{0}%' Or 
@@ -205,7 +228,13 @@ Public Class Admin
     End Sub
 
     Private Sub BtnActualizarUsuario_Click(sender As Object, e As EventArgs) Handles BtnActualizarUsuario.Click
-        Dim career = CType(EditarUsuarioCarreraCombo.SelectedItem, CareerDto)
+        Dim career As CareerDto = Nothing
+        Dim profile = CType(EditarUsuarioPerfilCombo.SelectedItem, ProfileDto)
+
+        If profile.ProfileId = 2 Then
+            career = CType(EditarUsuarioCarreraCombo.SelectedItem, CareerDto)
+        End If
+
         userService.UpdateUser(New UserDto() With
         {
             .Id = TxtEditarUsuarioCedula.Text,
@@ -213,8 +242,8 @@ Public Class Admin
             .LastName = TxtEditarUsuarioApe1.Text,
             .SecondLastName = TxtEditarUsuarioApe2.Text,
             .EmailAddress = TxtEditarUsuarioCorreo.Text,
-            .Profile = CType(EditarUsuarioPerfilCombo.SelectedItem, ProfileDto),
-            .Career = If(career, Nothing),
+            .Profile = profile,
+            .Career = career,
             .Password = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).Password,
             .IsActive = CType(EditarUsuarioActivoCombo.Text, Boolean),
             .IsTemporaryPassword = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).IsTemporaryPassword
@@ -236,5 +265,50 @@ Public Class Admin
 
     Private Sub UpdateUsers()
         LoadUsers(userService.GetAllUsers())
+    End Sub
+
+    Private Sub UpdateQuestions()
+        LoadQuestions(questionService.GetAllQuestions())
+    End Sub
+
+    Private Sub BtnEditarPreguntaBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtEditarPreguntaBuscar.TextChanged
+        questionsBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
+                                              Pregunta LIKE '%{0}%' Or 
+                                              Imagen LIKE '%{0}%' Or 
+                                              Categoria LIKE '%{0}%' Or 
+                                              [Esta Activa] LIKE '%{0}%'", TxtEditarPreguntaBuscar.Text)
+    End Sub
+
+    Private Sub PreguntasGrid_SelectionChanged(sender As Object, e As EventArgs) Handles PreguntasGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
+            TxtEditarPreguntaId.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).QuestionId
+            TxtEditarPreguntaTexto.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).QuestionText
+            TxtEditarPreguntaImagen.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).ImagePath
+            EditarPreguntaCategoriaCombo.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).Category.CategoryName
+            EditarPreguntaActivaCombo.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).IsActive
+            RespuestasGrid.DataSource = If(questions.FirstOrDefault(Function(u) u.QuestionId = id).Answers.Count > 0, GetAnswersGrid(questions.FirstOrDefault(Function(u) u.QuestionId = id).Answers), Nothing)
+        End If
+    End Sub
+
+    Private Function GetAnswersGrid(answers As ICollection(Of AnswerDto)) As DataTable
+        Dim table = New DataTable()
+
+        table.Columns.Add("Pregunta Id")
+        table.Columns.Add("Pregunta Texto")
+
+        For Each answer As AnswerDto In answers
+            table.Rows.Add(answer.QuestionId, answer.AnswerText)
+        Next
+
+        Return table
+    End Function
+
+    Private Sub BtnEditarPreguntaImagenBuscar_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaImagenBuscar.Click
+        If OpenFileDialog.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            Dim imagePath = OpenFileDialog.FileName
+            TxtEditarPreguntaImagen.Text = imagePath
+        End If
     End Sub
 End Class

@@ -26,7 +26,7 @@ Public Class ExamService
                     {
                         .QuestionId = q.QuestionId,
                         .QuestionText = q.QuestionText,
-                        .Category = q.CategoryId,
+                        .Category = New CategoryDto() With {.CategoryId = q.Category.CategoryId, .CategoryName = q.Category.CategoryName},
                         .ImagePath = q.ImagePath,
                         .Answers = q.Answers.Select(Function(a) New AnswerDto() With
                         {

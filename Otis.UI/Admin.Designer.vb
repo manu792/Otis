@@ -84,6 +84,27 @@ Partial Class Admin
         Me.txtQuestionText = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.BtnEditarPreguntaEliminarRespuesta = New System.Windows.Forms.Button()
+        Me.BtnEditarPreguntaEditarRespuesta = New System.Windows.Forms.Button()
+        Me.BtnEditarPreguntaAgregarRespuesta = New System.Windows.Forms.Button()
+        Me.RespuestasGrid = New System.Windows.Forms.DataGridView()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.EditarPreguntaActivaCombo = New System.Windows.Forms.ComboBox()
+        Me.BtnEditarPreguntaImagenBuscar = New System.Windows.Forms.Button()
+        Me.BtnEditarPreguntaActualizar = New System.Windows.Forms.Button()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.EditarPreguntaCategoriaCombo = New System.Windows.Forms.ComboBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.TxtEditarPreguntaImagen = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.TxtEditarPreguntaTexto = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.TxtEditarPreguntaId = New System.Windows.Forms.TextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.TxtEditarPreguntaBuscar = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.PreguntasGrid = New System.Windows.Forms.DataGridView()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -96,6 +117,11 @@ Partial Class Admin
         Me.TabControl2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
+        Me.TabPage4.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
+        CType(Me.RespuestasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -109,7 +135,7 @@ Partial Class Admin
         Me.TabControl1.Location = New System.Drawing.Point(12, 51)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(966, 675)
+        Me.TabControl1.Size = New System.Drawing.Size(962, 620)
         Me.TabControl1.TabIndex = 0
         '
         'TabPage1
@@ -118,7 +144,7 @@ Partial Class Admin
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
         Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(958, 649)
+        Me.TabPage1.Size = New System.Drawing.Size(954, 594)
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Usuarios"
         Me.TabPage1.UseVisualStyleBackColor = True
@@ -130,7 +156,7 @@ Partial Class Admin
         Me.TabControl3.Location = New System.Drawing.Point(6, 6)
         Me.TabControl3.Name = "TabControl3"
         Me.TabControl3.SelectedIndex = 0
-        Me.TabControl3.Size = New System.Drawing.Size(946, 676)
+        Me.TabControl3.Size = New System.Drawing.Size(946, 600)
         Me.TabControl3.TabIndex = 16
         '
         'TabPage5
@@ -155,14 +181,14 @@ Partial Class Admin
         Me.TabPage5.Location = New System.Drawing.Point(4, 22)
         Me.TabPage5.Name = "TabPage5"
         Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage5.Size = New System.Drawing.Size(938, 650)
+        Me.TabPage5.Size = New System.Drawing.Size(938, 574)
         Me.TabPage5.TabIndex = 0
         Me.TabPage5.Text = "Crear Usuario"
         Me.TabPage5.UseVisualStyleBackColor = True
         '
         'BtnGuardarUsuario
         '
-        Me.BtnGuardarUsuario.Location = New System.Drawing.Point(417, 501)
+        Me.BtnGuardarUsuario.Location = New System.Drawing.Point(399, 318)
         Me.BtnGuardarUsuario.Name = "BtnGuardarUsuario"
         Me.BtnGuardarUsuario.Size = New System.Drawing.Size(114, 41)
         Me.BtnGuardarUsuario.TabIndex = 32
@@ -171,7 +197,7 @@ Partial Class Admin
         '
         'TxtContrasena
         '
-        Me.TxtContrasena.Location = New System.Drawing.Point(426, 420)
+        Me.TxtContrasena.Location = New System.Drawing.Point(416, 243)
         Me.TxtContrasena.Name = "TxtContrasena"
         Me.TxtContrasena.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
         Me.TxtContrasena.Size = New System.Drawing.Size(203, 20)
@@ -180,7 +206,7 @@ Partial Class Admin
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(309, 423)
+        Me.Label10.Location = New System.Drawing.Point(299, 246)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(111, 13)
         Me.Label10.TabIndex = 30
@@ -189,7 +215,7 @@ Partial Class Admin
         'CareersComboBox
         '
         Me.CareersComboBox.FormattingEnabled = True
-        Me.CareersComboBox.Location = New System.Drawing.Point(427, 390)
+        Me.CareersComboBox.Location = New System.Drawing.Point(417, 213)
         Me.CareersComboBox.Name = "CareersComboBox"
         Me.CareersComboBox.Size = New System.Drawing.Size(203, 21)
         Me.CareersComboBox.TabIndex = 29
@@ -197,7 +223,7 @@ Partial Class Admin
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(310, 393)
+        Me.Label9.Location = New System.Drawing.Point(300, 216)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(44, 13)
         Me.Label9.TabIndex = 28
@@ -206,7 +232,7 @@ Partial Class Admin
         'ProfilesComboBox
         '
         Me.ProfilesComboBox.FormattingEnabled = True
-        Me.ProfilesComboBox.Location = New System.Drawing.Point(427, 360)
+        Me.ProfilesComboBox.Location = New System.Drawing.Point(417, 183)
         Me.ProfilesComboBox.Name = "ProfilesComboBox"
         Me.ProfilesComboBox.Size = New System.Drawing.Size(203, 21)
         Me.ProfilesComboBox.TabIndex = 27
@@ -214,7 +240,7 @@ Partial Class Admin
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(309, 363)
+        Me.Label8.Location = New System.Drawing.Point(299, 186)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(57, 13)
         Me.Label8.TabIndex = 26
@@ -222,7 +248,7 @@ Partial Class Admin
         '
         'TxtCorreo
         '
-        Me.TxtCorreo.Location = New System.Drawing.Point(427, 332)
+        Me.TxtCorreo.Location = New System.Drawing.Point(417, 155)
         Me.TxtCorreo.Name = "TxtCorreo"
         Me.TxtCorreo.Size = New System.Drawing.Size(203, 20)
         Me.TxtCorreo.TabIndex = 25
@@ -230,7 +256,7 @@ Partial Class Admin
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(310, 335)
+        Me.Label7.Location = New System.Drawing.Point(300, 158)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(97, 13)
         Me.Label7.TabIndex = 24
@@ -238,7 +264,7 @@ Partial Class Admin
         '
         'TxtSegundoApe
         '
-        Me.TxtSegundoApe.Location = New System.Drawing.Point(427, 302)
+        Me.TxtSegundoApe.Location = New System.Drawing.Point(417, 125)
         Me.TxtSegundoApe.Name = "TxtSegundoApe"
         Me.TxtSegundoApe.Size = New System.Drawing.Size(203, 20)
         Me.TxtSegundoApe.TabIndex = 23
@@ -246,7 +272,7 @@ Partial Class Admin
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(309, 305)
+        Me.Label6.Location = New System.Drawing.Point(299, 128)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(92, 13)
         Me.Label6.TabIndex = 22
@@ -254,7 +280,7 @@ Partial Class Admin
         '
         'TxtPrimerApe
         '
-        Me.TxtPrimerApe.Location = New System.Drawing.Point(427, 271)
+        Me.TxtPrimerApe.Location = New System.Drawing.Point(417, 94)
         Me.TxtPrimerApe.Name = "TxtPrimerApe"
         Me.TxtPrimerApe.Size = New System.Drawing.Size(203, 20)
         Me.TxtPrimerApe.TabIndex = 21
@@ -262,7 +288,7 @@ Partial Class Admin
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(310, 274)
+        Me.Label5.Location = New System.Drawing.Point(300, 97)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(78, 13)
         Me.Label5.TabIndex = 20
@@ -270,7 +296,7 @@ Partial Class Admin
         '
         'TxtNombre
         '
-        Me.TxtNombre.Location = New System.Drawing.Point(427, 241)
+        Me.TxtNombre.Location = New System.Drawing.Point(417, 64)
         Me.TxtNombre.Name = "TxtNombre"
         Me.TxtNombre.Size = New System.Drawing.Size(203, 20)
         Me.TxtNombre.TabIndex = 19
@@ -278,7 +304,7 @@ Partial Class Admin
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(310, 244)
+        Me.Label4.Location = New System.Drawing.Point(300, 67)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(47, 13)
         Me.Label4.TabIndex = 18
@@ -286,7 +312,7 @@ Partial Class Admin
         '
         'TxtCedula
         '
-        Me.TxtCedula.Location = New System.Drawing.Point(427, 211)
+        Me.TxtCedula.Location = New System.Drawing.Point(417, 34)
         Me.TxtCedula.Name = "TxtCedula"
         Me.TxtCedula.Size = New System.Drawing.Size(203, 20)
         Me.TxtCedula.TabIndex = 17
@@ -294,7 +320,7 @@ Partial Class Admin
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(310, 214)
+        Me.Label3.Location = New System.Drawing.Point(300, 37)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(43, 13)
         Me.Label3.TabIndex = 16
@@ -309,7 +335,7 @@ Partial Class Admin
         Me.TabPage6.Location = New System.Drawing.Point(4, 22)
         Me.TabPage6.Name = "TabPage6"
         Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(938, 650)
+        Me.TabPage6.Size = New System.Drawing.Size(938, 574)
         Me.TabPage6.TabIndex = 1
         Me.TabPage6.Text = "Editar Usuario"
         Me.TabPage6.UseVisualStyleBackColor = True
@@ -333,9 +359,9 @@ Partial Class Admin
         Me.GroupBox2.Controls.Add(Me.Label14)
         Me.GroupBox2.Controls.Add(Me.TxtEditarUsuarioCedula)
         Me.GroupBox2.Controls.Add(Me.Label12)
-        Me.GroupBox2.Location = New System.Drawing.Point(177, 286)
+        Me.GroupBox2.Location = New System.Drawing.Point(175, 267)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(583, 329)
+        Me.GroupBox2.Size = New System.Drawing.Size(583, 302)
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Datos Usuario"
@@ -360,7 +386,7 @@ Partial Class Admin
         '
         'BtnActualizarUsuario
         '
-        Me.BtnActualizarUsuario.Location = New System.Drawing.Point(263, 300)
+        Me.BtnActualizarUsuario.Location = New System.Drawing.Point(265, 271)
         Me.BtnActualizarUsuario.Name = "BtnActualizarUsuario"
         Me.BtnActualizarUsuario.Size = New System.Drawing.Size(75, 23)
         Me.BtnActualizarUsuario.TabIndex = 16
@@ -484,7 +510,7 @@ Partial Class Admin
         '
         'TxtBuscarUsuariosGrid
         '
-        Me.TxtBuscarUsuariosGrid.Location = New System.Drawing.Point(107, 23)
+        Me.TxtBuscarUsuariosGrid.Location = New System.Drawing.Point(105, 4)
         Me.TxtBuscarUsuariosGrid.Name = "TxtBuscarUsuariosGrid"
         Me.TxtBuscarUsuariosGrid.Size = New System.Drawing.Size(304, 20)
         Me.TxtBuscarUsuariosGrid.TabIndex = 3
@@ -492,7 +518,7 @@ Partial Class Admin
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(58, 26)
+        Me.Label13.Location = New System.Drawing.Point(56, 7)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(43, 13)
         Me.Label13.TabIndex = 2
@@ -503,7 +529,7 @@ Partial Class Admin
         Me.UsuariosGrid.AllowUserToAddRows = False
         Me.UsuariosGrid.AllowUserToDeleteRows = False
         Me.UsuariosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.UsuariosGrid.Location = New System.Drawing.Point(61, 52)
+        Me.UsuariosGrid.Location = New System.Drawing.Point(59, 33)
         Me.UsuariosGrid.MultiSelect = False
         Me.UsuariosGrid.Name = "UsuariosGrid"
         Me.UsuariosGrid.ReadOnly = True
@@ -517,7 +543,7 @@ Partial Class Admin
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(958, 649)
+        Me.TabPage2.Size = New System.Drawing.Size(954, 594)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Preguntas"
         Me.TabPage2.UseVisualStyleBackColor = True
@@ -555,7 +581,7 @@ Partial Class Admin
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(248, 186)
+        Me.Label11.Location = New System.Drawing.Point(254, 130)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(55, 13)
         Me.Label11.TabIndex = 10
@@ -564,7 +590,7 @@ Partial Class Admin
         'imagePathLabelText
         '
         Me.imagePathLabelText.AutoSize = True
-        Me.imagePathLabelText.Location = New System.Drawing.Point(347, 271)
+        Me.imagePathLabelText.Location = New System.Drawing.Point(353, 215)
         Me.imagePathLabelText.Name = "imagePathLabelText"
         Me.imagePathLabelText.Size = New System.Drawing.Size(0, 13)
         Me.imagePathLabelText.TabIndex = 9
@@ -572,14 +598,14 @@ Partial Class Admin
         'categoriesComboBox
         '
         Me.categoriesComboBox.FormattingEnabled = True
-        Me.categoriesComboBox.Location = New System.Drawing.Point(309, 183)
+        Me.categoriesComboBox.Location = New System.Drawing.Point(315, 127)
         Me.categoriesComboBox.Name = "categoriesComboBox"
         Me.categoriesComboBox.Size = New System.Drawing.Size(265, 21)
         Me.categoriesComboBox.TabIndex = 8
         '
         'BtnGuardar
         '
-        Me.BtnGuardar.Location = New System.Drawing.Point(438, 615)
+        Me.BtnGuardar.Location = New System.Drawing.Point(445, 540)
         Me.BtnGuardar.Name = "BtnGuardar"
         Me.BtnGuardar.Size = New System.Drawing.Size(75, 23)
         Me.BtnGuardar.TabIndex = 7
@@ -592,7 +618,7 @@ Partial Class Admin
         Me.GroupBox1.Controls.Add(Me.possibleAnswersCheckBox)
         Me.GroupBox1.Controls.Add(Me.txtPossibleAnswer)
         Me.GroupBox1.Controls.Add(Me.BtnAgregar)
-        Me.GroupBox1.Location = New System.Drawing.Point(219, 311)
+        Me.GroupBox1.Location = New System.Drawing.Point(226, 241)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(462, 298)
         Me.GroupBox1.TabIndex = 6
@@ -635,7 +661,7 @@ Partial Class Admin
         'imagePathLabel
         '
         Me.imagePathLabel.AutoSize = True
-        Me.imagePathLabel.Location = New System.Drawing.Point(248, 271)
+        Me.imagePathLabel.Location = New System.Drawing.Point(254, 215)
         Me.imagePathLabel.Name = "imagePathLabel"
         Me.imagePathLabel.Size = New System.Drawing.Size(93, 13)
         Me.imagePathLabel.TabIndex = 4
@@ -643,7 +669,7 @@ Partial Class Admin
         '
         'BtnBuscar
         '
-        Me.BtnBuscar.Location = New System.Drawing.Point(309, 236)
+        Me.BtnBuscar.Location = New System.Drawing.Point(315, 180)
         Me.BtnBuscar.Name = "BtnBuscar"
         Me.BtnBuscar.Size = New System.Drawing.Size(75, 23)
         Me.BtnBuscar.TabIndex = 3
@@ -653,7 +679,7 @@ Partial Class Admin
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(248, 241)
+        Me.Label2.Location = New System.Drawing.Point(254, 185)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(45, 13)
         Me.Label2.TabIndex = 2
@@ -661,7 +687,7 @@ Partial Class Admin
         '
         'txtQuestionText
         '
-        Me.txtQuestionText.Location = New System.Drawing.Point(251, 49)
+        Me.txtQuestionText.Location = New System.Drawing.Point(258, 22)
         Me.txtQuestionText.Multiline = True
         Me.txtQuestionText.Name = "txtQuestionText"
         Me.txtQuestionText.Size = New System.Drawing.Size(389, 99)
@@ -670,7 +696,7 @@ Partial Class Admin
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(248, 33)
+        Me.Label1.Location = New System.Drawing.Point(255, 6)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(79, 13)
         Me.Label1.TabIndex = 0
@@ -678,6 +704,12 @@ Partial Class Admin
         '
         'TabPage4
         '
+        Me.TabPage4.Controls.Add(Me.GroupBox4)
+        Me.TabPage4.Controls.Add(Me.GroupBox3)
+        Me.TabPage4.Controls.Add(Me.BtnEditarPreguntaActualizar)
+        Me.TabPage4.Controls.Add(Me.TxtEditarPreguntaBuscar)
+        Me.TabPage4.Controls.Add(Me.Label29)
+        Me.TabPage4.Controls.Add(Me.PreguntasGrid)
         Me.TabPage4.Location = New System.Drawing.Point(4, 22)
         Me.TabPage4.Name = "TabPage4"
         Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
@@ -685,6 +717,207 @@ Partial Class Admin
         Me.TabPage4.TabIndex = 1
         Me.TabPage4.Text = "Editar Pregunta"
         Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.BtnEditarPreguntaEliminarRespuesta)
+        Me.GroupBox4.Controls.Add(Me.BtnEditarPreguntaEditarRespuesta)
+        Me.GroupBox4.Controls.Add(Me.BtnEditarPreguntaAgregarRespuesta)
+        Me.GroupBox4.Controls.Add(Me.RespuestasGrid)
+        Me.GroupBox4.Location = New System.Drawing.Point(422, 261)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(440, 246)
+        Me.GroupBox4.TabIndex = 9
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Respuestas"
+        '
+        'BtnEditarPreguntaEliminarRespuesta
+        '
+        Me.BtnEditarPreguntaEliminarRespuesta.Location = New System.Drawing.Point(281, 215)
+        Me.BtnEditarPreguntaEliminarRespuesta.Name = "BtnEditarPreguntaEliminarRespuesta"
+        Me.BtnEditarPreguntaEliminarRespuesta.Size = New System.Drawing.Size(75, 23)
+        Me.BtnEditarPreguntaEliminarRespuesta.TabIndex = 19
+        Me.BtnEditarPreguntaEliminarRespuesta.Text = "Eliminar"
+        Me.BtnEditarPreguntaEliminarRespuesta.UseVisualStyleBackColor = True
+        '
+        'BtnEditarPreguntaEditarRespuesta
+        '
+        Me.BtnEditarPreguntaEditarRespuesta.Location = New System.Drawing.Point(185, 215)
+        Me.BtnEditarPreguntaEditarRespuesta.Name = "BtnEditarPreguntaEditarRespuesta"
+        Me.BtnEditarPreguntaEditarRespuesta.Size = New System.Drawing.Size(75, 23)
+        Me.BtnEditarPreguntaEditarRespuesta.TabIndex = 18
+        Me.BtnEditarPreguntaEditarRespuesta.Text = "Editar"
+        Me.BtnEditarPreguntaEditarRespuesta.UseVisualStyleBackColor = True
+        '
+        'BtnEditarPreguntaAgregarRespuesta
+        '
+        Me.BtnEditarPreguntaAgregarRespuesta.Location = New System.Drawing.Point(91, 215)
+        Me.BtnEditarPreguntaAgregarRespuesta.Name = "BtnEditarPreguntaAgregarRespuesta"
+        Me.BtnEditarPreguntaAgregarRespuesta.Size = New System.Drawing.Size(75, 23)
+        Me.BtnEditarPreguntaAgregarRespuesta.TabIndex = 17
+        Me.BtnEditarPreguntaAgregarRespuesta.Text = "Agregar"
+        Me.BtnEditarPreguntaAgregarRespuesta.UseVisualStyleBackColor = True
+        '
+        'RespuestasGrid
+        '
+        Me.RespuestasGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.RespuestasGrid.Location = New System.Drawing.Point(6, 38)
+        Me.RespuestasGrid.Name = "RespuestasGrid"
+        Me.RespuestasGrid.Size = New System.Drawing.Size(428, 171)
+        Me.RespuestasGrid.TabIndex = 0
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.EditarPreguntaActivaCombo)
+        Me.GroupBox3.Controls.Add(Me.BtnEditarPreguntaImagenBuscar)
+        Me.GroupBox3.Controls.Add(Me.Label23)
+        Me.GroupBox3.Controls.Add(Me.EditarPreguntaCategoriaCombo)
+        Me.GroupBox3.Controls.Add(Me.Label25)
+        Me.GroupBox3.Controls.Add(Me.TxtEditarPreguntaImagen)
+        Me.GroupBox3.Controls.Add(Me.Label26)
+        Me.GroupBox3.Controls.Add(Me.TxtEditarPreguntaTexto)
+        Me.GroupBox3.Controls.Add(Me.Label27)
+        Me.GroupBox3.Controls.Add(Me.TxtEditarPreguntaId)
+        Me.GroupBox3.Controls.Add(Me.Label28)
+        Me.GroupBox3.Location = New System.Drawing.Point(66, 261)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(350, 246)
+        Me.GroupBox3.TabIndex = 8
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Datos Pregunta"
+        '
+        'EditarPreguntaActivaCombo
+        '
+        Me.EditarPreguntaActivaCombo.FormattingEnabled = True
+        Me.EditarPreguntaActivaCombo.Items.AddRange(New Object() {"True", "False"})
+        Me.EditarPreguntaActivaCombo.Location = New System.Drawing.Point(91, 206)
+        Me.EditarPreguntaActivaCombo.Name = "EditarPreguntaActivaCombo"
+        Me.EditarPreguntaActivaCombo.Size = New System.Drawing.Size(211, 21)
+        Me.EditarPreguntaActivaCombo.TabIndex = 18
+        '
+        'BtnEditarPreguntaImagenBuscar
+        '
+        Me.BtnEditarPreguntaImagenBuscar.Location = New System.Drawing.Point(248, 146)
+        Me.BtnEditarPreguntaImagenBuscar.Name = "BtnEditarPreguntaImagenBuscar"
+        Me.BtnEditarPreguntaImagenBuscar.Size = New System.Drawing.Size(54, 23)
+        Me.BtnEditarPreguntaImagenBuscar.TabIndex = 17
+        Me.BtnEditarPreguntaImagenBuscar.Text = "Buscar"
+        Me.BtnEditarPreguntaImagenBuscar.UseVisualStyleBackColor = True
+        '
+        'BtnEditarPreguntaActualizar
+        '
+        Me.BtnEditarPreguntaActualizar.Location = New System.Drawing.Point(408, 524)
+        Me.BtnEditarPreguntaActualizar.Name = "BtnEditarPreguntaActualizar"
+        Me.BtnEditarPreguntaActualizar.Size = New System.Drawing.Size(104, 36)
+        Me.BtnEditarPreguntaActualizar.TabIndex = 16
+        Me.BtnEditarPreguntaActualizar.Text = "Guardar Cambios"
+        Me.BtnEditarPreguntaActualizar.UseVisualStyleBackColor = True
+        '
+        'Label23
+        '
+        Me.Label23.AutoSize = True
+        Me.Label23.Location = New System.Drawing.Point(19, 209)
+        Me.Label23.Name = "Label23"
+        Me.Label23.Size = New System.Drawing.Size(61, 13)
+        Me.Label23.TabIndex = 13
+        Me.Label23.Text = "Esta Activa"
+        '
+        'EditarPreguntaCategoriaCombo
+        '
+        Me.EditarPreguntaCategoriaCombo.FormattingEnabled = True
+        Me.EditarPreguntaCategoriaCombo.Location = New System.Drawing.Point(91, 176)
+        Me.EditarPreguntaCategoriaCombo.Name = "EditarPreguntaCategoriaCombo"
+        Me.EditarPreguntaCategoriaCombo.Size = New System.Drawing.Size(211, 21)
+        Me.EditarPreguntaCategoriaCombo.TabIndex = 12
+        '
+        'Label25
+        '
+        Me.Label25.AutoSize = True
+        Me.Label25.Location = New System.Drawing.Point(19, 179)
+        Me.Label25.Name = "Label25"
+        Me.Label25.Size = New System.Drawing.Size(52, 13)
+        Me.Label25.TabIndex = 8
+        Me.Label25.Text = "Categoria"
+        '
+        'TxtEditarPreguntaImagen
+        '
+        Me.TxtEditarPreguntaImagen.Enabled = False
+        Me.TxtEditarPreguntaImagen.Location = New System.Drawing.Point(91, 146)
+        Me.TxtEditarPreguntaImagen.Name = "TxtEditarPreguntaImagen"
+        Me.TxtEditarPreguntaImagen.Size = New System.Drawing.Size(151, 20)
+        Me.TxtEditarPreguntaImagen.TabIndex = 5
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(19, 149)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(42, 13)
+        Me.Label26.TabIndex = 4
+        Me.Label26.Text = "Imagen"
+        '
+        'TxtEditarPreguntaTexto
+        '
+        Me.TxtEditarPreguntaTexto.Location = New System.Drawing.Point(91, 49)
+        Me.TxtEditarPreguntaTexto.Multiline = True
+        Me.TxtEditarPreguntaTexto.Name = "TxtEditarPreguntaTexto"
+        Me.TxtEditarPreguntaTexto.Size = New System.Drawing.Size(211, 91)
+        Me.TxtEditarPreguntaTexto.TabIndex = 3
+        '
+        'Label27
+        '
+        Me.Label27.AutoSize = True
+        Me.Label27.Location = New System.Drawing.Point(19, 52)
+        Me.Label27.Name = "Label27"
+        Me.Label27.Size = New System.Drawing.Size(50, 13)
+        Me.Label27.TabIndex = 2
+        Me.Label27.Text = "Pregunta"
+        '
+        'TxtEditarPreguntaId
+        '
+        Me.TxtEditarPreguntaId.Enabled = False
+        Me.TxtEditarPreguntaId.Location = New System.Drawing.Point(91, 19)
+        Me.TxtEditarPreguntaId.Name = "TxtEditarPreguntaId"
+        Me.TxtEditarPreguntaId.Size = New System.Drawing.Size(211, 20)
+        Me.TxtEditarPreguntaId.TabIndex = 1
+        '
+        'Label28
+        '
+        Me.Label28.AutoSize = True
+        Me.Label28.Location = New System.Drawing.Point(19, 22)
+        Me.Label28.Name = "Label28"
+        Me.Label28.Size = New System.Drawing.Size(16, 13)
+        Me.Label28.TabIndex = 0
+        Me.Label28.Text = "Id"
+        '
+        'TxtEditarPreguntaBuscar
+        '
+        Me.TxtEditarPreguntaBuscar.Location = New System.Drawing.Point(112, 6)
+        Me.TxtEditarPreguntaBuscar.Name = "TxtEditarPreguntaBuscar"
+        Me.TxtEditarPreguntaBuscar.Size = New System.Drawing.Size(304, 20)
+        Me.TxtEditarPreguntaBuscar.TabIndex = 7
+        '
+        'Label29
+        '
+        Me.Label29.AutoSize = True
+        Me.Label29.Location = New System.Drawing.Point(63, 9)
+        Me.Label29.Name = "Label29"
+        Me.Label29.Size = New System.Drawing.Size(43, 13)
+        Me.Label29.TabIndex = 6
+        Me.Label29.Text = "Buscar:"
+        '
+        'PreguntasGrid
+        '
+        Me.PreguntasGrid.AllowUserToAddRows = False
+        Me.PreguntasGrid.AllowUserToDeleteRows = False
+        Me.PreguntasGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.PreguntasGrid.Location = New System.Drawing.Point(66, 31)
+        Me.PreguntasGrid.MultiSelect = False
+        Me.PreguntasGrid.Name = "PreguntasGrid"
+        Me.PreguntasGrid.ReadOnly = True
+        Me.PreguntasGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PreguntasGrid.Size = New System.Drawing.Size(796, 228)
+        Me.PreguntasGrid.TabIndex = 5
         '
         'BtnCerrarSesion
         '
@@ -699,7 +932,7 @@ Partial Class Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(990, 738)
+        Me.ClientSize = New System.Drawing.Size(987, 673)
         Me.Controls.Add(Me.BtnCerrarSesion)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "Admin"
@@ -720,6 +953,13 @@ Partial Class Admin
         Me.TabPage3.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        Me.TabPage4.ResumeLayout(False)
+        Me.TabPage4.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        CType(Me.RespuestasGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -786,4 +1026,25 @@ Partial Class Admin
     Friend WithEvents Label12 As Label
     Friend WithEvents Label21 As Label
     Friend WithEvents EditarUsuarioActivoCombo As ComboBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents BtnEditarPreguntaActualizar As Button
+    Friend WithEvents Label23 As Label
+    Friend WithEvents EditarPreguntaCategoriaCombo As ComboBox
+    Friend WithEvents Label25 As Label
+    Friend WithEvents TxtEditarPreguntaImagen As TextBox
+    Friend WithEvents Label26 As Label
+    Friend WithEvents TxtEditarPreguntaTexto As TextBox
+    Friend WithEvents Label27 As Label
+    Friend WithEvents TxtEditarPreguntaId As TextBox
+    Friend WithEvents Label28 As Label
+    Friend WithEvents TxtEditarPreguntaBuscar As TextBox
+    Friend WithEvents Label29 As Label
+    Friend WithEvents PreguntasGrid As DataGridView
+    Friend WithEvents GroupBox4 As GroupBox
+    Friend WithEvents BtnEditarPreguntaEliminarRespuesta As Button
+    Friend WithEvents BtnEditarPreguntaEditarRespuesta As Button
+    Friend WithEvents BtnEditarPreguntaAgregarRespuesta As Button
+    Friend WithEvents RespuestasGrid As DataGridView
+    Friend WithEvents BtnEditarPreguntaImagenBuscar As Button
+    Friend WithEvents EditarPreguntaActivaCombo As ComboBox
 End Class
