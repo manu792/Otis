@@ -10,6 +10,7 @@ Public Class UnitOfWork
     Private _examRepository As ExamRepository
     Private _profileRepository As ProfileRepository
     Private _careerRepository As CareerRepository
+    Private _entitlementRepository As EntitlementRepository
     Private otisContext As OtisContext
 
     Public Sub New()
@@ -85,6 +86,15 @@ Public Class UnitOfWork
                 _careerRepository = New CareerRepository(otisContext)
             End If
             Return _careerRepository
+        End Get
+    End Property
+
+    Public ReadOnly Property EntitlementRepository() As EntitlementRepository
+        Get
+            If _entitlementRepository Is Nothing Then
+                _entitlementRepository = New EntitlementRepository(otisContext)
+            End If
+            Return _entitlementRepository
         End Get
     End Property
 

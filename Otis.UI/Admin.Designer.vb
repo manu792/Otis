@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Admin
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Admin
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
@@ -106,6 +106,27 @@ Partial Class Admin
         Me.Label29 = New System.Windows.Forms.Label()
         Me.PreguntasGrid = New System.Windows.Forms.DataGridView()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
+        Me.TabPage7 = New System.Windows.Forms.TabPage()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.PerfilActivoCombo = New System.Windows.Forms.ComboBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.TxtPerfilDescripcion = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.TxtPerfilNombre = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.TxtPerfilId = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.TxtPerfilesBuscar = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.PerfilesGrid = New System.Windows.Forms.DataGridView()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button4 = New System.Windows.Forms.Button()
+        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
+        Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.Label22 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -122,6 +143,10 @@ Partial Class Admin
         CType(Me.RespuestasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage7.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
+        CType(Me.PerfilesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -132,6 +157,7 @@ Partial Class Admin
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage7)
         Me.TabControl1.Location = New System.Drawing.Point(12, 51)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -931,6 +957,211 @@ Partial Class Admin
         Me.BtnCerrarSesion.Text = "Cerrar Sesion"
         Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
+        'TabPage7
+        '
+        Me.TabPage7.Controls.Add(Me.Button4)
+        Me.TabPage7.Controls.Add(Me.GroupBox6)
+        Me.TabPage7.Controls.Add(Me.GroupBox5)
+        Me.TabPage7.Controls.Add(Me.TxtPerfilesBuscar)
+        Me.TabPage7.Controls.Add(Me.Label35)
+        Me.TabPage7.Controls.Add(Me.PerfilesGrid)
+        Me.TabPage7.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage7.Name = "TabPage7"
+        Me.TabPage7.Size = New System.Drawing.Size(954, 594)
+        Me.TabPage7.TabIndex = 2
+        Me.TabPage7.Text = "Perfiles"
+        Me.TabPage7.UseVisualStyleBackColor = True
+        '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.PerfilActivoCombo)
+        Me.GroupBox5.Controls.Add(Me.Label31)
+        Me.GroupBox5.Controls.Add(Me.TxtPerfilDescripcion)
+        Me.GroupBox5.Controls.Add(Me.Label32)
+        Me.GroupBox5.Controls.Add(Me.TxtPerfilNombre)
+        Me.GroupBox5.Controls.Add(Me.Label33)
+        Me.GroupBox5.Controls.Add(Me.TxtPerfilId)
+        Me.GroupBox5.Controls.Add(Me.Label34)
+        Me.GroupBox5.Location = New System.Drawing.Point(81, 286)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(350, 238)
+        Me.GroupBox5.TabIndex = 8
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Datos Perfil"
+        '
+        'PerfilActivoCombo
+        '
+        Me.PerfilActivoCombo.FormattingEnabled = True
+        Me.PerfilActivoCombo.Items.AddRange(New Object() {"True", "False"})
+        Me.PerfilActivoCombo.Location = New System.Drawing.Point(127, 169)
+        Me.PerfilActivoCombo.Name = "PerfilActivoCombo"
+        Me.PerfilActivoCombo.Size = New System.Drawing.Size(187, 21)
+        Me.PerfilActivoCombo.TabIndex = 18
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.Location = New System.Drawing.Point(31, 172)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(37, 13)
+        Me.Label31.TabIndex = 8
+        Me.Label31.Text = "Activo"
+        '
+        'TxtPerfilDescripcion
+        '
+        Me.TxtPerfilDescripcion.Location = New System.Drawing.Point(127, 99)
+        Me.TxtPerfilDescripcion.Multiline = True
+        Me.TxtPerfilDescripcion.Name = "TxtPerfilDescripcion"
+        Me.TxtPerfilDescripcion.Size = New System.Drawing.Size(187, 64)
+        Me.TxtPerfilDescripcion.TabIndex = 5
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.Location = New System.Drawing.Point(31, 102)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(63, 13)
+        Me.Label32.TabIndex = 4
+        Me.Label32.Text = "Descripcion"
+        '
+        'TxtPerfilNombre
+        '
+        Me.TxtPerfilNombre.Location = New System.Drawing.Point(127, 71)
+        Me.TxtPerfilNombre.Name = "TxtPerfilNombre"
+        Me.TxtPerfilNombre.Size = New System.Drawing.Size(187, 20)
+        Me.TxtPerfilNombre.TabIndex = 3
+        '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.Location = New System.Drawing.Point(31, 74)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(44, 13)
+        Me.Label33.TabIndex = 2
+        Me.Label33.Text = "Nombre"
+        '
+        'TxtPerfilId
+        '
+        Me.TxtPerfilId.Enabled = False
+        Me.TxtPerfilId.Location = New System.Drawing.Point(127, 41)
+        Me.TxtPerfilId.Name = "TxtPerfilId"
+        Me.TxtPerfilId.Size = New System.Drawing.Size(187, 20)
+        Me.TxtPerfilId.TabIndex = 1
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.Location = New System.Drawing.Point(31, 44)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(16, 13)
+        Me.Label34.TabIndex = 0
+        Me.Label34.Text = "Id"
+        '
+        'TxtPerfilesBuscar
+        '
+        Me.TxtPerfilesBuscar.Location = New System.Drawing.Point(127, 23)
+        Me.TxtPerfilesBuscar.Name = "TxtPerfilesBuscar"
+        Me.TxtPerfilesBuscar.Size = New System.Drawing.Size(304, 20)
+        Me.TxtPerfilesBuscar.TabIndex = 7
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.Location = New System.Drawing.Point(78, 26)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(43, 13)
+        Me.Label35.TabIndex = 6
+        Me.Label35.Text = "Buscar:"
+        '
+        'PerfilesGrid
+        '
+        Me.PerfilesGrid.AllowUserToAddRows = False
+        Me.PerfilesGrid.AllowUserToDeleteRows = False
+        Me.PerfilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.PerfilesGrid.Location = New System.Drawing.Point(81, 52)
+        Me.PerfilesGrid.MultiSelect = False
+        Me.PerfilesGrid.Name = "PerfilesGrid"
+        Me.PerfilesGrid.ReadOnly = True
+        Me.PerfilesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.PerfilesGrid.Size = New System.Drawing.Size(796, 228)
+        Me.PerfilesGrid.TabIndex = 5
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.Label16)
+        Me.GroupBox6.Controls.Add(Me.CheckedListBox2)
+        Me.GroupBox6.Controls.Add(Me.CheckedListBox1)
+        Me.GroupBox6.Controls.Add(Me.Button1)
+        Me.GroupBox6.Controls.Add(Me.Button3)
+        Me.GroupBox6.Location = New System.Drawing.Point(437, 286)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(440, 238)
+        Me.GroupBox6.TabIndex = 10
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Permisos"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(197, 140)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(57, 23)
+        Me.Button1.TabIndex = 19
+        Me.Button1.Text = "<<"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(197, 92)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(57, 23)
+        Me.Button3.TabIndex = 17
+        Me.Button3.Text = ">>"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(408, 539)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(104, 36)
+        Me.Button4.TabIndex = 17
+        Me.Button4.Text = "Guardar Cambios"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
+        'CheckedListBox1
+        '
+        Me.CheckedListBox1.FormattingEnabled = True
+        Me.CheckedListBox1.Location = New System.Drawing.Point(260, 41)
+        Me.CheckedListBox1.Name = "CheckedListBox1"
+        Me.CheckedListBox1.Size = New System.Drawing.Size(138, 169)
+        Me.CheckedListBox1.TabIndex = 22
+        '
+        'CheckedListBox2
+        '
+        Me.CheckedListBox2.FormattingEnabled = True
+        Me.CheckedListBox2.Location = New System.Drawing.Point(53, 41)
+        Me.CheckedListBox2.Name = "CheckedListBox2"
+        Me.CheckedListBox2.Size = New System.Drawing.Size(138, 169)
+        Me.CheckedListBox2.TabIndex = 23
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(53, 22)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(55, 13)
+        Me.Label16.TabIndex = 24
+        Me.Label16.Text = " Permisos:"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(257, 22)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(128, 13)
+        Me.Label22.TabIndex = 25
+        Me.Label22.Text = " Permisos Seleccionados:"
+        '
         'Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -964,6 +1195,13 @@ Partial Class Admin
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage7.ResumeLayout(False)
+        Me.TabPage7.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
+        CType(Me.PerfilesGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1051,4 +1289,26 @@ Partial Class Admin
     Friend WithEvents RespuestasGrid As DataGridView
     Friend WithEvents BtnEditarPreguntaImagenBuscar As Button
     Friend WithEvents EditarPreguntaActivaCombo As ComboBox
+    Friend WithEvents TabPage7 As TabPage
+    Friend WithEvents GroupBox5 As GroupBox
+    Friend WithEvents PerfilActivoCombo As ComboBox
+    Friend WithEvents Label31 As Label
+    Friend WithEvents TxtPerfilDescripcion As TextBox
+    Friend WithEvents Label32 As Label
+    Friend WithEvents TxtPerfilNombre As TextBox
+    Friend WithEvents Label33 As Label
+    Friend WithEvents TxtPerfilId As TextBox
+    Friend WithEvents Label34 As Label
+    Friend WithEvents TxtPerfilesBuscar As TextBox
+    Friend WithEvents Label35 As Label
+    Friend WithEvents PerfilesGrid As DataGridView
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents Button1 As Button
+    Friend WithEvents Button3 As Button
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents Button4 As Button
+    Friend WithEvents CheckedListBox2 As CheckedListBox
+    Friend WithEvents CheckedListBox1 As CheckedListBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label16 As Label
 End Class

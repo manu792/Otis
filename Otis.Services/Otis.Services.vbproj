@@ -66,6 +66,7 @@
     <Compile Include="CareerService.vb" />
     <Compile Include="CategoryService.vb" />
     <Compile Include="EmailService.vb" />
+    <Compile Include="EntitlementService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

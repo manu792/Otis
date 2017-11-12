@@ -9,12 +9,15 @@ Public Class Admin
     Private profileService As ProfileService
     Private careerService As CareerService
     Private userService As UserService
+    Private entitlementService As EntitlementService
     Private categories As IEnumerable(Of CategoryDto)
     Private loggedUser As UserDto
     Private users As IEnumerable(Of UserDto)
     Private questions As IEnumerable(Of QuestionDto)
+    Private profiles As IEnumerable(Of ProfileDto)
     Private usersBindingSource As BindingSource
     Private questionsBindingSource As BindingSource
+    Private profilesBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -28,8 +31,10 @@ Public Class Admin
         profileService = New ProfileService()
         careerService = New CareerService()
         userService = New UserService()
+        entitlementService = New EntitlementService()
         usersBindingSource = New BindingSource()
         questionsBindingSource = New BindingSource()
+        profilesBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -90,7 +95,27 @@ Public Class Admin
         Return table
     End Function
 
-    Private Sub LoadProfiles(profiles As IEnumerable(Of ProfileDto))
+    Private Function ConvertProfilesToDataTable(profiles As IEnumerable(Of ProfileDto)) As DataTable
+        Dim table = New DataTable()
+        If profiles.Any() Then
+            table.Columns.Add("Id")
+            table.Columns.Add("Nombre")
+            table.Columns.Add("Descripcion")
+            table.Columns.Add("Esta Activo")
+
+            For Each profile As ProfileDto In profiles
+                table.Rows.Add(profile.ProfileId, profile.Name, profile.Description, profile.IsActive)
+            Next
+        End If
+
+        Return table
+    End Function
+
+    Private Sub LoadProfiles(profilesDto As IEnumerable(Of ProfileDto))
+        profiles = profilesDto
+        profilesBindingSource.DataSource = ConvertProfilesToDataTable(profiles)
+        PerfilesGrid.DataSource = profilesBindingSource
+
         For Each item As ProfileDto In profiles
             ProfilesComboBox.Items.Add(item)
             EditarUsuarioPerfilCombo.Items.Add(item)
@@ -360,5 +385,12 @@ Public Class Admin
 
             UpdateRespuestasGrid(Integer.Parse(TxtEditarPreguntaId.Text))
         End If
+    End Sub
+
+    Private Sub TxtPerfilesBuscar_TextChanged(sender As Object, e As EventArgs)
+        profilesBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              Descripcion LIKE '%{0}%' Or
+                                              [Esta Activo] LIKE '%{0}%'", TxtPerfilesBuscar.Text)
     End Sub
 End Class
