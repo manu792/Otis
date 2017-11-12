@@ -1,5 +1,4 @@
-﻿Imports Otis.Commons
-Imports Otis.Repository
+﻿Imports Otis.Repository
 Imports System.Data.Entity
 
 Public Class UserRepository
@@ -16,7 +15,10 @@ Public Class UserRepository
     End Function
 
     Public Function GetUser(username As String) As User
-        Dim user = otisContext.Users.Include(Function(u) u.Career).Include(Function(u) u.Profile.Entitlements).FirstOrDefault(Function(us) us.UserId.Equals(username))
+        Dim user = otisContext.Users.
+            Include(Function(u) u.Career).
+            Include(Function(u) u.Profile.Entitlements).
+            FirstOrDefault(Function(us) us.UserId.Equals(username))
 
         If user Is Nothing Then
             Return Nothing

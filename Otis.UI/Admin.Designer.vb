@@ -105,8 +105,30 @@ Partial Class Admin
         Me.TxtEditarPreguntaBuscar = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.PreguntasGrid = New System.Windows.Forms.DataGridView()
-        Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         Me.TabPage7 = New System.Windows.Forms.TabPage()
+        Me.TabControl4 = New System.Windows.Forms.TabControl()
+        Me.TabPage8 = New System.Windows.Forms.TabPage()
+        Me.TxtCrearPerfilDescripcion = New System.Windows.Forms.TextBox()
+        Me.BtnCrearPerfilGuardar = New System.Windows.Forms.Button()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.PermisosCrearPerfil = New System.Windows.Forms.CheckedListBox()
+        Me.PermisosSeleccionadosCrearPerfil = New System.Windows.Forms.CheckedListBox()
+        Me.BtnCrearPerfilRemoverPermiso = New System.Windows.Forms.Button()
+        Me.BtnCrearPerfilAgregarPermiso = New System.Windows.Forms.Button()
+        Me.TxtCrearPerfilNombre = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.TabPage9 = New System.Windows.Forms.TabPage()
+        Me.BtnPerfilGuardar = New System.Windows.Forms.Button()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.PermisosLista = New System.Windows.Forms.CheckedListBox()
+        Me.PermisosSeleccionadosLista = New System.Windows.Forms.CheckedListBox()
+        Me.BtnRemoveEntitlement = New System.Windows.Forms.Button()
+        Me.BtnAddEntitlement = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.PerfilActivoCombo = New System.Windows.Forms.ComboBox()
         Me.Label31 = New System.Windows.Forms.Label()
@@ -119,14 +141,7 @@ Partial Class Admin
         Me.TxtPerfilesBuscar = New System.Windows.Forms.TextBox()
         Me.Label35 = New System.Windows.Forms.Label()
         Me.PerfilesGrid = New System.Windows.Forms.DataGridView()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
-        Me.CheckedListBox1 = New System.Windows.Forms.CheckedListBox()
-        Me.CheckedListBox2 = New System.Windows.Forms.CheckedListBox()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label22 = New System.Windows.Forms.Label()
+        Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -144,9 +159,13 @@ Partial Class Admin
         Me.GroupBox3.SuspendLayout()
         CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage7.SuspendLayout()
+        Me.TabControl4.SuspendLayout()
+        Me.TabPage8.SuspendLayout()
+        Me.GroupBox7.SuspendLayout()
+        Me.TabPage9.SuspendLayout()
+        Me.GroupBox6.SuspendLayout()
         Me.GroupBox5.SuspendLayout()
         CType(Me.PerfilesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox6.SuspendLayout()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -948,29 +967,242 @@ Partial Class Admin
         Me.PreguntasGrid.Size = New System.Drawing.Size(796, 228)
         Me.PreguntasGrid.TabIndex = 5
         '
-        'BtnCerrarSesion
-        '
-        Me.BtnCerrarSesion.Location = New System.Drawing.Point(883, 17)
-        Me.BtnCerrarSesion.Name = "BtnCerrarSesion"
-        Me.BtnCerrarSesion.Size = New System.Drawing.Size(91, 28)
-        Me.BtnCerrarSesion.TabIndex = 4
-        Me.BtnCerrarSesion.Text = "Cerrar Sesion"
-        Me.BtnCerrarSesion.UseVisualStyleBackColor = True
-        '
         'TabPage7
         '
-        Me.TabPage7.Controls.Add(Me.Button4)
-        Me.TabPage7.Controls.Add(Me.GroupBox6)
-        Me.TabPage7.Controls.Add(Me.GroupBox5)
-        Me.TabPage7.Controls.Add(Me.TxtPerfilesBuscar)
-        Me.TabPage7.Controls.Add(Me.Label35)
-        Me.TabPage7.Controls.Add(Me.PerfilesGrid)
+        Me.TabPage7.Controls.Add(Me.TabControl4)
         Me.TabPage7.Location = New System.Drawing.Point(4, 22)
         Me.TabPage7.Name = "TabPage7"
         Me.TabPage7.Size = New System.Drawing.Size(954, 594)
         Me.TabPage7.TabIndex = 2
         Me.TabPage7.Text = "Perfiles"
         Me.TabPage7.UseVisualStyleBackColor = True
+        '
+        'TabControl4
+        '
+        Me.TabControl4.Controls.Add(Me.TabPage8)
+        Me.TabControl4.Controls.Add(Me.TabPage9)
+        Me.TabControl4.Location = New System.Drawing.Point(3, 3)
+        Me.TabControl4.Name = "TabControl4"
+        Me.TabControl4.SelectedIndex = 0
+        Me.TabControl4.Size = New System.Drawing.Size(948, 585)
+        Me.TabControl4.TabIndex = 0
+        '
+        'TabPage8
+        '
+        Me.TabPage8.Controls.Add(Me.TxtCrearPerfilDescripcion)
+        Me.TabPage8.Controls.Add(Me.BtnCrearPerfilGuardar)
+        Me.TabPage8.Controls.Add(Me.Label37)
+        Me.TabPage8.Controls.Add(Me.GroupBox7)
+        Me.TabPage8.Controls.Add(Me.TxtCrearPerfilNombre)
+        Me.TabPage8.Controls.Add(Me.Label24)
+        Me.TabPage8.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage8.Name = "TabPage8"
+        Me.TabPage8.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage8.Size = New System.Drawing.Size(940, 559)
+        Me.TabPage8.TabIndex = 0
+        Me.TabPage8.Text = "Crear Perfil"
+        Me.TabPage8.UseVisualStyleBackColor = True
+        '
+        'TxtCrearPerfilDescripcion
+        '
+        Me.TxtCrearPerfilDescripcion.Location = New System.Drawing.Point(412, 152)
+        Me.TxtCrearPerfilDescripcion.Multiline = True
+        Me.TxtCrearPerfilDescripcion.Name = "TxtCrearPerfilDescripcion"
+        Me.TxtCrearPerfilDescripcion.Size = New System.Drawing.Size(226, 86)
+        Me.TxtCrearPerfilDescripcion.TabIndex = 27
+        '
+        'BtnCrearPerfilGuardar
+        '
+        Me.BtnCrearPerfilGuardar.Location = New System.Drawing.Point(429, 490)
+        Me.BtnCrearPerfilGuardar.Name = "BtnCrearPerfilGuardar"
+        Me.BtnCrearPerfilGuardar.Size = New System.Drawing.Size(95, 36)
+        Me.BtnCrearPerfilGuardar.TabIndex = 25
+        Me.BtnCrearPerfilGuardar.Text = "Guardar"
+        Me.BtnCrearPerfilGuardar.UseVisualStyleBackColor = True
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.Location = New System.Drawing.Point(316, 155)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(66, 13)
+        Me.Label37.TabIndex = 26
+        Me.Label37.Text = "Descripcion:"
+        '
+        'GroupBox7
+        '
+        Me.GroupBox7.Controls.Add(Me.Label30)
+        Me.GroupBox7.Controls.Add(Me.Label36)
+        Me.GroupBox7.Controls.Add(Me.PermisosCrearPerfil)
+        Me.GroupBox7.Controls.Add(Me.PermisosSeleccionadosCrearPerfil)
+        Me.GroupBox7.Controls.Add(Me.BtnCrearPerfilRemoverPermiso)
+        Me.GroupBox7.Controls.Add(Me.BtnCrearPerfilAgregarPermiso)
+        Me.GroupBox7.Location = New System.Drawing.Point(253, 244)
+        Me.GroupBox7.Name = "GroupBox7"
+        Me.GroupBox7.Size = New System.Drawing.Size(440, 222)
+        Me.GroupBox7.TabIndex = 24
+        Me.GroupBox7.TabStop = False
+        Me.GroupBox7.Text = "Permisos"
+        '
+        'Label30
+        '
+        Me.Label30.AutoSize = True
+        Me.Label30.Location = New System.Drawing.Point(257, 22)
+        Me.Label30.Name = "Label30"
+        Me.Label30.Size = New System.Drawing.Size(128, 13)
+        Me.Label30.TabIndex = 25
+        Me.Label30.Text = " Permisos Seleccionados:"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.Location = New System.Drawing.Point(53, 22)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(55, 13)
+        Me.Label36.TabIndex = 24
+        Me.Label36.Text = " Permisos:"
+        '
+        'PermisosCrearPerfil
+        '
+        Me.PermisosCrearPerfil.FormattingEnabled = True
+        Me.PermisosCrearPerfil.Location = New System.Drawing.Point(53, 41)
+        Me.PermisosCrearPerfil.Name = "PermisosCrearPerfil"
+        Me.PermisosCrearPerfil.Size = New System.Drawing.Size(138, 169)
+        Me.PermisosCrearPerfil.TabIndex = 23
+        '
+        'PermisosSeleccionadosCrearPerfil
+        '
+        Me.PermisosSeleccionadosCrearPerfil.FormattingEnabled = True
+        Me.PermisosSeleccionadosCrearPerfil.Location = New System.Drawing.Point(260, 41)
+        Me.PermisosSeleccionadosCrearPerfil.Name = "PermisosSeleccionadosCrearPerfil"
+        Me.PermisosSeleccionadosCrearPerfil.Size = New System.Drawing.Size(138, 169)
+        Me.PermisosSeleccionadosCrearPerfil.TabIndex = 22
+        '
+        'BtnCrearPerfilRemoverPermiso
+        '
+        Me.BtnCrearPerfilRemoverPermiso.Location = New System.Drawing.Point(197, 140)
+        Me.BtnCrearPerfilRemoverPermiso.Name = "BtnCrearPerfilRemoverPermiso"
+        Me.BtnCrearPerfilRemoverPermiso.Size = New System.Drawing.Size(57, 23)
+        Me.BtnCrearPerfilRemoverPermiso.TabIndex = 19
+        Me.BtnCrearPerfilRemoverPermiso.Text = "<<"
+        Me.BtnCrearPerfilRemoverPermiso.UseVisualStyleBackColor = True
+        '
+        'BtnCrearPerfilAgregarPermiso
+        '
+        Me.BtnCrearPerfilAgregarPermiso.Location = New System.Drawing.Point(197, 92)
+        Me.BtnCrearPerfilAgregarPermiso.Name = "BtnCrearPerfilAgregarPermiso"
+        Me.BtnCrearPerfilAgregarPermiso.Size = New System.Drawing.Size(57, 23)
+        Me.BtnCrearPerfilAgregarPermiso.TabIndex = 17
+        Me.BtnCrearPerfilAgregarPermiso.Text = ">>"
+        Me.BtnCrearPerfilAgregarPermiso.UseVisualStyleBackColor = True
+        '
+        'TxtCrearPerfilNombre
+        '
+        Me.TxtCrearPerfilNombre.Location = New System.Drawing.Point(412, 120)
+        Me.TxtCrearPerfilNombre.Name = "TxtCrearPerfilNombre"
+        Me.TxtCrearPerfilNombre.Size = New System.Drawing.Size(226, 20)
+        Me.TxtCrearPerfilNombre.TabIndex = 1
+        '
+        'Label24
+        '
+        Me.Label24.AutoSize = True
+        Me.Label24.Location = New System.Drawing.Point(316, 123)
+        Me.Label24.Name = "Label24"
+        Me.Label24.Size = New System.Drawing.Size(90, 13)
+        Me.Label24.TabIndex = 0
+        Me.Label24.Text = "Nombre del Perfil:"
+        '
+        'TabPage9
+        '
+        Me.TabPage9.Controls.Add(Me.BtnPerfilGuardar)
+        Me.TabPage9.Controls.Add(Me.GroupBox6)
+        Me.TabPage9.Controls.Add(Me.GroupBox5)
+        Me.TabPage9.Controls.Add(Me.TxtPerfilesBuscar)
+        Me.TabPage9.Controls.Add(Me.Label35)
+        Me.TabPage9.Controls.Add(Me.PerfilesGrid)
+        Me.TabPage9.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage9.Name = "TabPage9"
+        Me.TabPage9.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage9.Size = New System.Drawing.Size(940, 559)
+        Me.TabPage9.TabIndex = 1
+        Me.TabPage9.Text = "Editar Perfil"
+        Me.TabPage9.UseVisualStyleBackColor = True
+        '
+        'BtnPerfilGuardar
+        '
+        Me.BtnPerfilGuardar.Location = New System.Drawing.Point(412, 526)
+        Me.BtnPerfilGuardar.Name = "BtnPerfilGuardar"
+        Me.BtnPerfilGuardar.Size = New System.Drawing.Size(104, 30)
+        Me.BtnPerfilGuardar.TabIndex = 24
+        Me.BtnPerfilGuardar.Text = "Guardar Cambios"
+        Me.BtnPerfilGuardar.UseVisualStyleBackColor = True
+        '
+        'GroupBox6
+        '
+        Me.GroupBox6.Controls.Add(Me.Label22)
+        Me.GroupBox6.Controls.Add(Me.Label16)
+        Me.GroupBox6.Controls.Add(Me.PermisosLista)
+        Me.GroupBox6.Controls.Add(Me.PermisosSeleccionadosLista)
+        Me.GroupBox6.Controls.Add(Me.BtnRemoveEntitlement)
+        Me.GroupBox6.Controls.Add(Me.BtnAddEntitlement)
+        Me.GroupBox6.Location = New System.Drawing.Point(430, 298)
+        Me.GroupBox6.Name = "GroupBox6"
+        Me.GroupBox6.Size = New System.Drawing.Size(440, 222)
+        Me.GroupBox6.TabIndex = 23
+        Me.GroupBox6.TabStop = False
+        Me.GroupBox6.Text = "Permisos"
+        '
+        'Label22
+        '
+        Me.Label22.AutoSize = True
+        Me.Label22.Location = New System.Drawing.Point(257, 22)
+        Me.Label22.Name = "Label22"
+        Me.Label22.Size = New System.Drawing.Size(128, 13)
+        Me.Label22.TabIndex = 25
+        Me.Label22.Text = " Permisos Seleccionados:"
+        '
+        'Label16
+        '
+        Me.Label16.AutoSize = True
+        Me.Label16.Location = New System.Drawing.Point(53, 22)
+        Me.Label16.Name = "Label16"
+        Me.Label16.Size = New System.Drawing.Size(55, 13)
+        Me.Label16.TabIndex = 24
+        Me.Label16.Text = " Permisos:"
+        '
+        'PermisosLista
+        '
+        Me.PermisosLista.FormattingEnabled = True
+        Me.PermisosLista.Location = New System.Drawing.Point(53, 41)
+        Me.PermisosLista.Name = "PermisosLista"
+        Me.PermisosLista.Size = New System.Drawing.Size(138, 169)
+        Me.PermisosLista.TabIndex = 23
+        '
+        'PermisosSeleccionadosLista
+        '
+        Me.PermisosSeleccionadosLista.FormattingEnabled = True
+        Me.PermisosSeleccionadosLista.Location = New System.Drawing.Point(260, 41)
+        Me.PermisosSeleccionadosLista.Name = "PermisosSeleccionadosLista"
+        Me.PermisosSeleccionadosLista.Size = New System.Drawing.Size(138, 169)
+        Me.PermisosSeleccionadosLista.TabIndex = 22
+        '
+        'BtnRemoveEntitlement
+        '
+        Me.BtnRemoveEntitlement.Location = New System.Drawing.Point(197, 140)
+        Me.BtnRemoveEntitlement.Name = "BtnRemoveEntitlement"
+        Me.BtnRemoveEntitlement.Size = New System.Drawing.Size(57, 23)
+        Me.BtnRemoveEntitlement.TabIndex = 19
+        Me.BtnRemoveEntitlement.Text = "<<"
+        Me.BtnRemoveEntitlement.UseVisualStyleBackColor = True
+        '
+        'BtnAddEntitlement
+        '
+        Me.BtnAddEntitlement.Location = New System.Drawing.Point(197, 92)
+        Me.BtnAddEntitlement.Name = "BtnAddEntitlement"
+        Me.BtnAddEntitlement.Size = New System.Drawing.Size(57, 23)
+        Me.BtnAddEntitlement.TabIndex = 17
+        Me.BtnAddEntitlement.Text = ">>"
+        Me.BtnAddEntitlement.UseVisualStyleBackColor = True
         '
         'GroupBox5
         '
@@ -982,10 +1214,10 @@ Partial Class Admin
         Me.GroupBox5.Controls.Add(Me.Label33)
         Me.GroupBox5.Controls.Add(Me.TxtPerfilId)
         Me.GroupBox5.Controls.Add(Me.Label34)
-        Me.GroupBox5.Location = New System.Drawing.Point(81, 286)
+        Me.GroupBox5.Location = New System.Drawing.Point(74, 298)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(350, 238)
-        Me.GroupBox5.TabIndex = 8
+        Me.GroupBox5.Size = New System.Drawing.Size(350, 222)
+        Me.GroupBox5.TabIndex = 22
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Datos Perfil"
         '
@@ -1059,18 +1291,18 @@ Partial Class Admin
         '
         'TxtPerfilesBuscar
         '
-        Me.TxtPerfilesBuscar.Location = New System.Drawing.Point(127, 23)
+        Me.TxtPerfilesBuscar.Location = New System.Drawing.Point(120, 3)
         Me.TxtPerfilesBuscar.Name = "TxtPerfilesBuscar"
         Me.TxtPerfilesBuscar.Size = New System.Drawing.Size(304, 20)
-        Me.TxtPerfilesBuscar.TabIndex = 7
+        Me.TxtPerfilesBuscar.TabIndex = 21
         '
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(78, 26)
+        Me.Label35.Location = New System.Drawing.Point(71, 6)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(43, 13)
-        Me.Label35.TabIndex = 6
+        Me.Label35.TabIndex = 20
         Me.Label35.Text = "Buscar:"
         '
         'PerfilesGrid
@@ -1078,89 +1310,22 @@ Partial Class Admin
         Me.PerfilesGrid.AllowUserToAddRows = False
         Me.PerfilesGrid.AllowUserToDeleteRows = False
         Me.PerfilesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.PerfilesGrid.Location = New System.Drawing.Point(81, 52)
+        Me.PerfilesGrid.Location = New System.Drawing.Point(74, 26)
         Me.PerfilesGrid.MultiSelect = False
         Me.PerfilesGrid.Name = "PerfilesGrid"
         Me.PerfilesGrid.ReadOnly = True
         Me.PerfilesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.PerfilesGrid.Size = New System.Drawing.Size(796, 228)
-        Me.PerfilesGrid.TabIndex = 5
+        Me.PerfilesGrid.TabIndex = 19
         '
-        'GroupBox6
+        'BtnCerrarSesion
         '
-        Me.GroupBox6.Controls.Add(Me.Label22)
-        Me.GroupBox6.Controls.Add(Me.Label16)
-        Me.GroupBox6.Controls.Add(Me.CheckedListBox2)
-        Me.GroupBox6.Controls.Add(Me.CheckedListBox1)
-        Me.GroupBox6.Controls.Add(Me.Button1)
-        Me.GroupBox6.Controls.Add(Me.Button3)
-        Me.GroupBox6.Location = New System.Drawing.Point(437, 286)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(440, 238)
-        Me.GroupBox6.TabIndex = 10
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "Permisos"
-        '
-        'Button1
-        '
-        Me.Button1.Location = New System.Drawing.Point(197, 140)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(57, 23)
-        Me.Button1.TabIndex = 19
-        Me.Button1.Text = "<<"
-        Me.Button1.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Location = New System.Drawing.Point(197, 92)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(57, 23)
-        Me.Button3.TabIndex = 17
-        Me.Button3.Text = ">>"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Location = New System.Drawing.Point(408, 539)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(104, 36)
-        Me.Button4.TabIndex = 17
-        Me.Button4.Text = "Guardar Cambios"
-        Me.Button4.UseVisualStyleBackColor = True
-        '
-        'CheckedListBox1
-        '
-        Me.CheckedListBox1.FormattingEnabled = True
-        Me.CheckedListBox1.Location = New System.Drawing.Point(260, 41)
-        Me.CheckedListBox1.Name = "CheckedListBox1"
-        Me.CheckedListBox1.Size = New System.Drawing.Size(138, 169)
-        Me.CheckedListBox1.TabIndex = 22
-        '
-        'CheckedListBox2
-        '
-        Me.CheckedListBox2.FormattingEnabled = True
-        Me.CheckedListBox2.Location = New System.Drawing.Point(53, 41)
-        Me.CheckedListBox2.Name = "CheckedListBox2"
-        Me.CheckedListBox2.Size = New System.Drawing.Size(138, 169)
-        Me.CheckedListBox2.TabIndex = 23
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(53, 22)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(55, 13)
-        Me.Label16.TabIndex = 24
-        Me.Label16.Text = " Permisos:"
-        '
-        'Label22
-        '
-        Me.Label22.AutoSize = True
-        Me.Label22.Location = New System.Drawing.Point(257, 22)
-        Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(128, 13)
-        Me.Label22.TabIndex = 25
-        Me.Label22.Text = " Permisos Seleccionados:"
+        Me.BtnCerrarSesion.Location = New System.Drawing.Point(883, 17)
+        Me.BtnCerrarSesion.Name = "BtnCerrarSesion"
+        Me.BtnCerrarSesion.Size = New System.Drawing.Size(91, 28)
+        Me.BtnCerrarSesion.TabIndex = 4
+        Me.BtnCerrarSesion.Text = "Cerrar Sesion"
+        Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
         'Admin
         '
@@ -1196,12 +1361,18 @@ Partial Class Admin
         Me.GroupBox3.PerformLayout()
         CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage7.ResumeLayout(False)
-        Me.TabPage7.PerformLayout()
+        Me.TabControl4.ResumeLayout(False)
+        Me.TabPage8.ResumeLayout(False)
+        Me.TabPage8.PerformLayout()
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout()
+        Me.TabPage9.ResumeLayout(False)
+        Me.TabPage9.PerformLayout()
+        Me.GroupBox6.ResumeLayout(False)
+        Me.GroupBox6.PerformLayout()
         Me.GroupBox5.ResumeLayout(False)
         Me.GroupBox5.PerformLayout()
         CType(Me.PerfilesGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1290,6 +1461,18 @@ Partial Class Admin
     Friend WithEvents BtnEditarPreguntaImagenBuscar As Button
     Friend WithEvents EditarPreguntaActivaCombo As ComboBox
     Friend WithEvents TabPage7 As TabPage
+    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents TabControl4 As TabControl
+    Friend WithEvents TabPage8 As TabPage
+    Friend WithEvents TabPage9 As TabPage
+    Friend WithEvents BtnPerfilGuardar As Button
+    Friend WithEvents GroupBox6 As GroupBox
+    Friend WithEvents Label22 As Label
+    Friend WithEvents Label16 As Label
+    Friend WithEvents PermisosLista As CheckedListBox
+    Friend WithEvents PermisosSeleccionadosLista As CheckedListBox
+    Friend WithEvents BtnRemoveEntitlement As Button
+    Friend WithEvents BtnAddEntitlement As Button
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents PerfilActivoCombo As ComboBox
     Friend WithEvents Label31 As Label
@@ -1302,13 +1485,16 @@ Partial Class Admin
     Friend WithEvents TxtPerfilesBuscar As TextBox
     Friend WithEvents Label35 As Label
     Friend WithEvents PerfilesGrid As DataGridView
-    Friend WithEvents GroupBox6 As GroupBox
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents DataGridView1 As DataGridView
-    Friend WithEvents Button4 As Button
-    Friend WithEvents CheckedListBox2 As CheckedListBox
-    Friend WithEvents CheckedListBox1 As CheckedListBox
-    Friend WithEvents Label22 As Label
-    Friend WithEvents Label16 As Label
+    Friend WithEvents BtnCrearPerfilGuardar As Button
+    Friend WithEvents GroupBox7 As GroupBox
+    Friend WithEvents Label30 As Label
+    Friend WithEvents Label36 As Label
+    Friend WithEvents PermisosCrearPerfil As CheckedListBox
+    Friend WithEvents PermisosSeleccionadosCrearPerfil As CheckedListBox
+    Friend WithEvents BtnCrearPerfilRemoverPermiso As Button
+    Friend WithEvents BtnCrearPerfilAgregarPermiso As Button
+    Friend WithEvents TxtCrearPerfilNombre As TextBox
+    Friend WithEvents Label24 As Label
+    Friend WithEvents TxtCrearPerfilDescripcion As TextBox
+    Friend WithEvents Label37 As Label
 End Class

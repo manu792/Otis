@@ -13,7 +13,8 @@ Public Class CareerService
         Return unitOfWork.CareerRepository.GetCareers().Select(Function(x) New CareerDto() With
         {
             .CareerId = x.CareerId,
-            .CareerName = x.CareerName
+            .CareerName = x.CareerName,
+            .IsActive = x.IsActive
         }).ToList()
     End Function
 

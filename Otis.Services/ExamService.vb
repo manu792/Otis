@@ -18,22 +18,22 @@ Public Class ExamService
             .Description = e.Description,
             .Time = e.Time,
             .QuestionsQuantity = e.QuestionsQuantity
-        })
+        }).ToList()
     End Function
 
     Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of QuestionDto)
         Return unitOfWork.ExamRepository.GetQuestionsForExam(examId, questionsQuantity).Select(Function(q) New QuestionDto With
-                    {
-                        .QuestionId = q.QuestionId,
-                        .QuestionText = q.QuestionText,
-                        .Category = New CategoryDto() With {.CategoryId = q.Category.CategoryId, .CategoryName = q.Category.CategoryName},
-                        .ImagePath = q.ImagePath,
-                        .Answers = q.Answers.Select(Function(a) New AnswerDto() With
-                        {
-                            .QuestionId = a.QuestionId,
-                            .AnswerText = a.AnswerText
-                        })
-                    }).ToList()
+        {
+            .QuestionId = q.QuestionId,
+            .QuestionText = q.QuestionText,
+            .Category = New CategoryDto() With {.CategoryId = q.Category.CategoryId, .CategoryName = q.Category.CategoryName},
+            .ImagePath = q.ImagePath,
+            .Answers = q.Answers.Select(Function(a) New AnswerDto() With
+            {
+                .QuestionId = a.QuestionId,
+                .AnswerText = a.AnswerText
+            })
+        }).ToList()
     End Function
 
     Public Sub AddTestEntry(testEntry As TestHistoryDto)

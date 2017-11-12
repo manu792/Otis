@@ -1,6 +1,8 @@
 ﻿Imports System.ComponentModel.DataAnnotations
+Imports Otis.Repository
 
 Public Class Entitlement
+
     <Key>
     Property EntitlementId As Integer
     <Required>

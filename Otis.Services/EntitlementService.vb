@@ -14,6 +14,13 @@ Public Class EntitlementService
         {
             .EntitlementId = x.EntitlementId,
             .Name = x.Name,
+            .Profiles = x.Profiles.Select(Function(p) New ProfileDto() With
+            {
+                .ProfileId = p.ProfileId,
+                .Name = p.Name,
+                .Description = p.Description,
+                .IsActive = p.IsActive
+            }).ToList(),
             .IsActive = x.IsActive
         }).ToList()
     End Function

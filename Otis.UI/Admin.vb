@@ -10,11 +10,14 @@ Public Class Admin
     Private careerService As CareerService
     Private userService As UserService
     Private entitlementService As EntitlementService
+
     Private categories As IEnumerable(Of CategoryDto)
     Private loggedUser As UserDto
     Private users As IEnumerable(Of UserDto)
     Private questions As IEnumerable(Of QuestionDto)
     Private profiles As IEnumerable(Of ProfileDto)
+    Private entitlements As IEnumerable(Of EntitlementDto)
+
     Private usersBindingSource As BindingSource
     Private questionsBindingSource As BindingSource
     Private profilesBindingSource As BindingSource
@@ -43,6 +46,7 @@ Public Class Admin
         UpdateCareers()
         UpdateUsers()
         UpdateQuestions()
+        UpdateEntitlements()
     End Sub
 
     Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UserDto))
@@ -134,6 +138,12 @@ Public Class Admin
             categoriesComboBox.Items.Add(item)
             EditarPreguntaCategoriaCombo.Items.Add(item)
         Next
+    End Sub
+
+    Private Sub LoadEntitlements(entitlementsDto As IEnumerable(Of EntitlementDto))
+        entitlements = entitlementsDto
+        PermisosLista.DataSource = entitlements
+        PermisosCrearPerfil.DataSource = entitlements
     End Sub
 
     Private Function GetPossibleAnswers() As ICollection(Of AnswerDto)
@@ -298,6 +308,10 @@ Public Class Admin
         LoadQuestions(questionService.GetAllQuestions())
     End Sub
 
+    Private Sub UpdateEntitlements()
+        LoadEntitlements(entitlementService.GetAllEntitlements())
+    End Sub
+
     Private Sub BtnEditarPreguntaBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtEditarPreguntaBuscar.TextChanged
         questionsBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
                                               Pregunta LIKE '%{0}%' Or 
@@ -387,10 +401,88 @@ Public Class Admin
         End If
     End Sub
 
-    Private Sub TxtPerfilesBuscar_TextChanged(sender As Object, e As EventArgs)
+    Private Sub TxtPerfilesBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtPerfilesBuscar.TextChanged
         profilesBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
                                               Nombre LIKE '%{0}%' Or 
                                               Descripcion LIKE '%{0}%' Or
                                               [Esta Activo] LIKE '%{0}%'", TxtPerfilesBuscar.Text)
+    End Sub
+
+    Private Sub BtnPerfilGuardar_Click(sender As Object, e As EventArgs) Handles BtnPerfilGuardar.Click
+        Dim profile = profiles.FirstOrDefault(Function(p) p.ProfileId = Integer.Parse(TxtPerfilId.Text))
+
+        profile.ProfileId = Integer.Parse(TxtPerfilId.Text)
+        profile.Name = TxtPerfilNombre.Text
+        profile.Description = TxtPerfilDescripcion.Text
+        profile.IsActive = PerfilActivoCombo.Text
+        profile.Entitlements = PermisosSeleccionadosLista.Items.Cast(Of EntitlementDto).ToList()
+
+        MessageBox.Show(profileService.UpdateProfile(Integer.Parse(TxtPerfilId.Text), profile))
+        UpdateProfiles()
+    End Sub
+
+    Private Sub BtnAddEntitlement_Click(sender As Object, e As EventArgs) Handles BtnAddEntitlement.Click
+        For Each item In PermisosLista.CheckedItems
+            Dim entitlement = CType(item, EntitlementDto)
+            If Not PermisosSeleccionadosLista.Items.Contains(entitlement) Then
+                PermisosSeleccionadosLista.Items.Add(entitlement)
+            End If
+        Next
+    End Sub
+
+    Private Sub BtnRemoveEntitlement_Click(sender As Object, e As EventArgs) Handles BtnRemoveEntitlement.Click
+        For i = PermisosSeleccionadosLista.CheckedIndices.Count - 1 To 0 Step -1
+            Dim index = PermisosSeleccionadosLista.CheckedIndices(i)
+            PermisosSeleccionadosLista.Items.RemoveAt(index)
+        Next
+    End Sub
+
+    Private Sub PerfilesGrid_SelectionChanged(sender As Object, e As EventArgs) Handles PerfilesGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
+            TxtPerfilId.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).ProfileId
+            TxtPerfilNombre.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).Name
+            TxtPerfilDescripcion.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).Description
+            PerfilActivoCombo.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).IsActive
+            UpdatePermisosSeleccionadosLista(id)
+        End If
+    End Sub
+
+    Private Sub UpdatePermisosSeleccionadosLista(id As Integer)
+        PermisosSeleccionadosLista.Items.Clear()
+
+        Dim profile = profiles.FirstOrDefault(Function(u) u.ProfileId = id)
+
+        For Each entitlement In profile.Entitlements
+            PermisosSeleccionadosLista.Items.Add(entitlement)
+        Next
+    End Sub
+
+    Private Sub BtnCrearPerfilAgregarPermiso_Click(sender As Object, e As EventArgs) Handles BtnCrearPerfilAgregarPermiso.Click
+        For Each item In PermisosCrearPerfil.CheckedItems
+            Dim entitlement = CType(item, EntitlementDto)
+            If Not PermisosSeleccionadosCrearPerfil.Items.Contains(entitlement) Then
+                PermisosSeleccionadosCrearPerfil.Items.Add(entitlement)
+            End If
+        Next
+    End Sub
+
+    Private Sub BtnCrearPerfilRemoverPermiso_Click(sender As Object, e As EventArgs) Handles BtnCrearPerfilRemoverPermiso.Click
+        For i = PermisosSeleccionadosCrearPerfil.CheckedIndices.Count - 1 To 0 Step -1
+            Dim index = PermisosSeleccionadosCrearPerfil.CheckedIndices(i)
+            PermisosSeleccionadosCrearPerfil.Items.RemoveAt(index)
+        Next
+    End Sub
+
+    Private Sub BtnCrearPerfilGuardar_Click(sender As Object, e As EventArgs) Handles BtnCrearPerfilGuardar.Click
+        MessageBox.Show(profileService.AddProfile(New ProfileDto() With
+        {
+            .Name = TxtCrearPerfilNombre.Text,
+            .Description = TxtCrearPerfilDescripcion.Text,
+            .Entitlements = PermisosSeleccionadosCrearPerfil.Items.Cast(Of EntitlementDto).ToList(),
+            .IsActive = True
+        }))
+        UpdateProfiles()
     End Sub
 End Class

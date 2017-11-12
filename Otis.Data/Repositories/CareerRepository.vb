@@ -1,5 +1,4 @@
-﻿Imports Otis.Commons
-Imports Otis.Repository
+﻿Imports Otis.Repository
 
 Public Class CareerRepository
 

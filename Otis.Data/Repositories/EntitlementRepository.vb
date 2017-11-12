@@ -1,4 +1,5 @@
 ﻿Imports Otis.Repository
+Imports System.Data.Entity
 
 Public Class EntitlementRepository
 
@@ -9,6 +10,10 @@ Public Class EntitlementRepository
     End Sub
 
     Public Function GetAllEntitlements() As IEnumerable(Of Entitlement)
-        Return otisContext.Entitlements.Where(Function(e) e.IsActive = True).ToList()
+        Return otisContext.Entitlements.Include(Function(e) e.Profiles).ToList()
+    End Function
+
+    Public Function GetEntitlementById(id As Integer) As Entitlement
+        Return otisContext.Entitlements.FirstOrDefault(Function(e) e.EntitlementId = id)
     End Function
 End Class

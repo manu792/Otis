@@ -34,7 +34,7 @@ Public Class Student
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         pendingExamsList = examService.GetExamsForUser(user.Id)
-        PendingExams.DataSource = pendingExamsList
+        PendingExams.DataSource = GetExamDataTable(pendingExamsList)
     End Sub
 
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
@@ -45,4 +45,20 @@ Public Class Student
             Me.Close()
         End If
     End Sub
+
+    Private Function GetExamDataTable(exams As IEnumerable(Of ExamDto)) As DataTable
+        Dim table = New DataTable()
+
+        table.Columns.Add("Id")
+        table.Columns.Add("Nombre")
+        table.Columns.Add("Descripcion")
+        table.Columns.Add("Duracion / minutos")
+        table.Columns.Add("Cantidad Preguntas")
+
+        For Each exam In exams
+            table.Rows.Add(exam.ExamId, exam.Name, exam.Description, exam.Time, exam.QuestionsQuantity)
+        Next
+
+        Return table
+    End Function
 End Class
