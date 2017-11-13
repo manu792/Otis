@@ -7,7 +7,6 @@ Public Class TestHistory
     <Required>
     Property QuestionId As Int32
     Property UserAnswer As String
-    Property CorrectAnswer As String
 
     ' Navigation Properties
     Overridable Property Session As Session

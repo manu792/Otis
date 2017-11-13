@@ -234,6 +234,19 @@ Public Class DatabaseInitializer
                 .SecondLastName = "Jimenez",
                 .CareerId = Nothing,
                 .IsActive = True
+            },
+            New User() With
+            {
+                .UserId = "202020",
+                .Password = encryptor.Encrypt("Admin"),
+                .EmailAddress = "admin@gmail.com",
+                .IsTemporaryPassword = False,
+                .ProfileId = 1,
+                .Name = "Manuel",
+                .LastName = "Roman",
+                .SecondLastName = "Soto",
+                .CareerId = Nothing,
+                .IsActive = True
             }
         )
         context.SaveChanges()

@@ -41,8 +41,7 @@ Public Class ExamService
         {
             .QuestionId = testEntry.QuestionId,
             .SessionId = testEntry.SessionId,
-            .UserAnswer = testEntry.UserAnswer,
-            .CorrectAnswer = testEntry.CorrectAnswer
+            .UserAnswer = testEntry.UserAnswer
         })
     End Sub
 

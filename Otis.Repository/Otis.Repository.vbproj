@@ -171,6 +171,10 @@
       <DependentUpon>201711092201370_AddedIsActiveFlagToEntities.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.vb" />
+    <Compile Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.Designer.vb">
+      <DependentUpon>201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\QuestionAnswers.vb" />
     <Compile Include="Models\Career.vb" />
@@ -275,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.resx">
       <DependentUpon>201711092201370_AddedIsActiveFlagToEntities.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.resx">
+      <DependentUpon>201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
