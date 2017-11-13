@@ -27,11 +27,13 @@ Public Class UserRepository
         Return user
     End Function
 
-    Public Sub UpdateUser(user As User)
+    Public Function UpdateUser(user As User) As User
         Dim userToUpdate = otisContext.Users.FirstOrDefault(Function(u) u.UserId = user.UserId)
         otisContext.Entry(userToUpdate).CurrentValues.SetValues(user)
         otisContext.SaveChanges()
-    End Sub
+
+        Return user
+    End Function
 
     Public Function Register(user As User) As User
         If Not DoesUserExist(user.UserId) Then

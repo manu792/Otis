@@ -1,5 +1,4 @@
-﻿Imports System.IO
-Imports Otis.Commons
+﻿Imports Otis.Commons
 Imports Otis.Services
 
 Public Class Admin
@@ -21,6 +20,7 @@ Public Class Admin
     Private usersBindingSource As BindingSource
     Private questionsBindingSource As BindingSource
     Private profilesBindingSource As BindingSource
+    Private entitlementsBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -29,15 +29,18 @@ Public Class Admin
 
         ' Add any initialization after the InitializeComponent() call.
         loggedUser = userDto
+
         questionService = New QuestionService()
         categoryService = New CategoryService()
         profileService = New ProfileService()
         careerService = New CareerService()
         userService = New UserService()
         entitlementService = New EntitlementService()
+
         usersBindingSource = New BindingSource()
         questionsBindingSource = New BindingSource()
         profilesBindingSource = New BindingSource()
+        entitlementsBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -120,21 +123,27 @@ Public Class Admin
         profilesBindingSource.DataSource = ConvertProfilesToDataTable(profiles)
         PerfilesGrid.DataSource = profilesBindingSource
 
-        For Each item As ProfileDto In profiles
+        ProfilesComboBox.Items.Clear()
+        EditarUsuarioPerfilCombo.Items.Clear()
+        For Each item As ProfileDto In profiles.Where(Function(p) p.IsActive = True)
             ProfilesComboBox.Items.Add(item)
             EditarUsuarioPerfilCombo.Items.Add(item)
         Next
     End Sub
 
     Private Sub LoadCareers(careers As IEnumerable(Of CareerDto))
-        For Each item As CareerDto In careers
+        CareersComboBox.Items.Clear()
+        EditarUsuarioCarreraCombo.Items.Clear()
+        For Each item As CareerDto In careers.Where(Function(c) c.IsActive = True)
             CareersComboBox.Items.Add(item)
             EditarUsuarioCarreraCombo.Items.Add(item)
         Next
     End Sub
 
     Private Sub LoadCategories(categories As IEnumerable(Of CategoryDto))
-        For Each item As CategoryDto In categories
+        categoriesComboBox.Items.Clear()
+        EditarPreguntaCategoriaCombo.Items.Clear()
+        For Each item As CategoryDto In categories.Where(Function(c) c.IsActive = True)
             categoriesComboBox.Items.Add(item)
             EditarPreguntaCategoriaCombo.Items.Add(item)
         Next
@@ -142,9 +151,26 @@ Public Class Admin
 
     Private Sub LoadEntitlements(entitlementsDto As IEnumerable(Of EntitlementDto))
         entitlements = entitlementsDto
-        PermisosLista.DataSource = entitlements
-        PermisosCrearPerfil.DataSource = entitlements
+        entitlementsBindingSource.DataSource = ConvertEntitlementsToDataTable(entitlements)
+        PermisosGrid.DataSource = entitlementsBindingSource
+
+        PermisosLista.DataSource = entitlements.Where(Function(p) p.IsActive = True).ToList()
+        PermisosCrearPerfil.DataSource = entitlements.Where(Function(p) p.IsActive = True).ToList()
     End Sub
+
+    Private Function ConvertEntitlementsToDataTable(entitlements As IEnumerable(Of EntitlementDto)) As DataTable
+        Dim table = New DataTable()
+
+        table.Columns.Add("Id")
+        table.Columns.Add("Nombre")
+        table.Columns.Add("Esta activo")
+
+        For Each entitlement In entitlements
+            table.Rows.Add(entitlement.EntitlementId, entitlement.Name, entitlement.IsActive)
+        Next
+
+        Return table
+    End Function
 
     Private Function GetPossibleAnswers() As ICollection(Of AnswerDto)
         Dim answers = New List(Of AnswerDto)
@@ -160,7 +186,7 @@ Public Class Admin
     Private Sub BtnBuscar_Click(sender As Object, e As EventArgs) Handles BtnBuscar.Click
         If OpenFileDialog.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             Dim imagePath = OpenFileDialog.FileName
-            imagePathLabelText.Text = imagePath
+            TxtImagePath.Text = imagePath
         End If
     End Sub
 
@@ -168,6 +194,7 @@ Public Class Admin
         ' Adds a new possible answer to the collection of answers for this question
         If txtPossibleAnswer.Text <> String.Empty Then
             possibleAnswersCheckBox.Items.Add(txtPossibleAnswer.Text)
+            txtPossibleAnswer.Clear()
         End If
     End Sub
 
@@ -184,31 +211,56 @@ Public Class Admin
         {
             .QuestionText = txtQuestionText.Text,
             .Category = New CategoryDto() With {.CategoryId = category.CategoryId, .CategoryName = category.CategoryName},
-            .ImagePath = If(imagePathLabelText.Text = String.Empty, Nothing, imagePathLabelText.Text),
+            .ImagePath = If(TxtImagePath.Text.Equals(String.Empty), Nothing, TxtImagePath.Text),
             .IsActive = True,
             .Answers = GetPossibleAnswers()
         }
         MessageBox.Show(questionService.SaveQuestion(questionDto))
         UpdateQuestions()
+        ClearQuestionFields()
+    End Sub
+
+    Private Sub ClearQuestionFields()
+        txtQuestionText.Clear()
+        categoriesComboBox.SelectedItem = Nothing
+        TxtImagePath.Clear()
+        txtPossibleAnswer.Clear()
+        possibleAnswersCheckBox.Items.Clear()
     End Sub
 
     Private Sub BtnGuardarUsuario_Click(sender As Object, e As EventArgs) Handles BtnGuardarUsuario.Click
-        If TxtCedula.Text IsNot Nothing And TxtNombre.Text IsNot Nothing And TxtCorreo.Text IsNot Nothing And ProfilesComboBox.SelectedIndex <> -1 And TxtContrasena.Text IsNot Nothing Then
-            MessageBox.Show(userService.AddUser(New UserDto() With
-            {
-                .Id = TxtCedula.Text,
-                .Name = TxtNombre.Text,
-                .LastName = TxtPrimerApe.Text,
-                .SecondLastName = TxtSegundoApe.Text,
-                .EmailAddress = TxtCorreo.Text,
-                .Profile = CType(ProfilesComboBox.SelectedItem, ProfileDto),
-                .Career = If(CareersComboBox.Enabled, CType(CareersComboBox.SelectedItem, CareerDto), Nothing),
-                .Password = TxtContrasena.Text,
-                .IsTemporaryPassword = True,
-                .IsActive = True
-            }))
-            UpdateUsers()
+        If TxtCedula.Text IsNot Nothing And TxtNombre.Text IsNot Nothing And TxtCorreo.Text IsNot Nothing And ProfilesComboBox.SelectedIndex <> -1 And TxtContrasena.Text IsNot Nothing And TxtConfirmarContrasena.Text IsNot Nothing Then
+            If TxtContrasena.Text.Equals(TxtConfirmarContrasena.Text) Then
+                MessageBox.Show(userService.AddUser(New UserDto() With
+                {
+                    .Id = TxtCedula.Text,
+                    .Name = TxtNombre.Text,
+                    .LastName = TxtPrimerApe.Text,
+                    .SecondLastName = TxtSegundoApe.Text,
+                    .EmailAddress = TxtCorreo.Text,
+                    .Profile = CType(ProfilesComboBox.SelectedItem, ProfileDto),
+                    .Career = If(CareersComboBox.Enabled, CType(CareersComboBox.SelectedItem, CareerDto), Nothing),
+                    .Password = TxtContrasena.Text,
+                    .IsTemporaryPassword = True,
+                    .IsActive = True
+                }))
+                UpdateUsers()
+                ClearUserFields()
+            Else
+                MessageBox.Show("Las contraseñas no coinciden. Intente de nuevo.", "Contraseñas no coinciden")
+            End If
         End If
+    End Sub
+
+    Private Sub ClearUserFields()
+        TxtCedula.Clear()
+        TxtNombre.Clear()
+        TxtPrimerApe.Clear()
+        TxtSegundoApe.Clear()
+        TxtCorreo.Clear()
+        ProfilesComboBox.SelectedItem = Nothing
+        CareersComboBox.SelectedItem = Nothing
+        TxtContrasena.Clear()
     End Sub
 
     Private Sub ProfilesComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProfilesComboBox.SelectedIndexChanged
@@ -272,7 +324,7 @@ Public Class Admin
             career = CType(EditarUsuarioCarreraCombo.SelectedItem, CareerDto)
         End If
 
-        userService.UpdateUser(New UserDto() With
+        MessageBox.Show(userService.UpdateUser(New UserDto() With
         {
             .Id = TxtEditarUsuarioCedula.Text,
             .Name = TxtEditarUsuarioNombre.Text,
@@ -284,7 +336,7 @@ Public Class Admin
             .Password = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).Password,
             .IsActive = CType(EditarUsuarioActivoCombo.Text, Boolean),
             .IsTemporaryPassword = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).IsTemporaryPassword
-        })
+        }))
         UpdateUsers()
     End Sub
 
@@ -413,7 +465,7 @@ Public Class Admin
 
         profile.ProfileId = Integer.Parse(TxtPerfilId.Text)
         profile.Name = TxtPerfilNombre.Text
-        profile.Description = TxtPerfilDescripcion.Text
+        profile.Description = If(TxtPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtPerfilDescripcion.Text)
         profile.IsActive = PerfilActivoCombo.Text
         profile.Entitlements = PermisosSeleccionadosLista.Items.Cast(Of EntitlementDto).ToList()
 
@@ -424,7 +476,8 @@ Public Class Admin
     Private Sub BtnAddEntitlement_Click(sender As Object, e As EventArgs) Handles BtnAddEntitlement.Click
         For Each item In PermisosLista.CheckedItems
             Dim entitlement = CType(item, EntitlementDto)
-            If Not PermisosSeleccionadosLista.Items.Contains(entitlement) Then
+
+            If Not PermisosSeleccionadosLista.Items.Cast(Of EntitlementDto).Contains(entitlement) Then
                 PermisosSeleccionadosLista.Items.Add(entitlement)
             End If
         Next
@@ -462,7 +515,7 @@ Public Class Admin
     Private Sub BtnCrearPerfilAgregarPermiso_Click(sender As Object, e As EventArgs) Handles BtnCrearPerfilAgregarPermiso.Click
         For Each item In PermisosCrearPerfil.CheckedItems
             Dim entitlement = CType(item, EntitlementDto)
-            If Not PermisosSeleccionadosCrearPerfil.Items.Contains(entitlement) Then
+            If Not PermisosSeleccionadosCrearPerfil.Items.Cast(Of EntitlementDto).Contains(entitlement) Then
                 PermisosSeleccionadosCrearPerfil.Items.Add(entitlement)
             End If
         Next
@@ -479,10 +532,62 @@ Public Class Admin
         MessageBox.Show(profileService.AddProfile(New ProfileDto() With
         {
             .Name = TxtCrearPerfilNombre.Text,
-            .Description = TxtCrearPerfilDescripcion.Text,
+            .Description = If(TxtCrearPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtCrearPerfilDescripcion.Text),
             .Entitlements = PermisosSeleccionadosCrearPerfil.Items.Cast(Of EntitlementDto).ToList(),
             .IsActive = True
         }))
         UpdateProfiles()
+        ClearProfileFields()
+    End Sub
+
+    Private Sub ClearProfileFields()
+        TxtCrearPerfilNombre.Clear()
+        TxtCrearPerfilDescripcion.Clear()
+        PermisosSeleccionadosCrearPerfil.Items.Clear()
+    End Sub
+
+    Private Sub TxtPermisosBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtPermisosBuscar.TextChanged
+        entitlementsBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              [Esta Activo] LIKE '%{0}%'", TxtPermisosBuscar.Text)
+    End Sub
+
+    Private Sub BtnPermisosActualizar_Click(sender As Object, e As EventArgs) Handles BtnPermisosActualizar.Click
+        MessageBox.Show(entitlementService.UpdateEntitlement(Integer.Parse(TxtPermisosId.Text), New EntitlementDto() With
+        {
+            .EntitlementId = Integer.Parse(TxtPermisosId.Text),
+            .Name = TxtPermisosNombre.Text,
+            .IsActive = PermisosActivoCombo.Text
+        }))
+        UpdateEntitlements()
+    End Sub
+
+    Private Sub PermisosGrid_SelectionChanged(sender As Object, e As EventArgs) Handles PermisosGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
+            TxtPermisosId.Text = entitlements.FirstOrDefault(Function(u) u.EntitlementId = id).EntitlementId
+            TxtPermisosNombre.Text = entitlements.FirstOrDefault(Function(u) u.EntitlementId = id).Name
+            PermisosActivoCombo.Text = entitlements.FirstOrDefault(Function(u) u.EntitlementId = id).IsActive
+        End If
+    End Sub
+
+    Private Sub BtnPermisosNuevo_Click(sender As Object, e As EventArgs) Handles BtnPermisosNuevo.Click
+        Dim newEntitlementForm = New NewEntitlementForm()
+        If newEntitlementForm.ShowDialog(Me) = DialogResult.OK Then
+            MessageBox.Show(entitlementService.AddEntitlement(New EntitlementDto() With
+            {
+                .Name = newEntitlementForm.TxtNewEntitlement.Text,
+                .IsActive = True
+            }))
+        End If
+    End Sub
+
+    Private Sub BtnImagePathBorrar_Click(sender As Object, e As EventArgs) Handles BtnImagePathBorrar.Click
+        TxtImagePath.Clear()
+    End Sub
+
+    Private Sub BtnEditarPreguntaImagePathBorrar_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaImagePathBorrar.Click
+        TxtEditarPreguntaImagen.Clear()
     End Sub
 End Class

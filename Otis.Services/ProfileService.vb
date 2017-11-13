@@ -19,7 +19,8 @@ Public Class ProfileService
             .Entitlements = x.Entitlements.ToList().Select(Function(e) New EntitlementDto With
             {
                 .EntitlementId = e.EntitlementId,
-                .Name = e.Name
+                .Name = e.Name,
+                .IsActive = e.IsActive
             }).ToList()
         }).ToList()
     End Function

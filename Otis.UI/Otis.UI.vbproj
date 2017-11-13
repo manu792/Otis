@@ -101,6 +101,12 @@
       <DependentUpon>Login.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="NewEntitlementForm.Designer.vb">
+      <DependentUpon>NewEntitlementForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="NewEntitlementForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Student.Designer.vb">
       <DependentUpon>Student.vb</DependentUpon>
     </Compile>
@@ -157,6 +163,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewEntitlementForm.resx">
+      <DependentUpon>NewEntitlementForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Student.resx">
       <DependentUpon>Student.vb</DependentUpon>

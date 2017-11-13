@@ -33,21 +33,26 @@ Public Class UserService
             Return "Hubo un problema al tratar de guardar el usuario. Favor contacte a soporte."
         End Try
     End Function
-    Public Sub UpdateUser(user As UserDto)
-        unitOfWork.UserRepository.UpdateUser(New User() With
-        {
-            .UserId = user.Id,
-            .Name = user.Name,
-            .LastName = user.LastName,
-            .SecondLastName = user.SecondLastName,
-            .EmailAddress = user.EmailAddress,
-            .ProfileId = user.Profile.ProfileId,
-            .CareerId = user.Career?.CareerId,
-            .Password = user.Password,
-            .IsActive = user.IsActive,
-            .IsTemporaryPassword = user.IsTemporaryPassword
-        })
-    End Sub
+    Public Function UpdateUser(user As UserDto) As String
+        Try
+            unitOfWork.UserRepository.UpdateUser(New User() With
+            {
+                .UserId = user.Id,
+                .Name = user.Name,
+                .LastName = user.LastName,
+                .SecondLastName = user.SecondLastName,
+                .EmailAddress = user.EmailAddress,
+                .ProfileId = user.Profile.ProfileId,
+                .CareerId = user.Career?.CareerId,
+                .Password = user.Password,
+                .IsActive = user.IsActive,
+                .IsTemporaryPassword = user.IsTemporaryPassword
+            })
+            Return "Usuario modificado correctamente."
+        Catch ex As Exception
+            Return "Hubo un problema al tratar de modificar el usuario. Favor contacte a soporte."
+        End Try
+    End Function
     Public Sub RemoveUser()
 
     End Sub

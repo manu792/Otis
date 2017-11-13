@@ -6,6 +6,7 @@ Public Class OtisContext
     Public Sub New()
         MyBase.New("OtisDB")
         Me.Configuration.LazyLoadingEnabled = False
+        Database.SetInitializer(New DatabaseInitializer())
     End Sub
 
     Property Users As DbSet(Of User)

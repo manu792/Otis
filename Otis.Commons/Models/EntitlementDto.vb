@@ -12,7 +12,11 @@ Public Class EntitlementDto
         Return Name
     End Function
 
-    Public Function Equals(other As EntitlementDto) As Boolean Implements IEquatable(Of EntitlementDto).Equals
-        Return other.EntitlementId = Me.EntitlementId
+    Public Overloads Function Equals(other As EntitlementDto) As Boolean Implements IEquatable(Of EntitlementDto).Equals
+        Return other.Name = Me.Name
+    End Function
+
+    Public Overrides Function Equals(obj As Object) As Boolean
+        Return MyBase.Equals(obj)
     End Function
 End Class

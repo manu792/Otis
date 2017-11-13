@@ -70,6 +70,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseInitializer.vb" />
     <Compile Include="Migrations\201709230251037_Initial.Designer.vb">
       <DependentUpon>201709230251037_Initial.vb</DependentUpon>
     </Compile>
