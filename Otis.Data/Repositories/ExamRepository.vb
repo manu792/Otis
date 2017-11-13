@@ -17,9 +17,12 @@ Public Class ExamRepository
     End Function
 
     Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of Question)
-        Return otisContext.Questions.OrderBy(Function(f) Guid.NewGuid()).Take(questionsQuantity).
+        Return otisContext.Questions.OrderBy(Function(f) Guid.NewGuid()).
                     Where(Function(q) q.IsActive = True And q.Exams.Any(Function(e) e.IsActive = True And e.ExamId = examId)).
-                    Include(Function(a) a.Answers).Distinct().ToList()
+                    Include(Function(a) a.Answers).
+                    Include(Function(q) q.Category).
+                    Take(questionsQuantity).
+                    ToList()
     End Function
 
     Public Sub UpdateStatusForExamByUser(examId As Integer, userId As String, isCompleted As Boolean)

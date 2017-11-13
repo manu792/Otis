@@ -32,7 +32,7 @@ Public Class ExamService
             {
                 .QuestionId = a.QuestionId,
                 .AnswerText = a.AnswerText
-            })
+            }).ToList()
         }).ToList()
     End Function
 
