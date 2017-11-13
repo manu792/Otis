@@ -55,7 +55,7 @@ Public Class QuestionService
         End Try
     End Function
 
-    Private Function GetQuestion(questionId As Integer, question As QuestionDto)
+    Private Function GetQuestion(questionId As Integer, question As QuestionDto) As Question
         Dim questionToUpdate = unitOfWork.QuestionRepository.GetQuestionById(questionId)
 
         questionToUpdate.QuestionId = question.QuestionId

@@ -27,6 +27,8 @@ Partial Class Admin
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.TxtConfirmarContrasena = New System.Windows.Forms.TextBox()
+        Me.Label40 = New System.Windows.Forms.Label()
         Me.BtnGuardarUsuario = New System.Windows.Forms.Button()
         Me.TxtContrasena = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -156,8 +158,19 @@ Partial Class Admin
         Me.Label38 = New System.Windows.Forms.Label()
         Me.PermisosGrid = New System.Windows.Forms.DataGridView()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
-        Me.TxtConfirmarContrasena = New System.Windows.Forms.TextBox()
-        Me.Label40 = New System.Windows.Forms.Label()
+        Me.TabPage11 = New System.Windows.Forms.TabPage()
+        Me.BtnCategoriasAgregar = New System.Windows.Forms.Button()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.BtnCategoriasActualizar = New System.Windows.Forms.Button()
+        Me.CategoriasActivaCombo = New System.Windows.Forms.ComboBox()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.TxtCategoriasNombre = New System.Windows.Forms.TextBox()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.TxtCategoriasId = New System.Windows.Forms.TextBox()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.TxtCategoriasBuscar = New System.Windows.Forms.TextBox()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.CategoriasGrid = New System.Windows.Forms.DataGridView()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -185,6 +198,9 @@ Partial Class Admin
         Me.TabPage10.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         CType(Me.PermisosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage11.SuspendLayout()
+        Me.GroupBox9.SuspendLayout()
+        CType(Me.CategoriasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -196,6 +212,7 @@ Partial Class Admin
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage7)
+        Me.TabControl1.Controls.Add(Me.TabPage11)
         Me.TabControl1.Location = New System.Drawing.Point(12, 51)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -251,6 +268,23 @@ Partial Class Admin
         Me.TabPage5.TabIndex = 0
         Me.TabPage5.Text = "Crear Usuario"
         Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'TxtConfirmarContrasena
+        '
+        Me.TxtConfirmarContrasena.Location = New System.Drawing.Point(416, 274)
+        Me.TxtConfirmarContrasena.Name = "TxtConfirmarContrasena"
+        Me.TxtConfirmarContrasena.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
+        Me.TxtConfirmarContrasena.Size = New System.Drawing.Size(203, 20)
+        Me.TxtConfirmarContrasena.TabIndex = 34
+        '
+        'Label40
+        '
+        Me.Label40.AutoSize = True
+        Me.Label40.Location = New System.Drawing.Point(299, 277)
+        Me.Label40.Name = "Label40"
+        Me.Label40.Size = New System.Drawing.Size(111, 13)
+        Me.Label40.TabIndex = 33
+        Me.Label40.Text = "Confirmar Contraseña:"
         '
         'BtnGuardarUsuario
         '
@@ -1487,22 +1521,133 @@ Partial Class Admin
         Me.BtnCerrarSesion.Text = "Cerrar Sesion"
         Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
-        'TxtConfirmarContrasena
+        'TabPage11
         '
-        Me.TxtConfirmarContrasena.Location = New System.Drawing.Point(416, 274)
-        Me.TxtConfirmarContrasena.Name = "TxtConfirmarContrasena"
-        Me.TxtConfirmarContrasena.PasswordChar = Global.Microsoft.VisualBasic.ChrW(42)
-        Me.TxtConfirmarContrasena.Size = New System.Drawing.Size(203, 20)
-        Me.TxtConfirmarContrasena.TabIndex = 34
+        Me.TabPage11.Controls.Add(Me.BtnCategoriasAgregar)
+        Me.TabPage11.Controls.Add(Me.GroupBox9)
+        Me.TabPage11.Controls.Add(Me.TxtCategoriasBuscar)
+        Me.TabPage11.Controls.Add(Me.Label46)
+        Me.TabPage11.Controls.Add(Me.CategoriasGrid)
+        Me.TabPage11.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage11.Name = "TabPage11"
+        Me.TabPage11.Size = New System.Drawing.Size(954, 594)
+        Me.TabPage11.TabIndex = 3
+        Me.TabPage11.Text = "Categorias"
+        Me.TabPage11.UseVisualStyleBackColor = True
         '
-        'Label40
+        'BtnCategoriasAgregar
         '
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(299, 277)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(111, 13)
-        Me.Label40.TabIndex = 33
-        Me.Label40.Text = "Confirmar Contraseña:"
+        Me.BtnCategoriasAgregar.Location = New System.Drawing.Point(425, 277)
+        Me.BtnCategoriasAgregar.Name = "BtnCategoriasAgregar"
+        Me.BtnCategoriasAgregar.Size = New System.Drawing.Size(113, 36)
+        Me.BtnCategoriasAgregar.TabIndex = 32
+        Me.BtnCategoriasAgregar.Text = "Agregar Categoria"
+        Me.BtnCategoriasAgregar.UseVisualStyleBackColor = True
+        '
+        'GroupBox9
+        '
+        Me.GroupBox9.Controls.Add(Me.BtnCategoriasActualizar)
+        Me.GroupBox9.Controls.Add(Me.CategoriasActivaCombo)
+        Me.GroupBox9.Controls.Add(Me.Label43)
+        Me.GroupBox9.Controls.Add(Me.TxtCategoriasNombre)
+        Me.GroupBox9.Controls.Add(Me.Label44)
+        Me.GroupBox9.Controls.Add(Me.TxtCategoriasId)
+        Me.GroupBox9.Controls.Add(Me.Label45)
+        Me.GroupBox9.Location = New System.Drawing.Point(298, 330)
+        Me.GroupBox9.Name = "GroupBox9"
+        Me.GroupBox9.Size = New System.Drawing.Size(350, 214)
+        Me.GroupBox9.TabIndex = 31
+        Me.GroupBox9.TabStop = False
+        Me.GroupBox9.Text = "Datos Categoria"
+        '
+        'BtnCategoriasActualizar
+        '
+        Me.BtnCategoriasActualizar.Location = New System.Drawing.Point(127, 142)
+        Me.BtnCategoriasActualizar.Name = "BtnCategoriasActualizar"
+        Me.BtnCategoriasActualizar.Size = New System.Drawing.Size(121, 44)
+        Me.BtnCategoriasActualizar.TabIndex = 26
+        Me.BtnCategoriasActualizar.Text = "Guardar Cambios"
+        Me.BtnCategoriasActualizar.UseVisualStyleBackColor = True
+        '
+        'CategoriasActivaCombo
+        '
+        Me.CategoriasActivaCombo.FormattingEnabled = True
+        Me.CategoriasActivaCombo.Items.AddRange(New Object() {"True", "False"})
+        Me.CategoriasActivaCombo.Location = New System.Drawing.Point(127, 100)
+        Me.CategoriasActivaCombo.Name = "CategoriasActivaCombo"
+        Me.CategoriasActivaCombo.Size = New System.Drawing.Size(187, 21)
+        Me.CategoriasActivaCombo.TabIndex = 18
+        '
+        'Label43
+        '
+        Me.Label43.AutoSize = True
+        Me.Label43.Location = New System.Drawing.Point(31, 103)
+        Me.Label43.Name = "Label43"
+        Me.Label43.Size = New System.Drawing.Size(37, 13)
+        Me.Label43.TabIndex = 8
+        Me.Label43.Text = "Activa"
+        '
+        'TxtCategoriasNombre
+        '
+        Me.TxtCategoriasNombre.Location = New System.Drawing.Point(127, 71)
+        Me.TxtCategoriasNombre.Name = "TxtCategoriasNombre"
+        Me.TxtCategoriasNombre.Size = New System.Drawing.Size(187, 20)
+        Me.TxtCategoriasNombre.TabIndex = 3
+        '
+        'Label44
+        '
+        Me.Label44.AutoSize = True
+        Me.Label44.Location = New System.Drawing.Point(31, 74)
+        Me.Label44.Name = "Label44"
+        Me.Label44.Size = New System.Drawing.Size(44, 13)
+        Me.Label44.TabIndex = 2
+        Me.Label44.Text = "Nombre"
+        '
+        'TxtCategoriasId
+        '
+        Me.TxtCategoriasId.Enabled = False
+        Me.TxtCategoriasId.Location = New System.Drawing.Point(127, 41)
+        Me.TxtCategoriasId.Name = "TxtCategoriasId"
+        Me.TxtCategoriasId.Size = New System.Drawing.Size(187, 20)
+        Me.TxtCategoriasId.TabIndex = 1
+        '
+        'Label45
+        '
+        Me.Label45.AutoSize = True
+        Me.Label45.Location = New System.Drawing.Point(31, 44)
+        Me.Label45.Name = "Label45"
+        Me.Label45.Size = New System.Drawing.Size(16, 13)
+        Me.Label45.TabIndex = 0
+        Me.Label45.Text = "Id"
+        '
+        'TxtCategoriasBuscar
+        '
+        Me.TxtCategoriasBuscar.Location = New System.Drawing.Point(130, 20)
+        Me.TxtCategoriasBuscar.Name = "TxtCategoriasBuscar"
+        Me.TxtCategoriasBuscar.Size = New System.Drawing.Size(304, 20)
+        Me.TxtCategoriasBuscar.TabIndex = 30
+        '
+        'Label46
+        '
+        Me.Label46.AutoSize = True
+        Me.Label46.Location = New System.Drawing.Point(81, 23)
+        Me.Label46.Name = "Label46"
+        Me.Label46.Size = New System.Drawing.Size(43, 13)
+        Me.Label46.TabIndex = 29
+        Me.Label46.Text = "Buscar:"
+        '
+        'CategoriasGrid
+        '
+        Me.CategoriasGrid.AllowUserToAddRows = False
+        Me.CategoriasGrid.AllowUserToDeleteRows = False
+        Me.CategoriasGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.CategoriasGrid.Location = New System.Drawing.Point(84, 43)
+        Me.CategoriasGrid.MultiSelect = False
+        Me.CategoriasGrid.Name = "CategoriasGrid"
+        Me.CategoriasGrid.ReadOnly = True
+        Me.CategoriasGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.CategoriasGrid.Size = New System.Drawing.Size(796, 228)
+        Me.CategoriasGrid.TabIndex = 28
         '
         'Admin
         '
@@ -1555,6 +1700,11 @@ Partial Class Admin
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()
         CType(Me.PermisosGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage11.ResumeLayout(False)
+        Me.TabPage11.PerformLayout()
+        Me.GroupBox9.ResumeLayout(False)
+        Me.GroupBox9.PerformLayout()
+        CType(Me.CategoriasGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1695,4 +1845,17 @@ Partial Class Admin
     Friend WithEvents BtnEditarPreguntaImagePathBorrar As Button
     Friend WithEvents TxtConfirmarContrasena As TextBox
     Friend WithEvents Label40 As Label
+    Friend WithEvents TabPage11 As TabPage
+    Friend WithEvents BtnCategoriasAgregar As Button
+    Friend WithEvents GroupBox9 As GroupBox
+    Friend WithEvents BtnCategoriasActualizar As Button
+    Friend WithEvents CategoriasActivaCombo As ComboBox
+    Friend WithEvents Label43 As Label
+    Friend WithEvents TxtCategoriasNombre As TextBox
+    Friend WithEvents Label44 As Label
+    Friend WithEvents TxtCategoriasId As TextBox
+    Friend WithEvents Label45 As Label
+    Friend WithEvents TxtCategoriasBuscar As TextBox
+    Friend WithEvents Label46 As Label
+    Friend WithEvents CategoriasGrid As DataGridView
 End Class

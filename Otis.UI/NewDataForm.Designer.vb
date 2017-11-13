@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class NewEntitlementForm
+Partial Class NewDataForm
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -23,7 +23,7 @@ Partial Class NewEntitlementForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.BtnGuardar = New System.Windows.Forms.Button()
-        Me.TxtNewEntitlement = New System.Windows.Forms.TextBox()
+        Me.TxtNewData = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
@@ -36,12 +36,12 @@ Partial Class NewEntitlementForm
         Me.BtnGuardar.Text = "Guardar"
         Me.BtnGuardar.UseVisualStyleBackColor = True
         '
-        'TxtNewEntitlement
+        'TxtNewData
         '
-        Me.TxtNewEntitlement.Location = New System.Drawing.Point(38, 51)
-        Me.TxtNewEntitlement.Name = "TxtNewEntitlement"
-        Me.TxtNewEntitlement.Size = New System.Drawing.Size(176, 20)
-        Me.TxtNewEntitlement.TabIndex = 12
+        Me.TxtNewData.Location = New System.Drawing.Point(38, 51)
+        Me.TxtNewData.Name = "TxtNewData"
+        Me.TxtNewData.Size = New System.Drawing.Size(176, 20)
+        Me.TxtNewData.TabIndex = 12
         '
         'Label3
         '
@@ -58,7 +58,7 @@ Partial Class NewEntitlementForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(257, 166)
         Me.Controls.Add(Me.BtnGuardar)
-        Me.Controls.Add(Me.TxtNewEntitlement)
+        Me.Controls.Add(Me.TxtNewData)
         Me.Controls.Add(Me.Label3)
         Me.Name = "NewEntitlementForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -69,6 +69,6 @@ Partial Class NewEntitlementForm
     End Sub
 
     Friend WithEvents BtnGuardar As Button
-    Friend WithEvents TxtNewEntitlement As TextBox
+    Friend WithEvents TxtNewData As TextBox
     Friend WithEvents Label3 As Label
 End Class

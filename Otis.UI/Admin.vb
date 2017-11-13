@@ -21,6 +21,7 @@ Public Class Admin
     Private questionsBindingSource As BindingSource
     Private profilesBindingSource As BindingSource
     Private entitlementsBindingSource As BindingSource
+    Private categoriesBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -41,6 +42,7 @@ Public Class Admin
         questionsBindingSource = New BindingSource()
         profilesBindingSource = New BindingSource()
         entitlementsBindingSource = New BindingSource()
+        categoriesBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -140,7 +142,11 @@ Public Class Admin
         Next
     End Sub
 
-    Private Sub LoadCategories(categories As IEnumerable(Of CategoryDto))
+    Private Sub LoadCategories(categoriesDto As IEnumerable(Of CategoryDto))
+        categories = categoriesDto
+        categoriesBindingSource.DataSource = ConvertCategoriesToDataTable(categories)
+        CategoriasGrid.DataSource = categoriesBindingSource
+
         categoriesComboBox.Items.Clear()
         EditarPreguntaCategoriaCombo.Items.Clear()
         For Each item As CategoryDto In categories.Where(Function(c) c.IsActive = True)
@@ -148,6 +154,20 @@ Public Class Admin
             EditarPreguntaCategoriaCombo.Items.Add(item)
         Next
     End Sub
+
+    Private Function ConvertCategoriesToDataTable(categories As IEnumerable(Of CategoryDto)) As DataTable
+        Dim table = New DataTable()
+
+        table.Columns.Add("Id")
+        table.Columns.Add("Nombre")
+        table.Columns.Add("Esta activa")
+
+        For Each category In categories
+            table.Rows.Add(category.CategoryId, category.CategoryName, category.IsActive)
+        Next
+
+        Return table
+    End Function
 
     Private Sub LoadEntitlements(entitlementsDto As IEnumerable(Of EntitlementDto))
         entitlements = entitlementsDto
@@ -573,13 +593,15 @@ Public Class Admin
     End Sub
 
     Private Sub BtnPermisosNuevo_Click(sender As Object, e As EventArgs) Handles BtnPermisosNuevo.Click
-        Dim newEntitlementForm = New NewEntitlementForm()
+        Dim newEntitlementForm = New NewDataForm("Nombre del Permiso:", "Nuevo Permiso")
+
         If newEntitlementForm.ShowDialog(Me) = DialogResult.OK Then
             MessageBox.Show(entitlementService.AddEntitlement(New EntitlementDto() With
             {
-                .Name = newEntitlementForm.TxtNewEntitlement.Text,
+                .Name = newEntitlementForm.TxtNewData.Text,
                 .IsActive = True
             }))
+            UpdateEntitlements()
         End If
     End Sub
 
@@ -589,5 +611,44 @@ Public Class Admin
 
     Private Sub BtnEditarPreguntaImagePathBorrar_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaImagePathBorrar.Click
         TxtEditarPreguntaImagen.Clear()
+    End Sub
+
+    Private Sub TxtCategoriasBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtCategoriasBuscar.TextChanged
+        categoriesBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              [Esta Activa] LIKE '%{0}%'", TxtCategoriasBuscar.Text)
+    End Sub
+
+    Private Sub CategoriasGrid_SelectionChanged(sender As Object, e As EventArgs) Handles CategoriasGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
+            TxtCategoriasId.Text = categories.FirstOrDefault(Function(u) u.CategoryId = id).CategoryId
+            TxtCategoriasNombre.Text = categories.FirstOrDefault(Function(u) u.CategoryId = id).CategoryName
+            CategoriasActivaCombo.Text = categories.FirstOrDefault(Function(u) u.CategoryId = id).IsActive
+        End If
+    End Sub
+
+    Private Sub BtnCategoriasActualizar_Click(sender As Object, e As EventArgs) Handles BtnCategoriasActualizar.Click
+        MessageBox.Show(categoryService.UpdateCategory(Integer.Parse(TxtCategoriasId.Text), New CategoryDto() With
+        {
+            .CategoryId = Integer.Parse(TxtCategoriasId.Text),
+            .CategoryName = TxtCategoriasNombre.Text,
+            .IsActive = CategoriasActivaCombo.Text
+        }))
+        UpdateCategories()
+    End Sub
+
+    Private Sub BtnCategoriasAgregar_Click(sender As Object, e As EventArgs) Handles BtnCategoriasAgregar.Click
+        Dim newCategoryForm = New NewDataForm("Nombre de la Categoria:", "Nueva Categoria")
+
+        If newCategoryForm.ShowDialog(Me) = DialogResult.OK Then
+            MessageBox.Show(categoryService.AddCategory(New CategoryDto() With
+            {
+                .CategoryName = newCategoryForm.TxtNewData.Text,
+                .IsActive = True
+            }))
+            UpdateCategories()
+        End If
     End Sub
 End Class
