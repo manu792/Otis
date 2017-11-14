@@ -10,18 +10,21 @@ Public Class Admin
     Private userService As UserService
     Private entitlementService As EntitlementService
 
-    Private categories As IEnumerable(Of CategoryDto)
     Private loggedUser As UserDto
+
+    Private categories As IEnumerable(Of CategoryDto)
     Private users As IEnumerable(Of UserDto)
     Private questions As IEnumerable(Of QuestionDto)
     Private profiles As IEnumerable(Of ProfileDto)
     Private entitlements As IEnumerable(Of EntitlementDto)
+    Private careers As IEnumerable(Of CareerDto)
 
     Private usersBindingSource As BindingSource
     Private questionsBindingSource As BindingSource
     Private profilesBindingSource As BindingSource
     Private entitlementsBindingSource As BindingSource
     Private categoriesBindingSource As BindingSource
+    Private careersBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -43,6 +46,7 @@ Public Class Admin
         profilesBindingSource = New BindingSource()
         entitlementsBindingSource = New BindingSource()
         categoriesBindingSource = New BindingSource()
+        careersBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -133,7 +137,11 @@ Public Class Admin
         Next
     End Sub
 
-    Private Sub LoadCareers(careers As IEnumerable(Of CareerDto))
+    Private Sub LoadCareers(careersDto As IEnumerable(Of CareerDto))
+        careers = careersDto
+        careersBindingSource.DataSource = ConvertCareersToDataTable(careers)
+        CarrerasGrid.DataSource = careersBindingSource
+
         CareersComboBox.Items.Clear()
         EditarUsuarioCarreraCombo.Items.Clear()
         For Each item As CareerDto In careers.Where(Function(c) c.IsActive = True)
@@ -141,6 +149,20 @@ Public Class Admin
             EditarUsuarioCarreraCombo.Items.Add(item)
         Next
     End Sub
+
+    Private Function ConvertCareersToDataTable(careers As IEnumerable(Of CareerDto)) As DataTable
+        Dim table = New DataTable()
+
+        table.Columns.Add("Id")
+        table.Columns.Add("Nombre")
+        table.Columns.Add("Esta activa")
+
+        For Each career In careers
+            table.Rows.Add(career.CareerId, career.CareerName, career.IsActive)
+        Next
+
+        Return table
+    End Function
 
     Private Sub LoadCategories(categoriesDto As IEnumerable(Of CategoryDto))
         categories = categoriesDto
@@ -212,7 +234,7 @@ Public Class Admin
 
     Private Sub BtnAgregar_Click(sender As Object, e As EventArgs) Handles BtnAgregar.Click
         ' Adds a new possible answer to the collection of answers for this question
-        If txtPossibleAnswer.Text <> String.Empty Then
+        If txtPossibleAnswer.Text <> String.Empty And Not possibleAnswersCheckBox.Items.Contains(txtPossibleAnswer.Text) Then
             possibleAnswersCheckBox.Items.Add(txtPossibleAnswer.Text)
             txtPossibleAnswer.Clear()
         End If
@@ -649,6 +671,45 @@ Public Class Admin
                 .IsActive = True
             }))
             UpdateCategories()
+        End If
+    End Sub
+
+    Private Sub TxtCarrerasBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtCarrerasBuscar.TextChanged
+        careersBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              [Esta Activa] LIKE '%{0}%'", TxtCarrerasBuscar.Text)
+    End Sub
+
+    Private Sub CarrerasGrid_SelectionChanged(sender As Object, e As EventArgs) Handles CarrerasGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
+            TxtCarrerasId.Text = careers.FirstOrDefault(Function(u) u.CareerId = id).CareerId
+            TxtCarrerasNombre.Text = careers.FirstOrDefault(Function(u) u.CareerId = id).CareerName
+            CarrerasActivaCombo.Text = careers.FirstOrDefault(Function(u) u.CareerId = id).IsActive
+        End If
+    End Sub
+
+    Private Sub BtnCarrerasActualizar_Click(sender As Object, e As EventArgs) Handles BtnCarrerasActualizar.Click
+        MessageBox.Show(careerService.UpdateCareer(Integer.Parse(TxtCarrerasId.Text), New CareerDto() With
+        {
+            .CareerId = Integer.Parse(TxtCarrerasId.Text),
+            .CareerName = TxtCarrerasNombre.Text,
+            .IsActive = CarrerasActivaCombo.Text
+        }))
+        UpdateCareers()
+    End Sub
+
+    Private Sub BtnCarrerasAgregar_Click(sender As Object, e As EventArgs) Handles BtnCarrerasAgregar.Click
+        Dim newCareerForm = New NewDataForm("Nombre de la Carrera:", "Nueva Carrera")
+
+        If newCareerForm.ShowDialog(Me) = DialogResult.OK Then
+            MessageBox.Show(careerService.AddCareer(New CareerDto() With
+            {
+                .CareerName = newCareerForm.TxtNewData.Text,
+                .IsActive = True
+            }))
+            UpdateCareers()
         End If
     End Sub
 End Class

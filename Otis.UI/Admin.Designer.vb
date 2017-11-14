@@ -157,7 +157,6 @@ Partial Class Admin
         Me.TxtPermisosBuscar = New System.Windows.Forms.TextBox()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.PermisosGrid = New System.Windows.Forms.DataGridView()
-        Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         Me.TabPage11 = New System.Windows.Forms.TabPage()
         Me.BtnCategoriasAgregar = New System.Windows.Forms.Button()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
@@ -171,6 +170,20 @@ Partial Class Admin
         Me.TxtCategoriasBuscar = New System.Windows.Forms.TextBox()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.CategoriasGrid = New System.Windows.Forms.DataGridView()
+        Me.BtnCerrarSesion = New System.Windows.Forms.Button()
+        Me.TabPage12 = New System.Windows.Forms.TabPage()
+        Me.BtnCarrerasAgregar = New System.Windows.Forms.Button()
+        Me.GroupBox10 = New System.Windows.Forms.GroupBox()
+        Me.BtnCarrerasActualizar = New System.Windows.Forms.Button()
+        Me.CarrerasActivaCombo = New System.Windows.Forms.ComboBox()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.TxtCarrerasNombre = New System.Windows.Forms.TextBox()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.TxtCarrerasId = New System.Windows.Forms.TextBox()
+        Me.Label49 = New System.Windows.Forms.Label()
+        Me.TxtCarrerasBuscar = New System.Windows.Forms.TextBox()
+        Me.Label50 = New System.Windows.Forms.Label()
+        Me.CarrerasGrid = New System.Windows.Forms.DataGridView()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -201,6 +214,9 @@ Partial Class Admin
         Me.TabPage11.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         CType(Me.CategoriasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage12.SuspendLayout()
+        Me.GroupBox10.SuspendLayout()
+        CType(Me.CarrerasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -213,6 +229,7 @@ Partial Class Admin
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage7)
         Me.TabControl1.Controls.Add(Me.TabPage11)
+        Me.TabControl1.Controls.Add(Me.TabPage12)
         Me.TabControl1.Location = New System.Drawing.Point(12, 51)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -1512,15 +1529,6 @@ Partial Class Admin
         Me.PermisosGrid.Size = New System.Drawing.Size(796, 228)
         Me.PermisosGrid.TabIndex = 22
         '
-        'BtnCerrarSesion
-        '
-        Me.BtnCerrarSesion.Location = New System.Drawing.Point(883, 17)
-        Me.BtnCerrarSesion.Name = "BtnCerrarSesion"
-        Me.BtnCerrarSesion.Size = New System.Drawing.Size(91, 28)
-        Me.BtnCerrarSesion.TabIndex = 4
-        Me.BtnCerrarSesion.Text = "Cerrar Sesion"
-        Me.BtnCerrarSesion.UseVisualStyleBackColor = True
-        '
         'TabPage11
         '
         Me.TabPage11.Controls.Add(Me.BtnCategoriasAgregar)
@@ -1649,6 +1657,143 @@ Partial Class Admin
         Me.CategoriasGrid.Size = New System.Drawing.Size(796, 228)
         Me.CategoriasGrid.TabIndex = 28
         '
+        'BtnCerrarSesion
+        '
+        Me.BtnCerrarSesion.Location = New System.Drawing.Point(883, 17)
+        Me.BtnCerrarSesion.Name = "BtnCerrarSesion"
+        Me.BtnCerrarSesion.Size = New System.Drawing.Size(91, 28)
+        Me.BtnCerrarSesion.TabIndex = 4
+        Me.BtnCerrarSesion.Text = "Cerrar Sesion"
+        Me.BtnCerrarSesion.UseVisualStyleBackColor = True
+        '
+        'TabPage12
+        '
+        Me.TabPage12.Controls.Add(Me.BtnCarrerasAgregar)
+        Me.TabPage12.Controls.Add(Me.GroupBox10)
+        Me.TabPage12.Controls.Add(Me.TxtCarrerasBuscar)
+        Me.TabPage12.Controls.Add(Me.Label50)
+        Me.TabPage12.Controls.Add(Me.CarrerasGrid)
+        Me.TabPage12.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage12.Name = "TabPage12"
+        Me.TabPage12.Size = New System.Drawing.Size(954, 594)
+        Me.TabPage12.TabIndex = 4
+        Me.TabPage12.Text = "Carreras"
+        Me.TabPage12.UseVisualStyleBackColor = True
+        '
+        'BtnCarrerasAgregar
+        '
+        Me.BtnCarrerasAgregar.Location = New System.Drawing.Point(419, 276)
+        Me.BtnCarrerasAgregar.Name = "BtnCarrerasAgregar"
+        Me.BtnCarrerasAgregar.Size = New System.Drawing.Size(113, 36)
+        Me.BtnCarrerasAgregar.TabIndex = 37
+        Me.BtnCarrerasAgregar.Text = "Agregar Carrera"
+        Me.BtnCarrerasAgregar.UseVisualStyleBackColor = True
+        '
+        'GroupBox10
+        '
+        Me.GroupBox10.Controls.Add(Me.BtnCarrerasActualizar)
+        Me.GroupBox10.Controls.Add(Me.CarrerasActivaCombo)
+        Me.GroupBox10.Controls.Add(Me.Label47)
+        Me.GroupBox10.Controls.Add(Me.TxtCarrerasNombre)
+        Me.GroupBox10.Controls.Add(Me.Label48)
+        Me.GroupBox10.Controls.Add(Me.TxtCarrerasId)
+        Me.GroupBox10.Controls.Add(Me.Label49)
+        Me.GroupBox10.Location = New System.Drawing.Point(292, 329)
+        Me.GroupBox10.Name = "GroupBox10"
+        Me.GroupBox10.Size = New System.Drawing.Size(350, 214)
+        Me.GroupBox10.TabIndex = 36
+        Me.GroupBox10.TabStop = False
+        Me.GroupBox10.Text = "Datos Carrera"
+        '
+        'BtnCarrerasActualizar
+        '
+        Me.BtnCarrerasActualizar.Location = New System.Drawing.Point(127, 142)
+        Me.BtnCarrerasActualizar.Name = "BtnCarrerasActualizar"
+        Me.BtnCarrerasActualizar.Size = New System.Drawing.Size(121, 44)
+        Me.BtnCarrerasActualizar.TabIndex = 26
+        Me.BtnCarrerasActualizar.Text = "Guardar Cambios"
+        Me.BtnCarrerasActualizar.UseVisualStyleBackColor = True
+        '
+        'CarrerasActivaCombo
+        '
+        Me.CarrerasActivaCombo.FormattingEnabled = True
+        Me.CarrerasActivaCombo.Items.AddRange(New Object() {"True", "False"})
+        Me.CarrerasActivaCombo.Location = New System.Drawing.Point(127, 100)
+        Me.CarrerasActivaCombo.Name = "CarrerasActivaCombo"
+        Me.CarrerasActivaCombo.Size = New System.Drawing.Size(187, 21)
+        Me.CarrerasActivaCombo.TabIndex = 18
+        '
+        'Label47
+        '
+        Me.Label47.AutoSize = True
+        Me.Label47.Location = New System.Drawing.Point(31, 103)
+        Me.Label47.Name = "Label47"
+        Me.Label47.Size = New System.Drawing.Size(37, 13)
+        Me.Label47.TabIndex = 8
+        Me.Label47.Text = "Activa"
+        '
+        'TxtCarrerasNombre
+        '
+        Me.TxtCarrerasNombre.Location = New System.Drawing.Point(127, 71)
+        Me.TxtCarrerasNombre.Name = "TxtCarrerasNombre"
+        Me.TxtCarrerasNombre.Size = New System.Drawing.Size(187, 20)
+        Me.TxtCarrerasNombre.TabIndex = 3
+        '
+        'Label48
+        '
+        Me.Label48.AutoSize = True
+        Me.Label48.Location = New System.Drawing.Point(31, 74)
+        Me.Label48.Name = "Label48"
+        Me.Label48.Size = New System.Drawing.Size(44, 13)
+        Me.Label48.TabIndex = 2
+        Me.Label48.Text = "Nombre"
+        '
+        'TxtCarrerasId
+        '
+        Me.TxtCarrerasId.Enabled = False
+        Me.TxtCarrerasId.Location = New System.Drawing.Point(127, 41)
+        Me.TxtCarrerasId.Name = "TxtCarrerasId"
+        Me.TxtCarrerasId.Size = New System.Drawing.Size(187, 20)
+        Me.TxtCarrerasId.TabIndex = 1
+        '
+        'Label49
+        '
+        Me.Label49.AutoSize = True
+        Me.Label49.Location = New System.Drawing.Point(31, 44)
+        Me.Label49.Name = "Label49"
+        Me.Label49.Size = New System.Drawing.Size(16, 13)
+        Me.Label49.TabIndex = 0
+        Me.Label49.Text = "Id"
+        '
+        'TxtCarrerasBuscar
+        '
+        Me.TxtCarrerasBuscar.Location = New System.Drawing.Point(124, 19)
+        Me.TxtCarrerasBuscar.Name = "TxtCarrerasBuscar"
+        Me.TxtCarrerasBuscar.Size = New System.Drawing.Size(304, 20)
+        Me.TxtCarrerasBuscar.TabIndex = 35
+        '
+        'Label50
+        '
+        Me.Label50.AutoSize = True
+        Me.Label50.Location = New System.Drawing.Point(75, 22)
+        Me.Label50.Name = "Label50"
+        Me.Label50.Size = New System.Drawing.Size(43, 13)
+        Me.Label50.TabIndex = 34
+        Me.Label50.Text = "Buscar:"
+        '
+        'CarrerasGrid
+        '
+        Me.CarrerasGrid.AllowUserToAddRows = False
+        Me.CarrerasGrid.AllowUserToDeleteRows = False
+        Me.CarrerasGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.CarrerasGrid.Location = New System.Drawing.Point(78, 42)
+        Me.CarrerasGrid.MultiSelect = False
+        Me.CarrerasGrid.Name = "CarrerasGrid"
+        Me.CarrerasGrid.ReadOnly = True
+        Me.CarrerasGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.CarrerasGrid.Size = New System.Drawing.Size(796, 228)
+        Me.CarrerasGrid.TabIndex = 33
+        '
         'Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1705,6 +1850,11 @@ Partial Class Admin
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         CType(Me.CategoriasGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage12.ResumeLayout(False)
+        Me.TabPage12.PerformLayout()
+        Me.GroupBox10.ResumeLayout(False)
+        Me.GroupBox10.PerformLayout()
+        CType(Me.CarrerasGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1858,4 +2008,17 @@ Partial Class Admin
     Friend WithEvents TxtCategoriasBuscar As TextBox
     Friend WithEvents Label46 As Label
     Friend WithEvents CategoriasGrid As DataGridView
+    Friend WithEvents TabPage12 As TabPage
+    Friend WithEvents BtnCarrerasAgregar As Button
+    Friend WithEvents GroupBox10 As GroupBox
+    Friend WithEvents BtnCarrerasActualizar As Button
+    Friend WithEvents CarrerasActivaCombo As ComboBox
+    Friend WithEvents Label47 As Label
+    Friend WithEvents TxtCarrerasNombre As TextBox
+    Friend WithEvents Label48 As Label
+    Friend WithEvents TxtCarrerasId As TextBox
+    Friend WithEvents Label49 As Label
+    Friend WithEvents TxtCarrerasBuscar As TextBox
+    Friend WithEvents Label50 As Label
+    Friend WithEvents CarrerasGrid As DataGridView
 End Class

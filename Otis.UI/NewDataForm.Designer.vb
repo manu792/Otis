@@ -29,7 +29,7 @@ Partial Class NewDataForm
         '
         'BtnGuardar
         '
-        Me.BtnGuardar.Location = New System.Drawing.Point(68, 89)
+        Me.BtnGuardar.Location = New System.Drawing.Point(74, 93)
         Me.BtnGuardar.Name = "BtnGuardar"
         Me.BtnGuardar.Size = New System.Drawing.Size(100, 41)
         Me.BtnGuardar.TabIndex = 13
@@ -52,7 +52,7 @@ Partial Class NewDataForm
         Me.Label3.TabIndex = 11
         Me.Label3.Text = "Nombre del Permiso:"
         '
-        'NewEntitlementForm
+        'NewDataForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -60,7 +60,7 @@ Partial Class NewDataForm
         Me.Controls.Add(Me.BtnGuardar)
         Me.Controls.Add(Me.TxtNewData)
         Me.Controls.Add(Me.Label3)
-        Me.Name = "NewEntitlementForm"
+        Me.Name = "NewDataForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Nuevo Permiso"
         Me.ResumeLayout(False)
