@@ -8,6 +8,20 @@ Public Class ExamRepository
     Public Sub New(context As OtisContext)
         otisContext = context
     End Sub
+    Public Function AddExam(exam As Exam) As Exam
+        otisContext.Exams.Add(exam)
+        otisContext.SaveChanges()
+
+        Return exam
+    End Function
+
+    Public Function GetAllExams() As IEnumerable(Of Exam)
+        Return otisContext.Exams.ToList()
+    End Function
+
+    Public Function GetExamById(examId As Integer) As Exam
+        Return otisContext.Exams.FirstOrDefault(Function(e) e.ExamId = examId)
+    End Function
 
     Public Function GetExamsForUser(userId As String) As IEnumerable(Of Exam)
         Return otisContext.UserExams.Where(Function(u) u.UserId = userId And u.IsCompleted = False).

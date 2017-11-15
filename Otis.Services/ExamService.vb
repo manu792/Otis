@@ -10,6 +10,36 @@ Public Class ExamService
         unitOfWork = New UnitOfWork()
     End Sub
 
+    Public Function AddExam(exam As ExamDto) As String
+        Try
+            unitOfWork.ExamRepository.AddExam(New Exam() With
+            {
+                .Name = exam.Name,
+                .Description = exam.Description,
+                .Time = exam.Time,
+                .QuestionsQuantity = exam.QuestionsQuantity,
+                .IsActive = exam.IsActive,
+                .Questions = exam.Questions.
+                        Select(Function(q) unitOfWork.QuestionRepository.GetQuestionById(q.QuestionId)).
+                        ToList()
+            })
+            Return "Examen creado correctamente."
+        Catch ex As Exception
+            Return "Hubo un problema al tratar crear el examen. Favor contacte a soporte."
+        End Try
+    End Function
+
+    Public Function GetAllExams() As IEnumerable(Of ExamDto)
+        Return unitOfWork.ExamRepository.GetAllExams().Select(Function(e) New ExamDto() With
+        {
+            .ExamId = e.ExamId,
+            .Name = e.Name,
+            .Description = e.Description,
+            .Time = e.Time,
+            .QuestionsQuantity = e.QuestionsQuantity
+        }).ToList()
+    End Function
+
     Public Function GetExamsForUser(userId As String) As IEnumerable(Of ExamDto)
         Return unitOfWork.ExamRepository.GetExamsForUser(userId).Select(Function(e) New ExamDto() With
         {

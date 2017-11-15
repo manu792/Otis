@@ -9,6 +9,7 @@ Public Class Admin
     Private careerService As CareerService
     Private userService As UserService
     Private entitlementService As EntitlementService
+    Private examService As ExamService
 
     Private loggedUser As UserDto
 
@@ -40,6 +41,7 @@ Public Class Admin
         careerService = New CareerService()
         userService = New UserService()
         entitlementService = New EntitlementService()
+        examService = New ExamService()
 
         usersBindingSource = New BindingSource()
         questionsBindingSource = New BindingSource()
@@ -50,12 +52,13 @@ Public Class Admin
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UpdateQuestions()
         UpdateCategories()
         UpdateProfiles()
         UpdateCareers()
         UpdateUsers()
-        UpdateQuestions()
         UpdateEntitlements()
+        UpdateExams()
     End Sub
 
     Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UserDto))
@@ -68,6 +71,9 @@ Public Class Admin
         questions = retrievedQuestions
         questionsBindingSource.DataSource = ConvertQuestionsToDataTable(questions)
         PreguntasGrid.DataSource = questionsBindingSource
+
+        ' Exams tab logic below
+        CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
     End Sub
 
     Private Function ConvertUsersToDataTable(users As IEnumerable(Of UserDto)) As DataTable
@@ -171,10 +177,14 @@ Public Class Admin
 
         categoriesComboBox.Items.Clear()
         EditarPreguntaCategoriaCombo.Items.Clear()
+        CrearExamenFiltrarCombo.Items.Clear()
+        CrearExamenFiltrarCombo.Items.Add(New CategoryDto() With {.CategoryName = "Todas las Categorias"})
         For Each item As CategoryDto In categories.Where(Function(c) c.IsActive = True)
             categoriesComboBox.Items.Add(item)
             EditarPreguntaCategoriaCombo.Items.Add(item)
+            CrearExamenFiltrarCombo.Items.Add(item)
         Next
+        CrearExamenFiltrarCombo.SelectedIndex = 0
     End Sub
 
     Private Function ConvertCategoriesToDataTable(categories As IEnumerable(Of CategoryDto)) As DataTable
@@ -406,6 +416,10 @@ Public Class Admin
         LoadEntitlements(entitlementService.GetAllEntitlements())
     End Sub
 
+    Private Sub UpdateExams()
+
+    End Sub
+
     Private Sub BtnEditarPreguntaBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtEditarPreguntaBuscar.TextChanged
         questionsBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
                                               Pregunta LIKE '%{0}%' Or 
@@ -549,7 +563,7 @@ Public Class Admin
 
         Dim profile = profiles.FirstOrDefault(Function(u) u.ProfileId = id)
 
-        For Each entitlement In profile.Entitlements
+        For Each entitlement In profile.Entitlements.Where(Function(e) e.IsActive = True)
             PermisosSeleccionadosLista.Items.Add(entitlement)
         Next
     End Sub
@@ -711,5 +725,59 @@ Public Class Admin
             }))
             UpdateCareers()
         End If
+    End Sub
+
+    Private Sub BtnCrearExamenAgregarPregunta_Click(sender As Object, e As EventArgs) Handles BtnCrearExamenAgregarPregunta.Click
+        For Each item In CrearExamenPreguntasLista.CheckedItems
+            Dim question = CType(item, QuestionDto)
+            If Not CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).Contains(question) Then
+                CrearExamenPreguntasSeleccionadasLista.Items.Add(question)
+            End If
+        Next
+    End Sub
+
+    Private Sub BtnCrearExamenRemoverPregunta_Click(sender As Object, e As EventArgs) Handles BtnCrearExamenRemoverPregunta.Click
+        For i = CrearExamenPreguntasSeleccionadasLista.CheckedIndices.Count - 1 To 0 Step -1
+            Dim index = CrearExamenPreguntasSeleccionadasLista.CheckedIndices(i)
+            CrearExamenPreguntasSeleccionadasLista.Items.RemoveAt(index)
+        Next
+    End Sub
+
+    Private Sub BtnCrearExamenGuardar_Click(sender As Object, e As EventArgs) Handles BtnCrearExamenGuardar.Click
+        MessageBox.Show(examService.AddExam(New ExamDto() With
+        {
+            .Name = TxtCrearExamenNombre.Text,
+            .Description = TxtCrearExamenDescripcion.Text,
+            .Time = NumericTiempo.Value,
+            .QuestionsQuantity = NumericCantidadPreguntas.Value,
+            .Questions = CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
+            .IsActive = True
+        }))
+        UpdateExams()
+        ClearExamFields()
+    End Sub
+
+    Private Sub ClearExamFields()
+        TxtCrearExamenNombre.Clear()
+        TxtCrearExamenDescripcion.Clear()
+        NumericTiempo.Value = 0
+        NumericCantidadPreguntas.Value = 0
+        CrearExamenFiltrarCombo.SelectedIndex = 0
+        CrearExamenPreguntasSeleccionadasLista.Items.Clear()
+    End Sub
+
+    Private Sub CrearExamenFiltrarCombo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CrearExamenFiltrarCombo.SelectedIndexChanged
+        UnCheckItems()
+        If CrearExamenFiltrarCombo.SelectedIndex = 0 Then
+            CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
+        Else
+            CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True And q.Category.CategoryName.Equals(CrearExamenFiltrarCombo.Text)).ToList()
+        End If
+    End Sub
+
+    Private Sub UnCheckItems()
+        For i = 0 To CrearExamenFiltrarCombo.Items.Count
+            CrearExamenPreguntasLista.SetItemChecked(i, False)
+        Next
     End Sub
 End Class
