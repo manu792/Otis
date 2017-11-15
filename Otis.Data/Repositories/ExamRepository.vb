@@ -16,7 +16,10 @@ Public Class ExamRepository
     End Function
 
     Public Function GetAllExams() As IEnumerable(Of Exam)
-        Return otisContext.Exams.ToList()
+        Return otisContext.Exams.
+            Include(Function(e) e.Questions.Select(Function(q) q.Answers)).
+            Include(Function(e) e.Questions.Select(Function(q) q.Category)).
+            ToList()
     End Function
 
     Public Function GetExamById(examId As Integer) As Exam

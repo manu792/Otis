@@ -205,30 +205,30 @@ Partial Class Admin
         Me.TxtCrearExamenNombre = New System.Windows.Forms.TextBox()
         Me.Label54 = New System.Windows.Forms.Label()
         Me.TabPage15 = New System.Windows.Forms.TabPage()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.BtnEditarExamenActualizar = New System.Windows.Forms.Button()
         Me.GroupBox12 = New System.Windows.Forms.GroupBox()
         Me.Label66 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.EditarExamenFiltrarCombo = New System.Windows.Forms.ComboBox()
         Me.Label55 = New System.Windows.Forms.Label()
         Me.Label56 = New System.Windows.Forms.Label()
-        Me.CheckedListBox3 = New System.Windows.Forms.CheckedListBox()
-        Me.CheckedListBox4 = New System.Windows.Forms.CheckedListBox()
+        Me.EditarExamenPreguntasLista = New System.Windows.Forms.CheckedListBox()
+        Me.EditarExamenPreguntasSeleccionadasLista = New System.Windows.Forms.CheckedListBox()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.GroupBox13 = New System.Windows.Forms.GroupBox()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.TxtEditarExamenId = New System.Windows.Forms.TextBox()
         Me.Label65 = New System.Windows.Forms.Label()
-        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
+        Me.NumericEditarExamenCantidadPreguntas = New System.Windows.Forms.NumericUpDown()
+        Me.NumericEditarExamenTiempo = New System.Windows.Forms.NumericUpDown()
         Me.Label57 = New System.Windows.Forms.Label()
         Me.Label58 = New System.Windows.Forms.Label()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.TxtEditarExamenDescripcion = New System.Windows.Forms.TextBox()
         Me.Label59 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.TxtEditarExamenNombre = New System.Windows.Forms.TextBox()
         Me.Label60 = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
+        Me.TxtEditarExamenBuscar = New System.Windows.Forms.TextBox()
         Me.Label61 = New System.Windows.Forms.Label()
-        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.ExamenesGrid = New System.Windows.Forms.DataGridView()
         Me.TabPage16 = New System.Windows.Forms.TabPage()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
@@ -273,9 +273,9 @@ Partial Class Admin
         Me.TabPage15.SuspendLayout()
         Me.GroupBox12.SuspendLayout()
         Me.GroupBox13.SuspendLayout()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericEditarExamenCantidadPreguntas, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.NumericEditarExamenTiempo, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.ExamenesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -1888,14 +1888,14 @@ Partial Class Admin
         '
         'NumericCantidadPreguntas
         '
-        Me.NumericCantidadPreguntas.Location = New System.Drawing.Point(424, 189)
+        Me.NumericCantidadPreguntas.Location = New System.Drawing.Point(399, 198)
         Me.NumericCantidadPreguntas.Name = "NumericCantidadPreguntas"
         Me.NumericCantidadPreguntas.Size = New System.Drawing.Size(226, 20)
         Me.NumericCantidadPreguntas.TabIndex = 33
         '
         'NumericTiempo
         '
-        Me.NumericTiempo.Location = New System.Drawing.Point(424, 158)
+        Me.NumericTiempo.Location = New System.Drawing.Point(399, 167)
         Me.NumericTiempo.Name = "NumericTiempo"
         Me.NumericTiempo.Size = New System.Drawing.Size(226, 20)
         Me.NumericTiempo.TabIndex = 32
@@ -1903,7 +1903,7 @@ Partial Class Admin
         'Label63
         '
         Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(300, 191)
+        Me.Label63.Location = New System.Drawing.Point(275, 200)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(118, 13)
         Me.Label63.TabIndex = 30
@@ -1912,7 +1912,7 @@ Partial Class Admin
         'Label62
         '
         Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(300, 160)
+        Me.Label62.Location = New System.Drawing.Point(275, 169)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(99, 13)
         Me.Label62.TabIndex = 28
@@ -1920,7 +1920,7 @@ Partial Class Admin
         '
         'TxtCrearExamenDescripcion
         '
-        Me.TxtCrearExamenDescripcion.Location = New System.Drawing.Point(424, 60)
+        Me.TxtCrearExamenDescripcion.Location = New System.Drawing.Point(399, 69)
         Me.TxtCrearExamenDescripcion.Multiline = True
         Me.TxtCrearExamenDescripcion.Name = "TxtCrearExamenDescripcion"
         Me.TxtCrearExamenDescripcion.Size = New System.Drawing.Size(226, 86)
@@ -1938,7 +1938,7 @@ Partial Class Admin
         'Label51
         '
         Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(303, 63)
+        Me.Label51.Location = New System.Drawing.Point(278, 72)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(66, 13)
         Me.Label51.TabIndex = 26
@@ -2032,7 +2032,7 @@ Partial Class Admin
         '
         'TxtCrearExamenNombre
         '
-        Me.TxtCrearExamenNombre.Location = New System.Drawing.Point(424, 18)
+        Me.TxtCrearExamenNombre.Location = New System.Drawing.Point(399, 27)
         Me.TxtCrearExamenNombre.Name = "TxtCrearExamenNombre"
         Me.TxtCrearExamenNombre.Size = New System.Drawing.Size(226, 20)
         Me.TxtCrearExamenNombre.TabIndex = 1
@@ -2040,7 +2040,7 @@ Partial Class Admin
         'Label54
         '
         Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(300, 21)
+        Me.Label54.Location = New System.Drawing.Point(275, 30)
         Me.Label54.Name = "Label54"
         Me.Label54.Size = New System.Drawing.Size(105, 13)
         Me.Label54.TabIndex = 0
@@ -2048,12 +2048,12 @@ Partial Class Admin
         '
         'TabPage15
         '
-        Me.TabPage15.Controls.Add(Me.Button4)
+        Me.TabPage15.Controls.Add(Me.BtnEditarExamenActualizar)
         Me.TabPage15.Controls.Add(Me.GroupBox12)
         Me.TabPage15.Controls.Add(Me.GroupBox13)
-        Me.TabPage15.Controls.Add(Me.TextBox6)
+        Me.TabPage15.Controls.Add(Me.TxtEditarExamenBuscar)
         Me.TabPage15.Controls.Add(Me.Label61)
-        Me.TabPage15.Controls.Add(Me.DataGridView2)
+        Me.TabPage15.Controls.Add(Me.ExamenesGrid)
         Me.TabPage15.Location = New System.Drawing.Point(4, 22)
         Me.TabPage15.Name = "TabPage15"
         Me.TabPage15.Padding = New System.Windows.Forms.Padding(3)
@@ -2062,23 +2062,23 @@ Partial Class Admin
         Me.TabPage15.Text = "Editar Examen"
         Me.TabPage15.UseVisualStyleBackColor = True
         '
-        'Button4
+        'BtnEditarExamenActualizar
         '
-        Me.Button4.Location = New System.Drawing.Point(400, 500)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(112, 43)
-        Me.Button4.TabIndex = 24
-        Me.Button4.Text = "Guardar Cambios"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.BtnEditarExamenActualizar.Location = New System.Drawing.Point(400, 500)
+        Me.BtnEditarExamenActualizar.Name = "BtnEditarExamenActualizar"
+        Me.BtnEditarExamenActualizar.Size = New System.Drawing.Size(112, 43)
+        Me.BtnEditarExamenActualizar.TabIndex = 24
+        Me.BtnEditarExamenActualizar.Text = "Guardar Cambios"
+        Me.BtnEditarExamenActualizar.UseVisualStyleBackColor = True
         '
         'GroupBox12
         '
         Me.GroupBox12.Controls.Add(Me.Label66)
-        Me.GroupBox12.Controls.Add(Me.ComboBox1)
+        Me.GroupBox12.Controls.Add(Me.EditarExamenFiltrarCombo)
         Me.GroupBox12.Controls.Add(Me.Label55)
         Me.GroupBox12.Controls.Add(Me.Label56)
-        Me.GroupBox12.Controls.Add(Me.CheckedListBox3)
-        Me.GroupBox12.Controls.Add(Me.CheckedListBox4)
+        Me.GroupBox12.Controls.Add(Me.EditarExamenPreguntasLista)
+        Me.GroupBox12.Controls.Add(Me.EditarExamenPreguntasSeleccionadasLista)
         Me.GroupBox12.Controls.Add(Me.Button5)
         Me.GroupBox12.Controls.Add(Me.Button6)
         Me.GroupBox12.Location = New System.Drawing.Point(430, 272)
@@ -2097,13 +2097,13 @@ Partial Class Admin
         Me.Label66.TabIndex = 29
         Me.Label66.Text = " Filtrar:"
         '
-        'ComboBox1
+        'EditarExamenFiltrarCombo
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(64, 47)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(127, 21)
-        Me.ComboBox1.TabIndex = 28
+        Me.EditarExamenFiltrarCombo.FormattingEnabled = True
+        Me.EditarExamenFiltrarCombo.Location = New System.Drawing.Point(64, 47)
+        Me.EditarExamenFiltrarCombo.Name = "EditarExamenFiltrarCombo"
+        Me.EditarExamenFiltrarCombo.Size = New System.Drawing.Size(127, 21)
+        Me.EditarExamenFiltrarCombo.TabIndex = 28
         '
         'Label55
         '
@@ -2123,21 +2123,21 @@ Partial Class Admin
         Me.Label56.TabIndex = 24
         Me.Label56.Text = "Preguntas:"
         '
-        'CheckedListBox3
+        'EditarExamenPreguntasLista
         '
-        Me.CheckedListBox3.FormattingEnabled = True
-        Me.CheckedListBox3.Location = New System.Drawing.Point(23, 71)
-        Me.CheckedListBox3.Name = "CheckedListBox3"
-        Me.CheckedListBox3.Size = New System.Drawing.Size(168, 139)
-        Me.CheckedListBox3.TabIndex = 23
+        Me.EditarExamenPreguntasLista.FormattingEnabled = True
+        Me.EditarExamenPreguntasLista.Location = New System.Drawing.Point(23, 71)
+        Me.EditarExamenPreguntasLista.Name = "EditarExamenPreguntasLista"
+        Me.EditarExamenPreguntasLista.Size = New System.Drawing.Size(168, 139)
+        Me.EditarExamenPreguntasLista.TabIndex = 23
         '
-        'CheckedListBox4
+        'EditarExamenPreguntasSeleccionadasLista
         '
-        Me.CheckedListBox4.FormattingEnabled = True
-        Me.CheckedListBox4.Location = New System.Drawing.Point(260, 41)
-        Me.CheckedListBox4.Name = "CheckedListBox4"
-        Me.CheckedListBox4.Size = New System.Drawing.Size(163, 169)
-        Me.CheckedListBox4.TabIndex = 22
+        Me.EditarExamenPreguntasSeleccionadasLista.FormattingEnabled = True
+        Me.EditarExamenPreguntasSeleccionadasLista.Location = New System.Drawing.Point(260, 41)
+        Me.EditarExamenPreguntasSeleccionadasLista.Name = "EditarExamenPreguntasSeleccionadasLista"
+        Me.EditarExamenPreguntasSeleccionadasLista.Size = New System.Drawing.Size(163, 169)
+        Me.EditarExamenPreguntasSeleccionadasLista.TabIndex = 22
         '
         'Button5
         '
@@ -2159,15 +2159,15 @@ Partial Class Admin
         '
         'GroupBox13
         '
-        Me.GroupBox13.Controls.Add(Me.TextBox5)
+        Me.GroupBox13.Controls.Add(Me.TxtEditarExamenId)
         Me.GroupBox13.Controls.Add(Me.Label65)
-        Me.GroupBox13.Controls.Add(Me.NumericUpDown3)
-        Me.GroupBox13.Controls.Add(Me.NumericUpDown4)
+        Me.GroupBox13.Controls.Add(Me.NumericEditarExamenCantidadPreguntas)
+        Me.GroupBox13.Controls.Add(Me.NumericEditarExamenTiempo)
         Me.GroupBox13.Controls.Add(Me.Label57)
         Me.GroupBox13.Controls.Add(Me.Label58)
-        Me.GroupBox13.Controls.Add(Me.TextBox3)
+        Me.GroupBox13.Controls.Add(Me.TxtEditarExamenDescripcion)
         Me.GroupBox13.Controls.Add(Me.Label59)
-        Me.GroupBox13.Controls.Add(Me.TextBox4)
+        Me.GroupBox13.Controls.Add(Me.TxtEditarExamenNombre)
         Me.GroupBox13.Controls.Add(Me.Label60)
         Me.GroupBox13.Location = New System.Drawing.Point(74, 272)
         Me.GroupBox13.Name = "GroupBox13"
@@ -2176,13 +2176,13 @@ Partial Class Admin
         Me.GroupBox13.TabStop = False
         Me.GroupBox13.Text = "Datos Perfil"
         '
-        'TextBox5
+        'TxtEditarExamenId
         '
-        Me.TextBox5.Enabled = False
-        Me.TextBox5.Location = New System.Drawing.Point(153, 22)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(179, 20)
-        Me.TextBox5.TabIndex = 43
+        Me.TxtEditarExamenId.Enabled = False
+        Me.TxtEditarExamenId.Location = New System.Drawing.Point(153, 22)
+        Me.TxtEditarExamenId.Name = "TxtEditarExamenId"
+        Me.TxtEditarExamenId.Size = New System.Drawing.Size(179, 20)
+        Me.TxtEditarExamenId.TabIndex = 43
         '
         'Label65
         '
@@ -2193,19 +2193,19 @@ Partial Class Admin
         Me.Label65.TabIndex = 42
         Me.Label65.Text = "Id:"
         '
-        'NumericUpDown3
+        'NumericEditarExamenCantidadPreguntas
         '
-        Me.NumericUpDown3.Location = New System.Drawing.Point(153, 189)
-        Me.NumericUpDown3.Name = "NumericUpDown3"
-        Me.NumericUpDown3.Size = New System.Drawing.Size(179, 20)
-        Me.NumericUpDown3.TabIndex = 41
+        Me.NumericEditarExamenCantidadPreguntas.Location = New System.Drawing.Point(153, 189)
+        Me.NumericEditarExamenCantidadPreguntas.Name = "NumericEditarExamenCantidadPreguntas"
+        Me.NumericEditarExamenCantidadPreguntas.Size = New System.Drawing.Size(179, 20)
+        Me.NumericEditarExamenCantidadPreguntas.TabIndex = 41
         '
-        'NumericUpDown4
+        'NumericEditarExamenTiempo
         '
-        Me.NumericUpDown4.Location = New System.Drawing.Point(153, 163)
-        Me.NumericUpDown4.Name = "NumericUpDown4"
-        Me.NumericUpDown4.Size = New System.Drawing.Size(179, 20)
-        Me.NumericUpDown4.TabIndex = 40
+        Me.NumericEditarExamenTiempo.Location = New System.Drawing.Point(153, 163)
+        Me.NumericEditarExamenTiempo.Name = "NumericEditarExamenTiempo"
+        Me.NumericEditarExamenTiempo.Size = New System.Drawing.Size(179, 20)
+        Me.NumericEditarExamenTiempo.TabIndex = 40
         '
         'Label57
         '
@@ -2225,13 +2225,13 @@ Partial Class Admin
         Me.Label58.TabIndex = 38
         Me.Label58.Text = "Tiempo en minutos:"
         '
-        'TextBox3
+        'TxtEditarExamenDescripcion
         '
-        Me.TextBox3.Location = New System.Drawing.Point(153, 76)
-        Me.TextBox3.Multiline = True
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(179, 81)
-        Me.TextBox3.TabIndex = 37
+        Me.TxtEditarExamenDescripcion.Location = New System.Drawing.Point(153, 76)
+        Me.TxtEditarExamenDescripcion.Multiline = True
+        Me.TxtEditarExamenDescripcion.Name = "TxtEditarExamenDescripcion"
+        Me.TxtEditarExamenDescripcion.Size = New System.Drawing.Size(179, 81)
+        Me.TxtEditarExamenDescripcion.TabIndex = 37
         '
         'Label59
         '
@@ -2242,12 +2242,12 @@ Partial Class Admin
         Me.Label59.TabIndex = 36
         Me.Label59.Text = "Descripcion:"
         '
-        'TextBox4
+        'TxtEditarExamenNombre
         '
-        Me.TextBox4.Location = New System.Drawing.Point(153, 50)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(179, 20)
-        Me.TextBox4.TabIndex = 35
+        Me.TxtEditarExamenNombre.Location = New System.Drawing.Point(153, 50)
+        Me.TxtEditarExamenNombre.Name = "TxtEditarExamenNombre"
+        Me.TxtEditarExamenNombre.Size = New System.Drawing.Size(179, 20)
+        Me.TxtEditarExamenNombre.TabIndex = 35
         '
         'Label60
         '
@@ -2258,12 +2258,12 @@ Partial Class Admin
         Me.Label60.TabIndex = 34
         Me.Label60.Text = "Nombre del Examen:"
         '
-        'TextBox6
+        'TxtEditarExamenBuscar
         '
-        Me.TextBox6.Location = New System.Drawing.Point(120, 3)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(304, 20)
-        Me.TextBox6.TabIndex = 21
+        Me.TxtEditarExamenBuscar.Location = New System.Drawing.Point(120, 3)
+        Me.TxtEditarExamenBuscar.Name = "TxtEditarExamenBuscar"
+        Me.TxtEditarExamenBuscar.Size = New System.Drawing.Size(304, 20)
+        Me.TxtEditarExamenBuscar.TabIndex = 21
         '
         'Label61
         '
@@ -2274,18 +2274,18 @@ Partial Class Admin
         Me.Label61.TabIndex = 20
         Me.Label61.Text = "Buscar:"
         '
-        'DataGridView2
+        'ExamenesGrid
         '
-        Me.DataGridView2.AllowUserToAddRows = False
-        Me.DataGridView2.AllowUserToDeleteRows = False
-        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Location = New System.Drawing.Point(74, 26)
-        Me.DataGridView2.MultiSelect = False
-        Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.ReadOnly = True
-        Me.DataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.DataGridView2.Size = New System.Drawing.Size(796, 228)
-        Me.DataGridView2.TabIndex = 19
+        Me.ExamenesGrid.AllowUserToAddRows = False
+        Me.ExamenesGrid.AllowUserToDeleteRows = False
+        Me.ExamenesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ExamenesGrid.Location = New System.Drawing.Point(74, 26)
+        Me.ExamenesGrid.MultiSelect = False
+        Me.ExamenesGrid.Name = "ExamenesGrid"
+        Me.ExamenesGrid.ReadOnly = True
+        Me.ExamenesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.ExamenesGrid.Size = New System.Drawing.Size(796, 228)
+        Me.ExamenesGrid.TabIndex = 19
         '
         'TabPage16
         '
@@ -2380,9 +2380,9 @@ Partial Class Admin
         Me.GroupBox12.PerformLayout()
         Me.GroupBox13.ResumeLayout(False)
         Me.GroupBox13.PerformLayout()
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericEditarExamenCantidadPreguntas, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.NumericEditarExamenTiempo, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.ExamenesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2565,35 +2565,35 @@ Partial Class Admin
     Friend WithEvents TxtCrearExamenNombre As TextBox
     Friend WithEvents Label54 As Label
     Friend WithEvents TabPage15 As TabPage
-    Friend WithEvents Button4 As Button
+    Friend WithEvents BtnEditarExamenActualizar As Button
     Friend WithEvents GroupBox13 As GroupBox
-    Friend WithEvents TextBox6 As TextBox
+    Friend WithEvents TxtEditarExamenBuscar As TextBox
     Friend WithEvents Label61 As Label
-    Friend WithEvents DataGridView2 As DataGridView
+    Friend WithEvents ExamenesGrid As DataGridView
     Friend WithEvents Label62 As Label
     Friend WithEvents Label63 As Label
     Friend WithEvents NumericCantidadPreguntas As NumericUpDown
     Friend WithEvents NumericTiempo As NumericUpDown
     Friend WithEvents Label64 As Label
     Friend WithEvents CrearExamenFiltrarCombo As ComboBox
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents TxtEditarExamenId As TextBox
     Friend WithEvents Label65 As Label
-    Friend WithEvents NumericUpDown3 As NumericUpDown
-    Friend WithEvents NumericUpDown4 As NumericUpDown
+    Friend WithEvents NumericEditarExamenCantidadPreguntas As NumericUpDown
+    Friend WithEvents NumericEditarExamenTiempo As NumericUpDown
     Friend WithEvents Label57 As Label
     Friend WithEvents Label58 As Label
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents TxtEditarExamenDescripcion As TextBox
     Friend WithEvents Label59 As Label
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents TxtEditarExamenNombre As TextBox
     Friend WithEvents Label60 As Label
     Friend WithEvents GroupBox12 As GroupBox
     Friend WithEvents Label55 As Label
     Friend WithEvents Label56 As Label
-    Friend WithEvents CheckedListBox3 As CheckedListBox
-    Friend WithEvents CheckedListBox4 As CheckedListBox
+    Friend WithEvents EditarExamenPreguntasLista As CheckedListBox
+    Friend WithEvents EditarExamenPreguntasSeleccionadasLista As CheckedListBox
     Friend WithEvents Button5 As Button
     Friend WithEvents Button6 As Button
     Friend WithEvents Label66 As Label
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents EditarExamenFiltrarCombo As ComboBox
     Friend WithEvents TabPage16 As TabPage
 End Class

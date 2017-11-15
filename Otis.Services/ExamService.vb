@@ -36,7 +36,16 @@ Public Class ExamService
             .Name = e.Name,
             .Description = e.Description,
             .Time = e.Time,
-            .QuestionsQuantity = e.QuestionsQuantity
+            .QuestionsQuantity = e.QuestionsQuantity,
+            .IsActive = e.IsActive,
+            .Questions = e.Questions.Select(Function(q) New QuestionDto() With
+            {
+                .QuestionId = q.QuestionId,
+                .QuestionText = q.QuestionText,
+                .ImagePath = q.ImagePath,
+                .Category = New CategoryDto() With {.CategoryId = q.Category.CategoryId, .CategoryName = q.Category.CategoryName, .IsActive = q.Category.IsActive},
+                .IsActive = q.IsActive
+            }).ToList()
         }).ToList()
     End Function
 

@@ -19,6 +19,7 @@ Public Class Admin
     Private profiles As IEnumerable(Of ProfileDto)
     Private entitlements As IEnumerable(Of EntitlementDto)
     Private careers As IEnumerable(Of CareerDto)
+    Private exams As IEnumerable(Of ExamDto)
 
     Private usersBindingSource As BindingSource
     Private questionsBindingSource As BindingSource
@@ -26,6 +27,7 @@ Public Class Admin
     Private entitlementsBindingSource As BindingSource
     Private categoriesBindingSource As BindingSource
     Private careersBindingSource As BindingSource
+    Private examsBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -49,6 +51,7 @@ Public Class Admin
         entitlementsBindingSource = New BindingSource()
         categoriesBindingSource = New BindingSource()
         careersBindingSource = New BindingSource()
+        examsBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -417,7 +420,39 @@ Public Class Admin
     End Sub
 
     Private Sub UpdateExams()
+        LoadExams(examService.GetAllExams())
+    End Sub
 
+    Private Sub LoadExams(examsDto As IEnumerable(Of ExamDto))
+        exams = examsDto
+        examsBindingSource.DataSource = ConvertExamsToDataTable(exams)
+        ExamenesGrid.DataSource = examsBindingSource
+    End Sub
+
+    Private Function ConvertExamsToDataTable(exams As IEnumerable(Of ExamDto)) As DataTable
+        Dim table = New DataTable()
+
+        table.Columns.Add("Id")
+        table.Columns.Add("Nombre")
+        table.Columns.Add("Descripcion")
+        table.Columns.Add("Tiempo en minutos")
+        table.Columns.Add("Cantidad de Preguntas")
+        table.Columns.Add("Esta activo")
+
+        For Each exam In exams
+            table.Rows.Add(exam.ExamId, exam.Name, exam.Description, exam.Time, exam.QuestionsQuantity, exam.IsActive)
+        Next
+
+        Return table
+    End Function
+
+    Private Sub TxtEditarExamenBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtEditarExamenBuscar.TextChanged
+        examsBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              Descripcion LIKE '%{0}%' Or
+                                              [Tiempo en minutos] LIKE '%{0}%' Or
+                                              [Cantidad de Preguntas] LIKE '%{0}%' Or
+                                              [Esta activo] LIKE '%{0}%'", TxtEditarExamenBuscar.Text)
     End Sub
 
     Private Sub BtnEditarPreguntaBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtEditarPreguntaBuscar.TextChanged
