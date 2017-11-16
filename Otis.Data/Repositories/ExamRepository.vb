@@ -15,6 +15,13 @@ Public Class ExamRepository
         Return exam
     End Function
 
+    Public Function UpdateExam(exam As Exam) As Exam
+        otisContext.Entry(exam).State = EntityState.Modified
+        otisContext.SaveChanges()
+
+        Return exam
+    End Function
+
     Public Function GetAllExams() As IEnumerable(Of Exam)
         Return otisContext.Exams.
             Include(Function(e) e.Questions.Select(Function(q) q.Answers)).

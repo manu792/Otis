@@ -25,7 +25,16 @@ Public Class ExamService
             })
             Return "Examen creado correctamente."
         Catch ex As Exception
-            Return "Hubo un problema al tratar crear el examen. Favor contacte a soporte."
+            Return "Hubo un problema al tratar de crear el examen. Favor contacte a soporte."
+        End Try
+    End Function
+
+    Public Function UpdateExam(examId As Integer, exam As ExamDto) As String
+        Try
+            unitOfWork.ExamRepository.UpdateExam(GetExam(examId, exam))
+            Return "Examen modificado correctamente."
+        Catch ex As Exception
+            Return "Hubo un problema al tratar de modificar el examen. Favor contacte a soporte."
         End Try
     End Function
 
@@ -94,4 +103,18 @@ Public Class ExamService
         unitOfWork.ExamRepository.UpdateStatusForExamByUser(examId, userId, True)
         unitOfWork.SaveChanges()
     End Sub
+
+    Private Function GetExam(examId As Integer, exam As ExamDto) As Exam
+        Dim examToUpdate = unitOfWork.ExamRepository.GetExamById(examId)
+
+        examToUpdate.ExamId = exam.ExamId
+        examToUpdate.Name = exam.Name
+        examToUpdate.Description = exam.Description
+        examToUpdate.Time = exam.Time
+        examToUpdate.QuestionsQuantity = exam.QuestionsQuantity
+        examToUpdate.IsActive = exam.IsActive
+        examToUpdate.Questions = exam.Questions.Select(Function(q) unitOfWork.QuestionRepository.GetQuestionById(q.QuestionId)).ToList()
+
+        Return examToUpdate
+    End Function
 End Class

@@ -77,6 +77,7 @@ Public Class Admin
 
         ' Exams tab logic below
         CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
+        EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
     End Sub
 
     Private Function ConvertUsersToDataTable(users As IEnumerable(Of UserDto)) As DataTable
@@ -181,13 +182,17 @@ Public Class Admin
         categoriesComboBox.Items.Clear()
         EditarPreguntaCategoriaCombo.Items.Clear()
         CrearExamenFiltrarCombo.Items.Clear()
+        EditarExamenFiltrarCombo.Items.Clear()
         CrearExamenFiltrarCombo.Items.Add(New CategoryDto() With {.CategoryName = "Todas las Categorias"})
+        EditarExamenFiltrarCombo.Items.Add(New CategoryDto() With {.CategoryName = "Todas las Categorias"})
         For Each item As CategoryDto In categories.Where(Function(c) c.IsActive = True)
             categoriesComboBox.Items.Add(item)
             EditarPreguntaCategoriaCombo.Items.Add(item)
             CrearExamenFiltrarCombo.Items.Add(item)
+            EditarExamenFiltrarCombo.Items.Add(item)
         Next
         CrearExamenFiltrarCombo.SelectedIndex = 0
+        EditarExamenFiltrarCombo.SelectedIndex = 0
     End Sub
 
     Private Function ConvertCategoriesToDataTable(categories As IEnumerable(Of CategoryDto)) As DataTable
@@ -779,17 +784,21 @@ Public Class Admin
     End Sub
 
     Private Sub BtnCrearExamenGuardar_Click(sender As Object, e As EventArgs) Handles BtnCrearExamenGuardar.Click
-        MessageBox.Show(examService.AddExam(New ExamDto() With
-        {
-            .Name = TxtCrearExamenNombre.Text,
-            .Description = TxtCrearExamenDescripcion.Text,
-            .Time = NumericTiempo.Value,
-            .QuestionsQuantity = NumericCantidadPreguntas.Value,
-            .Questions = CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
-            .IsActive = True
-        }))
-        UpdateExams()
-        ClearExamFields()
+        If CrearExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericCantidadPreguntas.Value) Then
+            MessageBox.Show(examService.AddExam(New ExamDto() With
+            {
+               .Name = TxtCrearExamenNombre.Text,
+               .Description = TxtCrearExamenDescripcion.Text,
+               .Time = NumericTiempo.Value,
+               .QuestionsQuantity = NumericCantidadPreguntas.Value,
+               .Questions = CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
+               .IsActive = True
+            }))
+            UpdateExams()
+            ClearExamFields()
+        Else
+            MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
+        End If
     End Sub
 
     Private Sub ClearExamFields()
@@ -802,7 +811,7 @@ Public Class Admin
     End Sub
 
     Private Sub CrearExamenFiltrarCombo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CrearExamenFiltrarCombo.SelectedIndexChanged
-        UnCheckItems()
+        UnCheckItemsCrearExamenFiltrar()
         If CrearExamenFiltrarCombo.SelectedIndex = 0 Then
             CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
         Else
@@ -810,9 +819,82 @@ Public Class Admin
         End If
     End Sub
 
-    Private Sub UnCheckItems()
-        For i = 0 To CrearExamenFiltrarCombo.Items.Count
+    Private Sub UnCheckItemsCrearExamenFiltrar()
+        For i = 0 To CrearExamenPreguntasLista.Items.Count - 1
             CrearExamenPreguntasLista.SetItemChecked(i, False)
         Next
+    End Sub
+
+    Private Sub ExamenesGrid_SelectionChanged(sender As Object, e As EventArgs) Handles ExamenesGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
+            TxtEditarExamenId.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).ExamId
+            TxtEditarExamenNombre.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).Name
+            TxtEditarExamenDescripcion.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).Description
+            NumericEditarExamenTiempo.Value = exams.FirstOrDefault(Function(u) u.ExamId = id).Time
+            NumericEditarExamenCantidadPreguntas.Value = exams.FirstOrDefault(Function(u) u.ExamId = id).QuestionsQuantity
+            EditarExamenActivoCombo.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).IsActive
+            UpdatePreguntasSeleccionadasLista(id)
+        End If
+    End Sub
+
+    Private Sub UpdatePreguntasSeleccionadasLista(id As Integer)
+        EditarExamenPreguntasSeleccionadasLista.Items.Clear()
+
+        Dim exam = exams.FirstOrDefault(Function(u) u.ExamId = id)
+
+        For Each question In exam.Questions.Where(Function(q) q.IsActive = True)
+            EditarExamenPreguntasSeleccionadasLista.Items.Add(question)
+        Next
+    End Sub
+
+    Private Sub EditarExamenFiltrarCombo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EditarExamenFiltrarCombo.SelectedIndexChanged
+        UnCheckItemsEditarExamenFiltrar()
+        If EditarExamenFiltrarCombo.SelectedIndex = 0 Then
+            EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
+        Else
+            EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True And q.Category.CategoryName.Equals(EditarExamenFiltrarCombo.Text)).ToList()
+        End If
+    End Sub
+
+    Private Sub UnCheckItemsEditarExamenFiltrar()
+        For i = 0 To EditarExamenPreguntasLista.Items.Count - 1
+            EditarExamenPreguntasLista.SetItemChecked(i, False)
+        Next
+    End Sub
+
+    Private Sub BtnEditarExamenAgregarPregunta_Click(sender As Object, e As EventArgs) Handles BtnEditarExamenAgregarPregunta.Click
+        For Each item In EditarExamenPreguntasLista.CheckedItems
+            Dim question = CType(item, QuestionDto)
+            If Not EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).Contains(question) Then
+                EditarExamenPreguntasSeleccionadasLista.Items.Add(question)
+            End If
+        Next
+    End Sub
+
+    Private Sub BtnEditarExamenRemoverPregunta_Click(sender As Object, e As EventArgs) Handles BtnEditarExamenRemoverPregunta.Click
+        For i = EditarExamenPreguntasSeleccionadasLista.CheckedIndices.Count - 1 To 0 Step -1
+            Dim index = EditarExamenPreguntasSeleccionadasLista.CheckedIndices(i)
+            EditarExamenPreguntasSeleccionadasLista.Items.RemoveAt(index)
+        Next
+    End Sub
+
+    Private Sub BtnEditarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnEditarExamenActualizar.Click
+        If EditarExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericEditarExamenCantidadPreguntas.Value) Then
+            MessageBox.Show(examService.UpdateExam(Integer.Parse(TxtEditarExamenId.Text), New ExamDto() With
+            {
+                .ExamId = Integer.Parse(TxtEditarExamenId.Text),
+                .Name = TxtEditarExamenNombre.Text,
+                .Description = TxtEditarExamenDescripcion.Text,
+                .Time = NumericEditarExamenTiempo.Value,
+                .QuestionsQuantity = NumericEditarExamenCantidadPreguntas.Value,
+                .Questions = EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
+                .IsActive = EditarExamenActivoCombo.Text
+            }))
+            UpdateExams()
+        Else
+            MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
+        End If
     End Sub
 End Class
