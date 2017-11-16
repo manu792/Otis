@@ -28,6 +28,8 @@ Public Class Admin
     Private categoriesBindingSource As BindingSource
     Private careersBindingSource As BindingSource
     Private examsBindingSource As BindingSource
+    Private assignExamsBindingSource As BindingSource
+    Private assignExamsStudentsBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -52,6 +54,8 @@ Public Class Admin
         categoriesBindingSource = New BindingSource()
         careersBindingSource = New BindingSource()
         examsBindingSource = New BindingSource()
+        assignExamsBindingSource = New BindingSource()
+        assignExamsStudentsBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -68,6 +72,10 @@ Public Class Admin
         users = retrievedUsers
         usersBindingSource.DataSource = ConvertUsersToDataTable(users)
         UsuariosGrid.DataSource = usersBindingSource
+
+        ' Assign Exam Students Grid below
+        assignExamsStudentsBindingSource.DataSource = ConvertUsersToDataTable(users.Where(Function(u) u.IsActive = True And (u.Profile.Name.Equals("Estudiante") Or u.Profile.Name.Equals("Primer Ingreso"))))
+        AsignarExamenEstudiantesGrid.DataSource = assignExamsStudentsBindingSource
     End Sub
 
     Private Sub LoadQuestions(retrievedQuestions As IEnumerable(Of QuestionDto))
@@ -432,6 +440,10 @@ Public Class Admin
         exams = examsDto
         examsBindingSource.DataSource = ConvertExamsToDataTable(exams)
         ExamenesGrid.DataSource = examsBindingSource
+
+        ' Assign Exam section below
+        assignExamsBindingSource.DataSource = ConvertExamsToDataTable(exams)
+        AsignarExamenGrid.DataSource = assignExamsBindingSource
     End Sub
 
     Private Function ConvertExamsToDataTable(exams As IEnumerable(Of ExamDto)) As DataTable
@@ -896,5 +908,37 @@ Public Class Admin
         Else
             MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
         End If
+    End Sub
+
+    Private Sub BtnAsignarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenActualizar.Click
+
+    End Sub
+
+    Private Sub AsignarExamenGrid_SelectionChanged(sender As Object, e As EventArgs) Handles AsignarExamenGrid.SelectionChanged
+        Dim grid = CType(sender, DataGridView)
+        If grid.SelectedRows.Count > 0 Then
+            Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
+            Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = id)
+            Dim selectedStudentsBindingSource = New BindingSource()
+
+            Dim usersAssignedToExam = users.Where(Function(u) exam.ExamUsers.
+                                                       Select(Function(ue) ue.UserId).
+                                                       ToList().
+                                                       Contains(u.Id)).
+                                                       ToList()
+
+
+            selectedStudentsBindingSource.DataSource = ConvertUsersToDataTable(usersAssignedToExam)
+            AsignarExamenEstudiantesSeleccionadosGrid.DataSource = selectedStudentsBindingSource
+        End If
+    End Sub
+
+    Private Sub TxtAsignarExamenBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtAsignarExamenBuscar.TextChanged
+        assignExamsBindingSource.Filter = String.Format("Id LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              Descripcion LIKE '%{0}%' Or
+                                              [Tiempo en minutos] LIKE '%{0}%' Or
+                                              [Cantidad de Preguntas] LIKE '%{0}%' Or
+                                              [Esta activo] LIKE '%{0}%'", TxtAsignarExamenBuscar.Text)
     End Sub
 End Class

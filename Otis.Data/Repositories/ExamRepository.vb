@@ -26,6 +26,7 @@ Public Class ExamRepository
         Return otisContext.Exams.
             Include(Function(e) e.Questions.Select(Function(q) q.Answers)).
             Include(Function(e) e.Questions.Select(Function(q) q.Category)).
+            Include(Function(e) e.ExamUsers).
             ToList()
     End Function
 

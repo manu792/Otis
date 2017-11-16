@@ -216,6 +216,8 @@ Partial Class Admin
         Me.BtnEditarExamenRemoverPregunta = New System.Windows.Forms.Button()
         Me.BtnEditarExamenAgregarPregunta = New System.Windows.Forms.Button()
         Me.GroupBox13 = New System.Windows.Forms.GroupBox()
+        Me.Label67 = New System.Windows.Forms.Label()
+        Me.EditarExamenActivoCombo = New System.Windows.Forms.ComboBox()
         Me.TxtEditarExamenId = New System.Windows.Forms.TextBox()
         Me.Label65 = New System.Windows.Forms.Label()
         Me.NumericEditarExamenCantidadPreguntas = New System.Windows.Forms.NumericUpDown()
@@ -231,8 +233,17 @@ Partial Class Admin
         Me.ExamenesGrid = New System.Windows.Forms.DataGridView()
         Me.TabPage16 = New System.Windows.Forms.TabPage()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
-        Me.Label67 = New System.Windows.Forms.Label()
-        Me.EditarExamenActivoCombo = New System.Windows.Forms.ComboBox()
+        Me.TxtAsignarExamenBuscar = New System.Windows.Forms.TextBox()
+        Me.Label68 = New System.Windows.Forms.Label()
+        Me.AsignarExamenGrid = New System.Windows.Forms.DataGridView()
+        Me.GroupBox14 = New System.Windows.Forms.GroupBox()
+        Me.Label70 = New System.Windows.Forms.Label()
+        Me.Label71 = New System.Windows.Forms.Label()
+        Me.BtnAsignarExamenRemoverEstudiante = New System.Windows.Forms.Button()
+        Me.BtnAsignarExamenAgregarEstudiante = New System.Windows.Forms.Button()
+        Me.BtnAsignarExamenActualizar = New System.Windows.Forms.Button()
+        Me.AsignarExamenEstudiantesGrid = New System.Windows.Forms.DataGridView()
+        Me.AsignarExamenEstudiantesSeleccionadosGrid = New System.Windows.Forms.DataGridView()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -278,6 +289,11 @@ Partial Class Admin
         CType(Me.NumericEditarExamenCantidadPreguntas, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericEditarExamenTiempo, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ExamenesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage16.SuspendLayout()
+        CType(Me.AsignarExamenGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox14.SuspendLayout()
+        CType(Me.AsignarExamenEstudiantesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.AsignarExamenEstudiantesSeleccionadosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -2180,6 +2196,24 @@ Partial Class Admin
         Me.GroupBox13.TabStop = False
         Me.GroupBox13.Text = "Datos Perfil"
         '
+        'Label67
+        '
+        Me.Label67.AutoSize = True
+        Me.Label67.Location = New System.Drawing.Point(13, 204)
+        Me.Label67.Name = "Label67"
+        Me.Label67.Size = New System.Drawing.Size(63, 13)
+        Me.Label67.TabIndex = 45
+        Me.Label67.Text = "Esta activo:"
+        '
+        'EditarExamenActivoCombo
+        '
+        Me.EditarExamenActivoCombo.FormattingEnabled = True
+        Me.EditarExamenActivoCombo.Items.AddRange(New Object() {"True", "False"})
+        Me.EditarExamenActivoCombo.Location = New System.Drawing.Point(153, 204)
+        Me.EditarExamenActivoCombo.Name = "EditarExamenActivoCombo"
+        Me.EditarExamenActivoCombo.Size = New System.Drawing.Size(179, 21)
+        Me.EditarExamenActivoCombo.TabIndex = 44
+        '
         'TxtEditarExamenId
         '
         Me.TxtEditarExamenId.Enabled = False
@@ -2293,6 +2327,11 @@ Partial Class Admin
         '
         'TabPage16
         '
+        Me.TabPage16.Controls.Add(Me.BtnAsignarExamenActualizar)
+        Me.TabPage16.Controls.Add(Me.GroupBox14)
+        Me.TabPage16.Controls.Add(Me.TxtAsignarExamenBuscar)
+        Me.TabPage16.Controls.Add(Me.Label68)
+        Me.TabPage16.Controls.Add(Me.AsignarExamenGrid)
         Me.TabPage16.Location = New System.Drawing.Point(4, 22)
         Me.TabPage16.Name = "TabPage16"
         Me.TabPage16.Size = New System.Drawing.Size(940, 559)
@@ -2309,23 +2348,120 @@ Partial Class Admin
         Me.BtnCerrarSesion.Text = "Cerrar Sesion"
         Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
-        'Label67
+        'TxtAsignarExamenBuscar
         '
-        Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(13, 204)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(63, 13)
-        Me.Label67.TabIndex = 45
-        Me.Label67.Text = "Esta activo:"
+        Me.TxtAsignarExamenBuscar.Location = New System.Drawing.Point(113, 11)
+        Me.TxtAsignarExamenBuscar.Name = "TxtAsignarExamenBuscar"
+        Me.TxtAsignarExamenBuscar.Size = New System.Drawing.Size(304, 20)
+        Me.TxtAsignarExamenBuscar.TabIndex = 24
         '
-        'EditarExamenActivoCombo
+        'Label68
         '
-        Me.EditarExamenActivoCombo.FormattingEnabled = True
-        Me.EditarExamenActivoCombo.Items.AddRange(New Object() {"True", "False"})
-        Me.EditarExamenActivoCombo.Location = New System.Drawing.Point(153, 204)
-        Me.EditarExamenActivoCombo.Name = "EditarExamenActivoCombo"
-        Me.EditarExamenActivoCombo.Size = New System.Drawing.Size(179, 21)
-        Me.EditarExamenActivoCombo.TabIndex = 44
+        Me.Label68.AutoSize = True
+        Me.Label68.Location = New System.Drawing.Point(64, 14)
+        Me.Label68.Name = "Label68"
+        Me.Label68.Size = New System.Drawing.Size(43, 13)
+        Me.Label68.TabIndex = 23
+        Me.Label68.Text = "Buscar:"
+        '
+        'AsignarExamenGrid
+        '
+        Me.AsignarExamenGrid.AllowUserToAddRows = False
+        Me.AsignarExamenGrid.AllowUserToDeleteRows = False
+        Me.AsignarExamenGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.AsignarExamenGrid.Location = New System.Drawing.Point(67, 34)
+        Me.AsignarExamenGrid.MultiSelect = False
+        Me.AsignarExamenGrid.Name = "AsignarExamenGrid"
+        Me.AsignarExamenGrid.ReadOnly = True
+        Me.AsignarExamenGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.AsignarExamenGrid.Size = New System.Drawing.Size(796, 228)
+        Me.AsignarExamenGrid.TabIndex = 22
+        '
+        'GroupBox14
+        '
+        Me.GroupBox14.Controls.Add(Me.AsignarExamenEstudiantesSeleccionadosGrid)
+        Me.GroupBox14.Controls.Add(Me.AsignarExamenEstudiantesGrid)
+        Me.GroupBox14.Controls.Add(Me.Label70)
+        Me.GroupBox14.Controls.Add(Me.Label71)
+        Me.GroupBox14.Controls.Add(Me.BtnAsignarExamenRemoverEstudiante)
+        Me.GroupBox14.Controls.Add(Me.BtnAsignarExamenAgregarEstudiante)
+        Me.GroupBox14.Location = New System.Drawing.Point(67, 268)
+        Me.GroupBox14.Name = "GroupBox14"
+        Me.GroupBox14.Size = New System.Drawing.Size(796, 256)
+        Me.GroupBox14.TabIndex = 25
+        Me.GroupBox14.TabStop = False
+        Me.GroupBox14.Text = "Estudiantes"
+        '
+        'Label70
+        '
+        Me.Label70.AutoSize = True
+        Me.Label70.Location = New System.Drawing.Point(442, 25)
+        Me.Label70.Name = "Label70"
+        Me.Label70.Size = New System.Drawing.Size(135, 13)
+        Me.Label70.TabIndex = 25
+        Me.Label70.Text = "Estudiantes Seleccionados"
+        '
+        'Label71
+        '
+        Me.Label71.AutoSize = True
+        Me.Label71.Location = New System.Drawing.Point(20, 25)
+        Me.Label71.Name = "Label71"
+        Me.Label71.Size = New System.Drawing.Size(62, 13)
+        Me.Label71.TabIndex = 24
+        Me.Label71.Text = "Estudiantes"
+        '
+        'BtnAsignarExamenRemoverEstudiante
+        '
+        Me.BtnAsignarExamenRemoverEstudiante.Location = New System.Drawing.Point(367, 171)
+        Me.BtnAsignarExamenRemoverEstudiante.Name = "BtnAsignarExamenRemoverEstudiante"
+        Me.BtnAsignarExamenRemoverEstudiante.Size = New System.Drawing.Size(57, 23)
+        Me.BtnAsignarExamenRemoverEstudiante.TabIndex = 19
+        Me.BtnAsignarExamenRemoverEstudiante.Text = "<<"
+        Me.BtnAsignarExamenRemoverEstudiante.UseVisualStyleBackColor = True
+        '
+        'BtnAsignarExamenAgregarEstudiante
+        '
+        Me.BtnAsignarExamenAgregarEstudiante.Location = New System.Drawing.Point(367, 123)
+        Me.BtnAsignarExamenAgregarEstudiante.Name = "BtnAsignarExamenAgregarEstudiante"
+        Me.BtnAsignarExamenAgregarEstudiante.Size = New System.Drawing.Size(57, 23)
+        Me.BtnAsignarExamenAgregarEstudiante.TabIndex = 17
+        Me.BtnAsignarExamenAgregarEstudiante.Text = ">>"
+        Me.BtnAsignarExamenAgregarEstudiante.UseVisualStyleBackColor = True
+        '
+        'BtnAsignarExamenActualizar
+        '
+        Me.BtnAsignarExamenActualizar.Location = New System.Drawing.Point(419, 530)
+        Me.BtnAsignarExamenActualizar.Name = "BtnAsignarExamenActualizar"
+        Me.BtnAsignarExamenActualizar.Size = New System.Drawing.Size(86, 23)
+        Me.BtnAsignarExamenActualizar.TabIndex = 26
+        Me.BtnAsignarExamenActualizar.Text = "Actualizar"
+        Me.BtnAsignarExamenActualizar.UseVisualStyleBackColor = True
+        '
+        'AsignarExamenEstudiantesGrid
+        '
+        Me.AsignarExamenEstudiantesGrid.AllowUserToAddRows = False
+        Me.AsignarExamenEstudiantesGrid.AllowUserToDeleteRows = False
+        Me.AsignarExamenEstudiantesGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.AsignarExamenEstudiantesGrid.Location = New System.Drawing.Point(23, 79)
+        Me.AsignarExamenEstudiantesGrid.MultiSelect = False
+        Me.AsignarExamenEstudiantesGrid.Name = "AsignarExamenEstudiantesGrid"
+        Me.AsignarExamenEstudiantesGrid.ReadOnly = True
+        Me.AsignarExamenEstudiantesGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.AsignarExamenEstudiantesGrid.Size = New System.Drawing.Size(325, 152)
+        Me.AsignarExamenEstudiantesGrid.TabIndex = 27
+        '
+        'AsignarExamenEstudiantesSeleccionadosGrid
+        '
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.AllowUserToAddRows = False
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.AllowUserToDeleteRows = False
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.Location = New System.Drawing.Point(445, 79)
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.MultiSelect = False
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.Name = "AsignarExamenEstudiantesSeleccionadosGrid"
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.ReadOnly = True
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.Size = New System.Drawing.Size(325, 152)
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.TabIndex = 28
         '
         'Admin
         '
@@ -2405,6 +2541,13 @@ Partial Class Admin
         CType(Me.NumericEditarExamenCantidadPreguntas, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericEditarExamenTiempo, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.ExamenesGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage16.ResumeLayout(False)
+        Me.TabPage16.PerformLayout()
+        CType(Me.AsignarExamenGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox14.ResumeLayout(False)
+        Me.GroupBox14.PerformLayout()
+        CType(Me.AsignarExamenEstudiantesGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.AsignarExamenEstudiantesSeleccionadosGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2620,4 +2763,15 @@ Partial Class Admin
     Friend WithEvents TabPage16 As TabPage
     Friend WithEvents Label67 As Label
     Friend WithEvents EditarExamenActivoCombo As ComboBox
+    Friend WithEvents BtnAsignarExamenActualizar As Button
+    Friend WithEvents GroupBox14 As GroupBox
+    Friend WithEvents Label70 As Label
+    Friend WithEvents Label71 As Label
+    Friend WithEvents BtnAsignarExamenRemoverEstudiante As Button
+    Friend WithEvents BtnAsignarExamenAgregarEstudiante As Button
+    Friend WithEvents TxtAsignarExamenBuscar As TextBox
+    Friend WithEvents Label68 As Label
+    Friend WithEvents AsignarExamenGrid As DataGridView
+    Friend WithEvents AsignarExamenEstudiantesSeleccionadosGrid As DataGridView
+    Friend WithEvents AsignarExamenEstudiantesGrid As DataGridView
 End Class

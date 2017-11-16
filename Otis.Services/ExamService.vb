@@ -54,6 +54,12 @@ Public Class ExamService
                 .ImagePath = q.ImagePath,
                 .Category = New CategoryDto() With {.CategoryId = q.Category.CategoryId, .CategoryName = q.Category.CategoryName, .IsActive = q.Category.IsActive},
                 .IsActive = q.IsActive
+            }).ToList(),
+            .ExamUsers = e.ExamUsers.Select(Function(ue) New UserExamsDto() With
+            {
+                .ExamId = ue.ExamId,
+                .UserId = ue.UserId,
+                .IsCompleted = ue.IsCompleted
             }).ToList()
         }).ToList()
     End Function
