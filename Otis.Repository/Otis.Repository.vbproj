@@ -179,7 +179,16 @@
       <DependentUpon>201711170219123_ChangeEntityName.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711170219123_ChangeEntityName.vb" />
+    <Compile Include="Migrations\201711171323307_AddActivityLogEntity.Designer.vb">
+      <DependentUpon>201711171323307_AddActivityLogEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711171323307_AddActivityLogEntity.vb" />
+    <Compile Include="Migrations\201711171329191_ModifiedActivityLogEntity.Designer.vb">
+      <DependentUpon>201711171329191_ModifiedActivityLogEntity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711171329191_ModifiedActivityLogEntity.vb" />
     <Compile Include="Migrations\Configuration.vb" />
+    <Compile Include="Models\ActivityLog.vb" />
     <Compile Include="Models\QuestionAnswers.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
@@ -289,6 +298,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711170219123_ChangeEntityName.resx">
       <DependentUpon>201711170219123_ChangeEntityName.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711171323307_AddActivityLogEntity.resx">
+      <DependentUpon>201711171323307_AddActivityLogEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711171329191_ModifiedActivityLogEntity.resx">
+      <DependentUpon>201711171329191_ModifiedActivityLogEntity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

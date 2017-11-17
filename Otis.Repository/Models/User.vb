@@ -26,5 +26,6 @@ Public Class User
     Overridable Property Career As Career
     Overridable Property Sessions As ICollection(Of Session)
     Overridable Property UserExams As ICollection(Of ExamUsers)
+    Overridable Property ActivityLogs As ICollection(Of ActivityLog)
     Overridable Property Profile As Profile
 End Class

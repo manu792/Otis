@@ -20,4 +20,5 @@ Public Class OtisContext
     Property Exams As DbSet(Of Exam)
     Property UserExams As DbSet(Of ExamUsers)
     Property TestHistories As DbSet(Of TestHistory)
+    Property ActivityLogs As DbSet(Of ActivityLog)
 End Class
