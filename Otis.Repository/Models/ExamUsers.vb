@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
 
-Public Class UserExams
+Public Class ExamUsers
     <Key>
     <Column(Order:=1)>
     Property UserId As String

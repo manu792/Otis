@@ -8,6 +8,5 @@ Public Class ExamDto
     Property QuestionsQuantity As Integer
     Property IsActive As Boolean
     Property Questions As ICollection(Of QuestionDto)
-    Property ExamUsers As ICollection(Of UserExamsDto)
-    Property Users As ICollection(Of UserDto)
+    Property ExamUsers As ICollection(Of ExamUsersDto)
 End Class

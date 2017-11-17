@@ -34,6 +34,10 @@ Public Class ExamRepository
         Return otisContext.Exams.FirstOrDefault(Function(e) e.ExamId = examId)
     End Function
 
+    Public Function GetExamUsersByIds(examId As Integer, userId As Integer) As ExamUsers
+        Return otisContext.UserExams.FirstOrDefault(Function(ue) ue.ExamId = examId And ue.UserId = userId)
+    End Function
+
     Public Function GetExamsForUser(userId As String) As IEnumerable(Of Exam)
         Return otisContext.UserExams.Where(Function(u) u.UserId = userId And u.IsCompleted = False).
             Select(Function(c) c.Exam).

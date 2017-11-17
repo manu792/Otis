@@ -15,5 +15,5 @@ Public Class Exam
 
     ' Navigation Properties
     Overridable Property Questions As ICollection(Of Question)
-    Overridable Property ExamUsers As ICollection(Of UserExams)
+    Overridable Property ExamUsers As ICollection(Of ExamUsers)
 End Class

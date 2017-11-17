@@ -175,6 +175,10 @@
       <DependentUpon>201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb" />
+    <Compile Include="Migrations\201711170219123_ChangeEntityName.Designer.vb">
+      <DependentUpon>201711170219123_ChangeEntityName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711170219123_ChangeEntityName.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\QuestionAnswers.vb" />
     <Compile Include="Models\Career.vb" />
@@ -186,7 +190,7 @@
     <Compile Include="Models\Session.vb" />
     <Compile Include="Models\TestHistory.vb" />
     <Compile Include="Models\User.vb" />
-    <Compile Include="Models\UserExams.vb" />
+    <Compile Include="Models\ExamUsers.vb" />
     <Compile Include="OtisContext.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -282,6 +286,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.resx">
       <DependentUpon>201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711170219123_ChangeEntityName.resx">
+      <DependentUpon>201711170219123_ChangeEntityName.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

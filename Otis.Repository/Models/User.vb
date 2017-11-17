@@ -25,6 +25,6 @@ Public Class User
     ' Navigation Properties
     Overridable Property Career As Career
     Overridable Property Sessions As ICollection(Of Session)
-    Overridable Property UserExams As ICollection(Of UserExams)
+    Overridable Property UserExams As ICollection(Of ExamUsers)
     Overridable Property Profile As Profile
 End Class

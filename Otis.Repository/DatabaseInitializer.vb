@@ -448,7 +448,7 @@ Public Class DatabaseInitializer
         Dim user2 = context.Users.FirstOrDefault(Function(u) u.UserId = "125740692")
 
         context.UserExams.AddOrUpdate(
-            New UserExams() With
+            New ExamUsers() With
             {
                 .Exam = exam,
                 .ExamId = exam.ExamId,
@@ -456,7 +456,7 @@ Public Class DatabaseInitializer
                 .User = user,
                 .UserId = user.UserId
             },
-            New UserExams() With
+            New ExamUsers() With
             {
                 .Exam = exam,
                 .ExamId = exam.ExamId,

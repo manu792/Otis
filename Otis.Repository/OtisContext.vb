@@ -18,6 +18,6 @@ Public Class OtisContext
     Property Careers As DbSet(Of Career)
     Property Sessions As DbSet(Of Session)
     Property Exams As DbSet(Of Exam)
-    Property UserExams As DbSet(Of UserExams)
+    Property UserExams As DbSet(Of ExamUsers)
     Property TestHistories As DbSet(Of TestHistory)
 End Class
