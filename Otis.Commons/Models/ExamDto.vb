@@ -9,4 +9,5 @@ Public Class ExamDto
     Property IsActive As Boolean
     Property Questions As ICollection(Of QuestionDto)
     Property ExamUsers As ICollection(Of UserExamsDto)
+    Property Users As ICollection(Of UserDto)
 End Class

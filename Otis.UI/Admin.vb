@@ -30,6 +30,7 @@ Public Class Admin
     Private examsBindingSource As BindingSource
     Private assignExamsBindingSource As BindingSource
     Private assignExamsStudentsBindingSource As BindingSource
+    Private selectedStudentsBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -56,6 +57,7 @@ Public Class Admin
         examsBindingSource = New BindingSource()
         assignExamsBindingSource = New BindingSource()
         assignExamsStudentsBindingSource = New BindingSource()
+        selectedStudentsBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -910,27 +912,27 @@ Public Class Admin
         End If
     End Sub
 
-    Private Sub BtnAsignarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenActualizar.Click
-
-    End Sub
-
     Private Sub AsignarExamenGrid_SelectionChanged(sender As Object, e As EventArgs) Handles AsignarExamenGrid.SelectionChanged
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
             Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = id)
-            Dim selectedStudentsBindingSource = New BindingSource()
 
-            Dim usersAssignedToExam = users.Where(Function(u) exam.ExamUsers.
+            If exam.Users Is Nothing Then
+                exam.Users = users.Where(Function(u) exam.ExamUsers.
                                                        Select(Function(ue) ue.UserId).
                                                        ToList().
                                                        Contains(u.Id)).
                                                        ToList()
+            End If
 
-
-            selectedStudentsBindingSource.DataSource = ConvertUsersToDataTable(usersAssignedToExam)
-            AsignarExamenEstudiantesSeleccionadosGrid.DataSource = selectedStudentsBindingSource
+            ShowAssignedUsersToExam(exam.Users)
         End If
+    End Sub
+
+    Private Sub ShowAssignedUsersToExam(usersAssignedToExam As IEnumerable(Of UserDto))
+        selectedStudentsBindingSource.DataSource = ConvertUsersToDataTable(usersAssignedToExam)
+        AsignarExamenEstudiantesSeleccionadosGrid.DataSource = selectedStudentsBindingSource
     End Sub
 
     Private Sub TxtAsignarExamenBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtAsignarExamenBuscar.TextChanged
@@ -940,5 +942,46 @@ Public Class Admin
                                               [Tiempo en minutos] LIKE '%{0}%' Or
                                               [Cantidad de Preguntas] LIKE '%{0}%' Or
                                               [Esta activo] LIKE '%{0}%'", TxtAsignarExamenBuscar.Text)
+    End Sub
+
+    Private Sub BtnAsignarExamenAgregarEstudiante_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenAgregarEstudiante.Click
+        For Each item As DataGridViewRow In AsignarExamenEstudiantesGrid.SelectedRows
+            Dim user = New UserDto() With
+            {
+                .Id = Integer.Parse(item.Cells("Cedula").Value),
+                .Name = item.Cells("Nombre").Value.ToString(),
+                .LastName = item.Cells("Primer Apellido").Value.ToString(),
+                .SecondLastName = item.Cells("Segundo Apellido").Value.ToString(),
+                .EmailAddress = item.Cells("Correo Electronico").Value.ToString(),
+                .Profile = New ProfileDto() With {.Name = item.Cells("Perfil").Value.ToString()},
+                .Career = New CareerDto() With {.CareerName = item.Cells("Carrera").Value.ToString()},
+                .IsActive = Boolean.Parse(item.Cells("Esta Activo").Value),
+                .IsTemporaryPassword = Boolean.Parse(item.Cells("Tiene Contraseña Temporal").Value)
+            }
+            Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
+
+            If Not exam.Users.Contains(user) Then
+                exam.Users.Add(user)
+                ShowAssignedUsersToExam(exam.Users)
+            End If
+        Next
+    End Sub
+
+    Private Sub BtnAsignarExamenRemoverEstudiante_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenRemoverEstudiante.Click
+        For Each item As DataGridViewRow In AsignarExamenEstudiantesSeleccionadosGrid.SelectedRows
+            Dim user = New UserDto() With
+            {
+                .Id = Integer.Parse(item.Cells("Cedula").Value)
+            }
+
+            Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
+            exam.Users.Remove(user)
+
+            ShowAssignedUsersToExam(exam.Users)
+        Next
+    End Sub
+
+    Private Sub BtnAsignarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenActualizar.Click
+
     End Sub
 End Class
