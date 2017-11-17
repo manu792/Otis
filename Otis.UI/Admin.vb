@@ -955,37 +955,103 @@ Public Class Admin
 
     Private Sub BtnAsignarExamenAgregarEstudiante_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenAgregarEstudiante.Click
         Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
-        For Each item As DataGridViewRow In AsignarExamenEstudiantesGrid.SelectedRows
 
-            Dim userExams = New ExamUsersDto() With
+        Dim newExam = New ExamDto() With
+        {
+            .ExamId = exam.ExamId,
+            .Name = exam.Name,
+            .Description = exam.Description,
+            .Questions = exam.Questions,
+            .Time = exam.Time,
+            .IsActive = exam.IsActive,
+            .QuestionsQuantity = exam.QuestionsQuantity,
+            .ExamUsers = exam.ExamUsers.Select(Function(eu) New ExamUsersDto() With
+            {
+                .User = eu.User,
+                .IsCompleted = eu.IsCompleted
+            }).ToList()
+        }
+
+        For Each item As DataGridViewRow In AsignarExamenEstudiantesGrid.SelectedRows
+            Dim newExamUser = New ExamUsersDto() With
             {
                 .User = users.FirstOrDefault(Function(u) u.Id = item.Cells("Cedula").Value.ToString()),
                 .IsCompleted = False
             }
 
-            If Not exam.ExamUsers.Contains(userExams) Then
-                exam.ExamUsers.Add(userExams)
+            If Not newExam.ExamUsers.Contains(newExamUser) Then
+                newExam.ExamUsers.Add(newExamUser)
             End If
         Next
-        ShowAssignedUsersToExam(exam)
+        ShowAssignedUsersToExam(newExam)
     End Sub
 
     Private Sub BtnAsignarExamenRemoverEstudiante_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenRemoverEstudiante.Click
+
         Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
+
+        Dim newExam = New ExamDto() With
+        {
+            .ExamId = exam.ExamId,
+            .Name = exam.Name,
+            .Description = exam.Description,
+            .Questions = exam.Questions,
+            .Time = exam.Time,
+            .IsActive = exam.IsActive,
+            .QuestionsQuantity = exam.QuestionsQuantity,
+            .ExamUsers = GetExamUsers()
+        }
 
         For Each item As DataGridViewRow In AsignarExamenEstudiantesSeleccionadosGrid.SelectedRows
             Dim userExam = New ExamUsersDto() With
             {
                 .User = users.FirstOrDefault(Function(u) u.Id = item.Cells("Cedula").Value.ToString())
             }
-            exam.ExamUsers.Remove(userExam)
+            newExam.ExamUsers.Remove(userExam)
         Next
-        ShowAssignedUsersToExam(exam)
+        ShowAssignedUsersToExam(newExam)
     End Sub
+
+    Private Function GetExamUsers() As IEnumerable(Of ExamUsersDto)
+        Dim examUsersList = New List(Of ExamUsersDto)
+
+        For Each item As DataGridViewRow In AsignarExamenEstudiantesSeleccionadosGrid.Rows
+            Dim newUserExam = New ExamUsersDto() With
+            {
+                .User = users.FirstOrDefault(Function(u) u.Id = item.Cells("Cedula").Value.ToString()),
+                .IsCompleted = item.Cells("Completado").Value
+            }
+            examUsersList.Add(newUserExam)
+        Next
+
+        Return examUsersList
+    End Function
 
     Private Sub BtnAsignarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenActualizar.Click
         Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
+        exam.ExamUsers = GetExamUsers()
 
         MessageBox.Show(examService.AssignUsersToExam(Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value), exam))
+    End Sub
+
+    Private Sub TxtAsignarExamenEstudiantesBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtAsignarExamenEstudiantesBuscar.TextChanged
+        assignExamsStudentsBindingSource.Filter = String.Format("Cedula LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              [Primer Apellido] LIKE '%{0}%' Or 
+                                              [Segundo Apellido] LIKE '%{0}%' Or 
+                                              [Correo Electronico] LIKE '%{0}%' Or 
+                                              Perfil LIKE '%{0}%' Or 
+                                              Carrera LIKE '%{0}%' Or 
+                                              [Tiene Contraseña Temporal] LIKE '%{0}%' Or 
+                                              [Esta Activo] LIKE '%{0}%'", TxtAsignarExamenEstudiantesBuscar.Text)
+    End Sub
+
+    Private Sub TxtAsignarExamenEstudiantesSeleccionadosBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtAsignarExamenEstudiantesSeleccionadosBuscar.TextChanged
+        selectedStudentsBindingSource.Filter = String.Format("Cedula LIKE '%{0}%' Or 
+                                              Nombre LIKE '%{0}%' Or 
+                                              [Primer Apellido] LIKE '%{0}%' Or 
+                                              [Segundo Apellido] LIKE '%{0}%' Or 
+                                              Examen LIKE '%{0}%' Or 
+                                              Completado LIKE '%{0}%'", TxtAsignarExamenEstudiantesSeleccionadosBuscar.Text)
     End Sub
 End Class

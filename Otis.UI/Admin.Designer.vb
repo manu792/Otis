@@ -244,6 +244,10 @@ Partial Class Admin
         Me.Label68 = New System.Windows.Forms.Label()
         Me.AsignarExamenGrid = New System.Windows.Forms.DataGridView()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
+        Me.TxtAsignarExamenEstudiantesBuscar = New System.Windows.Forms.TextBox()
+        Me.Label69 = New System.Windows.Forms.Label()
+        Me.Label72 = New System.Windows.Forms.Label()
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -2350,6 +2354,10 @@ Partial Class Admin
         '
         'GroupBox14
         '
+        Me.GroupBox14.Controls.Add(Me.Label72)
+        Me.GroupBox14.Controls.Add(Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar)
+        Me.GroupBox14.Controls.Add(Me.Label69)
+        Me.GroupBox14.Controls.Add(Me.TxtAsignarExamenEstudiantesBuscar)
         Me.GroupBox14.Controls.Add(Me.AsignarExamenEstudiantesSeleccionadosGrid)
         Me.GroupBox14.Controls.Add(Me.AsignarExamenEstudiantesGrid)
         Me.GroupBox14.Controls.Add(Me.Label70)
@@ -2460,6 +2468,38 @@ Partial Class Admin
         Me.BtnCerrarSesion.TabIndex = 4
         Me.BtnCerrarSesion.Text = "Cerrar Sesion"
         Me.BtnCerrarSesion.UseVisualStyleBackColor = True
+        '
+        'TxtAsignarExamenEstudiantesBuscar
+        '
+        Me.TxtAsignarExamenEstudiantesBuscar.Location = New System.Drawing.Point(71, 53)
+        Me.TxtAsignarExamenEstudiantesBuscar.Name = "TxtAsignarExamenEstudiantesBuscar"
+        Me.TxtAsignarExamenEstudiantesBuscar.Size = New System.Drawing.Size(277, 20)
+        Me.TxtAsignarExamenEstudiantesBuscar.TabIndex = 29
+        '
+        'Label69
+        '
+        Me.Label69.AutoSize = True
+        Me.Label69.Location = New System.Drawing.Point(20, 56)
+        Me.Label69.Name = "Label69"
+        Me.Label69.Size = New System.Drawing.Size(40, 13)
+        Me.Label69.TabIndex = 30
+        Me.Label69.Text = "Buscar"
+        '
+        'Label72
+        '
+        Me.Label72.AutoSize = True
+        Me.Label72.Location = New System.Drawing.Point(442, 56)
+        Me.Label72.Name = "Label72"
+        Me.Label72.Size = New System.Drawing.Size(40, 13)
+        Me.Label72.TabIndex = 32
+        Me.Label72.Text = "Buscar"
+        '
+        'TxtAsignarExamenEstudiantesSeleccionadosBuscar
+        '
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Location = New System.Drawing.Point(493, 53)
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Name = "TxtAsignarExamenEstudiantesSeleccionadosBuscar"
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Size = New System.Drawing.Size(277, 20)
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.TabIndex = 31
         '
         'Admin
         '
@@ -2772,4 +2812,8 @@ Partial Class Admin
     Friend WithEvents AsignarExamenGrid As DataGridView
     Friend WithEvents AsignarExamenEstudiantesSeleccionadosGrid As DataGridView
     Friend WithEvents AsignarExamenEstudiantesGrid As DataGridView
+    Friend WithEvents Label72 As Label
+    Friend WithEvents TxtAsignarExamenEstudiantesSeleccionadosBuscar As TextBox
+    Friend WithEvents Label69 As Label
+    Friend WithEvents TxtAsignarExamenEstudiantesBuscar As TextBox
 End Class

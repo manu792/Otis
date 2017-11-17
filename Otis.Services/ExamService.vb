@@ -164,7 +164,7 @@ Public Class ExamService
             .ExamId = exam.ExamId,
             .User = u,
             .UserId = u.UserId,
-            .IsCompleted = If(unitOfWork.ExamRepository.GetExamUsersByIds(exam.ExamId, u.UserId) IsNot Nothing, unitOfWork.ExamRepository.GetExamUsersByIds(exam.ExamId, u.UserId).IsCompleted, False)
+            .IsCompleted = examDto.ExamUsers.FirstOrDefault(Function(eu) eu.User.Id = u.UserId).IsCompleted
         }).ToList()
 
         Return exam
