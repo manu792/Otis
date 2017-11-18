@@ -107,6 +107,12 @@
     <Compile Include="NewDataForm.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Specialist.Designer.vb">
+      <DependentUpon>Specialist.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Specialist.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Student.Designer.vb">
       <DependentUpon>Student.vb</DependentUpon>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NewDataForm.resx">
       <DependentUpon>NewDataForm.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Specialist.resx">
+      <DependentUpon>Specialist.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Student.resx">
       <DependentUpon>Student.vb</DependentUpon>

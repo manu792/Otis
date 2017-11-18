@@ -10,22 +10,26 @@ Public Class Router
 
     Public Sub RedirectToFormByUserProfile(userId As String, previousForm As Form)
         Dim user = userService.GetUserByUserName(userId)
+        Dim form As Form
 
         If user.Profile.ProfileId = 1 Then
             ' admin
-            Dim admin = New Admin(user)
+            form = New Admin(user)
 
-            admin.Show()
+            form.Show()
             previousForm.Close()
         ElseIf user.Profile.ProfileId = 2 Then
             ' student
-            Dim main = New Student(user)
+            form = New Student(user)
 
-            main.Show()
+            form.Show()
             previousForm.Close()
         Else
             ' espec
+            form = New Specialist(user)
 
+            form.Show()
+            previousForm.Close()
         End If
 
     End Sub

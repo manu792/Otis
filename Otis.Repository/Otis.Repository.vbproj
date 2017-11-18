@@ -187,6 +187,10 @@
       <DependentUpon>201711171329191_ModifiedActivityLogEntity.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711171329191_ModifiedActivityLogEntity.vb" />
+    <Compile Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.Designer.vb">
+      <DependentUpon>201711182252039_AddIsReviewedPropertyToExamUsers.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\ActivityLog.vb" />
     <Compile Include="Models\QuestionAnswers.vb" />
@@ -304,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711171329191_ModifiedActivityLogEntity.resx">
       <DependentUpon>201711171329191_ModifiedActivityLogEntity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.resx">
+      <DependentUpon>201711182252039_AddIsReviewedPropertyToExamUsers.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

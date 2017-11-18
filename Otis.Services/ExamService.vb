@@ -72,36 +72,15 @@ Public Class ExamService
         }).ToList()
     End Function
 
-    Private Function ConvertUserToUserDto(user As User) As UserDto
-        Return New UserDto() With
+    Public Function GetExamsPendingReview() As IEnumerable(Of ExamDto)
+        Return unitOfWork.ExamRepository.GetExamsPendingReview().Select(Function(e) New ExamDto() With
         {
-            .Id = user.UserId,
-            .Name = user.Name,
-            .LastName = user.LastName,
-            .SecondLastName = user.SecondLastName,
-            .EmailAddress = user.EmailAddress,
-            .Profile = New ProfileDto() With
-            {
-                .ProfileId = user.Profile.ProfileId,
-                .Name = user.Profile.Name,
-                .Description = user.Profile.Description,
-                .Entitlements = user.Profile.Entitlements.Select(Function(e) New EntitlementDto() With
-                {
-                    .EntitlementId = e.EntitlementId,
-                    .Name = e.Name,
-                    .IsActive = e.IsActive
-                }).ToList(),
-                .IsActive = user.Profile.IsActive
-            },
-            .IsTemporaryPassword = user.IsTemporaryPassword,
-            .Career = New CareerDto() With
-            {
-                .CareerId = user.Career.CareerId,
-                .CareerName = user.Career.CareerName,
-                .IsActive = user.Career.IsActive
-            },
-            .IsActive = user.IsActive
-        }
+            .ExamId = e.ExamId,
+            .Name = e.Name,
+            .Description = e.Description,
+            .Time = e.Time,
+            .QuestionsQuantity = e.QuestionsQuantity
+        }).ToList()
     End Function
 
     Public Function GetExamsForUser(userId As String) As IEnumerable(Of ExamDto)
@@ -149,6 +128,38 @@ Public Class ExamService
         unitOfWork.ExamRepository.UpdateStatusForExamByUser(examId, userId, True)
         unitOfWork.SaveChanges()
     End Sub
+
+    Private Function ConvertUserToUserDto(user As User) As UserDto
+        Return New UserDto() With
+        {
+            .Id = user.UserId,
+            .Name = user.Name,
+            .LastName = user.LastName,
+            .SecondLastName = user.SecondLastName,
+            .EmailAddress = user.EmailAddress,
+            .Profile = New ProfileDto() With
+            {
+                .ProfileId = user.Profile.ProfileId,
+                .Name = user.Profile.Name,
+                .Description = user.Profile.Description,
+                .Entitlements = user.Profile.Entitlements.Select(Function(e) New EntitlementDto() With
+                {
+                    .EntitlementId = e.EntitlementId,
+                    .Name = e.Name,
+                    .IsActive = e.IsActive
+                }).ToList(),
+                .IsActive = user.Profile.IsActive
+            },
+            .IsTemporaryPassword = user.IsTemporaryPassword,
+            .Career = New CareerDto() With
+            {
+                .CareerId = user.Career.CareerId,
+                .CareerName = user.Career.CareerName,
+                .IsActive = user.Career.IsActive
+            },
+            .IsActive = user.IsActive
+        }
+    End Function
 
     Private Function AssignUsers(examId As Integer, examDto As ExamDto) As Exam
         Dim exam = unitOfWork.ExamRepository.GetExamById(examId)

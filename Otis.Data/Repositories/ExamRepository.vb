@@ -35,7 +35,14 @@ Public Class ExamRepository
     End Function
 
     Public Function GetExamUsersByIds(examId As Integer, userId As Integer) As ExamUsers
-        Return otisContext.UserExams.FirstOrDefault(Function(ue) ue.ExamId = examId And ue.UserId = userId)
+        Return otisContext.UserExams.
+            FirstOrDefault(Function(ue) ue.ExamId = examId And ue.UserId = userId)
+    End Function
+
+    Public Function GetExamsPendingReview() As IEnumerable(Of Exam)
+        Return otisContext.UserExams.Where(Function(ue) ue.IsCompleted And Not ue.IsReviewed).
+            Select(Function(ue) ue.Exam).
+            ToList()
     End Function
 
     Public Function GetExamsForUser(userId As String) As IEnumerable(Of Exam)
