@@ -11,6 +11,7 @@ Public Class UnitOfWork
     Private _profileRepository As ProfileRepository
     Private _careerRepository As CareerRepository
     Private _entitlementRepository As EntitlementRepository
+    Private _activityLogRepository As ActivityLogRepository
     Private otisContext As OtisContext
 
     Public Sub New()
@@ -95,6 +96,15 @@ Public Class UnitOfWork
                 _entitlementRepository = New EntitlementRepository(otisContext)
             End If
             Return _entitlementRepository
+        End Get
+    End Property
+
+    Public ReadOnly Property ActivityLogRepository() As ActivityLogRepository
+        Get
+            If _activityLogRepository Is Nothing Then
+                _activityLogRepository = New ActivityLogRepository(otisContext)
+            End If
+            Return _activityLogRepository
         End Get
     End Property
 

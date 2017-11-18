@@ -234,6 +234,10 @@ Partial Class Admin
         Me.TabPage16 = New System.Windows.Forms.TabPage()
         Me.BtnAsignarExamenActualizar = New System.Windows.Forms.Button()
         Me.GroupBox14 = New System.Windows.Forms.GroupBox()
+        Me.Label72 = New System.Windows.Forms.Label()
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar = New System.Windows.Forms.TextBox()
+        Me.Label69 = New System.Windows.Forms.Label()
+        Me.TxtAsignarExamenEstudiantesBuscar = New System.Windows.Forms.TextBox()
         Me.AsignarExamenEstudiantesSeleccionadosGrid = New System.Windows.Forms.DataGridView()
         Me.AsignarExamenEstudiantesGrid = New System.Windows.Forms.DataGridView()
         Me.Label70 = New System.Windows.Forms.Label()
@@ -244,10 +248,16 @@ Partial Class Admin
         Me.Label68 = New System.Windows.Forms.Label()
         Me.AsignarExamenGrid = New System.Windows.Forms.DataGridView()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
-        Me.TxtAsignarExamenEstudiantesBuscar = New System.Windows.Forms.TextBox()
-        Me.Label69 = New System.Windows.Forms.Label()
-        Me.Label72 = New System.Windows.Forms.Label()
-        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar = New System.Windows.Forms.TextBox()
+        Me.TabPage17 = New System.Windows.Forms.TabPage()
+        Me.LogsGrid = New System.Windows.Forms.DataGridView()
+        Me.Label73 = New System.Windows.Forms.Label()
+        Me.LogsDesdeFecha = New System.Windows.Forms.DateTimePicker()
+        Me.LogsHastaFecha = New System.Windows.Forms.DateTimePicker()
+        Me.Label74 = New System.Windows.Forms.Label()
+        Me.BtnLogsBuscar = New System.Windows.Forms.Button()
+        Me.Label75 = New System.Windows.Forms.Label()
+        Me.TxtLogsUsuarioId = New System.Windows.Forms.TextBox()
+        Me.BtnLogsRemoverFiltro = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -298,6 +308,8 @@ Partial Class Admin
         CType(Me.AsignarExamenEstudiantesSeleccionadosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AsignarExamenEstudiantesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AsignarExamenGrid, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage17.SuspendLayout()
+        CType(Me.LogsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'OpenFileDialog
@@ -312,6 +324,7 @@ Partial Class Admin
         Me.TabControl1.Controls.Add(Me.TabPage11)
         Me.TabControl1.Controls.Add(Me.TabPage12)
         Me.TabControl1.Controls.Add(Me.TabPage13)
+        Me.TabControl1.Controls.Add(Me.TabPage17)
         Me.TabControl1.Location = New System.Drawing.Point(12, 51)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -2371,6 +2384,38 @@ Partial Class Admin
         Me.GroupBox14.TabStop = False
         Me.GroupBox14.Text = "Estudiantes"
         '
+        'Label72
+        '
+        Me.Label72.AutoSize = True
+        Me.Label72.Location = New System.Drawing.Point(442, 56)
+        Me.Label72.Name = "Label72"
+        Me.Label72.Size = New System.Drawing.Size(40, 13)
+        Me.Label72.TabIndex = 32
+        Me.Label72.Text = "Buscar"
+        '
+        'TxtAsignarExamenEstudiantesSeleccionadosBuscar
+        '
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Location = New System.Drawing.Point(493, 53)
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Name = "TxtAsignarExamenEstudiantesSeleccionadosBuscar"
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Size = New System.Drawing.Size(277, 20)
+        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.TabIndex = 31
+        '
+        'Label69
+        '
+        Me.Label69.AutoSize = True
+        Me.Label69.Location = New System.Drawing.Point(20, 56)
+        Me.Label69.Name = "Label69"
+        Me.Label69.Size = New System.Drawing.Size(40, 13)
+        Me.Label69.TabIndex = 30
+        Me.Label69.Text = "Buscar"
+        '
+        'TxtAsignarExamenEstudiantesBuscar
+        '
+        Me.TxtAsignarExamenEstudiantesBuscar.Location = New System.Drawing.Point(71, 53)
+        Me.TxtAsignarExamenEstudiantesBuscar.Name = "TxtAsignarExamenEstudiantesBuscar"
+        Me.TxtAsignarExamenEstudiantesBuscar.Size = New System.Drawing.Size(277, 20)
+        Me.TxtAsignarExamenEstudiantesBuscar.TabIndex = 29
+        '
         'AsignarExamenEstudiantesSeleccionadosGrid
         '
         Me.AsignarExamenEstudiantesSeleccionadosGrid.AllowUserToAddRows = False
@@ -2469,37 +2514,102 @@ Partial Class Admin
         Me.BtnCerrarSesion.Text = "Cerrar Sesion"
         Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
-        'TxtAsignarExamenEstudiantesBuscar
+        'TabPage17
         '
-        Me.TxtAsignarExamenEstudiantesBuscar.Location = New System.Drawing.Point(71, 53)
-        Me.TxtAsignarExamenEstudiantesBuscar.Name = "TxtAsignarExamenEstudiantesBuscar"
-        Me.TxtAsignarExamenEstudiantesBuscar.Size = New System.Drawing.Size(277, 20)
-        Me.TxtAsignarExamenEstudiantesBuscar.TabIndex = 29
+        Me.TabPage17.Controls.Add(Me.BtnLogsRemoverFiltro)
+        Me.TabPage17.Controls.Add(Me.TxtLogsUsuarioId)
+        Me.TabPage17.Controls.Add(Me.Label75)
+        Me.TabPage17.Controls.Add(Me.BtnLogsBuscar)
+        Me.TabPage17.Controls.Add(Me.LogsHastaFecha)
+        Me.TabPage17.Controls.Add(Me.Label74)
+        Me.TabPage17.Controls.Add(Me.LogsDesdeFecha)
+        Me.TabPage17.Controls.Add(Me.Label73)
+        Me.TabPage17.Controls.Add(Me.LogsGrid)
+        Me.TabPage17.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage17.Name = "TabPage17"
+        Me.TabPage17.Size = New System.Drawing.Size(954, 594)
+        Me.TabPage17.TabIndex = 6
+        Me.TabPage17.Text = "Logs"
+        Me.TabPage17.UseVisualStyleBackColor = True
         '
-        'Label69
+        'LogsGrid
         '
-        Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(20, 56)
-        Me.Label69.Name = "Label69"
-        Me.Label69.Size = New System.Drawing.Size(40, 13)
-        Me.Label69.TabIndex = 30
-        Me.Label69.Text = "Buscar"
+        Me.LogsGrid.AllowUserToAddRows = False
+        Me.LogsGrid.AllowUserToDeleteRows = False
+        Me.LogsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.LogsGrid.Location = New System.Drawing.Point(87, 211)
+        Me.LogsGrid.MultiSelect = False
+        Me.LogsGrid.Name = "LogsGrid"
+        Me.LogsGrid.ReadOnly = True
+        Me.LogsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.LogsGrid.Size = New System.Drawing.Size(796, 339)
+        Me.LogsGrid.TabIndex = 23
         '
-        'Label72
+        'Label73
         '
-        Me.Label72.AutoSize = True
-        Me.Label72.Location = New System.Drawing.Point(442, 56)
-        Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(40, 13)
-        Me.Label72.TabIndex = 32
-        Me.Label72.Text = "Buscar"
+        Me.Label73.AutoSize = True
+        Me.Label73.Location = New System.Drawing.Point(326, 72)
+        Me.Label73.Name = "Label73"
+        Me.Label73.Size = New System.Drawing.Size(41, 13)
+        Me.Label73.TabIndex = 24
+        Me.Label73.Text = "Desde:"
         '
-        'TxtAsignarExamenEstudiantesSeleccionadosBuscar
+        'LogsDesdeFecha
         '
-        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Location = New System.Drawing.Point(493, 53)
-        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Name = "TxtAsignarExamenEstudiantesSeleccionadosBuscar"
-        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.Size = New System.Drawing.Size(277, 20)
-        Me.TxtAsignarExamenEstudiantesSeleccionadosBuscar.TabIndex = 31
+        Me.LogsDesdeFecha.Location = New System.Drawing.Point(414, 72)
+        Me.LogsDesdeFecha.Name = "LogsDesdeFecha"
+        Me.LogsDesdeFecha.Size = New System.Drawing.Size(200, 20)
+        Me.LogsDesdeFecha.TabIndex = 25
+        '
+        'LogsHastaFecha
+        '
+        Me.LogsHastaFecha.Location = New System.Drawing.Point(414, 104)
+        Me.LogsHastaFecha.Name = "LogsHastaFecha"
+        Me.LogsHastaFecha.Size = New System.Drawing.Size(200, 20)
+        Me.LogsHastaFecha.TabIndex = 27
+        '
+        'Label74
+        '
+        Me.Label74.AutoSize = True
+        Me.Label74.Location = New System.Drawing.Point(326, 104)
+        Me.Label74.Name = "Label74"
+        Me.Label74.Size = New System.Drawing.Size(38, 13)
+        Me.Label74.TabIndex = 26
+        Me.Label74.Text = "Hasta:"
+        '
+        'BtnLogsBuscar
+        '
+        Me.BtnLogsBuscar.Location = New System.Drawing.Point(376, 144)
+        Me.BtnLogsBuscar.Name = "BtnLogsBuscar"
+        Me.BtnLogsBuscar.Size = New System.Drawing.Size(105, 40)
+        Me.BtnLogsBuscar.TabIndex = 28
+        Me.BtnLogsBuscar.Text = "Buscar"
+        Me.BtnLogsBuscar.UseVisualStyleBackColor = True
+        '
+        'Label75
+        '
+        Me.Label75.AutoSize = True
+        Me.Label75.Location = New System.Drawing.Point(326, 41)
+        Me.Label75.Name = "Label75"
+        Me.Label75.Size = New System.Drawing.Size(82, 13)
+        Me.Label75.TabIndex = 29
+        Me.Label75.Text = "Cedula Usuario:"
+        '
+        'TxtLogsUsuarioId
+        '
+        Me.TxtLogsUsuarioId.Location = New System.Drawing.Point(414, 38)
+        Me.TxtLogsUsuarioId.Name = "TxtLogsUsuarioId"
+        Me.TxtLogsUsuarioId.Size = New System.Drawing.Size(200, 20)
+        Me.TxtLogsUsuarioId.TabIndex = 30
+        '
+        'BtnLogsRemoverFiltro
+        '
+        Me.BtnLogsRemoverFiltro.Location = New System.Drawing.Point(487, 144)
+        Me.BtnLogsRemoverFiltro.Name = "BtnLogsRemoverFiltro"
+        Me.BtnLogsRemoverFiltro.Size = New System.Drawing.Size(105, 40)
+        Me.BtnLogsRemoverFiltro.TabIndex = 31
+        Me.BtnLogsRemoverFiltro.Text = "Limpiar"
+        Me.BtnLogsRemoverFiltro.UseVisualStyleBackColor = True
         '
         'Admin
         '
@@ -2586,6 +2696,9 @@ Partial Class Admin
         CType(Me.AsignarExamenEstudiantesSeleccionadosGrid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AsignarExamenEstudiantesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AsignarExamenGrid, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage17.ResumeLayout(False)
+        Me.TabPage17.PerformLayout()
+        CType(Me.LogsGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2816,4 +2929,14 @@ Partial Class Admin
     Friend WithEvents TxtAsignarExamenEstudiantesSeleccionadosBuscar As TextBox
     Friend WithEvents Label69 As Label
     Friend WithEvents TxtAsignarExamenEstudiantesBuscar As TextBox
+    Friend WithEvents TabPage17 As TabPage
+    Friend WithEvents TxtLogsUsuarioId As TextBox
+    Friend WithEvents Label75 As Label
+    Friend WithEvents BtnLogsBuscar As Button
+    Friend WithEvents LogsHastaFecha As DateTimePicker
+    Friend WithEvents Label74 As Label
+    Friend WithEvents LogsDesdeFecha As DateTimePicker
+    Friend WithEvents Label73 As Label
+    Friend WithEvents LogsGrid As DataGridView
+    Friend WithEvents BtnLogsRemoverFiltro As Button
 End Class

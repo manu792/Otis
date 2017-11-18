@@ -7,6 +7,8 @@ Public Class ChangePassword
     Private loginForm As Login
     Private user As UserDto
     Private router As Router
+    Private logService As LogService
+
     Public Sub New(userDto As UserDto)
 
         ' This call is required by the designer.
@@ -17,6 +19,7 @@ Public Class ChangePassword
         userService = New UserService()
         loginForm = New Login()
         router = New Router()
+        logService = New LogService()
     End Sub
 
     Private Sub loginBtn_Click(sender As Object, e As EventArgs) Handles loginBtn.Click
@@ -37,14 +40,14 @@ Public Class ChangePassword
     End Sub
 
     Private Sub ReturnToLogin()
+        logService.AddLog(user.Id, "Usuario ha cancelado. Se le enviara a la pantalla de Login")
+
         loginForm.Show()
         Me.Close()
     End Sub
     Private Sub NavigateToMain()
-        router.RedirectToFormByUserProfile(user.Id, Me)
-        'Dim main = New Main(user.Id)
+        logService.AddLog(user.Id, "Cambio de contraseña temporal exitoso. El usuario sera logueado")
 
-        'main.Show()
-        'Me.Close()
+        router.RedirectToFormByUserProfile(user.Id, Me)
     End Sub
 End Class

@@ -64,6 +64,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ActivityLogDto.vb" />
     <Compile Include="Models\AnswerDto.vb" />
     <Compile Include="Models\CareerDto.vb" />
     <Compile Include="Models\CategoryDto.vb" />

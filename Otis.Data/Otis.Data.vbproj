@@ -80,6 +80,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Repositories\ActivityLogRepository.vb" />
     <Compile Include="Repositories\CareerRepository.vb" />
     <Compile Include="Repositories\CategoryRepository.vb" />
     <Compile Include="Repositories\EntitlementRepository.vb" />

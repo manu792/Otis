@@ -10,6 +10,7 @@ Public Class Admin
     Private userService As UserService
     Private entitlementService As EntitlementService
     Private examService As ExamService
+    Private logService As LogService
 
     Private loggedUser As UserDto
 
@@ -20,6 +21,7 @@ Public Class Admin
     Private entitlements As IEnumerable(Of EntitlementDto)
     Private careers As IEnumerable(Of CareerDto)
     Private exams As IEnumerable(Of ExamDto)
+    Private logs As IEnumerable(Of ActivityLogDto)
 
     Private usersBindingSource As BindingSource
     Private questionsBindingSource As BindingSource
@@ -31,6 +33,7 @@ Public Class Admin
     Private assignExamsBindingSource As BindingSource
     Private assignExamsStudentsBindingSource As BindingSource
     Private selectedStudentsBindingSource As BindingSource
+    Private logsBindingSource As BindingSource
 
     Public Sub New(userDto As UserDto)
 
@@ -47,6 +50,7 @@ Public Class Admin
         userService = New UserService()
         entitlementService = New EntitlementService()
         examService = New ExamService()
+        logService = New LogService()
 
         usersBindingSource = New BindingSource()
         questionsBindingSource = New BindingSource()
@@ -58,6 +62,7 @@ Public Class Admin
         assignExamsBindingSource = New BindingSource()
         assignExamsStudentsBindingSource = New BindingSource()
         selectedStudentsBindingSource = New BindingSource()
+        logsBindingSource = New BindingSource()
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -68,6 +73,7 @@ Public Class Admin
         UpdateUsers()
         UpdateEntitlements()
         UpdateExams()
+        UpdateLogs()
     End Sub
 
     Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UserDto))
@@ -344,6 +350,8 @@ Public Class Admin
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
+            logService.AddLog(loggedUser.Id, "Cierre de sesion exitoso")
+
             Dim login = New Login()
             login.Show()
             Me.Close()
@@ -438,6 +446,16 @@ Public Class Admin
         LoadExams(examService.GetAllExams())
     End Sub
 
+    Private Sub UpdateLogs()
+        LoadLogs(logService.GetLogs())
+    End Sub
+
+    Private Sub LoadLogs(logsDto As IEnumerable(Of ActivityLogDto))
+        logs = logsDto
+        logsBindingSource.DataSource = ConvertLogsToDataTable(logs)
+        LogsGrid.DataSource = logsBindingSource
+    End Sub
+
     Private Sub LoadExams(examsDto As IEnumerable(Of ExamDto))
         exams = examsDto
         examsBindingSource.DataSource = ConvertExamsToDataTable(exams)
@@ -447,6 +465,23 @@ Public Class Admin
         assignExamsBindingSource.DataSource = ConvertExamsToDataTable(exams)
         AsignarExamenGrid.DataSource = assignExamsBindingSource
     End Sub
+
+    Private Function ConvertLogsToDataTable(logs As IEnumerable(Of ActivityLogDto)) As DataTable
+        Dim table = New DataTable()
+
+        table.Columns.Add("Log Id")
+        table.Columns.Add("Usuario")
+        table.Columns.Add("Cedula")
+        table.Columns.Add("Perfil")
+        table.Columns.Add("Actividad")
+        table.Columns.Add("Fecha")
+
+        For Each log In logs
+            table.Rows.Add(log.ActivityLogId, log.User.Name, log.User.Id, log.User.Profile.Name, log.Activity, log.ActivityDate)
+        Next
+
+        Return table
+    End Function
 
     Private Function ConvertExamsToDataTable(exams As IEnumerable(Of ExamDto)) As DataTable
         Dim table = New DataTable()
@@ -1053,5 +1088,15 @@ Public Class Admin
                                               [Segundo Apellido] LIKE '%{0}%' Or 
                                               Examen LIKE '%{0}%' Or 
                                               Completado LIKE '%{0}%'", TxtAsignarExamenEstudiantesSeleccionadosBuscar.Text)
+    End Sub
+
+    Private Sub BtnLogsBuscar_Click(sender As Object, e As EventArgs) Handles BtnLogsBuscar.Click
+        Dim filteredLogs = logService.GetLogsByUserAndDateRange(TxtLogsUsuarioId.Text, LogsDesdeFecha.Value, LogsHastaFecha.Value)
+
+        LoadLogs(filteredLogs)
+    End Sub
+
+    Private Sub BtnLogsRemoverFiltro_Click(sender As Object, e As EventArgs) Handles BtnLogsRemoverFiltro.Click
+        UpdateLogs()
     End Sub
 End Class
