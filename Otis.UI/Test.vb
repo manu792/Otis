@@ -11,6 +11,7 @@ Public Class Test
     Private user As UserDto
     Private exam As ExamDto
     Private logService As LogService
+    Private questionsAnsweredNumber As Integer
 
     Private Sub New()
 
@@ -20,11 +21,13 @@ Public Class Test
         ' Add any initialization after the InitializeComponent() call.
         examService = New ExamService()
         logService = New LogService()
+        questionsAnsweredNumber = 0
     End Sub
 
-    Public Sub New(userDto As UserDto, examDto As ExamDto)
+    Public Sub New(sessionDto As SessionDto, examDto As ExamDto)
         Me.New()
-        user = userDto
+        session = sessionDto
+        user = sessionDto.User
         exam = examDto
         Init()
     End Sub
@@ -32,7 +35,6 @@ Public Class Test
     Private Sub Init()
         logService.AddLog(user.Id, "Obteniendo Id de sesion y preguntas del examen")
 
-        session = New SessionDto With {.SessionId = Guid.NewGuid(), .UserId = user.Id}
         exam.Questions = examService.GetQuestionsForExam(exam.ExamId, exam.QuestionsQuantity)
         questions = New Queue(Of QuestionDto)(exam.Questions)
 
@@ -130,7 +132,7 @@ Public Class Test
         logService.AddLog(user.Id, "Respuestas de usuario guardadas")
 
         MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
-        examService.SaveTest(session, exam.ExamId, user.Id)
+        examService.SaveTest(session, exam.ExamId, questionsAnsweredNumber)
         ReturnToMain()
     End Sub
 
@@ -144,10 +146,12 @@ Public Class Test
     End Sub
 
     Private Sub SiguienteBtn_Click(sender As Object, e As EventArgs)
+        questionsAnsweredNumber = questionsAnsweredNumber + 1
         Dim testHistoryEntry = New TestHistoryDto With
         {
-            .QuestionId = questionId,
-            .SessionId = session.SessionId
+            .SessionId = session.SessionId,
+            .ExamId = exam.ExamId,
+            .QuestionId = questionId
         }
 
         If Controls.Find("answerTxt", False).Length > 0 Then

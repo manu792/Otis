@@ -2,13 +2,12 @@
 
 Public Class TestHistory
     Property TestHistoryId As Int32
-    <Required>
     Property SessionId As Guid
-    <Required>
+    Property ExamId As Integer
     Property QuestionId As Int32
     Property UserAnswer As String
 
     ' Navigation Properties
-    Overridable Property Session As Session
+    Overridable Property ExamApplied As ExamsAppliedBySession
     Overridable Property Question As Question
 End Class

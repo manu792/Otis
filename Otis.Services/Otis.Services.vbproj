@@ -67,6 +67,7 @@
     <Compile Include="CategoryService.vb" />
     <Compile Include="EmailService.vb" />
     <Compile Include="EntitlementService.vb" />
+    <Compile Include="ExamsAppliedService.vb" />
     <Compile Include="LogService.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -86,6 +87,7 @@
     <Compile Include="ExamService.vb" />
     <Compile Include="ProfileService.vb" />
     <Compile Include="QuestionService.vb" />
+    <Compile Include="TestHistoryService.vb" />
     <Compile Include="UserService.vb" />
   </ItemGroup>
   <ItemGroup>

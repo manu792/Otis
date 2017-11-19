@@ -85,6 +85,7 @@
     <Compile Include="Repositories\CategoryRepository.vb" />
     <Compile Include="Repositories\EntitlementRepository.vb" />
     <Compile Include="Repositories\ExamRepository.vb" />
+    <Compile Include="Repositories\ExamsAppliedBySessionRepository.vb" />
     <Compile Include="Repositories\ProfileRepository.vb" />
     <Compile Include="Repositories\SessionRepository.vb" />
     <Compile Include="Repositories\TestHistoryRepository.vb" />

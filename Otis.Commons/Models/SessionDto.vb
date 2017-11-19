@@ -1,8 +1,8 @@
 ﻿Public Class SessionDto
     Property SessionId As Guid
-    Property UserId As String
+    Property User As UserDto
     Property TestDate As DateTime
 
     ' Navigation Property
-    Property TestHistoryEntries As ICollection(Of TestHistoryDto)
+    Property ExamsApplied As ICollection(Of ExamsAppliedBySessionDto)
 End Class

@@ -5,6 +5,7 @@ Public Class Student
     Private user As UserDto
     Private examService As ExamService
     Private pendingExamsList As IEnumerable(Of ExamDto)
+    Private session As SessionDto
     Private logService As LogService
 
     Public Sub New(loggedUser As UserDto)
@@ -15,6 +16,10 @@ Public Class Student
         ' Add any initialization after the InitializeComponent() call.
         examService = New ExamService()
         user = loggedUser
+        If user.Session Is Nothing Then
+            user.Session = New SessionDto With {.SessionId = Guid.NewGuid(), .User = user, .ExamsApplied = New List(Of ExamsAppliedBySessionDto)}
+        End If
+        session = user.Session
         logService = New LogService()
     End Sub
 
@@ -26,7 +31,7 @@ Public Class Student
 
                 logService.AddLog(user.Id, "Acceso Confirmado. Usuario sera enviado a realizar la prueba " & exam.Name)
 
-                Dim test = New Test(user, exam)
+                Dim test = New Test(session, exam)
                 test.Show()
                 Me.Close()
             End If

@@ -165,6 +165,12 @@
     <Compile Include="Test.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="TestReview.Designer.vb">
+      <DependentUpon>TestReview.vb</DependentUpon>
+    </Compile>
+    <Compile Include="TestReview.vb">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Login.resx">
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Test.resx">
       <DependentUpon>Test.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestReview.resx">
+      <DependentUpon>TestReview.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

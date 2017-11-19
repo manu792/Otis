@@ -11,9 +11,10 @@ Public Class UserDto
     Property EmailAddress As String
     Property IsTemporaryPassword As Boolean
     Property Profile As ProfileDto
-    ' Property CareerId As Nullable(Of Integer)
     Property Career As CareerDto
+    Property Session As SessionDto
     Property IsActive As Boolean
+
 
     Public Overloads Function Equals(other As UserDto) As Boolean Implements IEquatable(Of UserDto).Equals
         Return other.Id = Me.Id

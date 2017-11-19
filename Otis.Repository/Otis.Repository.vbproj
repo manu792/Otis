@@ -191,8 +191,21 @@
       <DependentUpon>201711182252039_AddIsReviewedPropertyToExamUsers.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.vb" />
+    <Compile Include="Migrations\201711191712398_ChangedEntities.Designer.vb">
+      <DependentUpon>201711191712398_ChangedEntities.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191712398_ChangedEntities.vb" />
+    <Compile Include="Migrations\201711191731361_AddedNewDbSet.Designer.vb">
+      <DependentUpon>201711191731361_AddedNewDbSet.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711191731361_AddedNewDbSet.vb" />
+    <Compile Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.Designer.vb">
+      <DependentUpon>201711192048055_AddQuantityQuestionsAnswered.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\ActivityLog.vb" />
+    <Compile Include="Models\ExamsAppliedBySession.vb" />
     <Compile Include="Models\QuestionAnswers.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
@@ -311,6 +324,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.resx">
       <DependentUpon>201711182252039_AddIsReviewedPropertyToExamUsers.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191712398_ChangedEntities.resx">
+      <DependentUpon>201711191712398_ChangedEntities.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711191731361_AddedNewDbSet.resx">
+      <DependentUpon>201711191731361_AddedNewDbSet.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.resx">
+      <DependentUpon>201711192048055_AddQuantityQuestionsAnswered.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

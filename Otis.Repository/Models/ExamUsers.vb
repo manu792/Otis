@@ -10,8 +10,6 @@ Public Class ExamUsers
     Property ExamId As Integer
     <Required>
     Property IsCompleted As Boolean
-    <Required>
-    Property IsReviewed As Boolean
 
     'Navigation Properties
     Overridable Property User As User

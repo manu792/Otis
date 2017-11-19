@@ -72,17 +72,6 @@ Public Class ExamService
         }).ToList()
     End Function
 
-    Public Function GetExamsPendingReview() As IEnumerable(Of ExamDto)
-        Return unitOfWork.ExamRepository.GetExamsPendingReview().Select(Function(e) New ExamDto() With
-        {
-            .ExamId = e.ExamId,
-            .Name = e.Name,
-            .Description = e.Description,
-            .Time = e.Time,
-            .QuestionsQuantity = e.QuestionsQuantity
-        }).ToList()
-    End Function
-
     Public Function GetExamsForUser(userId As String) As IEnumerable(Of ExamDto)
         Return unitOfWork.ExamRepository.GetExamsForUser(userId).Select(Function(e) New ExamDto() With
         {
@@ -114,18 +103,20 @@ Public Class ExamService
         {
             .QuestionId = testEntry.QuestionId,
             .SessionId = testEntry.SessionId,
+            .ExamId = testEntry.ExamId,
             .UserAnswer = testEntry.UserAnswer
         })
     End Sub
 
-    Public Sub SaveTest(sessionDto As SessionDto, examId As Integer, userId As String)
+    Public Sub SaveTest(sessionDto As SessionDto, examId As Integer, questionsAnsweredNumber As Integer)
         unitOfWork.SessionRepository.AddSession(New Session With
         {
             .SessionId = sessionDto.SessionId,
-            .UserId = sessionDto.UserId,
+            .UserId = sessionDto.User.Id,
             .SessionDate = DateTime.Now
         })
-        unitOfWork.ExamRepository.UpdateStatusForExamByUser(examId, userId, True)
+        unitOfWork.ExamsAppliedBySession.AddExamApplied(New ExamsAppliedBySession() With {.SessionId = sessionDto.SessionId, .ExamId = examId, .IsReviewed = False, .QuestionsAnsweredQuantity = questionsAnsweredNumber})
+        unitOfWork.ExamRepository.UpdateStatusForExamByUser(examId, sessionDto.User.Id, True)
         unitOfWork.SaveChanges()
     End Sub
 

@@ -9,5 +9,5 @@ Public Class Session
 
     ' Navigation Property
     Overridable Property User As User
-    Overridable Property TestHistoryEntries As ICollection(Of TestHistory)
+    Overridable Property ExamsApplied As ICollection(Of ExamsAppliedBySession)
 End Class
