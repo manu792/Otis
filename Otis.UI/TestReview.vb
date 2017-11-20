@@ -3,18 +3,26 @@ Imports Otis.Services
 
 Public Class TestReview
 
-    Private examApplied As ExamsAppliedBySessionDto
-    Private testHistoryService As TestHistoryService
+    Private examApplied As ExamsAppliedDto
     Private testEntries As Queue(Of TestHistoryDto)
+    Private loggedUser As UserDto
 
-    Public Sub New(examAppliedDto As ExamsAppliedBySessionDto)
+    Private testHistoryService As TestHistoryService
+    Private examsAppliedService As ExamsAppliedService
+    Private emailService As EmailService
+
+
+    Public Sub New(examAppliedDto As ExamsAppliedDto, userDto As UserDto)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
         examApplied = examAppliedDto
+        loggedUser = userDto
         testHistoryService = New TestHistoryService()
+        examsAppliedService = New ExamsAppliedService()
+        emailService = New EmailService()
     End Sub
 
     Private Sub TestReview_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -47,7 +55,7 @@ Public Class TestReview
         controlList.Add(New TextBox() With
         {
             .Location = New Point(100, y),
-            .Name = "answerTxt",
+            .Name = "TxtObservacion",
             .Size = New Drawing.Size(350, 100),
             .Multiline = True
         })
@@ -139,7 +147,18 @@ Public Class TestReview
     End Sub
 
     Private Sub BtnGuardarObservacion_Click(sender As Object, e As EventArgs)
+        Dim TxtObservacion As TextBox = Controls.Find("TxtObservacion", False)(0)
+        If Not TxtObservacion.Text.Equals(String.Empty) Then
+            emailService.SendSpecialistObservationToUser(examApplied.Session.User.Id, examApplied.Exam.Name, examApplied.Session.TestDate, TxtObservacion.Text)
+            MessageBox.Show(examsAppliedService.UpdateExamApplied(examApplied.Session.SessionId, examApplied.Exam.ExamId, TxtObservacion.Text.Trim()))
+            ReturnToMain()
+        End If
+    End Sub
 
+    Private Sub ReturnToMain()
+        Dim form = New Specialist(loggedUser)
+        form.Show()
+        Close()
     End Sub
 
     Private Sub UpdateForm()

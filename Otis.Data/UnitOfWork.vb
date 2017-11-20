@@ -8,7 +8,7 @@ Public Class UnitOfWork
     Private _testHistoryRepository As TestHistoryRepository
     Private _categoryRepository As CategoryRepository
     Private _examRepository As ExamRepository
-    Private _examsAppliedBySession As ExamsAppliedBySessionRepository
+    Private _examsApplied As ExamsAppliedRepository
     Private _profileRepository As ProfileRepository
     Private _careerRepository As CareerRepository
     Private _entitlementRepository As EntitlementRepository
@@ -37,12 +37,12 @@ Public Class UnitOfWork
         End Get
     End Property
 
-    Public ReadOnly Property ExamsAppliedBySession() As ExamsAppliedBySessionRepository
+    Public ReadOnly Property ExamsAppliedBySession() As ExamsAppliedRepository
         Get
-            If _examsAppliedBySession Is Nothing Then
-                _examsAppliedBySession = New ExamsAppliedBySessionRepository(otisContext)
+            If _examsApplied Is Nothing Then
+                _examsApplied = New ExamsAppliedRepository(otisContext)
             End If
-            Return _examsAppliedBySession
+            Return _examsApplied
         End Get
     End Property
 

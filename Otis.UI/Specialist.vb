@@ -7,7 +7,7 @@ Public Class Specialist
     Private examsAppliedService As ExamsAppliedService
     Private logService As LogService
 
-    Private examsApplied As IEnumerable(Of ExamsAppliedBySessionDto)
+    Private examsApplied As IEnumerable(Of ExamsAppliedDto)
 
     Public Sub New(userDto As UserDto)
 
@@ -25,7 +25,7 @@ Public Class Specialist
         PendingReviewExams.DataSource = ConvertPendingExamsToDataTable(examsApplied)
     End Sub
 
-    Private Function ConvertPendingExamsToDataTable(examsApplied As IEnumerable(Of ExamsAppliedBySessionDto)) As DataTable
+    Private Function ConvertPendingExamsToDataTable(examsApplied As IEnumerable(Of ExamsAppliedDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Sesion Id")
@@ -61,7 +61,7 @@ Public Class Specialist
 
         Dim examApplied = examsApplied.FirstOrDefault(Function(x) x.Session.SessionId = sessionId And x.Exam.ExamId = examId)
 
-        Dim form = New TestReview(examApplied)
+        Dim form = New TestReview(examApplied, user)
         form.Show()
         Close()
     End Sub

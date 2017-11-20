@@ -8,6 +8,6 @@ Public Class TestHistory
     Property UserAnswer As String
 
     ' Navigation Properties
-    Overridable Property ExamApplied As ExamsAppliedBySession
+    Overridable Property ExamApplied As ExamsApplied
     Overridable Property Question As Question
 End Class

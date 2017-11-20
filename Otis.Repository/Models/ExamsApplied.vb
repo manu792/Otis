@@ -1,7 +1,7 @@
 ﻿Imports System.ComponentModel.DataAnnotations
 Imports System.ComponentModel.DataAnnotations.Schema
 
-Public Class ExamsAppliedBySession
+Public Class ExamsApplied
     <Key>
     <Column(Order:=0)>
     Property SessionId As Guid
@@ -12,6 +12,7 @@ Public Class ExamsAppliedBySession
     Property QuestionsAnsweredQuantity As Integer
     <Required>
     Property IsReviewed As Boolean
+    Property Observation As String
 
     ' Navigation Properties
     Overridable Property Session As Session

@@ -203,9 +203,17 @@
       <DependentUpon>201711192048055_AddQuantityQuestionsAnswered.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.vb" />
+    <Compile Include="Migrations\201711192332030_AddObservation.Designer.vb">
+      <DependentUpon>201711192332030_AddObservation.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711192332030_AddObservation.vb" />
+    <Compile Include="Migrations\201711192358021_ChangedName.Designer.vb">
+      <DependentUpon>201711192358021_ChangedName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711192358021_ChangedName.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\ActivityLog.vb" />
-    <Compile Include="Models\ExamsAppliedBySession.vb" />
+    <Compile Include="Models\ExamsApplied.vb" />
     <Compile Include="Models\QuestionAnswers.vb" />
     <Compile Include="Models\Career.vb" />
     <Compile Include="Models\Category.vb" />
@@ -333,6 +341,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.resx">
       <DependentUpon>201711192048055_AddQuantityQuestionsAnswered.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711192332030_AddObservation.resx">
+      <DependentUpon>201711192332030_AddObservation.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711192358021_ChangedName.resx">
+      <DependentUpon>201711192358021_ChangedName.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

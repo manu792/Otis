@@ -9,5 +9,5 @@ Public Class Session
 
     ' Navigation Property
     Overridable Property User As User
-    Overridable Property ExamsApplied As ICollection(Of ExamsAppliedBySession)
+    Overridable Property ExamsApplied As ICollection(Of ExamsApplied)
 End Class

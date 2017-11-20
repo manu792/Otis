@@ -4,5 +4,5 @@
     Property TestDate As DateTime
 
     ' Navigation Property
-    Property ExamsApplied As ICollection(Of ExamsAppliedBySessionDto)
+    Property ExamsApplied As ICollection(Of ExamsAppliedDto)
 End Class

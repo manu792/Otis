@@ -45,4 +45,31 @@ Public Class EmailService
             Return "Se produjo un error al tratar de enviar el correo con la contraseña temporal. Favor contacte al administrador."
         End Try
     End Function
+
+    Public Sub SendSpecialistObservationToUser(userName As String, exam As String, dateApplied As Date, observation As String)
+        Try
+            Dim user = unitOfWork.UserRepository.GetUser(userName)
+
+            Dim mail As MailMessage = New MailMessage()
+            Dim SmtpServer As SmtpClient = New SmtpClient("smtp.gmail.com")
+
+            mail.From = New MailAddress("otistestuh@gmail.com")
+            mail.To.Add(user.EmailAddress)
+            mail.Subject = "Aplicacion de Examen " & exam & " - Resultado"
+            mail.Body = "Fecha del examen: " & dateApplied.ToString() &
+                Environment.NewLine &
+                Environment.NewLine &
+                "Observacion del especialista: " & observation
+
+            SmtpServer.Port = 587
+            SmtpServer.Credentials = New System.Net.NetworkCredential("otistestuh@gmail.com", "OtisTest123")
+            SmtpServer.EnableSsl = True
+
+            SmtpServer.SendAsync(mail, Nothing)
+
+            logService.AddLog(userName, "Se ha enviado el correo con la observacion del especialista al correo " & user.EmailAddress)
+        Catch ex As Exception
+            logService.AddLog(userName, "Hubo un problema al tratar de enviar el correo con la observacion del especialista. El error recibido fue: " & ex.Message)
+        End Try
+    End Sub
 End Class

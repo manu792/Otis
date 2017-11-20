@@ -70,7 +70,7 @@
     <Compile Include="Models\CategoryDto.vb" />
     <Compile Include="Models\EntitlementDto.vb" />
     <Compile Include="Models\ExamDto.vb" />
-    <Compile Include="Models\ExamsAppliedBySessionDto.vb" />
+    <Compile Include="Models\ExamsAppliedDto.vb" />
     <Compile Include="Models\ProfileDto.vb" />
     <Compile Include="Models\QuestionDto.vb" />
     <Compile Include="Models\SessionDto.vb" />

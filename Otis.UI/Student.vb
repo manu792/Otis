@@ -17,7 +17,7 @@ Public Class Student
         examService = New ExamService()
         user = loggedUser
         If user.Session Is Nothing Then
-            user.Session = New SessionDto With {.SessionId = Guid.NewGuid(), .User = user, .ExamsApplied = New List(Of ExamsAppliedBySessionDto)}
+            user.Session = New SessionDto With {.SessionId = Guid.NewGuid(), .User = user, .ExamsApplied = New List(Of ExamsAppliedDto)}
         End If
         session = user.Session
         logService = New LogService()

@@ -9,8 +9,8 @@ Public Class ExamsAppliedService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetPendingReviewExams() As IEnumerable(Of ExamsAppliedBySessionDto)
-        Return unitOfWork.ExamsAppliedBySession.GetPendingReviewExams().Select(Function(e) New ExamsAppliedBySessionDto() With
+    Public Function GetPendingReviewExams() As IEnumerable(Of ExamsAppliedDto)
+        Return unitOfWork.ExamsAppliedBySession.GetPendingReviewExams().Select(Function(e) New ExamsAppliedDto() With
         {
             .Exam = New ExamDto() With
             {
@@ -41,6 +41,21 @@ Public Class ExamsAppliedService
             },
             .QuestionsAnsweredQuantity = e.QuestionsAnsweredQuantity
         }).ToList()
+    End Function
+
+    Public Function UpdateExamApplied(sessionId As Guid, examId As Integer, observation As String) As String
+        Try
+            Dim examAppliedToUpdate = unitOfWork.ExamsAppliedBySession.GetExamAppliedBySessionIdAndExamId(sessionId, examId)
+
+            examAppliedToUpdate.IsReviewed = True
+            examAppliedToUpdate.Observation = observation
+
+            unitOfWork.ExamsAppliedBySession.UpdateExamApplied(examAppliedToUpdate)
+
+            Return "Examen ha sido revisado satisfactoriamente. Observacion registrada."
+        Catch ex As Exception
+            Return "Hubo un problema al tratar de guardar la revision del examen. Favor contacte al administrador."
+        End Try
     End Function
 
 End Class

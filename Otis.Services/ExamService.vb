@@ -115,7 +115,7 @@ Public Class ExamService
             .UserId = sessionDto.User.Id,
             .SessionDate = DateTime.Now
         })
-        unitOfWork.ExamsAppliedBySession.AddExamApplied(New ExamsAppliedBySession() With {.SessionId = sessionDto.SessionId, .ExamId = examId, .IsReviewed = False, .QuestionsAnsweredQuantity = questionsAnsweredNumber})
+        unitOfWork.ExamsAppliedBySession.AddExamApplied(New ExamsApplied() With {.SessionId = sessionDto.SessionId, .ExamId = examId, .IsReviewed = False, .QuestionsAnsweredQuantity = questionsAnsweredNumber})
         unitOfWork.ExamRepository.UpdateStatusForExamByUser(examId, sessionDto.User.Id, True)
         unitOfWork.SaveChanges()
     End Sub
