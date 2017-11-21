@@ -247,8 +247,21 @@ Public Class DatabaseInitializer
                 .SecondLastName = "Soto",
                 .CareerId = Nothing,
                 .IsActive = True
+            },
+            New User() With
+            {
+                .UserId = "505050",
+                .Password = encryptor.Encrypt("Especialista"),
+                .EmailAddress = "especialista@gmail.com",
+                .IsTemporaryPassword = False,
+                .ProfileId = 3,
+                .Name = "Aaron",
+                .LastName = "Vasquez",
+                .SecondLastName = "Jimenez",
+                .CareerId = Nothing,
+                .IsActive = True
             }
-        )
+)
         context.SaveChanges()
     End Sub
     Private Sub AddCareersToDatabase(context As OtisContext)
