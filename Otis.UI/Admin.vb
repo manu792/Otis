@@ -959,7 +959,33 @@ Public Class Admin
 
     Private Sub ShowAssignedUsersToExam(exam As ExamDto)
         selectedStudentsBindingSource.DataSource = ConvertExamUsersToDataTable(exam)
-        AsignarExamenEstudiantesSeleccionadosGrid.DataSource = selectedStudentsBindingSource
+
+        Dim IsCompletedComboBox = New DataGridViewComboBoxColumn() With
+        {
+            .HeaderText = "Completado",
+            .Name = "Completado",
+            .DataSource = New List(Of String) From
+            {
+                "True", "False"
+            },
+            .DataPropertyName = "CompletadoComboBoxPropertyName"
+        }
+
+        AsignarExamenEstudiantesSeleccionadosGrid.DataSource = selectedStudentsBindingSource.DataSource
+
+        If Not AsignarExamenEstudiantesSeleccionadosGrid.Columns.Contains("Completado") Then
+            AsignarExamenEstudiantesSeleccionadosGrid.Columns.Add(IsCompletedComboBox)
+
+            For Each column As DataGridViewColumn In AsignarExamenEstudiantesSeleccionadosGrid.Columns
+                If column.Name.Equals("Completado") Then
+                    column.ReadOnly = False
+                Else
+                    column.ReadOnly = True
+                End If
+            Next
+        End If
+
+        AsignarExamenEstudiantesSeleccionadosGrid.Columns("CompletadoComboBoxPropertyName").Visible = False
     End Sub
 
     Private Function ConvertExamUsersToDataTable(exam As ExamDto) As DataTable
@@ -970,10 +996,10 @@ Public Class Admin
         table.Columns.Add("Primer Apellido")
         table.Columns.Add("Segundo Apellido")
         table.Columns.Add("Examen")
-        table.Columns.Add("Completado")
+        table.Columns.Add("CompletadoComboBoxPropertyName", GetType(String))
 
         For Each examUser In exam.ExamUsers
-            table.Rows.Add(examUser.User.Id, examUser.User.Name, examUser.User.LastName, examUser.User.SecondLastName, exam.Name, examUser.IsCompleted)
+            table.Rows.Add(examUser.User.Id, examUser.User.Name, examUser.User.LastName, examUser.User.SecondLastName, exam.Name, examUser.IsCompleted.ToString())
         Next
 
         Return table
@@ -1082,12 +1108,13 @@ Public Class Admin
     End Sub
 
     Private Sub TxtAsignarExamenEstudiantesSeleccionadosBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtAsignarExamenEstudiantesSeleccionadosBuscar.TextChanged
+
         selectedStudentsBindingSource.Filter = String.Format("Cedula LIKE '%{0}%' Or 
                                               Nombre LIKE '%{0}%' Or 
                                               [Primer Apellido] LIKE '%{0}%' Or 
                                               [Segundo Apellido] LIKE '%{0}%' Or 
                                               Examen LIKE '%{0}%' Or 
-                                              Completado LIKE '%{0}%'", TxtAsignarExamenEstudiantesSeleccionadosBuscar.Text)
+                                              CompletadoComboBoxPropertyName LIKE '%{0}%'", TxtAsignarExamenEstudiantesSeleccionadosBuscar.Text)
     End Sub
 
     Private Sub BtnLogsBuscar_Click(sender As Object, e As EventArgs) Handles BtnLogsBuscar.Click
@@ -1099,4 +1126,5 @@ Public Class Admin
     Private Sub BtnLogsRemoverFiltro_Click(sender As Object, e As EventArgs) Handles BtnLogsRemoverFiltro.Click
         UpdateLogs()
     End Sub
+
 End Class

@@ -247,17 +247,17 @@ Partial Class Admin
         Me.TxtAsignarExamenBuscar = New System.Windows.Forms.TextBox()
         Me.Label68 = New System.Windows.Forms.Label()
         Me.AsignarExamenGrid = New System.Windows.Forms.DataGridView()
-        Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         Me.TabPage17 = New System.Windows.Forms.TabPage()
-        Me.LogsGrid = New System.Windows.Forms.DataGridView()
-        Me.Label73 = New System.Windows.Forms.Label()
-        Me.LogsDesdeFecha = New System.Windows.Forms.DateTimePicker()
+        Me.BtnLogsRemoverFiltro = New System.Windows.Forms.Button()
+        Me.TxtLogsUsuarioId = New System.Windows.Forms.TextBox()
+        Me.Label75 = New System.Windows.Forms.Label()
+        Me.BtnLogsBuscar = New System.Windows.Forms.Button()
         Me.LogsHastaFecha = New System.Windows.Forms.DateTimePicker()
         Me.Label74 = New System.Windows.Forms.Label()
-        Me.BtnLogsBuscar = New System.Windows.Forms.Button()
-        Me.Label75 = New System.Windows.Forms.Label()
-        Me.TxtLogsUsuarioId = New System.Windows.Forms.TextBox()
-        Me.BtnLogsRemoverFiltro = New System.Windows.Forms.Button()
+        Me.LogsDesdeFecha = New System.Windows.Forms.DateTimePicker()
+        Me.Label73 = New System.Windows.Forms.Label()
+        Me.LogsGrid = New System.Windows.Forms.DataGridView()
+        Me.BtnCerrarSesion = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -2421,9 +2421,9 @@ Partial Class Admin
         Me.AsignarExamenEstudiantesSeleccionadosGrid.AllowUserToAddRows = False
         Me.AsignarExamenEstudiantesSeleccionadosGrid.AllowUserToDeleteRows = False
         Me.AsignarExamenEstudiantesSeleccionadosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.AsignarExamenEstudiantesSeleccionadosGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter
         Me.AsignarExamenEstudiantesSeleccionadosGrid.Location = New System.Drawing.Point(445, 79)
         Me.AsignarExamenEstudiantesSeleccionadosGrid.Name = "AsignarExamenEstudiantesSeleccionadosGrid"
-        Me.AsignarExamenEstudiantesSeleccionadosGrid.ReadOnly = True
         Me.AsignarExamenEstudiantesSeleccionadosGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.AsignarExamenEstudiantesSeleccionadosGrid.Size = New System.Drawing.Size(325, 152)
         Me.AsignarExamenEstudiantesSeleccionadosGrid.TabIndex = 28
@@ -2505,15 +2505,6 @@ Partial Class Admin
         Me.AsignarExamenGrid.Size = New System.Drawing.Size(796, 228)
         Me.AsignarExamenGrid.TabIndex = 22
         '
-        'BtnCerrarSesion
-        '
-        Me.BtnCerrarSesion.Location = New System.Drawing.Point(883, 17)
-        Me.BtnCerrarSesion.Name = "BtnCerrarSesion"
-        Me.BtnCerrarSesion.Size = New System.Drawing.Size(91, 28)
-        Me.BtnCerrarSesion.TabIndex = 4
-        Me.BtnCerrarSesion.Text = "Cerrar Sesion"
-        Me.BtnCerrarSesion.UseVisualStyleBackColor = True
-        '
         'TabPage17
         '
         Me.TabPage17.Controls.Add(Me.BtnLogsRemoverFiltro)
@@ -2532,34 +2523,39 @@ Partial Class Admin
         Me.TabPage17.Text = "Logs"
         Me.TabPage17.UseVisualStyleBackColor = True
         '
-        'LogsGrid
+        'BtnLogsRemoverFiltro
         '
-        Me.LogsGrid.AllowUserToAddRows = False
-        Me.LogsGrid.AllowUserToDeleteRows = False
-        Me.LogsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.LogsGrid.Location = New System.Drawing.Point(87, 211)
-        Me.LogsGrid.MultiSelect = False
-        Me.LogsGrid.Name = "LogsGrid"
-        Me.LogsGrid.ReadOnly = True
-        Me.LogsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.LogsGrid.Size = New System.Drawing.Size(796, 339)
-        Me.LogsGrid.TabIndex = 23
+        Me.BtnLogsRemoverFiltro.Location = New System.Drawing.Point(487, 144)
+        Me.BtnLogsRemoverFiltro.Name = "BtnLogsRemoverFiltro"
+        Me.BtnLogsRemoverFiltro.Size = New System.Drawing.Size(105, 40)
+        Me.BtnLogsRemoverFiltro.TabIndex = 31
+        Me.BtnLogsRemoverFiltro.Text = "Limpiar"
+        Me.BtnLogsRemoverFiltro.UseVisualStyleBackColor = True
         '
-        'Label73
+        'TxtLogsUsuarioId
         '
-        Me.Label73.AutoSize = True
-        Me.Label73.Location = New System.Drawing.Point(326, 72)
-        Me.Label73.Name = "Label73"
-        Me.Label73.Size = New System.Drawing.Size(41, 13)
-        Me.Label73.TabIndex = 24
-        Me.Label73.Text = "Desde:"
+        Me.TxtLogsUsuarioId.Location = New System.Drawing.Point(414, 38)
+        Me.TxtLogsUsuarioId.Name = "TxtLogsUsuarioId"
+        Me.TxtLogsUsuarioId.Size = New System.Drawing.Size(200, 20)
+        Me.TxtLogsUsuarioId.TabIndex = 30
         '
-        'LogsDesdeFecha
+        'Label75
         '
-        Me.LogsDesdeFecha.Location = New System.Drawing.Point(414, 72)
-        Me.LogsDesdeFecha.Name = "LogsDesdeFecha"
-        Me.LogsDesdeFecha.Size = New System.Drawing.Size(200, 20)
-        Me.LogsDesdeFecha.TabIndex = 25
+        Me.Label75.AutoSize = True
+        Me.Label75.Location = New System.Drawing.Point(326, 41)
+        Me.Label75.Name = "Label75"
+        Me.Label75.Size = New System.Drawing.Size(82, 13)
+        Me.Label75.TabIndex = 29
+        Me.Label75.Text = "Cedula Usuario:"
+        '
+        'BtnLogsBuscar
+        '
+        Me.BtnLogsBuscar.Location = New System.Drawing.Point(376, 144)
+        Me.BtnLogsBuscar.Name = "BtnLogsBuscar"
+        Me.BtnLogsBuscar.Size = New System.Drawing.Size(105, 40)
+        Me.BtnLogsBuscar.TabIndex = 28
+        Me.BtnLogsBuscar.Text = "Buscar"
+        Me.BtnLogsBuscar.UseVisualStyleBackColor = True
         '
         'LogsHastaFecha
         '
@@ -2577,39 +2573,43 @@ Partial Class Admin
         Me.Label74.TabIndex = 26
         Me.Label74.Text = "Hasta:"
         '
-        'BtnLogsBuscar
+        'LogsDesdeFecha
         '
-        Me.BtnLogsBuscar.Location = New System.Drawing.Point(376, 144)
-        Me.BtnLogsBuscar.Name = "BtnLogsBuscar"
-        Me.BtnLogsBuscar.Size = New System.Drawing.Size(105, 40)
-        Me.BtnLogsBuscar.TabIndex = 28
-        Me.BtnLogsBuscar.Text = "Buscar"
-        Me.BtnLogsBuscar.UseVisualStyleBackColor = True
+        Me.LogsDesdeFecha.Location = New System.Drawing.Point(414, 72)
+        Me.LogsDesdeFecha.Name = "LogsDesdeFecha"
+        Me.LogsDesdeFecha.Size = New System.Drawing.Size(200, 20)
+        Me.LogsDesdeFecha.TabIndex = 25
         '
-        'Label75
+        'Label73
         '
-        Me.Label75.AutoSize = True
-        Me.Label75.Location = New System.Drawing.Point(326, 41)
-        Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(82, 13)
-        Me.Label75.TabIndex = 29
-        Me.Label75.Text = "Cedula Usuario:"
+        Me.Label73.AutoSize = True
+        Me.Label73.Location = New System.Drawing.Point(326, 72)
+        Me.Label73.Name = "Label73"
+        Me.Label73.Size = New System.Drawing.Size(41, 13)
+        Me.Label73.TabIndex = 24
+        Me.Label73.Text = "Desde:"
         '
-        'TxtLogsUsuarioId
+        'LogsGrid
         '
-        Me.TxtLogsUsuarioId.Location = New System.Drawing.Point(414, 38)
-        Me.TxtLogsUsuarioId.Name = "TxtLogsUsuarioId"
-        Me.TxtLogsUsuarioId.Size = New System.Drawing.Size(200, 20)
-        Me.TxtLogsUsuarioId.TabIndex = 30
+        Me.LogsGrid.AllowUserToAddRows = False
+        Me.LogsGrid.AllowUserToDeleteRows = False
+        Me.LogsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.LogsGrid.Location = New System.Drawing.Point(87, 211)
+        Me.LogsGrid.MultiSelect = False
+        Me.LogsGrid.Name = "LogsGrid"
+        Me.LogsGrid.ReadOnly = True
+        Me.LogsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.LogsGrid.Size = New System.Drawing.Size(796, 339)
+        Me.LogsGrid.TabIndex = 23
         '
-        'BtnLogsRemoverFiltro
+        'BtnCerrarSesion
         '
-        Me.BtnLogsRemoverFiltro.Location = New System.Drawing.Point(487, 144)
-        Me.BtnLogsRemoverFiltro.Name = "BtnLogsRemoverFiltro"
-        Me.BtnLogsRemoverFiltro.Size = New System.Drawing.Size(105, 40)
-        Me.BtnLogsRemoverFiltro.TabIndex = 31
-        Me.BtnLogsRemoverFiltro.Text = "Limpiar"
-        Me.BtnLogsRemoverFiltro.UseVisualStyleBackColor = True
+        Me.BtnCerrarSesion.Location = New System.Drawing.Point(883, 17)
+        Me.BtnCerrarSesion.Name = "BtnCerrarSesion"
+        Me.BtnCerrarSesion.Size = New System.Drawing.Size(91, 28)
+        Me.BtnCerrarSesion.TabIndex = 4
+        Me.BtnCerrarSesion.Text = "Cerrar Sesion"
+        Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
         'Admin
         '
