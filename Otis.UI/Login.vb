@@ -20,27 +20,6 @@ Public Class Login
         router = New Router()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles loginBtn.Click
-        Dim user = New UserDto With
-        {
-            .Id = UsernameTxt.Text,
-            .Password = PasswordTxt.Text
-        }
-        Dim userRetrieved = userService.ValidateUser(user)
-
-        If Not userRetrieved Is Nothing Then
-            If Not userRetrieved.IsTemporaryPassword Then
-                'Main window after successful login
-                NavigateToMain(user)
-            Else
-                'Navigate to form for setting new password
-                NavigateToChangePassword(user)
-            End If
-        Else
-            MessageBox.Show("Usuario o contraseña incorrectos", "Datos invalidos")
-        End If
-    End Sub
-
     Private Sub NavigateToMain(user As UserDto)
         logService.AddLog(user.Id, "Inicio de sesion exitoso")
         router.RedirectToFormByUserProfile(user.Id, Me)
@@ -54,7 +33,30 @@ Public Class Login
         Me.Close()
     End Sub
 
-    Private Sub btnGetNewPassword_Click(sender As Object, e As EventArgs) Handles btnGetNewPassword.Click
+    Private Sub LoginBtn_Click(sender As Object, e As EventArgs) Handles LoginBtn.Click
+        If Not UsernameTxt.Text.Equals(String.Empty) And Not PasswordTxt.Text.Equals(String.Empty) Then
+            Dim user = New UserDto With
+            {
+                .Id = UsernameTxt.Text,
+                .Password = PasswordTxt.Text
+            }
+            Dim userRetrieved = userService.ValidateUser(user)
+
+            If Not userRetrieved Is Nothing Then
+                If Not userRetrieved.IsTemporaryPassword Then
+                    'Main window after successful login
+                    NavigateToMain(user)
+                Else
+                    'Navigate to form for setting new password
+                    NavigateToChangePassword(user)
+                End If
+            Else
+                MessageBox.Show("Usuario o contraseña incorrectos", "Datos invalidos")
+            End If
+        End If
+    End Sub
+
+    Private Sub BtnGetNewPassword_Click(sender As Object, e As EventArgs) Handles BtnGetNewPassword.Click
         If UsernameTxt.Text <> String.Empty Then
             logService.AddLog(UsernameTxt.Text, "El usuario con cedula " &
                               UsernameTxt.Text & " hizo click en 'He olvidado mi contraseña'")

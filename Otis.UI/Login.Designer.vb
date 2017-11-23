@@ -26,8 +26,8 @@ Partial Class Login
         Me.UsernameTxt = New System.Windows.Forms.TextBox()
         Me.PasswordTxt = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.loginBtn = New System.Windows.Forms.Button()
-        Me.btnGetNewPassword = New System.Windows.Forms.Button()
+        Me.LoginBtn = New System.Windows.Forms.Button()
+        Me.BtnGetNewPassword = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'Label1
@@ -63,31 +63,31 @@ Partial Class Login
         Me.Label2.TabIndex = 2
         Me.Label2.Text = "Contraseña:"
         '
-        'loginBtn
+        'LoginBtn
         '
-        Me.loginBtn.Location = New System.Drawing.Point(122, 138)
-        Me.loginBtn.Name = "loginBtn"
-        Me.loginBtn.Size = New System.Drawing.Size(75, 23)
-        Me.loginBtn.TabIndex = 4
-        Me.loginBtn.Text = "Entrar"
-        Me.loginBtn.UseVisualStyleBackColor = True
+        Me.LoginBtn.Location = New System.Drawing.Point(122, 138)
+        Me.LoginBtn.Name = "LoginBtn"
+        Me.LoginBtn.Size = New System.Drawing.Size(75, 23)
+        Me.LoginBtn.TabIndex = 4
+        Me.LoginBtn.Text = "Entrar"
+        Me.LoginBtn.UseVisualStyleBackColor = True
         '
-        'btnGetNewPassword
+        'BtnGetNewPassword
         '
-        Me.btnGetNewPassword.Location = New System.Drawing.Point(84, 167)
-        Me.btnGetNewPassword.Name = "btnGetNewPassword"
-        Me.btnGetNewPassword.Size = New System.Drawing.Size(156, 23)
-        Me.btnGetNewPassword.TabIndex = 6
-        Me.btnGetNewPassword.Text = "He olvidado mi contraseña"
-        Me.btnGetNewPassword.UseVisualStyleBackColor = True
+        Me.BtnGetNewPassword.Location = New System.Drawing.Point(84, 167)
+        Me.BtnGetNewPassword.Name = "BtnGetNewPassword"
+        Me.BtnGetNewPassword.Size = New System.Drawing.Size(156, 23)
+        Me.BtnGetNewPassword.TabIndex = 6
+        Me.BtnGetNewPassword.Text = "He olvidado mi contraseña"
+        Me.BtnGetNewPassword.UseVisualStyleBackColor = True
         '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(340, 267)
-        Me.Controls.Add(Me.btnGetNewPassword)
-        Me.Controls.Add(Me.loginBtn)
+        Me.Controls.Add(Me.BtnGetNewPassword)
+        Me.Controls.Add(Me.LoginBtn)
         Me.Controls.Add(Me.PasswordTxt)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.UsernameTxt)
@@ -104,6 +104,6 @@ Partial Class Login
     Friend WithEvents UsernameTxt As TextBox
     Friend WithEvents PasswordTxt As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents loginBtn As Button
-    Friend WithEvents btnGetNewPassword As Button
+    Friend WithEvents LoginBtn As Button
+    Friend WithEvents BtnGetNewPassword As Button
 End Class

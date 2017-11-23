@@ -23,8 +23,8 @@ Partial Class Admin
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.OpenFileDialog = New System.Windows.Forms.OpenFileDialog()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.AdminTabs = New System.Windows.Forms.TabControl()
+        Me.Usuarios = New System.Windows.Forms.TabPage()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.TxtConfirmarContrasena = New System.Windows.Forms.TextBox()
@@ -68,7 +68,7 @@ Partial Class Admin
         Me.TxtBuscarUsuariosGrid = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.UsuariosGrid = New System.Windows.Forms.DataGridView()
-        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Preguntas = New System.Windows.Forms.TabPage()
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.BtnImagePathBorrar = New System.Windows.Forms.Button()
@@ -108,7 +108,7 @@ Partial Class Admin
         Me.TxtEditarPreguntaBuscar = New System.Windows.Forms.TextBox()
         Me.Label29 = New System.Windows.Forms.Label()
         Me.PreguntasGrid = New System.Windows.Forms.DataGridView()
-        Me.TabPage7 = New System.Windows.Forms.TabPage()
+        Me.Perfiles_Permisos = New System.Windows.Forms.TabPage()
         Me.TabControl4 = New System.Windows.Forms.TabControl()
         Me.TabPage8 = New System.Windows.Forms.TabPage()
         Me.TxtCrearPerfilDescripcion = New System.Windows.Forms.TextBox()
@@ -157,7 +157,7 @@ Partial Class Admin
         Me.TxtPermisosBuscar = New System.Windows.Forms.TextBox()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.PermisosGrid = New System.Windows.Forms.DataGridView()
-        Me.TabPage11 = New System.Windows.Forms.TabPage()
+        Me.Categorias = New System.Windows.Forms.TabPage()
         Me.BtnCategoriasAgregar = New System.Windows.Forms.Button()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
         Me.BtnCategoriasActualizar = New System.Windows.Forms.Button()
@@ -170,7 +170,7 @@ Partial Class Admin
         Me.TxtCategoriasBuscar = New System.Windows.Forms.TextBox()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.CategoriasGrid = New System.Windows.Forms.DataGridView()
-        Me.TabPage12 = New System.Windows.Forms.TabPage()
+        Me.Carreras = New System.Windows.Forms.TabPage()
         Me.BtnCarrerasAgregar = New System.Windows.Forms.Button()
         Me.GroupBox10 = New System.Windows.Forms.GroupBox()
         Me.BtnCarrerasActualizar = New System.Windows.Forms.Button()
@@ -183,7 +183,7 @@ Partial Class Admin
         Me.TxtCarrerasBuscar = New System.Windows.Forms.TextBox()
         Me.Label50 = New System.Windows.Forms.Label()
         Me.CarrerasGrid = New System.Windows.Forms.DataGridView()
-        Me.TabPage13 = New System.Windows.Forms.TabPage()
+        Me.Examenes = New System.Windows.Forms.TabPage()
         Me.TabControl5 = New System.Windows.Forms.TabControl()
         Me.TabPage14 = New System.Windows.Forms.TabPage()
         Me.NumericCantidadPreguntas = New System.Windows.Forms.NumericUpDown()
@@ -247,7 +247,7 @@ Partial Class Admin
         Me.TxtAsignarExamenBuscar = New System.Windows.Forms.TextBox()
         Me.Label68 = New System.Windows.Forms.Label()
         Me.AsignarExamenGrid = New System.Windows.Forms.DataGridView()
-        Me.TabPage17 = New System.Windows.Forms.TabPage()
+        Me.Log = New System.Windows.Forms.TabPage()
         Me.BtnLogsRemoverFiltro = New System.Windows.Forms.Button()
         Me.TxtLogsUsuarioId = New System.Windows.Forms.TextBox()
         Me.Label75 = New System.Windows.Forms.Label()
@@ -258,14 +258,14 @@ Partial Class Admin
         Me.Label73 = New System.Windows.Forms.Label()
         Me.LogsGrid = New System.Windows.Forms.DataGridView()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
-        Me.TabControl1.SuspendLayout()
-        Me.TabPage1.SuspendLayout()
+        Me.AdminTabs.SuspendLayout()
+        Me.Usuarios.SuspendLayout()
         Me.TabControl3.SuspendLayout()
         Me.TabPage5.SuspendLayout()
         Me.TabPage6.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.UsuariosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage2.SuspendLayout()
+        Me.Preguntas.SuspendLayout()
         Me.TabControl2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -274,7 +274,7 @@ Partial Class Admin
         CType(Me.RespuestasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox3.SuspendLayout()
         CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage7.SuspendLayout()
+        Me.Perfiles_Permisos.SuspendLayout()
         Me.TabControl4.SuspendLayout()
         Me.TabPage8.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
@@ -285,13 +285,13 @@ Partial Class Admin
         Me.TabPage10.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         CType(Me.PermisosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage11.SuspendLayout()
+        Me.Categorias.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         CType(Me.CategoriasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage12.SuspendLayout()
+        Me.Carreras.SuspendLayout()
         Me.GroupBox10.SuspendLayout()
         CType(Me.CarrerasGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage13.SuspendLayout()
+        Me.Examenes.SuspendLayout()
         Me.TabControl5.SuspendLayout()
         Me.TabPage14.SuspendLayout()
         CType(Me.NumericCantidadPreguntas, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -308,7 +308,7 @@ Partial Class Admin
         CType(Me.AsignarExamenEstudiantesSeleccionadosGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AsignarExamenEstudiantesGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.AsignarExamenGrid, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TabPage17.SuspendLayout()
+        Me.Log.SuspendLayout()
         CType(Me.LogsGrid, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -316,31 +316,31 @@ Partial Class Admin
         '
         Me.OpenFileDialog.FileName = "OpenFileDialog1"
         '
-        'TabControl1
+        'AdminTabs
         '
-        Me.TabControl1.Controls.Add(Me.TabPage1)
-        Me.TabControl1.Controls.Add(Me.TabPage2)
-        Me.TabControl1.Controls.Add(Me.TabPage7)
-        Me.TabControl1.Controls.Add(Me.TabPage11)
-        Me.TabControl1.Controls.Add(Me.TabPage12)
-        Me.TabControl1.Controls.Add(Me.TabPage13)
-        Me.TabControl1.Controls.Add(Me.TabPage17)
-        Me.TabControl1.Location = New System.Drawing.Point(12, 51)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(962, 620)
-        Me.TabControl1.TabIndex = 0
+        Me.AdminTabs.Controls.Add(Me.Usuarios)
+        Me.AdminTabs.Controls.Add(Me.Preguntas)
+        Me.AdminTabs.Controls.Add(Me.Perfiles_Permisos)
+        Me.AdminTabs.Controls.Add(Me.Categorias)
+        Me.AdminTabs.Controls.Add(Me.Carreras)
+        Me.AdminTabs.Controls.Add(Me.Examenes)
+        Me.AdminTabs.Controls.Add(Me.Log)
+        Me.AdminTabs.Location = New System.Drawing.Point(12, 51)
+        Me.AdminTabs.Name = "AdminTabs"
+        Me.AdminTabs.SelectedIndex = 0
+        Me.AdminTabs.Size = New System.Drawing.Size(962, 620)
+        Me.AdminTabs.TabIndex = 0
         '
-        'TabPage1
+        'Usuarios
         '
-        Me.TabPage1.Controls.Add(Me.TabControl3)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(954, 594)
-        Me.TabPage1.TabIndex = 0
-        Me.TabPage1.Text = "Usuarios"
-        Me.TabPage1.UseVisualStyleBackColor = True
+        Me.Usuarios.Controls.Add(Me.TabControl3)
+        Me.Usuarios.Location = New System.Drawing.Point(4, 22)
+        Me.Usuarios.Name = "Usuarios"
+        Me.Usuarios.Padding = New System.Windows.Forms.Padding(3)
+        Me.Usuarios.Size = New System.Drawing.Size(954, 594)
+        Me.Usuarios.TabIndex = 0
+        Me.Usuarios.Text = "Usuarios"
+        Me.Usuarios.UseVisualStyleBackColor = True
         '
         'TabControl3
         '
@@ -749,16 +749,16 @@ Partial Class Admin
         Me.UsuariosGrid.Size = New System.Drawing.Size(796, 228)
         Me.UsuariosGrid.TabIndex = 1
         '
-        'TabPage2
+        'Preguntas
         '
-        Me.TabPage2.Controls.Add(Me.TabControl2)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(954, 594)
-        Me.TabPage2.TabIndex = 1
-        Me.TabPage2.Text = "Preguntas"
-        Me.TabPage2.UseVisualStyleBackColor = True
+        Me.Preguntas.Controls.Add(Me.TabControl2)
+        Me.Preguntas.Location = New System.Drawing.Point(4, 22)
+        Me.Preguntas.Name = "Preguntas"
+        Me.Preguntas.Padding = New System.Windows.Forms.Padding(3)
+        Me.Preguntas.Size = New System.Drawing.Size(954, 594)
+        Me.Preguntas.TabIndex = 1
+        Me.Preguntas.Text = "Preguntas"
+        Me.Preguntas.UseVisualStyleBackColor = True
         '
         'TabControl2
         '
@@ -1144,15 +1144,15 @@ Partial Class Admin
         Me.PreguntasGrid.Size = New System.Drawing.Size(796, 228)
         Me.PreguntasGrid.TabIndex = 5
         '
-        'TabPage7
+        'Perfiles_Permisos
         '
-        Me.TabPage7.Controls.Add(Me.TabControl4)
-        Me.TabPage7.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage7.Name = "TabPage7"
-        Me.TabPage7.Size = New System.Drawing.Size(954, 594)
-        Me.TabPage7.TabIndex = 2
-        Me.TabPage7.Text = "Perfiles / Permisos"
-        Me.TabPage7.UseVisualStyleBackColor = True
+        Me.Perfiles_Permisos.Controls.Add(Me.TabControl4)
+        Me.Perfiles_Permisos.Location = New System.Drawing.Point(4, 22)
+        Me.Perfiles_Permisos.Name = "Perfiles_Permisos"
+        Me.Perfiles_Permisos.Size = New System.Drawing.Size(954, 594)
+        Me.Perfiles_Permisos.TabIndex = 2
+        Me.Perfiles_Permisos.Text = "Perfiles / Permisos"
+        Me.Perfiles_Permisos.UseVisualStyleBackColor = True
         '
         'TabControl4
         '
@@ -1624,19 +1624,19 @@ Partial Class Admin
         Me.PermisosGrid.Size = New System.Drawing.Size(796, 228)
         Me.PermisosGrid.TabIndex = 22
         '
-        'TabPage11
+        'Categorias
         '
-        Me.TabPage11.Controls.Add(Me.BtnCategoriasAgregar)
-        Me.TabPage11.Controls.Add(Me.GroupBox9)
-        Me.TabPage11.Controls.Add(Me.TxtCategoriasBuscar)
-        Me.TabPage11.Controls.Add(Me.Label46)
-        Me.TabPage11.Controls.Add(Me.CategoriasGrid)
-        Me.TabPage11.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage11.Name = "TabPage11"
-        Me.TabPage11.Size = New System.Drawing.Size(954, 594)
-        Me.TabPage11.TabIndex = 3
-        Me.TabPage11.Text = "Categorias"
-        Me.TabPage11.UseVisualStyleBackColor = True
+        Me.Categorias.Controls.Add(Me.BtnCategoriasAgregar)
+        Me.Categorias.Controls.Add(Me.GroupBox9)
+        Me.Categorias.Controls.Add(Me.TxtCategoriasBuscar)
+        Me.Categorias.Controls.Add(Me.Label46)
+        Me.Categorias.Controls.Add(Me.CategoriasGrid)
+        Me.Categorias.Location = New System.Drawing.Point(4, 22)
+        Me.Categorias.Name = "Categorias"
+        Me.Categorias.Size = New System.Drawing.Size(954, 594)
+        Me.Categorias.TabIndex = 3
+        Me.Categorias.Text = "Categorias"
+        Me.Categorias.UseVisualStyleBackColor = True
         '
         'BtnCategoriasAgregar
         '
@@ -1752,19 +1752,19 @@ Partial Class Admin
         Me.CategoriasGrid.Size = New System.Drawing.Size(796, 228)
         Me.CategoriasGrid.TabIndex = 28
         '
-        'TabPage12
+        'Carreras
         '
-        Me.TabPage12.Controls.Add(Me.BtnCarrerasAgregar)
-        Me.TabPage12.Controls.Add(Me.GroupBox10)
-        Me.TabPage12.Controls.Add(Me.TxtCarrerasBuscar)
-        Me.TabPage12.Controls.Add(Me.Label50)
-        Me.TabPage12.Controls.Add(Me.CarrerasGrid)
-        Me.TabPage12.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage12.Name = "TabPage12"
-        Me.TabPage12.Size = New System.Drawing.Size(954, 594)
-        Me.TabPage12.TabIndex = 4
-        Me.TabPage12.Text = "Carreras"
-        Me.TabPage12.UseVisualStyleBackColor = True
+        Me.Carreras.Controls.Add(Me.BtnCarrerasAgregar)
+        Me.Carreras.Controls.Add(Me.GroupBox10)
+        Me.Carreras.Controls.Add(Me.TxtCarrerasBuscar)
+        Me.Carreras.Controls.Add(Me.Label50)
+        Me.Carreras.Controls.Add(Me.CarrerasGrid)
+        Me.Carreras.Location = New System.Drawing.Point(4, 22)
+        Me.Carreras.Name = "Carreras"
+        Me.Carreras.Size = New System.Drawing.Size(954, 594)
+        Me.Carreras.TabIndex = 4
+        Me.Carreras.Text = "Carreras"
+        Me.Carreras.UseVisualStyleBackColor = True
         '
         'BtnCarrerasAgregar
         '
@@ -1880,15 +1880,15 @@ Partial Class Admin
         Me.CarrerasGrid.Size = New System.Drawing.Size(796, 228)
         Me.CarrerasGrid.TabIndex = 33
         '
-        'TabPage13
+        'Examenes
         '
-        Me.TabPage13.Controls.Add(Me.TabControl5)
-        Me.TabPage13.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage13.Name = "TabPage13"
-        Me.TabPage13.Size = New System.Drawing.Size(954, 594)
-        Me.TabPage13.TabIndex = 5
-        Me.TabPage13.Text = "Examenes"
-        Me.TabPage13.UseVisualStyleBackColor = True
+        Me.Examenes.Controls.Add(Me.TabControl5)
+        Me.Examenes.Location = New System.Drawing.Point(4, 22)
+        Me.Examenes.Name = "Examenes"
+        Me.Examenes.Size = New System.Drawing.Size(954, 594)
+        Me.Examenes.TabIndex = 5
+        Me.Examenes.Text = "Examenes"
+        Me.Examenes.UseVisualStyleBackColor = True
         '
         'TabControl5
         '
@@ -2505,23 +2505,23 @@ Partial Class Admin
         Me.AsignarExamenGrid.Size = New System.Drawing.Size(796, 228)
         Me.AsignarExamenGrid.TabIndex = 22
         '
-        'TabPage17
+        'Log
         '
-        Me.TabPage17.Controls.Add(Me.BtnLogsRemoverFiltro)
-        Me.TabPage17.Controls.Add(Me.TxtLogsUsuarioId)
-        Me.TabPage17.Controls.Add(Me.Label75)
-        Me.TabPage17.Controls.Add(Me.BtnLogsBuscar)
-        Me.TabPage17.Controls.Add(Me.LogsHastaFecha)
-        Me.TabPage17.Controls.Add(Me.Label74)
-        Me.TabPage17.Controls.Add(Me.LogsDesdeFecha)
-        Me.TabPage17.Controls.Add(Me.Label73)
-        Me.TabPage17.Controls.Add(Me.LogsGrid)
-        Me.TabPage17.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage17.Name = "TabPage17"
-        Me.TabPage17.Size = New System.Drawing.Size(954, 594)
-        Me.TabPage17.TabIndex = 6
-        Me.TabPage17.Text = "Logs"
-        Me.TabPage17.UseVisualStyleBackColor = True
+        Me.Log.Controls.Add(Me.BtnLogsRemoverFiltro)
+        Me.Log.Controls.Add(Me.TxtLogsUsuarioId)
+        Me.Log.Controls.Add(Me.Label75)
+        Me.Log.Controls.Add(Me.BtnLogsBuscar)
+        Me.Log.Controls.Add(Me.LogsHastaFecha)
+        Me.Log.Controls.Add(Me.Label74)
+        Me.Log.Controls.Add(Me.LogsDesdeFecha)
+        Me.Log.Controls.Add(Me.Label73)
+        Me.Log.Controls.Add(Me.LogsGrid)
+        Me.Log.Location = New System.Drawing.Point(4, 22)
+        Me.Log.Name = "Log"
+        Me.Log.Size = New System.Drawing.Size(954, 594)
+        Me.Log.TabIndex = 6
+        Me.Log.Text = "Logs"
+        Me.Log.UseVisualStyleBackColor = True
         '
         'BtnLogsRemoverFiltro
         '
@@ -2617,12 +2617,12 @@ Partial Class Admin
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(987, 673)
         Me.Controls.Add(Me.BtnCerrarSesion)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.AdminTabs)
         Me.Name = "Admin"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Administrador"
-        Me.TabControl1.ResumeLayout(False)
-        Me.TabPage1.ResumeLayout(False)
+        Me.AdminTabs.ResumeLayout(False)
+        Me.Usuarios.ResumeLayout(False)
         Me.TabControl3.ResumeLayout(False)
         Me.TabPage5.ResumeLayout(False)
         Me.TabPage5.PerformLayout()
@@ -2631,7 +2631,7 @@ Partial Class Admin
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
         CType(Me.UsuariosGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage2.ResumeLayout(False)
+        Me.Preguntas.ResumeLayout(False)
         Me.TabControl2.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
@@ -2644,7 +2644,7 @@ Partial Class Admin
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         CType(Me.PreguntasGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage7.ResumeLayout(False)
+        Me.Perfiles_Permisos.ResumeLayout(False)
         Me.TabControl4.ResumeLayout(False)
         Me.TabPage8.ResumeLayout(False)
         Me.TabPage8.PerformLayout()
@@ -2662,17 +2662,17 @@ Partial Class Admin
         Me.GroupBox8.ResumeLayout(False)
         Me.GroupBox8.PerformLayout()
         CType(Me.PermisosGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage11.ResumeLayout(False)
-        Me.TabPage11.PerformLayout()
+        Me.Categorias.ResumeLayout(False)
+        Me.Categorias.PerformLayout()
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         CType(Me.CategoriasGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage12.ResumeLayout(False)
-        Me.TabPage12.PerformLayout()
+        Me.Carreras.ResumeLayout(False)
+        Me.Carreras.PerformLayout()
         Me.GroupBox10.ResumeLayout(False)
         Me.GroupBox10.PerformLayout()
         CType(Me.CarrerasGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage13.ResumeLayout(False)
+        Me.Examenes.ResumeLayout(False)
         Me.TabControl5.ResumeLayout(False)
         Me.TabPage14.ResumeLayout(False)
         Me.TabPage14.PerformLayout()
@@ -2696,16 +2696,16 @@ Partial Class Admin
         CType(Me.AsignarExamenEstudiantesSeleccionadosGrid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AsignarExamenEstudiantesGrid, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.AsignarExamenGrid, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TabPage17.ResumeLayout(False)
-        Me.TabPage17.PerformLayout()
+        Me.Log.ResumeLayout(False)
+        Me.Log.PerformLayout()
         CType(Me.LogsGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
     Friend WithEvents OpenFileDialog As OpenFileDialog
-    Friend WithEvents TabControl1 As TabControl
-    Friend WithEvents TabPage1 As TabPage
-    Friend WithEvents TabPage2 As TabPage
+    Friend WithEvents AdminTabs As TabControl
+    Friend WithEvents Usuarios As TabPage
+    Friend WithEvents Preguntas As TabPage
     Friend WithEvents TabControl2 As TabControl
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents categoriesComboBox As ComboBox
@@ -2784,7 +2784,7 @@ Partial Class Admin
     Friend WithEvents RespuestasGrid As DataGridView
     Friend WithEvents BtnEditarPreguntaImagenBuscar As Button
     Friend WithEvents EditarPreguntaActivaCombo As ComboBox
-    Friend WithEvents TabPage7 As TabPage
+    Friend WithEvents Perfiles_Permisos As TabPage
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents TabControl4 As TabControl
     Friend WithEvents TabPage8 As TabPage
@@ -2839,7 +2839,7 @@ Partial Class Admin
     Friend WithEvents BtnEditarPreguntaImagePathBorrar As Button
     Friend WithEvents TxtConfirmarContrasena As TextBox
     Friend WithEvents Label40 As Label
-    Friend WithEvents TabPage11 As TabPage
+    Friend WithEvents Categorias As TabPage
     Friend WithEvents BtnCategoriasAgregar As Button
     Friend WithEvents GroupBox9 As GroupBox
     Friend WithEvents BtnCategoriasActualizar As Button
@@ -2852,7 +2852,7 @@ Partial Class Admin
     Friend WithEvents TxtCategoriasBuscar As TextBox
     Friend WithEvents Label46 As Label
     Friend WithEvents CategoriasGrid As DataGridView
-    Friend WithEvents TabPage12 As TabPage
+    Friend WithEvents Carreras As TabPage
     Friend WithEvents BtnCarrerasAgregar As Button
     Friend WithEvents GroupBox10 As GroupBox
     Friend WithEvents BtnCarrerasActualizar As Button
@@ -2865,7 +2865,7 @@ Partial Class Admin
     Friend WithEvents TxtCarrerasBuscar As TextBox
     Friend WithEvents Label50 As Label
     Friend WithEvents CarrerasGrid As DataGridView
-    Friend WithEvents TabPage13 As TabPage
+    Friend WithEvents Examenes As TabPage
     Friend WithEvents TabControl5 As TabControl
     Friend WithEvents TabPage14 As TabPage
     Friend WithEvents TxtCrearExamenDescripcion As TextBox
@@ -2929,7 +2929,7 @@ Partial Class Admin
     Friend WithEvents TxtAsignarExamenEstudiantesSeleccionadosBuscar As TextBox
     Friend WithEvents Label69 As Label
     Friend WithEvents TxtAsignarExamenEstudiantesBuscar As TextBox
-    Friend WithEvents TabPage17 As TabPage
+    Friend WithEvents Log As TabPage
     Friend WithEvents TxtLogsUsuarioId As TextBox
     Friend WithEvents Label75 As Label
     Friend WithEvents BtnLogsBuscar As Button

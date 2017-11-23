@@ -59,15 +59,20 @@ Public Class Specialist
     End Sub
 
     Private Sub BtnRevisar_Click(sender As Object, e As EventArgs) Handles BtnRevisar.Click
-        If PendingReviewExams.SelectedRows.Count > 0 Then
-            Dim sessionId = Guid.Parse(PendingReviewExams.SelectedRows(0).Cells("Sesion Id").Value)
-            Dim examId = Integer.Parse(PendingReviewExams.SelectedRows(0).Cells("Examen Id").Value)
+        If user.Profile.Entitlements.Any(Function(en) en.Name.Equals("Revisar Test")) Then
+            If PendingReviewExams.SelectedRows.Count > 0 Then
+                Dim sessionId = Guid.Parse(PendingReviewExams.SelectedRows(0).Cells("Sesion Id").Value)
+                Dim examId = Integer.Parse(PendingReviewExams.SelectedRows(0).Cells("Examen Id").Value)
 
-            Dim examApplied = examsApplied.FirstOrDefault(Function(x) x.Session.SessionId = sessionId And x.Exam.ExamId = examId)
+                Dim examApplied = examsApplied.FirstOrDefault(Function(x) x.Session.SessionId = sessionId And x.Exam.ExamId = examId)
 
-            Dim form = New TestReview(examApplied, user)
-            form.Show()
-            Close()
+                Dim form = New TestReview(examApplied, user)
+                form.Show()
+                Close()
+            End If
+        Else
+            logService.AddLog(user.Id, "Acceso Denegado. Usuario no posee permiso para revisar pruebas")
+            MessageBox.Show("Permiso denegado. Contacte al administrador del sistema para obtener el permiso necesario.", "Error")
         End If
     End Sub
 End Class

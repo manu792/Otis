@@ -37,7 +37,7 @@ Public Class Student
             End If
         Else
             logService.AddLog(user.Id, "Acceso Denegado. Usuario no posee permiso para realizar pruebas")
-            MessageBox.Show("Permiso denegado", "Error")
+            MessageBox.Show("Permiso denegado. Contacte al administrador del sistema para obtener el permiso necesario.", "Error")
         End If
     End Sub
 

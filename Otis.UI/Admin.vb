@@ -66,6 +66,7 @@ Public Class Admin
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ValidateAdminEntitlements()
         UpdateQuestions()
         UpdateCategories()
         UpdateProfiles()
@@ -74,6 +75,16 @@ Public Class Admin
         UpdateEntitlements()
         UpdateExams()
         UpdateLogs()
+    End Sub
+
+    Private Sub ValidateAdminEntitlements()
+        Dim entitlements = loggedUser.Profile.Entitlements
+
+        For Each entitlement As TabPage In AdminTabs.TabPages
+            If Not entitlements.Select(Function(e) e.Name).Contains(entitlement.Name) Then
+                AdminTabs.TabPages.RemoveByKey(entitlement.Name)
+            End If
+        Next
     End Sub
 
     Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UserDto))
@@ -493,7 +504,7 @@ Public Class Admin
         table.Columns.Add("Actividad")
         table.Columns.Add("Fecha")
 
-        For Each log In logs
+        For Each log As ActivityLogDto In logs
             table.Rows.Add(log.ActivityLogId, log.User.Name, log.User.Id, log.User.Profile.Name, log.Activity, log.ActivityDate)
         Next
 
