@@ -73,6 +73,16 @@ Public Class Test
         Dim controlList = New List(Of Control)
         Dim y As Int32 = 105
 
+        Dim BtnCerrarSesion = New Button() With
+        {
+            .Size = New Size(91, 28),
+            .Location = New Point(435, 12),
+            .Text = "Cerrar Sesion",
+            .Name = "BtnCerrarSesion"
+        }
+        AddHandler BtnCerrarSesion.Click, AddressOf BtnCerrarSesion_Click
+        controlList.Add(BtnCerrarSesion)
+
         controlList.Add(New Label() With
         {
             .AutoSize = True,
@@ -187,6 +197,17 @@ Public Class Test
             Timer.Stop()
             logService.AddLog(user.Id, "Tiempo agotado")
             SaveAndReturnToMain(True)
+        End If
+    End Sub
+
+    Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs)
+        Dim dialogResult = MessageBox.Show("Tu progreso no se guardara si cierras la sesion antes de terminar el examen. Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
+        If dialogResult = DialogResult.Yes Then
+            logService.AddLog(user.Id, "Cierre de sesion exitoso")
+
+            Dim login = New Login()
+            login.Show()
+            Me.Close()
         End If
     End Sub
 End Class

@@ -41,7 +41,7 @@ Public Class ExamService
     Public Function AssignUsersToExam(examId As Integer, exam As ExamDto) As String
         Try
             unitOfWork.ExamRepository.UpdateExam(AssignUsers(examId, exam))
-            Return "Examen modificado correctamente."
+            Return "Asignacion realizada correctamente."
         Catch ex As Exception
             Return "Hubo un problema al tratar de asignar usuarios al examen. Favor contacte a soporte."
         End Try

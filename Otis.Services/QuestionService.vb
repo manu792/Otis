@@ -29,9 +29,9 @@ Public Class QuestionService
     Public Function UpdateQuestion(questionId As Integer, question As QuestionDto) As String
         Try
             unitOfWork.QuestionRepository.UpdateQuestion(GetQuestion(questionId, question))
-            Return "Cambios guardados correctamente."
+            Return "Pregunta modificada correctamente."
         Catch ex As Exception
-            Return "Hubo un problema al tratar de guardar los cambios. Favor contacte a soporte"
+            Return "Hubo un problema al tratar de guardar los cambios. Favor contacte a soporte."
         End Try
     End Function
 
@@ -49,9 +49,9 @@ Public Class QuestionService
                     .AnswerText = a.AnswerText
                 }).ToList()
             })
-            Return "Pregunta guardada correctamente"
+            Return "Pregunta guardada correctamente."
         Catch ex As Exception
-            Return "Hubo un problema al tratar de guardar la pregunta. Favor contacte a soporte"
+            Return "Hubo un problema al tratar de guardar la pregunta. Favor contacte a soporte."
         End Try
     End Function
 

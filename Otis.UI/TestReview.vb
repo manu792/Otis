@@ -10,6 +10,7 @@ Public Class TestReview
     Private testHistoryService As TestHistoryService
     Private examsAppliedService As ExamsAppliedService
     Private emailService As EmailService
+    Private logService As LogService
 
 
     Public Sub New(examAppliedDto As ExamsAppliedDto, userDto As UserDto)
@@ -23,10 +24,14 @@ Public Class TestReview
         testHistoryService = New TestHistoryService()
         examsAppliedService = New ExamsAppliedService()
         emailService = New EmailService()
+        logService = New LogService()
     End Sub
 
     Private Sub TestReview_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        testEntries = New Queue(Of TestHistoryDto)(testHistoryService.GetTestEntriesBySessionIdAndExamId(examApplied.Session.SessionId, examApplied.Exam.ExamId))
+        Dim testEntriesHistory = testHistoryService.GetTestEntriesBySessionIdAndExamId(examApplied.Session.SessionId, examApplied.Exam.ExamId)
+        testEntries = New Queue(Of TestHistoryDto)(testEntriesHistory)
+        logService.AddLog(loggedUser.Id, "Respuestas de examen obtenidas. Examen: " & examApplied.ExamId)
+
         GetNextEntry()
     End Sub
 
@@ -41,6 +46,16 @@ Public Class TestReview
     Private Sub PrintObservationRequest()
         Dim controlList = New List(Of Control)
         Dim y As Int32 = 105
+
+        Dim BtnCerrarSesion = New Button() With
+        {
+            .Size = New Size(91, 28),
+            .Location = New Point(435, 12),
+            .Text = "Cerrar Sesion",
+            .Name = "BtnCerrarSesion"
+        }
+        AddHandler BtnCerrarSesion.Click, AddressOf BtnCerrarSesion_Click
+        controlList.Add(BtnCerrarSesion)
 
         controlList.Add(New Label() With
         {
@@ -72,9 +87,13 @@ Public Class TestReview
 
         controlList.Add(button)
         Controls.AddRange(controlList.ToArray())
+
+        logService.AddLog(loggedUser.Id, "Observacion solictada al especialista")
     End Sub
 
     Private Sub PrintEntry(testEntry As TestHistoryDto)
+        logService.AddLog(loggedUser.Id, "Obteniendo siguiente respuesta de examen")
+
         Dim question = testEntry.Question
 
         Dim controlList = New List(Of Control)
@@ -150,12 +169,18 @@ Public Class TestReview
         Dim TxtObservacion As TextBox = Controls.Find("TxtObservacion", False)(0)
         If Not TxtObservacion.Text.Equals(String.Empty) Then
             emailService.SendSpecialistObservationToUser(examApplied.Session.User.Id, examApplied.Exam.Name, examApplied.Session.TestDate, TxtObservacion.Text)
-            MessageBox.Show(examsAppliedService.UpdateExamApplied(examApplied.Session.SessionId, examApplied.Exam.ExamId, TxtObservacion.Text.Trim()))
+
+            Dim message = examsAppliedService.UpdateExamApplied(examApplied.Session.SessionId, examApplied.Exam.ExamId, TxtObservacion.Text.Trim())
+            MessageBox.Show(message)
+
+            logService.AddLog(loggedUser.Id, message & " Se ha enviado la observacion del especialista al correo del estudiante: " & examApplied.Session.User.EmailAddress)
             ReturnToMain()
         End If
     End Sub
 
     Private Sub ReturnToMain()
+        logService.AddLog(loggedUser.Id, "Enviando a pantalla principal de Especialista")
+
         Dim form = New Specialist(loggedUser)
         form.Show()
         Close()
@@ -174,4 +199,14 @@ Public Class TestReview
         Next
     End Sub
 
+    Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs)
+        Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
+        If dialogResult = DialogResult.Yes Then
+            logService.AddLog(loggedUser.Id, "Cierre de sesion exitoso")
+
+            Dim login = New Login()
+            login.Show()
+            Me.Close()
+        End If
+    End Sub
 End Class

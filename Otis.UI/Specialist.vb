@@ -23,6 +23,9 @@ Public Class Specialist
     Private Sub Specialist_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         examsApplied = examsAppliedService.GetPendingReviewExams()
         PendingReviewExams.DataSource = ConvertPendingExamsToDataTable(examsApplied)
+
+        PendingReviewExams.Columns("Sesion Id").Visible = False
+        PendingReviewExams.Columns("Examen Id").Visible = False
     End Sub
 
     Private Function ConvertPendingExamsToDataTable(examsApplied As IEnumerable(Of ExamsAppliedDto)) As DataTable
@@ -56,13 +59,15 @@ Public Class Specialist
     End Sub
 
     Private Sub BtnRevisar_Click(sender As Object, e As EventArgs) Handles BtnRevisar.Click
-        Dim sessionId = Guid.Parse(PendingReviewExams.SelectedRows(0).Cells("Sesion Id").Value)
-        Dim examId = Integer.Parse(PendingReviewExams.SelectedRows(0).Cells("Examen Id").Value)
+        If PendingReviewExams.SelectedRows.Count > 0 Then
+            Dim sessionId = Guid.Parse(PendingReviewExams.SelectedRows(0).Cells("Sesion Id").Value)
+            Dim examId = Integer.Parse(PendingReviewExams.SelectedRows(0).Cells("Examen Id").Value)
 
-        Dim examApplied = examsApplied.FirstOrDefault(Function(x) x.Session.SessionId = sessionId And x.Exam.ExamId = examId)
+            Dim examApplied = examsApplied.FirstOrDefault(Function(x) x.Session.SessionId = sessionId And x.Exam.ExamId = examId)
 
-        Dim form = New TestReview(examApplied, user)
-        form.Show()
-        Close()
+            Dim form = New TestReview(examApplied, user)
+            form.Show()
+            Close()
+        End If
     End Sub
 End Class
