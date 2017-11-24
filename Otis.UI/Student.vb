@@ -23,7 +23,7 @@ Public Class Student
         logService = New LogService()
     End Sub
 
-    Private Sub testBtn_Click(sender As Object, e As EventArgs) Handles testBtn.Click
+    Private Sub TestBtn_Click(sender As Object, e As EventArgs) Handles testBtn.Click
         If user.Profile.Entitlements.Any(Function(en) en.Name.Equals("Ejecutar Test")) Then
             If PendingExams.SelectedRows.Count > 0 Then
                 Dim examId = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("Id").Value)
