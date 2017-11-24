@@ -111,10 +111,7 @@ Public Class UnitOfWork
 
     Public ReadOnly Property ActivityLogRepository() As ActivityLogRepository
         Get
-            If _activityLogRepository Is Nothing Then
-                _activityLogRepository = New ActivityLogRepository(otisContext)
-            End If
-            Return _activityLogRepository
+            Return New ActivityLogRepository()
         End Get
     End Property
 

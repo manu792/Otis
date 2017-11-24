@@ -41,7 +41,7 @@ Public Class Specialist
         table.Columns.Add("Cantidad de Preguntas con Respuesta")
 
         For Each examApplied In examsApplied
-            table.Rows.Add(examApplied.Session.SessionId, examApplied.Exam.ExamId, examApplied.Exam.Name, examApplied.Session.User.Name, examApplied.Session.User.Id, examApplied.Session.User.Career.CareerName, examApplied.Exam.QuestionsQuantity, examApplied.QuestionsAnsweredQuantity)
+            table.Rows.Add(examApplied.Session.SessionId, examApplied.Exam.ExamId, examApplied.Exam.Name, examApplied.Session.User.Name, examApplied.Session.User.Id, examApplied.Session.User.Career?.CareerName, examApplied.Exam.QuestionsQuantity, examApplied.QuestionsAnsweredQuantity)
         Next
 
         Return table

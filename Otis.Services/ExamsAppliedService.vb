@@ -32,11 +32,11 @@ Public Class ExamsAppliedService
                     .LastName = e.Session.User.LastName,
                     .SecondLastName = e.Session.User.SecondLastName,
                     .EmailAddress = e.Session.User.EmailAddress,
-                    .Career = New CareerDto() With
+                    .Career = If(e.Session.User.Career IsNot Nothing, New CareerDto() With
                     {
                         .CareerId = e.Session.User.Career.CareerId,
                         .CareerName = e.Session.User.Career.CareerName
-                    }
+                    }, Nothing)
                 }
             },
             .QuestionsAnsweredQuantity = e.QuestionsAnsweredQuantity

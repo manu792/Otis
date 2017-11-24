@@ -142,12 +142,12 @@ Public Class ExamService
                 .IsActive = user.Profile.IsActive
             },
             .IsTemporaryPassword = user.IsTemporaryPassword,
-            .Career = New CareerDto() With
+            .Career = If(user.Career IsNot Nothing, New CareerDto() With
             {
                 .CareerId = user.Career.CareerId,
                 .CareerName = user.Career.CareerName,
                 .IsActive = user.Career.IsActive
-            },
+            }, Nothing),
             .IsActive = user.IsActive
         }
     End Function
