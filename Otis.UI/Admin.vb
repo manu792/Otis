@@ -3,6 +3,8 @@ Imports Otis.Services
 
 Public Class Admin
 
+#Region "Instance Variables"
+
     Private questionService As QuestionService
     Private categoryService As CategoryService
     Private profileService As ProfileService
@@ -34,6 +36,7 @@ Public Class Admin
     Private assignExamsStudentsBindingSource As BindingSource
     Private selectedStudentsBindingSource As BindingSource
     Private logsBindingSource As BindingSource
+#End Region
 
     Public Sub New(userDto As UserDto)
 
@@ -359,7 +362,7 @@ Public Class Admin
     End Sub
 
     Private Sub ProfilesComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProfilesComboBox.SelectedIndexChanged
-        If ProfilesComboBox.SelectedIndex = 0 Then
+        If ProfilesComboBox.SelectedIndex <> 1 Then
             CareersComboBox.Enabled = False
         Else
             CareersComboBox.Enabled = True
