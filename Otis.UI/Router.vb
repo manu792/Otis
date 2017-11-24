@@ -12,24 +12,26 @@ Public Class Router
         Dim user = userService.GetUserByUserName(userId)
         Dim form As Form
 
-        If user.Profile.ProfileId = 1 Then
+        If user.Profile.Name.Equals("Administrador") Then
             ' admin
             form = New Admin(user)
 
             form.Show()
             previousForm.Close()
-        ElseIf user.Profile.ProfileId = 2 Then
+        ElseIf user.Profile.Name.Equals("Estudiante") Or user.Profile.Name.Equals("Primer_Ingreso") Then
             ' student
             form = New Student(user)
 
             form.Show()
             previousForm.Close()
-        Else
+        ElseIf user.Profile.Name.Equals("Especialista") Then
             ' espec
             form = New Specialist(user)
 
             form.Show()
             previousForm.Close()
+        Else
+            MessageBox.Show("Perfil de usuario no reconocido. Contacte al administrador del sistema.")
         End If
 
     End Sub

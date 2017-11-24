@@ -32,102 +32,54 @@ Public Class DatabaseInitializer
             New Entitlement() With
             {
                 .EntitlementId = 1,
-                .Name = "Crear Usuarios",
+                .Name = "Usuarios",
                 .IsActive = True
             },
             New Entitlement() With
             {
                 .EntitlementId = 2,
-                .Name = "Editar Usuarios",
+                .Name = "Preguntas",
                 .IsActive = True
             },
             New Entitlement() With
             {
                 .EntitlementId = 3,
-                .Name = "Eliminar Usuarios",
+                .Name = "Perfiles_Permisos",
                 .IsActive = True
             },
             New Entitlement() With
             {
                 .EntitlementId = 4,
-                .Name = "Crear Perfiles",
+                .Name = "Categorias",
                 .IsActive = True
             },
             New Entitlement() With
             {
                 .EntitlementId = 5,
-                .Name = "Editar Perfiles",
+                .Name = "Carreras",
                 .IsActive = True
             },
             New Entitlement() With
             {
                 .EntitlementId = 6,
-                .Name = "Eliminar Perfiles",
+                .Name = "Examenes",
                 .IsActive = True
             },
             New Entitlement() With
             {
                 .EntitlementId = 7,
-                .Name = "Crear Roles",
+                .Name = "Log",
                 .IsActive = True
             },
             New Entitlement() With
             {
                 .EntitlementId = 8,
-                .Name = "Editar Roles",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 9,
-                .Name = "Eliminar Roles",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 10,
-                .Name = "Crear Tests",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 11,
-                .Name = "Editar Tests",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 12,
-                .Name = "Eliminar Tests",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 13,
-                .Name = "Crear Preguntas",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 14,
-                .Name = "Editar Preguntas",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 15,
-                .Name = "Eliminar Preguntas",
-                .IsActive = True
-            },
-            New Entitlement() With
-            {
-                .EntitlementId = 16,
                 .Name = "Ejecutar Test",
                 .IsActive = True
             },
             New Entitlement() With
             {
-                .EntitlementId = 17,
+                .EntitlementId = 9,
                 .Name = "Revisar Test",
                 .IsActive = True
             }
@@ -152,7 +104,7 @@ Public Class DatabaseInitializer
                 .Name = "Estudiante",
                 .IsActive = True,
                 .Description = "Perfil de Estudiante",
-                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 16).ToList()
+                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 8).ToList()
             },
             New Profile() With
             {
@@ -160,27 +112,12 @@ Public Class DatabaseInitializer
                 .Name = "Especialista",
                 .IsActive = True,
                 .Description = "Perfil de Especialista",
-                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 17).ToList()
+                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 9).ToList()
             }
         )
         context.SaveChanges()
     End Sub
-    Private Sub AssignEntitlementsToProfiles(context As OtisContext)
-        Dim entitlements = context.Entitlements.ToList()
-        Dim profiles = context.Profiles.ToList()
 
-        For Each profile As Profile In profiles
-            If profile.ProfileId = 1 Then
-                profile.Entitlements = entitlements
-            ElseIf profile.ProfileId = 2 Then
-                profile.Entitlements = entitlements.Where(Function(c) c.EntitlementId = 16).ToList()
-            ElseIf profile.ProfileId = 3 Then
-                profile.Entitlements = entitlements.Where(Function(c) c.EntitlementId = 17).ToList()
-            End If
-        Next
-        context.Profiles.AddOrUpdate(profiles.ToArray())
-        context.SaveChanges()
-    End Sub
     Private Sub AddUsersToDatabase(context As OtisContext)
         context.Users.AddOrUpdate(
             New User() With

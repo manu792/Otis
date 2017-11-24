@@ -1206,6 +1206,7 @@ Public Class Admin
     End Sub
 
     Private Sub BtnLogsRemoverFiltro_Click(sender As Object, e As EventArgs) Handles BtnLogsRemoverFiltro.Click
+        TxtLogsUsuarioId.Clear()
         UpdateLogs()
     End Sub
 

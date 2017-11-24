@@ -4,13 +4,15 @@ Imports System.Data.Entity
 Public Class ActivityLogRepository
 
     Private otisContext As OtisContext
+    Private readContext As OtisContext
 
     Public Sub New(context As OtisContext)
         otisContext = context
+        readContext = New OtisContext()
     End Sub
 
     Public Function GetLogs() As IEnumerable(Of ActivityLog)
-        Return otisContext.ActivityLogs.
+        Return readContext.ActivityLogs.
             Include(Function(x) x.User.Career).
             Include(Function(x) x.User.Profile).
             Take(100).
