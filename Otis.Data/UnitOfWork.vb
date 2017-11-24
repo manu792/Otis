@@ -12,7 +12,6 @@ Public Class UnitOfWork
     Private _profileRepository As ProfileRepository
     Private _careerRepository As CareerRepository
     Private _entitlementRepository As EntitlementRepository
-    Private _activityLogRepository As ActivityLogRepository
     Private otisContext As OtisContext
 
     Public Sub New()
