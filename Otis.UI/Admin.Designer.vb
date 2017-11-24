@@ -1183,7 +1183,7 @@ Partial Class Admin
         '
         'TxtCrearPerfilDescripcion
         '
-        Me.TxtCrearPerfilDescripcion.Location = New System.Drawing.Point(412, 152)
+        Me.TxtCrearPerfilDescripcion.Location = New System.Drawing.Point(381, 152)
         Me.TxtCrearPerfilDescripcion.Multiline = True
         Me.TxtCrearPerfilDescripcion.Name = "TxtCrearPerfilDescripcion"
         Me.TxtCrearPerfilDescripcion.Size = New System.Drawing.Size(226, 86)
@@ -1201,7 +1201,7 @@ Partial Class Admin
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(316, 155)
+        Me.Label37.Location = New System.Drawing.Point(285, 155)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(66, 13)
         Me.Label37.TabIndex = 26
@@ -1276,7 +1276,7 @@ Partial Class Admin
         '
         'TxtCrearPerfilNombre
         '
-        Me.TxtCrearPerfilNombre.Location = New System.Drawing.Point(412, 120)
+        Me.TxtCrearPerfilNombre.Location = New System.Drawing.Point(381, 120)
         Me.TxtCrearPerfilNombre.Name = "TxtCrearPerfilNombre"
         Me.TxtCrearPerfilNombre.Size = New System.Drawing.Size(226, 20)
         Me.TxtCrearPerfilNombre.TabIndex = 1
@@ -1284,7 +1284,7 @@ Partial Class Admin
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(316, 123)
+        Me.Label24.Location = New System.Drawing.Point(285, 123)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(90, 13)
         Me.Label24.TabIndex = 0

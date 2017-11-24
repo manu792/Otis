@@ -11,19 +11,20 @@ Public Class EntitlementService
     End Sub
 
     Public Function GetAllEntitlements() As IEnumerable(Of EntitlementDto)
-        Return unitOfWork.EntitlementRepository.GetAllEntitlements().Select(Function(x) New EntitlementDto() With
-        {
-            .EntitlementId = x.EntitlementId,
-            .Name = x.Name,
-            .Profiles = x.Profiles.Select(Function(p) New ProfileDto() With
+        Return unitOfWork.EntitlementRepository.GetAllEntitlements().
+            Select(Function(x) New EntitlementDto() With
             {
-                .ProfileId = p.ProfileId,
-                .Name = p.Name,
-                .Description = p.Description,
-                .IsActive = p.IsActive
-            }).ToList(),
-            .IsActive = x.IsActive
-        }).ToList()
+                .EntitlementId = x.EntitlementId,
+                .Name = x.Name,
+                .Profiles = x.Profiles.Select(Function(p) New ProfileDto() With
+                {
+                    .ProfileId = p.ProfileId,
+                    .Name = p.Name,
+                    .Description = p.Description,
+                    .IsActive = p.IsActive
+                }).ToList(),
+                .IsActive = x.IsActive
+            }).ToList()
     End Function
 
     Public Function AddEntitlement(entitlement As EntitlementDto) As String

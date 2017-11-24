@@ -293,21 +293,23 @@ Public Class Admin
 
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         ' Saves new question with its respective possible answers to the DB
-        Dim category = CType(categoriesComboBox.SelectedItem, CategoryDto)
+        If Not String.IsNullOrEmpty(txtQuestionText.Text) And categoriesComboBox.SelectedIndex <> -1 Then
+            Dim category = CType(categoriesComboBox.SelectedItem, CategoryDto)
 
-        Dim questionDto As QuestionDto = New QuestionDto() With
-        {
-            .QuestionText = txtQuestionText.Text,
-            .Category = New CategoryDto() With {.CategoryId = category.CategoryId, .CategoryName = category.CategoryName},
-            .ImagePath = If(TxtImagePath.Text.Equals(String.Empty), Nothing, TxtImagePath.Text),
-            .IsActive = True,
-            .Answers = GetPossibleAnswers()
-        }
-        Dim message = questionService.SaveQuestion(questionDto)
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Pregunta: " & questionDto.QuestionId)
-        UpdateQuestions()
-        ClearQuestionFields()
+            Dim questionDto As QuestionDto = New QuestionDto() With
+            {
+                .QuestionText = txtQuestionText.Text,
+                .Category = New CategoryDto() With {.CategoryId = category.CategoryId, .CategoryName = category.CategoryName},
+                .ImagePath = If(TxtImagePath.Text.Equals(String.Empty), Nothing, TxtImagePath.Text),
+                .IsActive = True,
+                .Answers = GetPossibleAnswers()
+            }
+            Dim message = questionService.SaveQuestion(questionDto)
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Pregunta: " & questionDto.QuestionId)
+            UpdateQuestions()
+            ClearQuestionFields()
+        End If
     End Sub
 
     Private Sub ClearQuestionFields()
@@ -319,14 +321,14 @@ Public Class Admin
     End Sub
 
     Private Sub BtnGuardarUsuario_Click(sender As Object, e As EventArgs) Handles BtnGuardarUsuario.Click
-        If TxtCedula.Text IsNot Nothing And TxtNombre.Text IsNot Nothing And TxtCorreo.Text IsNot Nothing And ProfilesComboBox.SelectedIndex <> -1 And TxtContrasena.Text IsNot Nothing And TxtConfirmarContrasena.Text IsNot Nothing Then
+        If Not String.IsNullOrEmpty(TxtCedula.Text) And Not String.IsNullOrEmpty(TxtNombre.Text) And Not String.IsNullOrEmpty(TxtCorreo.Text) And ProfilesComboBox.SelectedIndex <> -1 And Not String.IsNullOrEmpty(TxtContrasena.Text) And Not String.IsNullOrEmpty(TxtConfirmarContrasena.Text) Then
             If TxtContrasena.Text.Equals(TxtConfirmarContrasena.Text) Then
                 Dim user = New UserDto() With
                 {
                     .Id = TxtCedula.Text,
                     .Name = TxtNombre.Text,
-                    .LastName = TxtPrimerApe.Text,
-                    .SecondLastName = TxtSegundoApe.Text,
+                    .LastName = If(String.IsNullOrEmpty(TxtPrimerApe.Text), Nothing, TxtPrimerApe.Text),
+                    .SecondLastName = If(String.IsNullOrEmpty(TxtSegundoApe.Text), Nothing, TxtSegundoApe.Text),
                     .EmailAddress = TxtCorreo.Text,
                     .Profile = CType(ProfilesComboBox.SelectedItem, ProfileDto),
                     .Career = If(CareersComboBox.Enabled, CType(CareersComboBox.SelectedItem, CareerDto), Nothing),
@@ -412,30 +414,32 @@ Public Class Admin
     End Sub
 
     Private Sub BtnActualizarUsuario_Click(sender As Object, e As EventArgs) Handles BtnActualizarUsuario.Click
-        Dim career As CareerDto = Nothing
-        Dim profile = CType(EditarUsuarioPerfilCombo.SelectedItem, ProfileDto)
+        If Not String.IsNullOrEmpty(TxtEditarUsuarioCedula.Text) And Not String.IsNullOrEmpty(TxtEditarUsuarioNombre.Text) And Not String.IsNullOrEmpty(TxtEditarUsuarioCorreo.Text) And EditarUsuarioPerfilCombo.SelectedIndex <> -1 And EditarUsuarioActivoCombo.SelectedIndex <> -1 Then
+            Dim career As CareerDto = Nothing
+            Dim profile = CType(EditarUsuarioPerfilCombo.SelectedItem, ProfileDto)
 
-        If profile.ProfileId = 2 Then
-            career = CType(EditarUsuarioCarreraCombo.SelectedItem, CareerDto)
+            If profile.Name.Equals("Estudiante") Then
+                career = CType(EditarUsuarioCarreraCombo.SelectedItem, CareerDto)
+            End If
+
+            Dim user = New UserDto() With
+            {
+                .Id = TxtEditarUsuarioCedula.Text,
+                .Name = TxtEditarUsuarioNombre.Text,
+                .LastName = If(String.IsNullOrEmpty(TxtEditarUsuarioApe1.Text), Nothing, TxtEditarUsuarioApe1.Text),
+                .SecondLastName = If(String.IsNullOrEmpty(TxtEditarUsuarioApe2.Text), Nothing, TxtEditarUsuarioApe2.Text),
+                .EmailAddress = TxtEditarUsuarioCorreo.Text,
+                .Profile = profile,
+                .Career = career,
+                .Password = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).Password,
+                .IsActive = CType(EditarUsuarioActivoCombo.Text, Boolean),
+                .IsTemporaryPassword = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).IsTemporaryPassword
+            }
+            Dim message = userService.UpdateUser(user)
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Usuario: " & user.Id)
+            UpdateUsers()
         End If
-
-        Dim user = New UserDto() With
-        {
-            .Id = TxtEditarUsuarioCedula.Text,
-            .Name = TxtEditarUsuarioNombre.Text,
-            .LastName = TxtEditarUsuarioApe1.Text,
-            .SecondLastName = TxtEditarUsuarioApe2.Text,
-            .EmailAddress = TxtEditarUsuarioCorreo.Text,
-            .Profile = profile,
-            .Career = career,
-            .Password = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).Password,
-            .IsActive = CType(EditarUsuarioActivoCombo.Text, Boolean),
-            .IsTemporaryPassword = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).IsTemporaryPassword
-        }
-        Dim message = userService.UpdateUser(user)
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Usuario: " & user.Id)
-        UpdateUsers()
     End Sub
 
     Private Sub UpdateCategories()
@@ -583,17 +587,19 @@ Public Class Admin
     End Sub
 
     Private Sub BtnEditarPreguntaActualizar_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaActualizar.Click
-        Dim questionToModify = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text))
-        questionToModify.QuestionText = TxtEditarPreguntaTexto.Text
-        questionToModify.ImagePath = If(TxtEditarPreguntaImagen.Text.Equals(String.Empty), Nothing, TxtEditarPreguntaImagen.Text)
-        questionToModify.Category = CType(EditarPreguntaCategoriaCombo.SelectedItem, CategoryDto)
-        questionToModify.IsActive = Boolean.Parse(EditarPreguntaActivaCombo.Text)
+        If Not String.IsNullOrEmpty(TxtEditarPreguntaId.Text) And Not String.IsNullOrEmpty(TxtEditarPreguntaTexto.Text) And EditarPreguntaCategoriaCombo.SelectedIndex <> -1 And EditarPreguntaActivaCombo.SelectedIndex <> -1 Then
+            Dim questionToModify = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text))
+            questionToModify.QuestionText = TxtEditarPreguntaTexto.Text
+            questionToModify.ImagePath = If(TxtEditarPreguntaImagen.Text.Equals(String.Empty), Nothing, TxtEditarPreguntaImagen.Text)
+            questionToModify.Category = CType(EditarPreguntaCategoriaCombo.SelectedItem, CategoryDto)
+            questionToModify.IsActive = Boolean.Parse(EditarPreguntaActivaCombo.Text)
 
-        Dim message = questionService.UpdateQuestion(questionToModify.QuestionId, questionToModify)
+            Dim message = questionService.UpdateQuestion(questionToModify.QuestionId, questionToModify)
 
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Pregunta: " & questionToModify.QuestionId)
-        UpdateQuestions()
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Pregunta: " & questionToModify.QuestionId)
+            UpdateQuestions()
+        End If
     End Sub
 
     Private Sub BtnEditarPreguntaEliminarRespuesta_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaEliminarRespuesta.Click
@@ -637,19 +643,21 @@ Public Class Admin
     End Sub
 
     Private Sub BtnPerfilGuardar_Click(sender As Object, e As EventArgs) Handles BtnPerfilGuardar.Click
-        Dim profile = profiles.FirstOrDefault(Function(p) p.ProfileId = Integer.Parse(TxtPerfilId.Text))
+        If Not String.IsNullOrEmpty(TxtPerfilId.Text) And Not String.IsNullOrEmpty(TxtPerfilNombre.Text) And PerfilActivoCombo.SelectedIndex <> -1 And PermisosSeleccionadosLista.Items.Count > 0 Then
+            Dim profile = profiles.FirstOrDefault(Function(p) p.ProfileId = Integer.Parse(TxtPerfilId.Text))
 
-        profile.ProfileId = Integer.Parse(TxtPerfilId.Text)
-        profile.Name = TxtPerfilNombre.Text
-        profile.Description = If(TxtPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtPerfilDescripcion.Text)
-        profile.IsActive = PerfilActivoCombo.Text
-        profile.Entitlements = PermisosSeleccionadosLista.Items.Cast(Of EntitlementDto).ToList()
+            profile.ProfileId = Integer.Parse(TxtPerfilId.Text)
+            profile.Name = TxtPerfilNombre.Text
+            profile.Description = If(TxtPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtPerfilDescripcion.Text)
+            profile.IsActive = PerfilActivoCombo.Text
+            profile.Entitlements = PermisosSeleccionadosLista.Items.Cast(Of EntitlementDto).ToList()
 
-        Dim message = profileService.UpdateProfile(Integer.Parse(TxtPerfilId.Text), profile)
+            Dim message = profileService.UpdateProfile(Integer.Parse(TxtPerfilId.Text), profile)
 
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Perfil: " & profile.ProfileId)
-        UpdateProfiles()
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Perfil: " & profile.ProfileId)
+            UpdateProfiles()
+        End If
     End Sub
 
     Private Sub BtnAddEntitlement_Click(sender As Object, e As EventArgs) Handles BtnAddEntitlement.Click
@@ -708,20 +716,22 @@ Public Class Admin
     End Sub
 
     Private Sub BtnCrearPerfilGuardar_Click(sender As Object, e As EventArgs) Handles BtnCrearPerfilGuardar.Click
-        Dim profile = New ProfileDto() With
-        {
-            .Name = TxtCrearPerfilNombre.Text,
-            .Description = If(TxtCrearPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtCrearPerfilDescripcion.Text),
-            .Entitlements = PermisosSeleccionadosCrearPerfil.Items.Cast(Of EntitlementDto).ToList(),
-            .IsActive = True
-        }
+        If Not String.IsNullOrEmpty(TxtCrearPerfilNombre.Text) And PermisosSeleccionadosCrearPerfil.Items.Count > 0 Then
+            Dim profile = New ProfileDto() With
+            {
+                .Name = TxtCrearPerfilNombre.Text,
+                .Description = If(TxtCrearPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtCrearPerfilDescripcion.Text),
+                .Entitlements = PermisosSeleccionadosCrearPerfil.Items.Cast(Of EntitlementDto).ToList(),
+                .IsActive = True
+            }
 
-        Dim message = profileService.AddProfile(profile)
+            Dim message = profileService.AddProfile(profile)
 
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Perfil: " & profile.ProfileId)
-        UpdateProfiles()
-        ClearProfileFields()
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Perfil: " & profile.ProfileId)
+            UpdateProfiles()
+            ClearProfileFields()
+        End If
     End Sub
 
     Private Sub ClearProfileFields()
@@ -737,18 +747,20 @@ Public Class Admin
     End Sub
 
     Private Sub BtnPermisosActualizar_Click(sender As Object, e As EventArgs) Handles BtnPermisosActualizar.Click
-        Dim entitlement = New EntitlementDto() With
-        {
-            .EntitlementId = Integer.Parse(TxtPermisosId.Text),
-            .Name = TxtPermisosNombre.Text,
-            .IsActive = PermisosActivoCombo.Text
-        }
+        If Not String.IsNullOrEmpty(TxtPermisosId.Text) And Not String.IsNullOrEmpty(TxtPermisosNombre.Text) And PermisosActivoCombo.SelectedIndex <> -1 Then
+            Dim entitlement = New EntitlementDto() With
+            {
+                .EntitlementId = Integer.Parse(TxtPermisosId.Text),
+                .Name = TxtPermisosNombre.Text,
+                .IsActive = PermisosActivoCombo.Text
+            }
 
-        Dim message = entitlementService.UpdateEntitlement(Integer.Parse(TxtPermisosId.Text), entitlement)
+            Dim message = entitlementService.UpdateEntitlement(Integer.Parse(TxtPermisosId.Text), entitlement)
 
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Permiso: " & entitlement.EntitlementId)
-        UpdateEntitlements()
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Permiso: " & entitlement.EntitlementId)
+            UpdateEntitlements()
+        End If
     End Sub
 
     Private Sub PermisosGrid_SelectionChanged(sender As Object, e As EventArgs) Handles PermisosGrid.SelectionChanged
@@ -804,18 +816,20 @@ Public Class Admin
     End Sub
 
     Private Sub BtnCategoriasActualizar_Click(sender As Object, e As EventArgs) Handles BtnCategoriasActualizar.Click
-        Dim category = New CategoryDto() With
-        {
-            .CategoryId = Integer.Parse(TxtCategoriasId.Text),
-            .CategoryName = TxtCategoriasNombre.Text,
-            .IsActive = CategoriasActivaCombo.Text
-        }
+        If Not String.IsNullOrEmpty(TxtCategoriasId.Text) And Not String.IsNullOrEmpty(TxtCategoriasNombre.Text) And CategoriasActivaCombo.SelectedIndex <> -1 Then
+            Dim category = New CategoryDto() With
+            {
+                .CategoryId = Integer.Parse(TxtCategoriasId.Text),
+                .CategoryName = TxtCategoriasNombre.Text,
+                .IsActive = CategoriasActivaCombo.Text
+            }
 
-        Dim message = categoryService.UpdateCategory(Integer.Parse(TxtCategoriasId.Text), category)
+            Dim message = categoryService.UpdateCategory(Integer.Parse(TxtCategoriasId.Text), category)
 
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Categoria: " & category.CategoryId)
-        UpdateCategories()
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Categoria: " & category.CategoryId)
+            UpdateCategories()
+        End If
     End Sub
 
     Private Sub BtnCategoriasAgregar_Click(sender As Object, e As EventArgs) Handles BtnCategoriasAgregar.Click
@@ -853,18 +867,20 @@ Public Class Admin
     End Sub
 
     Private Sub BtnCarrerasActualizar_Click(sender As Object, e As EventArgs) Handles BtnCarrerasActualizar.Click
-        Dim career = New CareerDto() With
-        {
-            .CareerId = Integer.Parse(TxtCarrerasId.Text),
-            .CareerName = TxtCarrerasNombre.Text,
-            .IsActive = CarrerasActivaCombo.Text
-        }
+        If Not String.IsNullOrEmpty(TxtCarrerasId.Text) And Not String.IsNullOrEmpty(TxtCarrerasNombre.Text) And CarrerasActivaCombo.SelectedIndex <> -1 Then
+            Dim career = New CareerDto() With
+            {
+                .CareerId = Integer.Parse(TxtCarrerasId.Text),
+                .CareerName = TxtCarrerasNombre.Text,
+                .IsActive = CarrerasActivaCombo.Text
+            }
 
-        Dim message = careerService.UpdateCareer(Integer.Parse(TxtCarrerasId.Text), career)
+            Dim message = careerService.UpdateCareer(Integer.Parse(TxtCarrerasId.Text), career)
 
-        MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Carrera: " & career.CareerId)
-        UpdateCareers()
+            MessageBox.Show(message)
+            logService.AddLog(loggedUser.Id, message & " Carrera: " & career.CareerId)
+            UpdateCareers()
+        End If
     End Sub
 
     Private Sub BtnCarrerasAgregar_Click(sender As Object, e As EventArgs) Handles BtnCarrerasAgregar.Click
@@ -902,25 +918,27 @@ Public Class Admin
     End Sub
 
     Private Sub BtnCrearExamenGuardar_Click(sender As Object, e As EventArgs) Handles BtnCrearExamenGuardar.Click
-        If CrearExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericCantidadPreguntas.Value) Then
-            Dim exam = New ExamDto() With
-            {
-               .Name = TxtCrearExamenNombre.Text,
-               .Description = TxtCrearExamenDescripcion.Text,
-               .Time = NumericTiempo.Value,
-               .QuestionsQuantity = NumericCantidadPreguntas.Value,
-               .Questions = CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
-               .IsActive = True
-            }
+        If Not String.IsNullOrEmpty(TxtCrearExamenNombre.Text) And NumericTiempo.Value > 0 And NumericCantidadPreguntas.Value > 0 And CrearExamenPreguntasSeleccionadasLista.Items.Count > 0 Then
+            If CrearExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericCantidadPreguntas.Value) Then
+                Dim exam = New ExamDto() With
+                {
+                   .Name = TxtCrearExamenNombre.Text,
+                   .Description = If(String.IsNullOrEmpty(TxtCrearPerfilDescripcion.Text), Nothing, TxtCrearExamenDescripcion.Text),
+                   .Time = NumericTiempo.Value,
+                   .QuestionsQuantity = NumericCantidadPreguntas.Value,
+                   .Questions = CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
+                   .IsActive = True
+                }
 
-            Dim message = examService.AddExam(exam)
+                Dim message = examService.AddExam(exam)
 
-            MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Examen: " & exam.ExamId)
-            UpdateExams()
-            ClearExamFields()
-        Else
-            MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
+                MessageBox.Show(message)
+                logService.AddLog(loggedUser.Id, message & " Examen: " & exam.ExamId)
+                UpdateExams()
+                ClearExamFields()
+            Else
+                MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
+            End If
         End If
     End Sub
 
@@ -1004,25 +1022,27 @@ Public Class Admin
     End Sub
 
     Private Sub BtnEditarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnEditarExamenActualizar.Click
-        If EditarExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericEditarExamenCantidadPreguntas.Value) Then
-            Dim exam = New ExamDto() With
-            {
-                .ExamId = Integer.Parse(TxtEditarExamenId.Text),
-                .Name = TxtEditarExamenNombre.Text,
-                .Description = TxtEditarExamenDescripcion.Text,
-                .Time = NumericEditarExamenTiempo.Value,
-                .QuestionsQuantity = NumericEditarExamenCantidadPreguntas.Value,
-                .Questions = EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
-                .IsActive = EditarExamenActivoCombo.Text
-            }
+        If Not String.IsNullOrEmpty(TxtEditarExamenId.Text) And Not String.IsNullOrEmpty(TxtEditarExamenNombre.Text) And NumericEditarExamenTiempo.Value > 0 And NumericEditarExamenCantidadPreguntas.Value > 0 And EditarExamenActivoCombo.SelectedIndex <> -1 And EditarExamenPreguntasSeleccionadasLista.Items.Count > 0 Then
+            If EditarExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericEditarExamenCantidadPreguntas.Value) Then
+                Dim exam = New ExamDto() With
+                {
+                    .ExamId = Integer.Parse(TxtEditarExamenId.Text),
+                    .Name = If(String.IsNullOrEmpty(TxtEditarExamenNombre.Text), Nothing, TxtEditarExamenNombre.Text),
+                    .Description = TxtEditarExamenDescripcion.Text,
+                    .Time = NumericEditarExamenTiempo.Value,
+                    .QuestionsQuantity = NumericEditarExamenCantidadPreguntas.Value,
+                    .Questions = EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
+                    .IsActive = EditarExamenActivoCombo.Text
+                }
 
-            Dim message = examService.UpdateExam(Integer.Parse(TxtEditarExamenId.Text), exam)
+                Dim message = examService.UpdateExam(Integer.Parse(TxtEditarExamenId.Text), exam)
 
-            MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Examen: " & exam.ExamId)
-            UpdateExams()
-        Else
-            MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
+                MessageBox.Show(message)
+                logService.AddLog(loggedUser.Id, message & " Examen: " & exam.ExamId)
+                UpdateExams()
+            Else
+                MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
+            End If
         End If
     End Sub
 

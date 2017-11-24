@@ -4,7 +4,6 @@ Public Class Exam
     Property ExamId As Integer
     <Required>
     Property Name As String
-    <Required>
     Property Description As String
     <Required>
     Property Time As Integer

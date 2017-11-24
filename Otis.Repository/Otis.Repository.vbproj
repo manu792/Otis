@@ -211,6 +211,10 @@
       <DependentUpon>201711192358021_ChangedName.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201711192358021_ChangedName.vb" />
+    <Compile Include="Migrations\201711242032080_RemoveRequiredToDescriptionPropertyInExam.Designer.vb">
+      <DependentUpon>201711242032080_RemoveRequiredToDescriptionPropertyInExam.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711242032080_RemoveRequiredToDescriptionPropertyInExam.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\ActivityLog.vb" />
     <Compile Include="Models\ExamsApplied.vb" />
@@ -347,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711192358021_ChangedName.resx">
       <DependentUpon>201711192358021_ChangedName.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711242032080_RemoveRequiredToDescriptionPropertyInExam.resx">
+      <DependentUpon>201711242032080_RemoveRequiredToDescriptionPropertyInExam.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
