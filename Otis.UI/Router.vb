@@ -18,7 +18,7 @@ Public Class Router
 
             form.Show()
             previousForm.Close()
-        ElseIf user.Profile.Name.Equals("Estudiante") Or user.Profile.Name.Equals("Primer_Ingreso") Then
+        ElseIf user.Profile.Name.Equals("Estudiante") Or user.Profile.Name.Equals("Primer Ingreso") Then
             ' student
             form = New Student(user)
 

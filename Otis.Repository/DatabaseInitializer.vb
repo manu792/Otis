@@ -113,6 +113,14 @@ Public Class DatabaseInitializer
                 .IsActive = True,
                 .Description = "Perfil de Especialista",
                 .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 9).ToList()
+            },
+            New Profile() With
+            {
+                .ProfileId = 4,
+                .Name = "Primer Ingreso",
+                .IsActive = True,
+                .Description = "Perfil de Primer Ingreso",
+                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 8).ToList()
             }
         )
         context.SaveChanges()
@@ -197,8 +205,20 @@ Public Class DatabaseInitializer
                 .SecondLastName = "Jimenez",
                 .CareerId = Nothing,
                 .IsActive = True
+            },
+            New User() With
+            {
+                .UserId = "606060",
+                .Password = encryptor.Encrypt("PrimerIngreso"),
+                .EmailAddress = "ocariscc@gmail.com",
+                .IsTemporaryPassword = False,
+                .ProfileId = 3,
+                .Name = "Algeris",
+                .LastName = "Cabrera",
+                .CareerId = Nothing,
+                .IsActive = True
             }
-)
+        )
         context.SaveChanges()
     End Sub
     Private Sub AddCareersToDatabase(context As OtisContext)
