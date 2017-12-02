@@ -9,31 +9,31 @@ Public Class ActivityLogRepository
         otisContext = New OtisContext()
     End Sub
 
-    Public Function GetLogs() As IEnumerable(Of ActivityLog)
+    Public Function GetLogs() As IEnumerable(Of LogActividad)
         Return otisContext.ActivityLogs.
-            Include(Function(x) x.User.Career).
-            Include(Function(x) x.User.Profile).
+            Include(Function(x) x.Usuario.Carrera).
+            Include(Function(x) x.Usuario.Perfil).
             Take(100).
             ToList()
     End Function
 
-    Public Function GetLogsByUserAndDateRange(userId As String, FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of ActivityLog)
+    Public Function GetLogsByUserAndDateRange(userId As String, FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of LogActividad)
         Return otisContext.ActivityLogs.
-            Include(Function(x) x.User.Career).
-            Include(Function(x) x.User.Profile).
-            Where(Function(x) x.UserId = userId And x.ActivityDate >= FromDate And x.ActivityDate <= ToDate).
+            Include(Function(x) x.Usuario.Carrera).
+            Include(Function(x) x.Usuario.Perfil).
+            Where(Function(x) x.UsuarioId = userId And x.FechaActividad >= FromDate And x.FechaActividad <= ToDate).
             ToList()
     End Function
 
-    Public Function GetLogsByDateRange(FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of ActivityLog)
+    Public Function GetLogsByDateRange(FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of LogActividad)
         Return otisContext.ActivityLogs.
-            Include(Function(x) x.User.Career).
-            Include(Function(x) x.User.Profile).
-            Where(Function(x) x.ActivityDate >= FromDate And x.ActivityDate <= ToDate).
+            Include(Function(x) x.Usuario.Carrera).
+            Include(Function(x) x.Usuario.Perfil).
+            Where(Function(x) x.FechaActividad >= FromDate And x.FechaActividad <= ToDate).
             ToList()
     End Function
 
-    Public Async Function AddLog(log As ActivityLog) As Task(Of ActivityLog)
+    Public Async Function AddLog(log As LogActividad) As Task(Of LogActividad)
         otisContext.ActivityLogs.Add(log)
         Await otisContext.SaveChangesAsync()
 

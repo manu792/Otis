@@ -8,17 +8,17 @@ Public Class UserRepository
         otisContext = context
     End Sub
 
-    Public Function GetAllUsers() As IEnumerable(Of User)
+    Public Function GetAllUsers() As IEnumerable(Of Usuario)
         Return otisContext.Users.
-                   Include(Function(u) u.Career).
-                   Include(Function(u) u.Profile).ToList()
+                   Include(Function(u) u.Carrera).
+                   Include(Function(u) u.Perfil).ToList()
     End Function
 
-    Public Function GetUser(username As String) As User
+    Public Function GetUser(username As String) As Usuario
         Dim user = otisContext.Users.
-            Include(Function(u) u.Career).
-            Include(Function(u) u.Profile.Entitlements).
-            FirstOrDefault(Function(us) us.UserId.Equals(username))
+            Include(Function(u) u.Carrera).
+            Include(Function(u) u.Perfil.Permisos).
+            FirstOrDefault(Function(us) us.UsuarioId.Equals(username))
 
         If user Is Nothing Then
             Return Nothing
@@ -27,16 +27,16 @@ Public Class UserRepository
         Return user
     End Function
 
-    Public Function UpdateUser(user As User) As User
-        Dim userToUpdate = otisContext.Users.FirstOrDefault(Function(u) u.UserId = user.UserId)
+    Public Function UpdateUser(user As Usuario) As Usuario
+        Dim userToUpdate = otisContext.Users.FirstOrDefault(Function(u) u.UsuarioId = user.UsuarioId)
         otisContext.Entry(userToUpdate).CurrentValues.SetValues(user)
         otisContext.SaveChanges()
 
         Return user
     End Function
 
-    Public Function Register(user As User) As User
-        If Not DoesUserExist(user.UserId) Then
+    Public Function Register(user As Usuario) As Usuario
+        If Not DoesUserExist(user.UsuarioId) Then
             otisContext.Users.Add(user)
             otisContext.SaveChanges()
 
@@ -45,12 +45,12 @@ Public Class UserRepository
 
         Return Nothing
     End Function
-    Public Function ChangePassword(user As User) As String
-        Dim userToUpdate = otisContext.Users.FirstOrDefault(Function(u) u.UserId = user.UserId)
+    Public Function ChangePassword(user As Usuario) As String
+        Dim userToUpdate = otisContext.Users.FirstOrDefault(Function(u) u.UsuarioId = user.UsuarioId)
 
         If Not userToUpdate Is Nothing Then
-            userToUpdate.Password = user.Password
-            userToUpdate.IsTemporaryPassword = user.IsTemporaryPassword
+            userToUpdate.Contrasena = user.Contrasena
+            userToUpdate.EsContrasenaTemporal = user.EsContrasenaTemporal
 
             otisContext.Entry(userToUpdate).State = Entity.EntityState.Modified
             otisContext.SaveChanges()
@@ -60,11 +60,11 @@ Public Class UserRepository
 
         Return "El usuario no existe"
     End Function
-    Public Function SaveTemporaryPassword(user As User) As User
-        Dim retrievedUser = otisContext.Users.FirstOrDefault(Function(t) t.UserId = user.UserId)
+    Public Function SaveTemporaryPassword(user As Usuario) As Usuario
+        Dim retrievedUser = otisContext.Users.FirstOrDefault(Function(t) t.UsuarioId = user.UsuarioId)
         If Not retrievedUser Is Nothing Then
-            retrievedUser.Password = user.Password
-            retrievedUser.IsTemporaryPassword = True
+            retrievedUser.Contrasena = user.Contrasena
+            retrievedUser.EsContrasenaTemporal = True
 
             otisContext.Entry(retrievedUser).State = Entity.EntityState.Modified
             otisContext.SaveChanges()

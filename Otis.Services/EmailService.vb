@@ -17,13 +17,13 @@ Public Class EmailService
         Try
             Dim user = unitOfWork.UserRepository.GetUser(userName)
             Dim newPassword As String = "Test123"
-            user.Password = encryptor.Encrypt(newPassword)
+            user.Contrasena = encryptor.Encrypt(newPassword)
 
             Dim mail As MailMessage = New MailMessage()
             Dim SmtpServer As SmtpClient = New SmtpClient("smtp.gmail.com")
 
             mail.From = New MailAddress("otistestuh@gmail.com")
-            mail.To.Add(user.EmailAddress)
+            mail.To.Add(user.CorreoElectronico)
             mail.Subject = "Contraseña temporal"
             mail.Body = "Tu nueva contraseña temporal es: " & newPassword
 
@@ -38,7 +38,7 @@ Public Class EmailService
 
             logService.AddLog(userName, "Se ha enviado el correo de recuperacion de contraseña exitosamente")
 
-            Return "Se ha enviado una contraseña temporal al correo electronico " & user.EmailAddress
+            Return "Se ha enviado una contraseña temporal al correo electronico " & user.CorreoElectronico
         Catch ex As Exception
             logService.AddLog(userName, "Hubo un problema al tratar de enviar el correo de recuperacion de contraseña. El error recibido fue: " & ex.Message)
 
@@ -54,7 +54,7 @@ Public Class EmailService
             Dim SmtpServer As SmtpClient = New SmtpClient("smtp.gmail.com")
 
             mail.From = New MailAddress("otistestuh@gmail.com")
-            mail.To.Add(user.EmailAddress)
+            mail.To.Add(user.CorreoElectronico)
             mail.Subject = "Aplicacion de Examen " & exam & " - Resultado"
             mail.Body = "Fecha del examen: " & dateApplied.ToString() &
                 Environment.NewLine &
@@ -67,7 +67,7 @@ Public Class EmailService
 
             SmtpServer.SendAsync(mail, Nothing)
 
-            logService.AddLog(userName, "Se ha enviado el correo con la observacion del especialista al correo " & user.EmailAddress)
+            logService.AddLog(userName, "Se ha enviado el correo con la observacion del especialista al correo " & user.CorreoElectronico)
         Catch ex As Exception
             logService.AddLog(userName, "Hubo un problema al tratar de enviar el correo con la observacion del especialista. El error recibido fue: " & ex.Message)
         End Try

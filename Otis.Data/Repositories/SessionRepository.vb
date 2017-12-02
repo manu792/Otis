@@ -8,14 +8,14 @@ Public Class SessionRepository
         otisContext = context
     End Sub
 
-    Public Sub AddSession(session As Session)
-        If Not DoesSessionExist(session.SessionId) Then
+    Public Sub AddSession(session As Sesion)
+        If Not DoesSessionExist(session.SesionId) Then
             otisContext.Sessions.Add(session)
         End If
     End Sub
 
     Private Function DoesSessionExist(sessionId As Guid) As Boolean
-        Dim session = otisContext.Sessions.FirstOrDefault(Function(s) s.SessionId = sessionId)
+        Dim session = otisContext.Sessions.FirstOrDefault(Function(s) s.SesionId = sessionId)
 
         If session Is Nothing Then
             Return False

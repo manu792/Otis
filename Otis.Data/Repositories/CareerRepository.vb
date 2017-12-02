@@ -9,22 +9,22 @@ Public Class CareerRepository
         otisContext = context
     End Sub
 
-    Public Function GetCareers() As IEnumerable(Of Career)
+    Public Function GetCareers() As IEnumerable(Of Carrera)
         Return otisContext.Careers.ToList()
     End Function
 
-    Public Function GetCareerById(careerId As Integer) As Career
-        Return otisContext.Careers.FirstOrDefault(Function(c) c.CareerId = careerId)
+    Public Function GetCareerById(careerId As Integer) As Carrera
+        Return otisContext.Careers.FirstOrDefault(Function(c) c.CarreraId = careerId)
     End Function
 
-    Public Function AddCareer(career As Career) As Career
+    Public Function AddCareer(career As Carrera) As Carrera
         otisContext.Careers.Add(career)
         otisContext.SaveChanges()
 
         Return career
     End Function
 
-    Public Function UpdateCareer(career As Career) As Career
+    Public Function UpdateCareer(career As Carrera) As Carrera
         otisContext.Entry(career).State = EntityState.Modified
         otisContext.SaveChanges()
 

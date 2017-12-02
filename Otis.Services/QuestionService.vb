@@ -13,15 +13,15 @@ Public Class QuestionService
     Public Function GetAllQuestions() As IEnumerable(Of QuestionDto)
         Return unitOfWork.QuestionRepository.GetAllQuestions().Select(Function(q) New QuestionDto() With
         {
-            .QuestionId = q.QuestionId,
-            .QuestionText = q.QuestionText,
-            .Category = New CategoryDto() With {.CategoryId = q.Category.CategoryId, .CategoryName = q.Category.CategoryName},
-            .ImagePath = q.ImagePath,
-            .IsActive = q.IsActive,
-            .Answers = q.Answers.Select(Function(a) New AnswerDto() With
+            .QuestionId = q.PreguntaId,
+            .QuestionText = q.PreguntaTexto,
+            .Category = New CategoryDto() With {.CategoryId = q.Categoria.CategoriaId, .CategoryName = q.Categoria.CategoriaNombre},
+            .ImagePath = q.ImagenDireccion,
+            .IsActive = q.EstaActiva,
+            .Answers = q.Respuestas.Select(Function(a) New AnswerDto() With
             {
-                .QuestionId = a.QuestionId,
-                .AnswerText = a.AnswerText
+                .QuestionId = a.PreguntaId,
+                .AnswerText = a.PreguntaTexto
             }).ToList()
         }).ToList()
     End Function
@@ -38,15 +38,15 @@ Public Class QuestionService
     Public Function SaveQuestion(questionDto As QuestionDto) As String
         Try
 
-            unitOfWork.QuestionRepository.SaveQuestion(New Question() With
+            unitOfWork.QuestionRepository.SaveQuestion(New Pregunta() With
             {
-                .QuestionText = questionDto.QuestionText,
-                .ImagePath = questionDto.ImagePath,
-                .CategoryId = questionDto.Category.CategoryId,
-                .IsActive = questionDto.IsActive,
-                .Answers = questionDto.Answers.Select(Function(a) New QuestionAnswers() With
+                .PreguntaTexto = questionDto.QuestionText,
+                .ImagenDireccion = questionDto.ImagePath,
+                .CategoriaId = questionDto.Category.CategoryId,
+                .EstaActiva = questionDto.IsActive,
+                .Respuestas = questionDto.Answers.Select(Function(a) New PreguntaRespuesta() With
                 {
-                    .AnswerText = a.AnswerText
+                    .PreguntaTexto = a.AnswerText
                 }).ToList()
             })
             Return "Pregunta guardada correctamente."
@@ -55,18 +55,18 @@ Public Class QuestionService
         End Try
     End Function
 
-    Private Function GetQuestion(questionId As Integer, question As QuestionDto) As Question
+    Private Function GetQuestion(questionId As Integer, question As QuestionDto) As Pregunta
         Dim questionToUpdate = unitOfWork.QuestionRepository.GetQuestionById(questionId)
 
-        questionToUpdate.QuestionId = question.QuestionId
-        questionToUpdate.QuestionText = question.QuestionText
-        questionToUpdate.ImagePath = question.ImagePath
-        questionToUpdate.IsActive = question.IsActive
-        questionToUpdate.CategoryId = question.Category.CategoryId
-        questionToUpdate.Answers = question.Answers.Select(Function(a) New QuestionAnswers() With
+        questionToUpdate.PreguntaId = question.QuestionId
+        questionToUpdate.PreguntaTexto = question.QuestionText
+        questionToUpdate.ImagenDireccion = question.ImagePath
+        questionToUpdate.EstaActiva = question.IsActive
+        questionToUpdate.CategoriaId = question.Category.CategoryId
+        questionToUpdate.Respuestas = question.Answers.Select(Function(a) New PreguntaRespuesta() With
         {
-            .QuestionId = a.QuestionId,
-            .AnswerText = a.AnswerText
+            .PreguntaId = a.QuestionId,
+            .PreguntaTexto = a.AnswerText
         }).ToList()
 
         Return questionToUpdate

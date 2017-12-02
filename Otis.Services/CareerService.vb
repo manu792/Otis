@@ -13,18 +13,18 @@ Public Class CareerService
     Public Function GetCareers() As IEnumerable(Of CareerDto)
         Return unitOfWork.CareerRepository.GetCareers().Select(Function(x) New CareerDto() With
         {
-            .CareerId = x.CareerId,
-            .CareerName = x.CareerName,
-            .IsActive = x.IsActive
+            .CareerId = x.CarreraId,
+            .CareerName = x.CarreraNombre,
+            .IsActive = x.EstaActiva
         }).ToList()
     End Function
 
     Public Function AddCareer(career As CareerDto) As String
         Try
-            unitOfWork.CareerRepository.AddCareer(New Career() With
+            unitOfWork.CareerRepository.AddCareer(New Carrera() With
             {
-                .CareerName = career.CareerName,
-                .IsActive = career.IsActive
+                .CarreraNombre = career.CareerName,
+                .EstaActiva = career.IsActive
             })
             Return "Carrera creada correctamente."
         Catch ex As Exception
@@ -41,12 +41,12 @@ Public Class CareerService
         End Try
     End Function
 
-    Private Function GetCareer(id As Integer, career As CareerDto) As Career
+    Private Function GetCareer(id As Integer, career As CareerDto) As Carrera
         Dim careerToUpdate = unitOfWork.CareerRepository.GetCareerById(id)
 
-        careerToUpdate.CareerId = career.CareerId
-        careerToUpdate.CareerName = career.CareerName
-        careerToUpdate.IsActive = career.IsActive
+        careerToUpdate.CarreraId = career.CareerId
+        careerToUpdate.CarreraNombre = career.CareerName
+        careerToUpdate.EstaActiva = career.IsActive
 
         Return careerToUpdate
     End Function

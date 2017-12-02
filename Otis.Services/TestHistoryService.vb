@@ -13,21 +13,21 @@ Public Class TestHistoryService
         Return unitOfWork.TestHistoryRepository.GetTestEntriesBySessionIdAndExamId(sessionId, examId).
             Select(Function(x) New TestHistoryDto() With
             {
-                .ExamId = x.ExamId,
-                .QuestionId = x.QuestionId,
+                .ExamId = x.ExamenId,
+                .QuestionId = x.PreguntaId,
                 .Question = New QuestionDto() With
                 {
-                    .QuestionId = x.Question.QuestionId,
-                    .QuestionText = x.Question.QuestionText,
-                    .ImagePath = x.Question.ImagePath,
-                    .Answers = x.Question.Answers.Select(Function(a) New AnswerDto() With
+                    .QuestionId = x.Pregunta.PreguntaId,
+                    .QuestionText = x.Pregunta.PreguntaTexto,
+                    .ImagePath = x.Pregunta.ImagenDireccion,
+                    .Answers = x.Pregunta.Respuestas.Select(Function(a) New AnswerDto() With
                     {
-                        .QuestionId = a.QuestionId,
-                        .AnswerText = a.AnswerText
+                        .QuestionId = a.PreguntaId,
+                        .AnswerText = a.PreguntaTexto
                     }).ToList()
                 },
-                .SessionId = x.SessionId,
-                .UserAnswer = x.UserAnswer
+                .SessionId = x.SesionId,
+                .UserAnswer = x.UsuarioRespuesta
             }).
             ToList()
     End Function

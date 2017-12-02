@@ -14,25 +14,25 @@ Public Class EntitlementService
         Return unitOfWork.EntitlementRepository.GetAllEntitlements().
             Select(Function(x) New EntitlementDto() With
             {
-                .EntitlementId = x.EntitlementId,
-                .Name = x.Name,
-                .Profiles = x.Profiles.Select(Function(p) New ProfileDto() With
+                .EntitlementId = x.PermisoId,
+                .Name = x.Nombre,
+                .Profiles = x.Perfiles.Select(Function(p) New ProfileDto() With
                 {
-                    .ProfileId = p.ProfileId,
-                    .Name = p.Name,
-                    .Description = p.Description,
-                    .IsActive = p.IsActive
+                    .ProfileId = p.PerfilId,
+                    .Name = p.Nombre,
+                    .Description = p.Descripcion,
+                    .IsActive = p.EstaActivo
                 }).ToList(),
-                .IsActive = x.IsActive
+                .IsActive = x.EstaActivo
             }).ToList()
     End Function
 
     Public Function AddEntitlement(entitlement As EntitlementDto) As String
         Try
-            unitOfWork.EntitlementRepository.AddEntitlement(New Entitlement() With
+            unitOfWork.EntitlementRepository.AddEntitlement(New Permiso() With
             {
-                .Name = entitlement.Name,
-                .IsActive = entitlement.IsActive
+                .Nombre = entitlement.Name,
+                .EstaActivo = entitlement.IsActive
             })
             Return "Permiso creado correctamente."
         Catch ex As Exception
@@ -49,12 +49,12 @@ Public Class EntitlementService
         End Try
     End Function
 
-    Private Function GetEntitlementToUpdate(entitlementId As Integer, entitlement As EntitlementDto) As Entitlement
+    Private Function GetEntitlementToUpdate(entitlementId As Integer, entitlement As EntitlementDto) As Permiso
         Dim entitlementToUpdate = unitOfWork.EntitlementRepository.GetEntitlementById(entitlementId)
 
-        entitlementToUpdate.EntitlementId = entitlement.EntitlementId
-        entitlementToUpdate.Name = entitlement.Name
-        entitlementToUpdate.IsActive = entitlement.IsActive
+        entitlementToUpdate.PermisoId = entitlement.EntitlementId
+        entitlementToUpdate.Nombre = entitlement.Name
+        entitlementToUpdate.EstaActivo = entitlement.IsActive
 
         Return entitlementToUpdate
     End Function

@@ -71,164 +71,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseInitializer.vb" />
-    <Compile Include="Migrations\201709230251037_Initial.Designer.vb">
-      <DependentUpon>201709230251037_Initial.vb</DependentUpon>
+    <Compile Include="Migrations\201712020244594_Initial.Designer.vb">
+      <DependentUpon>201712020244594_Initial.vb</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201709230251037_Initial.vb" />
-    <Compile Include="Migrations\201709250032377_DataAnnotationsAdded.Designer.vb">
-      <DependentUpon>201709250032377_DataAnnotationsAdded.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709250032377_DataAnnotationsAdded.vb" />
-    <Compile Include="Migrations\201709291517196_AddTestHistoryEntity.Designer.vb">
-      <DependentUpon>201709291517196_AddTestHistoryEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709291517196_AddTestHistoryEntity.vb" />
-    <Compile Include="Migrations\201709291520073_UserEntityRequiredUserId.Designer.vb">
-      <DependentUpon>201709291520073_UserEntityRequiredUserId.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709291520073_UserEntityRequiredUserId.vb" />
-    <Compile Include="Migrations\201709301847534_AddSessionEntity.Designer.vb">
-      <DependentUpon>201709301847534_AddSessionEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709301847534_AddSessionEntity.vb" />
-    <Compile Include="Migrations\201709301938257_AddSessionEntity1.Designer.vb">
-      <DependentUpon>201709301938257_AddSessionEntity1.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709301938257_AddSessionEntity1.vb" />
-    <Compile Include="Migrations\201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.Designer.vb">
-      <DependentUpon>201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.vb" />
-    <Compile Include="Migrations\201710011459584_AddNavigationProperties.Designer.vb">
-      <DependentUpon>201710011459584_AddNavigationProperties.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710011459584_AddNavigationProperties.vb" />
-    <Compile Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.Designer.vb">
-      <DependentUpon>201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb" />
-    <Compile Include="Migrations\201710292118581_AddProfilesAndEntitlements.Designer.vb">
-      <DependentUpon>201710292118581_AddProfilesAndEntitlements.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710292118581_AddProfilesAndEntitlements.vb" />
-    <Compile Include="Migrations\201710292120537_T.Designer.vb">
-      <DependentUpon>201710292120537_T.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710292120537_T.vb" />
-    <Compile Include="Migrations\201710292212515_n.Designer.vb">
-      <DependentUpon>201710292212515_n.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710292212515_n.vb" />
-    <Compile Include="Migrations\201710292227085_F.Designer.vb">
-      <DependentUpon>201710292227085_F.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710292227085_F.vb" />
-    <Compile Include="Migrations\201710292238076_AddEmailAddressToUserEntity.Designer.vb">
-      <DependentUpon>201710292238076_AddEmailAddressToUserEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710292238076_AddEmailAddressToUserEntity.vb" />
-    <Compile Include="Migrations\201711051515047_AddDescriptionToProfile.Designer.vb">
-      <DependentUpon>201711051515047_AddDescriptionToProfile.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711051515047_AddDescriptionToProfile.vb" />
-    <Compile Include="Migrations\201711051524250_AddExamEntity.Designer.vb">
-      <DependentUpon>201711051524250_AddExamEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711051524250_AddExamEntity.vb" />
-    <Compile Include="Migrations\201711051530238_AddManyToManyRelationshipExamAndQuestion.Designer.vb">
-      <DependentUpon>201711051530238_AddManyToManyRelationshipExamAndQuestion.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711051530238_AddManyToManyRelationshipExamAndQuestion.vb" />
-    <Compile Include="Migrations\201711051544189_AddedPropsToUserEntity.Designer.vb">
-      <DependentUpon>201711051544189_AddedPropsToUserEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711051544189_AddedPropsToUserEntity.vb" />
-    <Compile Include="Migrations\201711051553343_CareerIdNotRequired.Designer.vb">
-      <DependentUpon>201711051553343_CareerIdNotRequired.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711051553343_CareerIdNotRequired.vb" />
-    <Compile Include="Migrations\201711052012484_B.Designer.vb">
-      <DependentUpon>201711052012484_B.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711052012484_B.vb" />
-    <Compile Include="Migrations\201711052102447_Test.Designer.vb">
-      <DependentUpon>201711052102447_Test.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711052102447_Test.vb" />
-    <Compile Include="Migrations\201711091623228_RemovedCorrectAnswerTextProperty.Designer.vb">
-      <DependentUpon>201711091623228_RemovedCorrectAnswerTextProperty.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711091623228_RemovedCorrectAnswerTextProperty.vb" />
-    <Compile Include="Migrations\201711091728520_ChangedProperty.Designer.vb">
-      <DependentUpon>201711091728520_ChangedProperty.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711091728520_ChangedProperty.vb" />
-    <Compile Include="Migrations\201711091812552_MadeCareerNullable.Designer.vb">
-      <DependentUpon>201711091812552_MadeCareerNullable.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711091812552_MadeCareerNullable.vb" />
-    <Compile Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.Designer.vb">
-      <DependentUpon>201711092201370_AddedIsActiveFlagToEntities.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.vb" />
-    <Compile Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.Designer.vb">
-      <DependentUpon>201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb" />
-    <Compile Include="Migrations\201711170219123_ChangeEntityName.Designer.vb">
-      <DependentUpon>201711170219123_ChangeEntityName.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711170219123_ChangeEntityName.vb" />
-    <Compile Include="Migrations\201711171323307_AddActivityLogEntity.Designer.vb">
-      <DependentUpon>201711171323307_AddActivityLogEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711171323307_AddActivityLogEntity.vb" />
-    <Compile Include="Migrations\201711171329191_ModifiedActivityLogEntity.Designer.vb">
-      <DependentUpon>201711171329191_ModifiedActivityLogEntity.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711171329191_ModifiedActivityLogEntity.vb" />
-    <Compile Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.Designer.vb">
-      <DependentUpon>201711182252039_AddIsReviewedPropertyToExamUsers.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.vb" />
-    <Compile Include="Migrations\201711191712398_ChangedEntities.Designer.vb">
-      <DependentUpon>201711191712398_ChangedEntities.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711191712398_ChangedEntities.vb" />
-    <Compile Include="Migrations\201711191731361_AddedNewDbSet.Designer.vb">
-      <DependentUpon>201711191731361_AddedNewDbSet.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711191731361_AddedNewDbSet.vb" />
-    <Compile Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.Designer.vb">
-      <DependentUpon>201711192048055_AddQuantityQuestionsAnswered.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.vb" />
-    <Compile Include="Migrations\201711192332030_AddObservation.Designer.vb">
-      <DependentUpon>201711192332030_AddObservation.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711192332030_AddObservation.vb" />
-    <Compile Include="Migrations\201711192358021_ChangedName.Designer.vb">
-      <DependentUpon>201711192358021_ChangedName.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711192358021_ChangedName.vb" />
-    <Compile Include="Migrations\201711242032080_RemoveRequiredToDescriptionPropertyInExam.Designer.vb">
-      <DependentUpon>201711242032080_RemoveRequiredToDescriptionPropertyInExam.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711242032080_RemoveRequiredToDescriptionPropertyInExam.vb" />
+    <Compile Include="Migrations\201712020244594_Initial.vb" />
     <Compile Include="Migrations\Configuration.vb" />
-    <Compile Include="Models\ActivityLog.vb" />
-    <Compile Include="Models\ExamsApplied.vb" />
-    <Compile Include="Models\QuestionAnswers.vb" />
-    <Compile Include="Models\Career.vb" />
-    <Compile Include="Models\Category.vb" />
-    <Compile Include="Models\Entitlement.vb" />
-    <Compile Include="Models\Exam.vb" />
-    <Compile Include="Models\Profile.vb" />
-    <Compile Include="Models\Question.vb" />
-    <Compile Include="Models\Session.vb" />
-    <Compile Include="Models\TestHistory.vb" />
-    <Compile Include="Models\User.vb" />
-    <Compile Include="Models\ExamUsers.vb" />
+    <Compile Include="Models\LogActividad.vb" />
+    <Compile Include="Models\ExamenAplicado.vb" />
+    <Compile Include="Models\PreguntaRespuesta.vb" />
+    <Compile Include="Models\Carrera.vb" />
+    <Compile Include="Models\Categoria.vb" />
+    <Compile Include="Models\Permiso.vb" />
+    <Compile Include="Models\Examen.vb" />
+    <Compile Include="Models\Perfil.vb" />
+    <Compile Include="Models\Pregunta.vb" />
+    <Compile Include="Models\Sesion.vb" />
+    <Compile Include="Models\ExamenRespuestaHistorial.vb" />
+    <Compile Include="Models\Usuario.vb" />
+    <Compile Include="Models\UsuarioExamen.vb" />
     <Compile Include="OtisContext.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -247,113 +107,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709230251037_Initial.resx">
-      <DependentUpon>201709230251037_Initial.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709250032377_DataAnnotationsAdded.resx">
-      <DependentUpon>201709250032377_DataAnnotationsAdded.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709291517196_AddTestHistoryEntity.resx">
-      <DependentUpon>201709291517196_AddTestHistoryEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709291520073_UserEntityRequiredUserId.resx">
-      <DependentUpon>201709291520073_UserEntityRequiredUserId.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709301847534_AddSessionEntity.resx">
-      <DependentUpon>201709301847534_AddSessionEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709301938257_AddSessionEntity1.resx">
-      <DependentUpon>201709301938257_AddSessionEntity1.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.resx">
-      <DependentUpon>201710011444077_ChangeSessionEntityPropertyFromTestDateToSessionDate.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710011459584_AddNavigationProperties.resx">
-      <DependentUpon>201710011459584_AddNavigationProperties.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.resx">
-      <DependentUpon>201710131735541_AddCorrectAnswerTextColumnToQuestionEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710292118581_AddProfilesAndEntitlements.resx">
-      <DependentUpon>201710292118581_AddProfilesAndEntitlements.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710292120537_T.resx">
-      <DependentUpon>201710292120537_T.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710292212515_n.resx">
-      <DependentUpon>201710292212515_n.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710292227085_F.resx">
-      <DependentUpon>201710292227085_F.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710292238076_AddEmailAddressToUserEntity.resx">
-      <DependentUpon>201710292238076_AddEmailAddressToUserEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051515047_AddDescriptionToProfile.resx">
-      <DependentUpon>201711051515047_AddDescriptionToProfile.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051524250_AddExamEntity.resx">
-      <DependentUpon>201711051524250_AddExamEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051530238_AddManyToManyRelationshipExamAndQuestion.resx">
-      <DependentUpon>201711051530238_AddManyToManyRelationshipExamAndQuestion.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051544189_AddedPropsToUserEntity.resx">
-      <DependentUpon>201711051544189_AddedPropsToUserEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051553343_CareerIdNotRequired.resx">
-      <DependentUpon>201711051553343_CareerIdNotRequired.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711052012484_B.resx">
-      <DependentUpon>201711052012484_B.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711052102447_Test.resx">
-      <DependentUpon>201711052102447_Test.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711091623228_RemovedCorrectAnswerTextProperty.resx">
-      <DependentUpon>201711091623228_RemovedCorrectAnswerTextProperty.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711091728520_ChangedProperty.resx">
-      <DependentUpon>201711091728520_ChangedProperty.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711091812552_MadeCareerNullable.resx">
-      <DependentUpon>201711091812552_MadeCareerNullable.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711092201370_AddedIsActiveFlagToEntities.resx">
-      <DependentUpon>201711092201370_AddedIsActiveFlagToEntities.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.resx">
-      <DependentUpon>201711132217562_RemovedCorrectAnswerPropertyFromTestHistoryEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711170219123_ChangeEntityName.resx">
-      <DependentUpon>201711170219123_ChangeEntityName.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711171323307_AddActivityLogEntity.resx">
-      <DependentUpon>201711171323307_AddActivityLogEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711171329191_ModifiedActivityLogEntity.resx">
-      <DependentUpon>201711171329191_ModifiedActivityLogEntity.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711182252039_AddIsReviewedPropertyToExamUsers.resx">
-      <DependentUpon>201711182252039_AddIsReviewedPropertyToExamUsers.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711191712398_ChangedEntities.resx">
-      <DependentUpon>201711191712398_ChangedEntities.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711191731361_AddedNewDbSet.resx">
-      <DependentUpon>201711191731361_AddedNewDbSet.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711192048055_AddQuantityQuestionsAnswered.resx">
-      <DependentUpon>201711192048055_AddQuantityQuestionsAnswered.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711192332030_AddObservation.resx">
-      <DependentUpon>201711192332030_AddObservation.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711192358021_ChangedName.resx">
-      <DependentUpon>201711192358021_ChangedName.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711242032080_RemoveRequiredToDescriptionPropertyInExam.resx">
-      <DependentUpon>201711242032080_RemoveRequiredToDescriptionPropertyInExam.vb</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712020244594_Initial.resx">
+      <DependentUpon>201712020244594_Initial.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

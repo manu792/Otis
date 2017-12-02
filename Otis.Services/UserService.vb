@@ -14,18 +14,18 @@ Public Class UserService
 
     Public Function AddUser(user As UserDto) As String
         Try
-            Dim registeredUser = unitOfWork.UserRepository.Register(New User() With
+            Dim registeredUser = unitOfWork.UserRepository.Register(New Usuario() With
             {
-                .UserId = user.Id,
-                .Name = user.Name,
-                .LastName = user.LastName,
-                .SecondLastName = user.SecondLastName,
-                .CareerId = user.Career?.CareerId,
-                .Password = encryptor.Encrypt(user.Password),
-                .EmailAddress = user.EmailAddress,
-                .ProfileId = user.Profile.ProfileId,
-                .IsTemporaryPassword = user.IsTemporaryPassword,
-                .IsActive = user.IsActive
+                .UsuarioId = user.Id,
+                .Nombre = user.Name,
+                .PrimerApellido = user.LastName,
+                .SegundoApellido = user.SecondLastName,
+                .CarreraId = user.Career?.CareerId,
+                .Contrasena = encryptor.Encrypt(user.Password),
+                .CorreoElectronico = user.EmailAddress,
+                .PerfilId = user.Profile.ProfileId,
+                .EsContrasenaTemporal = user.IsTemporaryPassword,
+                .EstaActivo = user.IsActive
             })
 
             Return "Usuario creado correctamente."
@@ -35,18 +35,18 @@ Public Class UserService
     End Function
     Public Function UpdateUser(user As UserDto) As String
         Try
-            unitOfWork.UserRepository.UpdateUser(New User() With
+            unitOfWork.UserRepository.UpdateUser(New Usuario() With
             {
-                .UserId = user.Id,
-                .Name = user.Name,
-                .LastName = user.LastName,
-                .SecondLastName = user.SecondLastName,
-                .EmailAddress = user.EmailAddress,
-                .ProfileId = user.Profile.ProfileId,
-                .CareerId = user.Career?.CareerId,
-                .Password = user.Password,
-                .IsActive = user.IsActive,
-                .IsTemporaryPassword = user.IsTemporaryPassword
+                .UsuarioId = user.Id,
+                .Nombre = user.Name,
+                .PrimerApellido = user.LastName,
+                .SegundoApellido = user.SecondLastName,
+                .CorreoElectronico = user.EmailAddress,
+                .PerfilId = user.Profile.ProfileId,
+                .CarreraId = user.Career?.CareerId,
+                .Contrasena = user.Password,
+                .EstaActivo = user.IsActive,
+                .EsContrasenaTemporal = user.IsTemporaryPassword
             })
             Return "Usuario modificado correctamente."
         Catch ex As Exception
@@ -60,16 +60,16 @@ Public Class UserService
         Return unitOfWork.UserRepository.GetAllUsers().ToList().
                    Select(Function(u) New UserDto() With
                    {
-                        .Id = u.UserId,
-                        .Name = u.Name,
-                        .LastName = u.LastName,
-                        .SecondLastName = u.SecondLastName,
-                        .EmailAddress = u.EmailAddress,
-                        .Career = If(u.Career IsNot Nothing, New CareerDto() With {.CareerId = u.Career.CareerId, .CareerName = u.Career.CareerName}, New CareerDto()),
-                        .Profile = New ProfileDto() With {.ProfileId = u.Profile.ProfileId, .Name = u.Profile.Name, .Description = u.Profile.Description},
-                        .IsTemporaryPassword = u.IsTemporaryPassword,
-                        .IsActive = u.IsActive,
-                        .Password = u.Password
+                        .Id = u.UsuarioId,
+                        .Name = u.Nombre,
+                        .LastName = u.PrimerApellido,
+                        .SecondLastName = u.SegundoApellido,
+                        .EmailAddress = u.CorreoElectronico,
+                        .Career = If(u.Carrera IsNot Nothing, New CareerDto() With {.CareerId = u.Carrera.CarreraId, .CareerName = u.Carrera.CarreraNombre}, New CareerDto()),
+                        .Profile = New ProfileDto() With {.ProfileId = u.Perfil.PerfilId, .Name = u.Perfil.Nombre, .Description = u.Perfil.Descripcion},
+                        .IsTemporaryPassword = u.EsContrasenaTemporal,
+                        .IsActive = u.EstaActivo,
+                        .Password = u.Contrasena
                    }).ToList()
     End Function
     Public Function GetUserByUserName(userName As String) As UserDto
@@ -81,22 +81,22 @@ Public Class UserService
 
         Return New UserDto() With
         {
-            .Id = user.UserId,
-            .Password = user.Password,
-            .EmailAddress = user.EmailAddress,
-            .IsTemporaryPassword = user.IsTemporaryPassword,
-            .Name = user.Name,
-            .LastName = user.LastName,
-            .SecondLastName = user.SecondLastName,
-            .Profile = ConvertProfileToProfileDto(user.Profile),
-            .Career = If(user.Career IsNot Nothing, New CareerDto() With {.CareerId = user.Career.CareerId, .CareerName = user.Career.CareerName}, Nothing)
+            .Id = user.UsuarioId,
+            .Password = user.Contrasena,
+            .EmailAddress = user.CorreoElectronico,
+            .IsTemporaryPassword = user.EsContrasenaTemporal,
+            .Name = user.Nombre,
+            .LastName = user.PrimerApellido,
+            .SecondLastName = user.SegundoApellido,
+            .Profile = ConvertProfileToProfileDto(user.Perfil),
+            .Career = If(user.Carrera IsNot Nothing, New CareerDto() With {.CareerId = user.Carrera.CarreraId, .CareerName = user.Carrera.CarreraNombre}, Nothing)
         }
     End Function
     Public Function ValidateUser(user As UserDto) As UserDto
         Dim retrievedUser = unitOfWork.UserRepository.GetUser(user.Id)
         If Not retrievedUser Is Nothing Then
-            If ArePasswordsEqual(encryptor.GetHashBytes(user.Password, retrievedUser.Password)) Then
-                user.IsTemporaryPassword = retrievedUser.IsTemporaryPassword
+            If ArePasswordsEqual(encryptor.GetHashBytes(user.Password, retrievedUser.Contrasena)) Then
+                user.IsTemporaryPassword = retrievedUser.EsContrasenaTemporal
                 Return user
             End If
         End If
@@ -106,11 +106,11 @@ Public Class UserService
     Public Function ChangeUserPassword(user As UserDto) As String
         user.Password = EncryptPassword(user.Password)
 
-        Return unitOfWork.UserRepository.ChangePassword(New User With
+        Return unitOfWork.UserRepository.ChangePassword(New Usuario With
         {
-            .UserId = user.Id,
-            .Password = user.Password,
-            .IsTemporaryPassword = Not user.IsTemporaryPassword
+            .UsuarioId = user.Id,
+            .Contrasena = user.Password,
+            .EsContrasenaTemporal = Not user.IsTemporaryPassword
         })
     End Function
 
@@ -128,24 +128,24 @@ Public Class UserService
         Return True
     End Function
 
-    Private Function ConvertProfileToProfileDto(profile As Profile) As ProfileDto
+    Private Function ConvertProfileToProfileDto(profile As Perfil) As ProfileDto
         Return New ProfileDto() With
         {
-            .ProfileId = profile.ProfileId,
-            .Description = profile.Description,
-            .Name = profile.Name,
-            .Entitlements = ConvertEntitlementsToEntitlementsDto(profile.Entitlements)
+            .ProfileId = profile.PerfilId,
+            .Description = profile.Descripcion,
+            .Name = profile.Nombre,
+            .Entitlements = ConvertEntitlementsToEntitlementsDto(profile.Permisos)
         }
     End Function
 
-    Private Function ConvertEntitlementsToEntitlementsDto(entitlements As ICollection(Of Entitlement)) As ICollection(Of EntitlementDto)
+    Private Function ConvertEntitlementsToEntitlementsDto(entitlements As ICollection(Of Permiso)) As ICollection(Of EntitlementDto)
         Dim entitlementList = New List(Of EntitlementDto)
 
-        For Each entitlement As Entitlement In entitlements
+        For Each entitlement As Permiso In entitlements
             entitlementList.Add(New EntitlementDto() With
             {
-                .EntitlementId = entitlement.EntitlementId,
-                .Name = entitlement.Name
+                .EntitlementId = entitlement.PermisoId,
+                .Name = entitlement.Nombre
             })
         Next
 

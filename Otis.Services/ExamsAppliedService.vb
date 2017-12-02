@@ -14,32 +14,32 @@ Public Class ExamsAppliedService
         {
             .Exam = New ExamDto() With
             {
-                .ExamId = e.Exam.ExamId,
-                .Name = e.Exam.Name,
-                .Description = e.Exam.Description,
-                .QuestionsQuantity = e.Exam.QuestionsQuantity,
-                .Time = e.Exam.Time,
-                .IsActive = e.Exam.IsActive
+                .ExamId = e.Examen.ExamenId,
+                .Name = e.Examen.Nombre,
+                .Description = e.Examen.Descripcion,
+                .QuestionsQuantity = e.Examen.CantidadPreguntas,
+                .Time = e.Examen.Tiempo,
+                .IsActive = e.Examen.EstaActivo
             },
             .Session = New SessionDto() With
             {
-                .SessionId = e.Session.SessionId,
-                .TestDate = e.Session.SessionDate,
+                .SessionId = e.Sesion.SesionId,
+                .TestDate = e.Sesion.FechaSesion,
                 .User = New UserDto() With
                 {
-                    .Id = e.Session.User.UserId,
-                    .Name = e.Session.User.Name,
-                    .LastName = e.Session.User.LastName,
-                    .SecondLastName = e.Session.User.SecondLastName,
-                    .EmailAddress = e.Session.User.EmailAddress,
-                    .Career = If(e.Session.User.Career IsNot Nothing, New CareerDto() With
+                    .Id = e.Sesion.Usuario.UsuarioId,
+                    .Name = e.Sesion.Usuario.Nombre,
+                    .LastName = e.Sesion.Usuario.PrimerApellido,
+                    .SecondLastName = e.Sesion.Usuario.SegundoApellido,
+                    .EmailAddress = e.Sesion.Usuario.CorreoElectronico,
+                    .Career = If(e.Sesion.Usuario.Carrera IsNot Nothing, New CareerDto() With
                     {
-                        .CareerId = e.Session.User.Career.CareerId,
-                        .CareerName = e.Session.User.Career.CareerName
+                        .CareerId = e.Sesion.Usuario.Carrera.CarreraId,
+                        .CareerName = e.Sesion.Usuario.Carrera.CarreraNombre
                     }, Nothing)
                 }
             },
-            .QuestionsAnsweredQuantity = e.QuestionsAnsweredQuantity
+            .QuestionsAnsweredQuantity = e.CantidadPreguntasRespondidas
         }).ToList()
     End Function
 
@@ -47,8 +47,8 @@ Public Class ExamsAppliedService
         Try
             Dim examAppliedToUpdate = unitOfWork.ExamsAppliedBySession.GetExamAppliedBySessionIdAndExamId(sessionId, examId)
 
-            examAppliedToUpdate.IsReviewed = True
-            examAppliedToUpdate.Observation = observation
+            examAppliedToUpdate.Revisado = True
+            examAppliedToUpdate.Observacion = observation
 
             unitOfWork.ExamsAppliedBySession.UpdateExamApplied(examAppliedToUpdate)
 

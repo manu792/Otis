@@ -13,18 +13,18 @@ Public Class CategoryService
     Public Function GetCategories() As IEnumerable(Of CategoryDto)
         Return unitOfWork.CategoryRepository.GetCategories().Select(Function(c) New CategoryDto() With
         {
-            .CategoryId = c.CategoryId,
-            .CategoryName = c.CategoryName,
-            .IsActive = c.IsActive
+            .CategoryId = c.CategoriaId,
+            .CategoryName = c.CategoriaNombre,
+            .IsActive = c.EstaActiva
         })
     End Function
 
     Public Function AddCategory(category As CategoryDto) As String
         Try
-            unitOfWork.CategoryRepository.AddCategory(New Category() With
+            unitOfWork.CategoryRepository.AddCategory(New Categoria() With
             {
-                .CategoryName = category.CategoryName,
-                .IsActive = category.IsActive
+                .CategoriaNombre = category.CategoryName,
+                .EstaActiva = category.IsActive
             })
             Return "Categoria creada correctamente."
         Catch ex As Exception
@@ -41,12 +41,12 @@ Public Class CategoryService
         End Try
     End Function
 
-    Private Function GetCategories(categoryId As Integer, category As CategoryDto) As Category
+    Private Function GetCategories(categoryId As Integer, category As CategoryDto) As Categoria
         Dim categoryToUpdate = unitOfWork.CategoryRepository.GetCategoryById(categoryId)
 
-        categoryToUpdate.CategoryId = category.CategoryId
-        categoryToUpdate.CategoryName = category.CategoryName
-        categoryToUpdate.IsActive = category.IsActive
+        categoryToUpdate.CategoriaId = category.CategoryId
+        categoryToUpdate.CategoriaNombre = category.CategoryName
+        categoryToUpdate.EstaActiva = category.IsActive
 
         Return categoryToUpdate
     End Function

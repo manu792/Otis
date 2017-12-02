@@ -8,14 +8,14 @@ Public Class TestHistoryRepository
         otisContext = context
     End Sub
 
-    Public Sub AddTestEntry(testEntry As TestHistory)
+    Public Sub AddTestEntry(testEntry As ExamenRespuestaHistorial)
         otisContext.TestHistories.Add(testEntry)
     End Sub
 
-    Public Function GetTestEntriesBySessionIdAndExamId(sessionId As Guid, examId As Integer) As IEnumerable(Of TestHistory)
+    Public Function GetTestEntriesBySessionIdAndExamId(sessionId As Guid, examId As Integer) As IEnumerable(Of ExamenRespuestaHistorial)
         Return otisContext.TestHistories.
-            Where(Function(x) x.SessionId = sessionId And x.ExamId = examId).
-            Include(Function(x) x.Question.Answers).
+            Where(Function(x) x.SesionId = sessionId And x.ExamenId = examId).
+            Include(Function(x) x.Pregunta.Respuestas).
             ToList()
     End Function
 

@@ -29,59 +29,59 @@ Public Class DatabaseInitializer
 
     Private Sub AddEntitlementsToDatabase(context As OtisContext)
         context.Entitlements.AddOrUpdate(
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 1,
-                .Name = "Usuarios",
-                .IsActive = True
+                .PermisoId = 1,
+                .Nombre = "Usuarios",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 2,
-                .Name = "Preguntas",
-                .IsActive = True
+                .PermisoId = 2,
+                .Nombre = "Preguntas",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 3,
-                .Name = "Perfiles_Permisos",
-                .IsActive = True
+                .PermisoId = 3,
+                .Nombre = "Perfiles_Permisos",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 4,
-                .Name = "Categorias",
-                .IsActive = True
+                .PermisoId = 4,
+                .Nombre = "Categorias",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 5,
-                .Name = "Carreras",
-                .IsActive = True
+                .PermisoId = 5,
+                .Nombre = "Carreras",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 6,
-                .Name = "Examenes",
-                .IsActive = True
+                .PermisoId = 6,
+                .Nombre = "Examenes",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 7,
-                .Name = "Log",
-                .IsActive = True
+                .PermisoId = 7,
+                .Nombre = "Log",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 8,
-                .Name = "Ejecutar Test",
-                .IsActive = True
+                .PermisoId = 8,
+                .Nombre = "Ejecutar Test",
+                .EstaActivo = True
             },
-            New Entitlement() With
+            New Permiso() With
             {
-                .EntitlementId = 9,
-                .Name = "Revisar Test",
-                .IsActive = True
+                .PermisoId = 9,
+                .Nombre = "Revisar Test",
+                .EstaActivo = True
             }
         )
         context.SaveChanges()
@@ -90,37 +90,37 @@ Public Class DatabaseInitializer
         Dim entitlements = context.Entitlements.ToList()
 
         context.Profiles.AddOrUpdate(
-            New Profile() With
+            New Perfil() With
             {
-                .ProfileId = 1,
-                .Name = "Administrador",
-                .IsActive = True,
-                .Description = "Perfil de Adminitrador",
-                .Entitlements = entitlements
+                .PerfilId = 1,
+                .Nombre = "Administrador",
+                .EstaActivo = True,
+                .Descripcion = "Perfil de Adminitrador",
+                .Permisos = entitlements
             },
-            New Profile() With
+            New Perfil() With
             {
-                .ProfileId = 2,
-                .Name = "Estudiante",
-                .IsActive = True,
-                .Description = "Perfil de Estudiante",
-                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 8).ToList()
+                .PerfilId = 2,
+                .Nombre = "Estudiante",
+                .EstaActivo = True,
+                .Descripcion = "Perfil de Estudiante",
+                .Permisos = entitlements.Where(Function(e) e.PermisoId = 8).ToList()
             },
-            New Profile() With
+            New Perfil() With
             {
-                .ProfileId = 3,
-                .Name = "Especialista",
-                .IsActive = True,
-                .Description = "Perfil de Especialista",
-                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 9).ToList()
+                .PerfilId = 3,
+                .Nombre = "Especialista",
+                .EstaActivo = True,
+                .Descripcion = "Perfil de Especialista",
+                .Permisos = entitlements.Where(Function(e) e.PermisoId = 9).ToList()
             },
-            New Profile() With
+            New Perfil() With
             {
-                .ProfileId = 4,
-                .Name = "Primer Ingreso",
-                .IsActive = True,
-                .Description = "Perfil de Primer Ingreso",
-                .Entitlements = entitlements.Where(Function(e) e.EntitlementId = 8).ToList()
+                .PerfilId = 4,
+                .Nombre = "Primer Ingreso",
+                .EstaActivo = True,
+                .Descripcion = "Perfil de Primer Ingreso",
+                .Permisos = entitlements.Where(Function(e) e.PermisoId = 8).ToList()
             }
         )
         context.SaveChanges()
@@ -128,147 +128,147 @@ Public Class DatabaseInitializer
 
     Private Sub AddUsersToDatabase(context As OtisContext)
         context.Users.AddOrUpdate(
-            New User() With
+            New Usuario() With
             {
-                .UserId = "115190794",
-                .Password = encryptor.Encrypt("ManuRoman"),
-                .EmailAddress = "manu.roman792@gmail.com",
-                .IsTemporaryPassword = False,
-                .ProfileId = 2,
-                .Name = "Manuel",
-                .LastName = "Roman",
-                .SecondLastName = "Soto",
-                .CareerId = 1,
-                .IsActive = True
+                .UsuarioId = "115190794",
+                .Contrasena = encryptor.Encrypt("ManuRoman"),
+                .CorreoElectronico = "manu.roman792@gmail.com",
+                .EsContrasenaTemporal = False,
+                .PerfilId = 2,
+                .Nombre = "Manuel",
+                .PrimerApellido = "Roman",
+                .SegundoApellido = "Soto",
+                .CarreraId = 1,
+                .EstaActivo = True
             },
-            New User() With
+            New Usuario() With
             {
-                .UserId = "125740692",
-                .Password = encryptor.Encrypt("Test"),
-                .EmailAddress = "test@gmail.com",
-                .IsTemporaryPassword = False,
-                .ProfileId = 2,
-                .Name = "Test",
-                .LastName = "Test",
-                .SecondLastName = "Test",
-                .CareerId = 2,
-                .IsActive = True
+                .UsuarioId = "125740692",
+                .Contrasena = encryptor.Encrypt("Test"),
+                .CorreoElectronico = "test@gmail.com",
+                .EsContrasenaTemporal = False,
+                .PerfilId = 2,
+                .Nombre = "Test",
+                .PrimerApellido = "Test",
+                .SegundoApellido = "Test",
+                .CarreraId = 2,
+                .EstaActivo = True
             },
-            New User() With
+            New Usuario() With
             {
-                .UserId = "111111111",
-                .Password = encryptor.Encrypt("Admin"),
-                .EmailAddress = "admin@gmail.com",
-                .IsTemporaryPassword = False,
-                .ProfileId = 1,
-                .Name = "Admin",
-                .LastName = "Admin",
-                .SecondLastName = "Admin",
-                .CareerId = Nothing,
-                .IsActive = True
+                .UsuarioId = "111111111",
+                .Contrasena = encryptor.Encrypt("Admin"),
+                .CorreoElectronico = "admin@gmail.com",
+                .EsContrasenaTemporal = False,
+                .PerfilId = 1,
+                .Nombre = "Admin",
+                .PrimerApellido = "Admin",
+                .SegundoApellido = "Admin",
+                .CarreraId = Nothing,
+                .EstaActivo = True
             },
-            New User() With
+            New Usuario() With
             {
-                .UserId = "7777777777",
-                .Password = encryptor.Encrypt("Especialista"),
-                .EmailAddress = "especialista@gmail.com",
-                .IsTemporaryPassword = False,
-                .ProfileId = 3,
-                .Name = "Juan",
-                .LastName = "Vasquez",
-                .SecondLastName = "Jimenez",
-                .CareerId = Nothing,
-                .IsActive = True
+                .UsuarioId = "7777777777",
+                .Contrasena = encryptor.Encrypt("Especialista"),
+                .CorreoElectronico = "especialista@gmail.com",
+                .EsContrasenaTemporal = False,
+                .PerfilId = 3,
+                .Nombre = "Juan",
+                .PrimerApellido = "Vasquez",
+                .SegundoApellido = "Jimenez",
+                .CarreraId = Nothing,
+                .EstaActivo = True
             },
-            New User() With
+            New Usuario() With
             {
-                .UserId = "202020",
-                .Password = encryptor.Encrypt("Admin"),
-                .EmailAddress = "admin@gmail.com",
-                .IsTemporaryPassword = False,
-                .ProfileId = 1,
-                .Name = "Manuel",
-                .LastName = "Roman",
-                .SecondLastName = "Soto",
-                .CareerId = Nothing,
-                .IsActive = True
+                .UsuarioId = "202020",
+                .Contrasena = encryptor.Encrypt("Admin"),
+                .CorreoElectronico = "admin@gmail.com",
+                .EsContrasenaTemporal = False,
+                .PerfilId = 1,
+                .Nombre = "Manuel",
+                .PrimerApellido = "Roman",
+                .SegundoApellido = "Soto",
+                .CarreraId = Nothing,
+                .EstaActivo = True
             },
-            New User() With
+            New Usuario() With
             {
-                .UserId = "505050",
-                .Password = encryptor.Encrypt("Especialista"),
-                .EmailAddress = "especialista@gmail.com",
-                .IsTemporaryPassword = False,
-                .ProfileId = 3,
-                .Name = "Aaron",
-                .LastName = "Vasquez",
-                .SecondLastName = "Jimenez",
-                .CareerId = Nothing,
-                .IsActive = True
+                .UsuarioId = "505050",
+                .Contrasena = encryptor.Encrypt("Especialista"),
+                .CorreoElectronico = "especialista@gmail.com",
+                .EsContrasenaTemporal = False,
+                .PerfilId = 3,
+                .Nombre = "Aaron",
+                .PrimerApellido = "Vasquez",
+                .SegundoApellido = "Jimenez",
+                .CarreraId = Nothing,
+                .EstaActivo = True
             },
-            New User() With
+            New Usuario() With
             {
-                .UserId = "606060",
-                .Password = encryptor.Encrypt("PrimerIngreso"),
-                .EmailAddress = "ocariscc@gmail.com",
-                .IsTemporaryPassword = False,
-                .ProfileId = 3,
-                .Name = "Algeris",
-                .LastName = "Cabrera",
-                .CareerId = Nothing,
-                .IsActive = True
+                .UsuarioId = "606060",
+                .Contrasena = encryptor.Encrypt("PrimerIngreso"),
+                .CorreoElectronico = "ocariscc@gmail.com",
+                .EsContrasenaTemporal = False,
+                .PerfilId = 3,
+                .Nombre = "Algeris",
+                .PrimerApellido = "Cabrera",
+                .CarreraId = Nothing,
+                .EstaActivo = True
             }
         )
         context.SaveChanges()
     End Sub
     Private Sub AddCareersToDatabase(context As OtisContext)
         context.Careers.AddOrUpdate(
-            New Career() With
+            New Carrera() With
             {
-                .CareerId = 1,
-                .CareerName = "Ingenieria de Sistemas",
-                .IsActive = True
+                .CarreraId = 1,
+                .CarreraNombre = "Ingenieria de Sistemas",
+                .EstaActiva = True
             },
-            New Career() With
+            New Carrera() With
             {
-                .CareerId = 2,
-                .CareerName = "Electronica",
-                .IsActive = True
+                .CarreraId = 2,
+                .CarreraNombre = "Electronica",
+                .EstaActiva = True
             },
-            New Career() With
+            New Carrera() With
             {
-                .CareerId = 3,
-                .CareerName = "Electromecanica",
-                .IsActive = True
+                .CarreraId = 3,
+                .CarreraNombre = "Electromecanica",
+                .EstaActiva = True
             },
-            New Career() With
+            New Carrera() With
             {
-                .CareerId = 4,
-                .CareerName = "Dibujo Arquitectonico",
-                .IsActive = True
+                .CarreraId = 4,
+                .CarreraNombre = "Dibujo Arquitectonico",
+                .EstaActiva = True
             },
-            New Career() With
+            New Carrera() With
             {
-                .CareerId = 5,
-                .CareerName = "Medicina",
-                .IsActive = True
+                .CarreraId = 5,
+                .CarreraNombre = "Medicina",
+                .EstaActiva = True
             }
         )
         context.SaveChanges()
     End Sub
     Private Sub AddCategoriesToDatabase(context As OtisContext)
         context.Categories.AddOrUpdate(
-            New Category() With
+            New Categoria() With
             {
-                .CategoryId = 1,
-                .CategoryName = "Matematicas",
-                .IsActive = True
+                .CategoriaId = 1,
+                .CategoriaNombre = "Matematicas",
+                .EstaActiva = True
             },
-            New Category() With
+            New Categoria() With
             {
-                .CategoryId = 2,
-                .CategoryName = "Razonamiento Verbal",
-                .IsActive = True
+                .CategoriaId = 2,
+                .CategoriaNombre = "Razonamiento Verbal",
+                .EstaActiva = True
             }
         )
         context.SaveChanges()
@@ -277,120 +277,120 @@ Public Class DatabaseInitializer
     Private Sub AddQuestionsToDatabase(context As OtisContext)
 
         context.Questions.AddOrUpdate(
-            New Question() With
+            New Pregunta() With
             {
-                .QuestionId = 1,
-                .QuestionText = "Si tres lapices cuestan cinco pesos. Cuantos lapices podre comprar con cincuenta pesos?",
-                .CategoryId = 1,
-                .IsActive = True
+                .PreguntaId = 1,
+                .PreguntaTexto = "Si tres lapices cuestan cinco pesos. Cuantos lapices podre comprar con cincuenta pesos?",
+                .CategoriaId = 1,
+                .EstaActiva = True
             },
-            New Question() With
+            New Pregunta() With
             {
-                .QuestionId = 2,
-                .QuestionText = "Si dos metros y medio de tela cuestan 30 pesos. Cuanto cuestan 10 metros?",
-                .CategoryId = 1,
-                .IsActive = True
+                .PreguntaId = 2,
+                .PreguntaTexto = "Si dos metros y medio de tela cuestan 30 pesos. Cuanto cuestan 10 metros?",
+                .CategoriaId = 1,
+                .EstaActiva = True
             },
-            New Question() With
+            New Pregunta() With
             {
-                .QuestionId = 3,
-                .QuestionText = "Lo opuesto al odio es:",
-                .CategoryId = 2,
-                .Answers = New List(Of QuestionAnswers) From
+                .PreguntaId = 3,
+                .PreguntaTexto = "Lo opuesto al odio es:",
+                .CategoriaId = 2,
+                .Respuestas = New List(Of PreguntaRespuesta) From
                 {
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 3,
-                        .AnswerText = "Enemigo"
+                        .PreguntaId = 3,
+                        .PreguntaTexto = "Enemigo"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 3,
-                        .AnswerText = "Temor"
+                        .PreguntaId = 3,
+                        .PreguntaTexto = "Temor"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 3,
-                        .AnswerText = "Amor"
+                        .PreguntaId = 3,
+                        .PreguntaTexto = "Amor"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 3,
-                        .AnswerText = "Amigo"
+                        .PreguntaId = 3,
+                        .PreguntaTexto = "Amigo"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 3,
-                        .AnswerText = "Alegria"
+                        .PreguntaId = 3,
+                        .PreguntaTexto = "Alegria"
                     }
                 },
-                .IsActive = True
+                .EstaActiva = True
             },
-            New Question() With
+            New Pregunta() With
             {
-                .QuestionId = 4,
-                .QuestionText = "Que numero esta en el espacio que pertenece al rectangulo y al triangulo, pero no en el circulo?",
-                .CategoryId = 1,
-                .ImagePath = "C:\Users\MRoman\Documents\Projects\Otis\Otis\Images\PreguntaID4.png",
-                .Answers = New List(Of QuestionAnswers) From
+                .PreguntaId = 4,
+                .PreguntaTexto = "Que numero esta en el espacio que pertenece al rectangulo y al triangulo, pero no en el circulo?",
+                .CategoriaId = 1,
+                .ImagenDireccion = "C:\Users\MRoman\Documents\Projects\Otis\Otis\Images\PreguntaID4.png",
+                .Respuestas = New List(Of PreguntaRespuesta) From
                 {
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "3"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "3"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "4"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "4"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "5"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "5"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "6"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "6"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "7"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "7"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "8"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "8"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "9"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "9"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "10"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "10"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "11"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "11"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "12"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "12"
                     },
-                    New QuestionAnswers() With
+                    New PreguntaRespuesta() With
                     {
-                        .QuestionId = 4,
-                        .AnswerText = "13"
+                        .PreguntaId = 4,
+                        .PreguntaTexto = "13"
                     }
                 },
-                .IsActive = True
+                .EstaActiva = True
             }
         )
         context.SaveChanges()
@@ -398,41 +398,41 @@ Public Class DatabaseInitializer
 
     Private Sub AddExamsToDatabase(context As OtisContext)
         context.Exams.AddOrUpdate(
-            New Exam() With
+            New Examen() With
             {
-                .ExamId = 1,
-                .Name = "Otis",
-                .Description = "Examen Otis",
-                .Time = 30,
-                .QuestionsQuantity = 3,
-                .IsActive = True,
-                .Questions = context.Questions.ToList()
+                .ExamenId = 1,
+                .Nombre = "Otis",
+                .Descripcion = "Examen Otis",
+                .Tiempo = 30,
+                .CantidadPreguntas = 3,
+                .EstaActivo = True,
+                .Preguntas = context.Questions.ToList()
             }
         )
         context.SaveChanges()
     End Sub
 
     Private Sub AssignExamsToUsers(context As OtisContext)
-        Dim exam = context.Exams.FirstOrDefault(Function(e) e.ExamId = 1)
-        Dim user = context.Users.FirstOrDefault(Function(u) u.UserId = "115190794")
-        Dim user2 = context.Users.FirstOrDefault(Function(u) u.UserId = "125740692")
+        Dim exam = context.Exams.FirstOrDefault(Function(e) e.ExamenId = 1)
+        Dim user = context.Users.FirstOrDefault(Function(u) u.UsuarioId = "115190794")
+        Dim user2 = context.Users.FirstOrDefault(Function(u) u.UsuarioId = "125740692")
 
         context.UserExams.AddOrUpdate(
-            New ExamUsers() With
+            New UsuarioExamen() With
             {
-                .Exam = exam,
-                .ExamId = exam.ExamId,
-                .IsCompleted = False,
-                .User = user,
-                .UserId = user.UserId
+                .Examen = exam,
+                .ExamenId = exam.ExamenId,
+                .Completado = False,
+                .Usuario = user,
+                .UsuarioId = user.UsuarioId
             },
-            New ExamUsers() With
+            New UsuarioExamen() With
             {
-                .Exam = exam,
-                .ExamId = exam.ExamId,
-                .IsCompleted = False,
-                .User = user2,
-                .UserId = user2.UserId
+                .Examen = exam,
+                .ExamenId = exam.ExamenId,
+                .Completado = False,
+                .Usuario = user2,
+                .UsuarioId = user2.UsuarioId
             }
         )
         context.SaveChanges()

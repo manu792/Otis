@@ -8,58 +8,58 @@ Public Class ExamRepository
     Public Sub New(context As OtisContext)
         otisContext = context
     End Sub
-    Public Function AddExam(exam As Exam) As Exam
+    Public Function AddExam(exam As Examen) As Examen
         otisContext.Exams.Add(exam)
         otisContext.SaveChanges()
 
         Return exam
     End Function
 
-    Public Function UpdateExam(exam As Exam) As Exam
+    Public Function UpdateExam(exam As Examen) As Examen
         otisContext.Entry(exam).State = EntityState.Modified
         otisContext.SaveChanges()
 
         Return exam
     End Function
 
-    Public Function GetAllExams() As IEnumerable(Of Exam)
+    Public Function GetAllExams() As IEnumerable(Of Examen)
         Return otisContext.Exams.
-            Include(Function(e) e.Questions.Select(Function(q) q.Answers)).
-            Include(Function(e) e.Questions.Select(Function(q) q.Category)).
-            Include(Function(e) e.ExamUsers).
+            Include(Function(e) e.Preguntas.Select(Function(q) q.Respuestas)).
+            Include(Function(e) e.Preguntas.Select(Function(q) q.Categoria)).
+            Include(Function(e) e.UsuarioExamenes).
             ToList()
     End Function
 
-    Public Function GetExamById(examId As Integer) As Exam
-        Return otisContext.Exams.FirstOrDefault(Function(e) e.ExamId = examId)
+    Public Function GetExamById(examId As Integer) As Examen
+        Return otisContext.Exams.FirstOrDefault(Function(e) e.ExamenId = examId)
     End Function
 
-    Public Function GetExamUsersByIds(examId As Integer, userId As Integer) As ExamUsers
+    Public Function GetExamUsersByIds(examId As Integer, userId As Integer) As UsuarioExamen
         Return otisContext.UserExams.
-            FirstOrDefault(Function(ue) ue.ExamId = examId And ue.UserId = userId)
+            FirstOrDefault(Function(ue) ue.ExamenId = examId And ue.UsuarioId = userId)
     End Function
 
-    Public Function GetExamsForUser(userId As String) As IEnumerable(Of Exam)
-        Return otisContext.UserExams.Where(Function(u) u.UserId = userId And u.IsCompleted = False).
-            Select(Function(c) c.Exam).
-            Where(Function(e) e.IsActive = True).
+    Public Function GetExamsForUser(userId As String) As IEnumerable(Of Examen)
+        Return otisContext.UserExams.Where(Function(u) u.UsuarioId = userId And u.Completado = False).
+            Select(Function(c) c.Examen).
+            Where(Function(e) e.EstaActivo = True).
             ToList()
     End Function
 
-    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of Question)
+    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of Pregunta)
         Return otisContext.Questions.OrderBy(Function(f) Guid.NewGuid()).
-                    Where(Function(q) q.IsActive = True And q.Exams.Any(Function(e) e.IsActive = True And e.ExamId = examId)).
-                    Include(Function(a) a.Answers).
-                    Include(Function(q) q.Category).
+                    Where(Function(q) q.EstaActiva = True And q.Examenes.Any(Function(e) e.EstaActivo = True And e.ExamenId = examId)).
+                    Include(Function(a) a.Respuestas).
+                    Include(Function(q) q.Categoria).
                     Take(questionsQuantity).
                     ToList()
     End Function
 
     Public Sub UpdateStatusForExamByUser(examId As Integer, userId As String, isCompleted As Boolean)
-        Dim userExam = otisContext.UserExams.FirstOrDefault(Function(u) u.UserId = userId And u.ExamId = examId)
+        Dim userExam = otisContext.UserExams.FirstOrDefault(Function(u) u.UsuarioId = userId And u.ExamenId = examId)
 
         If userExam IsNot Nothing Then
-            userExam.IsCompleted = isCompleted
+            userExam.Completado = isCompleted
 
             otisContext.Entry(userExam).State = EntityState.Modified
         End If

@@ -14,37 +14,37 @@ Public Class LogService
         Return unitOfWork.ActivityLogRepository.GetLogs.ToList().
                    Select(Function(x) New ActivityLogDto() With
                    {
-                        .ActivityLogId = x.ActivityLogId,
+                        .ActivityLogId = x.LogActividadId,
                         .User = New UserDto() With
                         {
-                            .Id = x.User.UserId,
-                            .Name = x.User.Name,
-                            .LastName = x.User.LastName,
-                            .SecondLastName = x.User.SecondLastName,
-                            .EmailAddress = x.User.EmailAddress,
-                            .Career = If(x.User.Career IsNot Nothing, New CareerDto() With
+                            .Id = x.Usuario.UsuarioId,
+                            .Name = x.Usuario.Nombre,
+                            .LastName = x.Usuario.PrimerApellido,
+                            .SecondLastName = x.Usuario.SegundoApellido,
+                            .EmailAddress = x.Usuario.CorreoElectronico,
+                            .Career = If(x.Usuario.Carrera IsNot Nothing, New CareerDto() With
                             {
-                                .CareerId = x.User.Career.CareerId,
-                                .CareerName = x.User.Career.CareerName,
-                                .IsActive = x.User.Career.IsActive
+                                .CareerId = x.Usuario.Carrera.CarreraId,
+                                .CareerName = x.Usuario.Carrera.CarreraNombre,
+                                .IsActive = x.Usuario.Carrera.EstaActiva
                             }, New CareerDto()),
                             .Profile = New ProfileDto() With
                             {
-                                .ProfileId = x.User.Profile.ProfileId,
-                                .Name = x.User.Profile.Name,
-                                .Description = x.User.Profile.Description,
-                                .IsActive = x.User.Profile.IsActive
+                                .ProfileId = x.Usuario.Perfil.PerfilId,
+                                .Name = x.Usuario.Perfil.Nombre,
+                                .Description = x.Usuario.Perfil.Descripcion,
+                                .IsActive = x.Usuario.Perfil.EstaActivo
                             },
-                            .IsActive = x.User.IsActive
+                            .IsActive = x.Usuario.EstaActivo
                         },
-                        .Activity = x.Activity,
-                        .ActivityDate = x.ActivityDate,
-                        .IsActive = x.IsActive
+                        .Activity = x.Actividad,
+                        .ActivityDate = x.FechaActividad,
+                        .IsActive = x.EstaActivo
                    }).ToList()
     End Function
 
     Public Function GetLogsByUserAndDateRange(userId As String, FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of ActivityLogDto)
-        Dim logs As List(Of ActivityLog)
+        Dim logs As List(Of LogActividad)
 
         If userId.Equals(String.Empty) Then
             logs = unitOfWork.ActivityLogRepository.GetLogsByDateRange(FromDate, ToDate).ToList()
@@ -55,42 +55,42 @@ Public Class LogService
         Return logs.
                    Select(Function(x) New ActivityLogDto() With
                    {
-                        .ActivityLogId = x.ActivityLogId,
+                        .ActivityLogId = x.LogActividadId,
                         .User = New UserDto() With
                         {
-                            .Id = x.User.UserId,
-                            .Name = x.User.Name,
-                            .LastName = x.User.LastName,
-                            .SecondLastName = x.User.SecondLastName,
-                            .EmailAddress = x.User.EmailAddress,
-                            .Career = If(x.User.Career IsNot Nothing, New CareerDto() With
+                            .Id = x.Usuario.UsuarioId,
+                            .Name = x.Usuario.Nombre,
+                            .LastName = x.Usuario.PrimerApellido,
+                            .SecondLastName = x.Usuario.SegundoApellido,
+                            .EmailAddress = x.Usuario.CorreoElectronico,
+                            .Career = If(x.Usuario.Carrera IsNot Nothing, New CareerDto() With
                             {
-                                .CareerId = x.User.Career.CareerId,
-                                .CareerName = x.User.Career.CareerName,
-                                .IsActive = x.User.Career.IsActive
+                                .CareerId = x.Usuario.Carrera.CarreraId,
+                                .CareerName = x.Usuario.Carrera.CarreraNombre,
+                                .IsActive = x.Usuario.Carrera.EstaActiva
                             }, New CareerDto()),
                             .Profile = New ProfileDto() With
                             {
-                                .ProfileId = x.User.Profile.ProfileId,
-                                .Name = x.User.Profile.Name,
-                                .Description = x.User.Profile.Description,
-                                .IsActive = x.User.Profile.IsActive
+                                .ProfileId = x.Usuario.Perfil.PerfilId,
+                                .Name = x.Usuario.Perfil.Nombre,
+                                .Description = x.Usuario.Perfil.Descripcion,
+                                .IsActive = x.Usuario.Perfil.EstaActivo
                             },
-                            .IsActive = x.User.IsActive
+                            .IsActive = x.Usuario.EstaActivo
                         },
-                        .Activity = x.Activity,
-                        .ActivityDate = x.ActivityDate,
-                        .IsActive = x.IsActive
+                        .Activity = x.Actividad,
+                        .ActivityDate = x.FechaActividad,
+                        .IsActive = x.EstaActivo
                    }).ToList()
     End Function
 
     Public Sub AddLog(userId As String, activity As String)
-        unitOfWork.ActivityLogRepository.AddLog(New ActivityLog() With
+        unitOfWork.ActivityLogRepository.AddLog(New LogActividad() With
         {
-            .UserId = userId,
-            .Activity = activity,
-            .ActivityDate = DateTime.Now,
-            .IsActive = True
+            .UsuarioId = userId,
+            .Actividad = activity,
+            .FechaActividad = DateTime.Now,
+            .EstaActivo = True
         })
     End Sub
 

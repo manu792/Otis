@@ -12,27 +12,27 @@ Public Class ProfileService
     Public Function GetProfiles() As IEnumerable(Of ProfileDto)
         Return unitOfWork.ProfileRepository.GetProfiles().Select(Function(x) New ProfileDto With
         {
-            .ProfileId = x.ProfileId,
-            .Description = x.Description,
-            .Name = x.Name,
-            .IsActive = x.IsActive,
-            .Entitlements = x.Entitlements.ToList().Select(Function(e) New EntitlementDto With
+            .ProfileId = x.PerfilId,
+            .Description = x.Descripcion,
+            .Name = x.Nombre,
+            .IsActive = x.EstaActivo,
+            .Entitlements = x.Permisos.ToList().Select(Function(e) New EntitlementDto With
             {
-                .EntitlementId = e.EntitlementId,
-                .Name = e.Name,
-                .IsActive = e.IsActive
+                .EntitlementId = e.PermisoId,
+                .Name = e.Nombre,
+                .IsActive = e.EstaActivo
             }).ToList()
         }).ToList()
     End Function
 
     Public Function AddProfile(profile As ProfileDto) As String
         Try
-            unitOfWork.ProfileRepository.AddProfile(New Profile() With
+            unitOfWork.ProfileRepository.AddProfile(New Perfil() With
             {
-                .Name = profile.Name,
-                .Description = profile.Description,
-                .IsActive = profile.IsActive,
-                .Entitlements = GetEntitlementsByProfile(profile)
+                .Nombre = profile.Name,
+                .Descripcion = profile.Description,
+                .EstaActivo = profile.IsActive,
+                .Permisos = GetEntitlementsByProfile(profile)
             })
             Return "Perfil agregado correctamente."
         Catch ex As Exception
@@ -49,20 +49,20 @@ Public Class ProfileService
         End Try
     End Function
 
-    Private Function GetProfileToUpdate(id As Integer, profile As ProfileDto) As Profile
+    Private Function GetProfileToUpdate(id As Integer, profile As ProfileDto) As Perfil
         Dim profileToUpdate = unitOfWork.ProfileRepository.GetProfileById(id)
 
-        profileToUpdate.ProfileId = profile.ProfileId
-        profileToUpdate.Name = profile.Name
-        profileToUpdate.Description = profile.Description
-        profileToUpdate.IsActive = profile.IsActive
-        profileToUpdate.Entitlements = GetEntitlementsByProfile(profile)
+        profileToUpdate.PerfilId = profile.ProfileId
+        profileToUpdate.Nombre = profile.Name
+        profileToUpdate.Descripcion = profile.Description
+        profileToUpdate.EstaActivo = profile.IsActive
+        profileToUpdate.Permisos = GetEntitlementsByProfile(profile)
 
         Return profileToUpdate
     End Function
 
-    Private Function GetEntitlementsByProfile(profile As ProfileDto) As IEnumerable(Of Entitlement)
-        Dim entitlementList = New List(Of Entitlement)
+    Private Function GetEntitlementsByProfile(profile As ProfileDto) As IEnumerable(Of Permiso)
+        Dim entitlementList = New List(Of Permiso)
 
         For Each entitlement In profile.Entitlements
             entitlementList.Add(unitOfWork.EntitlementRepository.GetEntitlementById(entitlement.EntitlementId))
