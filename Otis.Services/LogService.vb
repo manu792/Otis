@@ -11,7 +11,7 @@ Public Class LogService
     End Sub
 
     Public Function GetLogs() As IEnumerable(Of ActivityLogDto)
-        Return unitOfWork.ActivityLogRepository.GetLogs.ToList().
+        Return unitOfWork.LogActividadRepositorio.ObtenerLogs.ToList().
                    Select(Function(x) New ActivityLogDto() With
                    {
                         .ActivityLogId = x.LogActividadId,
@@ -47,9 +47,9 @@ Public Class LogService
         Dim logs As List(Of LogActividad)
 
         If userId.Equals(String.Empty) Then
-            logs = unitOfWork.ActivityLogRepository.GetLogsByDateRange(FromDate, ToDate).ToList()
+            logs = unitOfWork.LogActividadRepositorio.ObtenerLogsPorFecha(FromDate, ToDate).ToList()
         Else
-            logs = unitOfWork.ActivityLogRepository.GetLogsByUserAndDateRange(userId, FromDate, ToDate).ToList()
+            logs = unitOfWork.LogActividadRepositorio.ObtenerLogsPorUsuarioYFechas(userId, FromDate, ToDate).ToList()
         End If
 
         Return logs.
@@ -85,7 +85,7 @@ Public Class LogService
     End Function
 
     Public Sub AddLog(userId As String, activity As String)
-        unitOfWork.ActivityLogRepository.AddLog(New LogActividad() With
+        unitOfWork.LogActividadRepositorio.AgregarLog(New LogActividad() With
         {
             .UsuarioId = userId,
             .Actividad = activity,

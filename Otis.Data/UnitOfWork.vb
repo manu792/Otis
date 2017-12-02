@@ -2,119 +2,119 @@
 
 Public Class UnitOfWork
 
-    Private _userRepository As UserRepository
-    Private _questionRepository As QuestionRepository
-    Private _sessionRepository As SessionRepository
-    Private _testHistoryRepository As TestHistoryRepository
-    Private _categoryRepository As CategoryRepository
-    Private _examRepository As ExamRepository
-    Private _examsApplied As ExamsAppliedRepository
-    Private _profileRepository As ProfileRepository
-    Private _careerRepository As CareerRepository
-    Private _entitlementRepository As EntitlementRepository
-    Private otisContext As OtisContext
+    Private _usuarioRepositorio As UsuarioRepositorio
+    Private _preguntaRepositorio As PreguntaRepositorio
+    Private _sesionRepositorio As SesionRepositorio
+    Private _examenRespuestasRepositorio As ExamenRespuestaRepositorio
+    Private _categoriaRepositorio As CategoriaRepositorio
+    Private _examenRepositorio As ExamenRepositorio
+    Private _examenAplicadoRepositorio As ExamenAplicadoRepositorio
+    Private _perfilRepositorio As PerfilRepositorio
+    Private _carreraRepositorio As CarreraRepositorio
+    Private _permisoRepositorio As PermisoRepositorio
+    Private bdContexto As BaseDeDatosOtis
 
     Public Sub New()
-        otisContext = New OtisContext()
+        bdContexto = New BaseDeDatosOtis()
     End Sub
 
-    Public ReadOnly Property UserRepository() As UserRepository
+    Public ReadOnly Property UsuarioRepositorio() As UsuarioRepositorio
         Get
-            If _userRepository Is Nothing Then
-                _userRepository = New UserRepository(otisContext)
+            If _usuarioRepositorio Is Nothing Then
+                _usuarioRepositorio = New UsuarioRepositorio(bdContexto)
             End If
-            Return _userRepository
+            Return _usuarioRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property ExamRepository() As ExamRepository
+    Public ReadOnly Property ExamenRepositorio() As ExamenRepositorio
         Get
-            If _examRepository Is Nothing Then
-                _examRepository = New ExamRepository(otisContext)
+            If _examenRepositorio Is Nothing Then
+                _examenRepositorio = New ExamenRepositorio(bdContexto)
             End If
-            Return _examRepository
+            Return _examenRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property ExamsAppliedBySession() As ExamsAppliedRepository
+    Public ReadOnly Property ExamenAplicadoRepositorio() As ExamenAplicadoRepositorio
         Get
-            If _examsApplied Is Nothing Then
-                _examsApplied = New ExamsAppliedRepository(otisContext)
+            If _examenAplicadoRepositorio Is Nothing Then
+                _examenAplicadoRepositorio = New ExamenAplicadoRepositorio(bdContexto)
             End If
-            Return _examsApplied
+            Return _examenAplicadoRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property QuestionRepository() As QuestionRepository
+    Public ReadOnly Property PreguntaRepositorio() As PreguntaRepositorio
         Get
-            If _questionRepository Is Nothing Then
-                _questionRepository = New QuestionRepository(otisContext)
+            If _preguntaRepositorio Is Nothing Then
+                _preguntaRepositorio = New PreguntaRepositorio(bdContexto)
             End If
-            Return _questionRepository
+            Return _preguntaRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property SessionRepository() As SessionRepository
+    Public ReadOnly Property SesionRepositorio() As SesionRepositorio
         Get
-            If _sessionRepository Is Nothing Then
-                _sessionRepository = New SessionRepository(otisContext)
+            If _sesionRepositorio Is Nothing Then
+                _sesionRepositorio = New SesionRepositorio(bdContexto)
             End If
-            Return _sessionRepository
+            Return _sesionRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property TestHistoryRepository() As TestHistoryRepository
+    Public ReadOnly Property ExamenRespuestaRepositorio() As ExamenRespuestaRepositorio
         Get
-            If _testHistoryRepository Is Nothing Then
-                _testHistoryRepository = New TestHistoryRepository(otisContext)
+            If _examenRespuestasRepositorio Is Nothing Then
+                _examenRespuestasRepositorio = New ExamenRespuestaRepositorio(bdContexto)
             End If
-            Return _testHistoryRepository
+            Return _examenRespuestasRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property CategoryRepository() As CategoryRepository
+    Public ReadOnly Property CategoriaRepositorio() As CategoriaRepositorio
         Get
-            If _categoryRepository Is Nothing Then
-                _categoryRepository = New CategoryRepository(otisContext)
+            If _categoriaRepositorio Is Nothing Then
+                _categoriaRepositorio = New CategoriaRepositorio(bdContexto)
             End If
-            Return _categoryRepository
+            Return _categoriaRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property ProfileRepository() As ProfileRepository
+    Public ReadOnly Property PerfilRepositorio() As PerfilRepositorio
         Get
-            If _profileRepository Is Nothing Then
-                _profileRepository = New ProfileRepository(otisContext)
+            If _perfilRepositorio Is Nothing Then
+                _perfilRepositorio = New PerfilRepositorio(bdContexto)
             End If
-            Return _profileRepository
+            Return _perfilRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property CareerRepository() As CareerRepository
+    Public ReadOnly Property CarreraRepositorio() As CarreraRepositorio
         Get
-            If _careerRepository Is Nothing Then
-                _careerRepository = New CareerRepository(otisContext)
+            If _carreraRepositorio Is Nothing Then
+                _carreraRepositorio = New CarreraRepositorio(bdContexto)
             End If
-            Return _careerRepository
+            Return _carreraRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property EntitlementRepository() As EntitlementRepository
+    Public ReadOnly Property PermisoRepositorio() As PermisoRepositorio
         Get
-            If _entitlementRepository Is Nothing Then
-                _entitlementRepository = New EntitlementRepository(otisContext)
+            If _permisoRepositorio Is Nothing Then
+                _permisoRepositorio = New PermisoRepositorio(bdContexto)
             End If
-            Return _entitlementRepository
+            Return _permisoRepositorio
         End Get
     End Property
 
-    Public ReadOnly Property ActivityLogRepository() As ActivityLogRepository
+    Public ReadOnly Property LogActividadRepositorio() As LogActividadRepositorio
         Get
-            Return New ActivityLogRepository()
+            Return New LogActividadRepositorio()
         End Get
     End Property
 
     Public Sub SaveChanges()
-        otisContext.SaveChanges()
+        bdContexto.SaveChanges()
     End Sub
 End Class

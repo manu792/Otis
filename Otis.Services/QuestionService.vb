@@ -11,7 +11,7 @@ Public Class QuestionService
     End Sub
 
     Public Function GetAllQuestions() As IEnumerable(Of QuestionDto)
-        Return unitOfWork.QuestionRepository.GetAllQuestions().Select(Function(q) New QuestionDto() With
+        Return unitOfWork.PreguntaRepositorio.ObtenerPreguntas().Select(Function(q) New QuestionDto() With
         {
             .QuestionId = q.PreguntaId,
             .QuestionText = q.PreguntaTexto,
@@ -28,7 +28,7 @@ Public Class QuestionService
 
     Public Function UpdateQuestion(questionId As Integer, question As QuestionDto) As String
         Try
-            unitOfWork.QuestionRepository.UpdateQuestion(GetQuestion(questionId, question))
+            unitOfWork.PreguntaRepositorio.ActualizarPregunta(GetQuestion(questionId, question))
             Return "Pregunta modificada correctamente."
         Catch ex As Exception
             Return "Hubo un problema al tratar de guardar los cambios. Favor contacte a soporte."
@@ -38,7 +38,7 @@ Public Class QuestionService
     Public Function SaveQuestion(questionDto As QuestionDto) As String
         Try
 
-            unitOfWork.QuestionRepository.SaveQuestion(New Pregunta() With
+            unitOfWork.PreguntaRepositorio.AgregarPregunta(New Pregunta() With
             {
                 .PreguntaTexto = questionDto.QuestionText,
                 .ImagenDireccion = questionDto.ImagePath,
@@ -56,7 +56,7 @@ Public Class QuestionService
     End Function
 
     Private Function GetQuestion(questionId As Integer, question As QuestionDto) As Pregunta
-        Dim questionToUpdate = unitOfWork.QuestionRepository.GetQuestionById(questionId)
+        Dim questionToUpdate = unitOfWork.PreguntaRepositorio.ObtenerPreguntaPorId(questionId)
 
         questionToUpdate.PreguntaId = question.QuestionId
         questionToUpdate.PreguntaTexto = question.QuestionText

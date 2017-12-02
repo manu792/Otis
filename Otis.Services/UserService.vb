@@ -14,7 +14,7 @@ Public Class UserService
 
     Public Function AddUser(user As UserDto) As String
         Try
-            Dim registeredUser = unitOfWork.UserRepository.Register(New Usuario() With
+            Dim registeredUser = unitOfWork.UsuarioRepositorio.AgregarUsuario(New Usuario() With
             {
                 .UsuarioId = user.Id,
                 .Nombre = user.Name,
@@ -35,7 +35,7 @@ Public Class UserService
     End Function
     Public Function UpdateUser(user As UserDto) As String
         Try
-            unitOfWork.UserRepository.UpdateUser(New Usuario() With
+            unitOfWork.UsuarioRepositorio.ActualizarUsuario(New Usuario() With
             {
                 .UsuarioId = user.Id,
                 .Nombre = user.Name,
@@ -57,7 +57,7 @@ Public Class UserService
 
     End Sub
     Public Function GetAllUsers() As IEnumerable(Of UserDto)
-        Return unitOfWork.UserRepository.GetAllUsers().ToList().
+        Return unitOfWork.UsuarioRepositorio.ObtenerUsuarios().ToList().
                    Select(Function(u) New UserDto() With
                    {
                         .Id = u.UsuarioId,
@@ -73,7 +73,7 @@ Public Class UserService
                    }).ToList()
     End Function
     Public Function GetUserByUserName(userName As String) As UserDto
-        Dim user = unitOfWork.UserRepository.GetUser(userName)
+        Dim user = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userName)
 
         If user Is Nothing Then
             Return Nothing
@@ -93,7 +93,7 @@ Public Class UserService
         }
     End Function
     Public Function ValidateUser(user As UserDto) As UserDto
-        Dim retrievedUser = unitOfWork.UserRepository.GetUser(user.Id)
+        Dim retrievedUser = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(user.Id)
         If Not retrievedUser Is Nothing Then
             If ArePasswordsEqual(encryptor.GetHashBytes(user.Password, retrievedUser.Contrasena)) Then
                 user.IsTemporaryPassword = retrievedUser.EsContrasenaTemporal
@@ -106,7 +106,7 @@ Public Class UserService
     Public Function ChangeUserPassword(user As UserDto) As String
         user.Password = EncryptPassword(user.Password)
 
-        Return unitOfWork.UserRepository.ChangePassword(New Usuario With
+        Return unitOfWork.UsuarioRepositorio.ActualizarContrasena(New Usuario With
         {
             .UsuarioId = user.Id,
             .Contrasena = user.Password,

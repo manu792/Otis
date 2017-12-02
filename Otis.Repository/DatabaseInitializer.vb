@@ -3,7 +3,7 @@ Imports System.Data.Entity.Migrations
 Imports Otis.Security
 
 Public Class DatabaseInitializer
-    Inherits DropCreateDatabaseIfModelChanges(Of OtisContext)
+    Inherits DropCreateDatabaseIfModelChanges(Of BaseDeDatosOtis)
 
     Private encryptor As Encryptor
 
@@ -11,24 +11,24 @@ Public Class DatabaseInitializer
         encryptor = New Encryptor()
     End Sub
 
-    Protected Overrides Sub Seed(context As OtisContext)
-        SeedDatabase(context)
+    Protected Overrides Sub Seed(context As BaseDeDatosOtis)
+        AlimentarBaseDeDatos(context)
         MyBase.Seed(context)
     End Sub
 
-    Public Sub SeedDatabase(context As OtisContext)
-        AddEntitlementsToDatabase(context)
-        AddProfilesToDatabase(context)
-        AddCareersToDatabase(context)
-        AddUsersToDatabase(context)
-        AddCategoriesToDatabase(context)
-        AddQuestionsToDatabase(context)
-        AddExamsToDatabase(context)
-        AssignExamsToUsers(context)
+    Public Sub AlimentarBaseDeDatos(context As BaseDeDatosOtis)
+        AgregarPermisosABaseDeDatos(context)
+        AgregarPerfilesABaseDeDatos(context)
+        AgregarCarrerasABaseDeDatos(context)
+        AgregarUsuariosABaseDeDatos(context)
+        AgregarCategoriasABaseDeDatos(context)
+        AgregarPreguntasABaseDeDatos(context)
+        AgregarExamenesABaseDeDatos(context)
+        AsignarExamenAUsuario(context)
     End Sub
 
-    Private Sub AddEntitlementsToDatabase(context As OtisContext)
-        context.Entitlements.AddOrUpdate(
+    Private Sub AgregarPermisosABaseDeDatos(context As BaseDeDatosOtis)
+        context.Permisos.AddOrUpdate(
             New Permiso() With
             {
                 .PermisoId = 1,
@@ -86,10 +86,10 @@ Public Class DatabaseInitializer
         )
         context.SaveChanges()
     End Sub
-    Private Sub AddProfilesToDatabase(context As OtisContext)
-        Dim entitlements = context.Entitlements.ToList()
+    Private Sub AgregarPerfilesABaseDeDatos(context As BaseDeDatosOtis)
+        Dim entitlements = context.Permisos.ToList()
 
-        context.Profiles.AddOrUpdate(
+        context.Perfiles.AddOrUpdate(
             New Perfil() With
             {
                 .PerfilId = 1,
@@ -126,8 +126,8 @@ Public Class DatabaseInitializer
         context.SaveChanges()
     End Sub
 
-    Private Sub AddUsersToDatabase(context As OtisContext)
-        context.Users.AddOrUpdate(
+    Private Sub AgregarUsuariosABaseDeDatos(context As BaseDeDatosOtis)
+        context.Usuarios.AddOrUpdate(
             New Usuario() With
             {
                 .UsuarioId = "115190794",
@@ -221,8 +221,8 @@ Public Class DatabaseInitializer
         )
         context.SaveChanges()
     End Sub
-    Private Sub AddCareersToDatabase(context As OtisContext)
-        context.Careers.AddOrUpdate(
+    Private Sub AgregarCarrerasABaseDeDatos(context As BaseDeDatosOtis)
+        context.Carreras.AddOrUpdate(
             New Carrera() With
             {
                 .CarreraId = 1,
@@ -256,8 +256,8 @@ Public Class DatabaseInitializer
         )
         context.SaveChanges()
     End Sub
-    Private Sub AddCategoriesToDatabase(context As OtisContext)
-        context.Categories.AddOrUpdate(
+    Private Sub AgregarCategoriasABaseDeDatos(context As BaseDeDatosOtis)
+        context.Categorias.AddOrUpdate(
             New Categoria() With
             {
                 .CategoriaId = 1,
@@ -274,9 +274,9 @@ Public Class DatabaseInitializer
         context.SaveChanges()
     End Sub
 
-    Private Sub AddQuestionsToDatabase(context As OtisContext)
+    Private Sub AgregarPreguntasABaseDeDatos(context As BaseDeDatosOtis)
 
-        context.Questions.AddOrUpdate(
+        context.Preguntas.AddOrUpdate(
             New Pregunta() With
             {
                 .PreguntaId = 1,
@@ -396,8 +396,8 @@ Public Class DatabaseInitializer
         context.SaveChanges()
     End Sub
 
-    Private Sub AddExamsToDatabase(context As OtisContext)
-        context.Exams.AddOrUpdate(
+    Private Sub AgregarExamenesABaseDeDatos(context As BaseDeDatosOtis)
+        context.Examenes.AddOrUpdate(
             New Examen() With
             {
                 .ExamenId = 1,
@@ -406,18 +406,18 @@ Public Class DatabaseInitializer
                 .Tiempo = 30,
                 .CantidadPreguntas = 3,
                 .EstaActivo = True,
-                .Preguntas = context.Questions.ToList()
+                .Preguntas = context.Preguntas.ToList()
             }
         )
         context.SaveChanges()
     End Sub
 
-    Private Sub AssignExamsToUsers(context As OtisContext)
-        Dim exam = context.Exams.FirstOrDefault(Function(e) e.ExamenId = 1)
-        Dim user = context.Users.FirstOrDefault(Function(u) u.UsuarioId = "115190794")
-        Dim user2 = context.Users.FirstOrDefault(Function(u) u.UsuarioId = "125740692")
+    Private Sub AsignarExamenAUsuario(context As BaseDeDatosOtis)
+        Dim exam = context.Examenes.FirstOrDefault(Function(e) e.ExamenId = 1)
+        Dim user = context.Usuarios.FirstOrDefault(Function(u) u.UsuarioId = "115190794")
+        Dim user2 = context.Usuarios.FirstOrDefault(Function(u) u.UsuarioId = "125740692")
 
-        context.UserExams.AddOrUpdate(
+        context.UsuarioExamenes.AddOrUpdate(
             New UsuarioExamen() With
             {
                 .Examen = exam,

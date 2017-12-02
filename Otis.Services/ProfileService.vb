@@ -10,7 +10,7 @@ Public Class ProfileService
     End Sub
 
     Public Function GetProfiles() As IEnumerable(Of ProfileDto)
-        Return unitOfWork.ProfileRepository.GetProfiles().Select(Function(x) New ProfileDto With
+        Return unitOfWork.PerfilRepositorio.ObtenerPerfiles().Select(Function(x) New ProfileDto With
         {
             .ProfileId = x.PerfilId,
             .Description = x.Descripcion,
@@ -27,7 +27,7 @@ Public Class ProfileService
 
     Public Function AddProfile(profile As ProfileDto) As String
         Try
-            unitOfWork.ProfileRepository.AddProfile(New Perfil() With
+            unitOfWork.PerfilRepositorio.AgregarPerfil(New Perfil() With
             {
                 .Nombre = profile.Name,
                 .Descripcion = profile.Description,
@@ -42,7 +42,7 @@ Public Class ProfileService
 
     Public Function UpdateProfile(profileId As Integer, profile As ProfileDto) As String
         Try
-            unitOfWork.ProfileRepository.UpdateProfile(GetProfileToUpdate(profileId, profile))
+            unitOfWork.PerfilRepositorio.ActualizarPerfil(GetProfileToUpdate(profileId, profile))
             Return "Perfil modificado correctamente."
         Catch ex As Exception
             Return "Hubo un problema al tratar de modificar el perfil. Favor contacte a soporte."
@@ -50,7 +50,7 @@ Public Class ProfileService
     End Function
 
     Private Function GetProfileToUpdate(id As Integer, profile As ProfileDto) As Perfil
-        Dim profileToUpdate = unitOfWork.ProfileRepository.GetProfileById(id)
+        Dim profileToUpdate = unitOfWork.PerfilRepositorio.ObtenerPerfilPorId(id)
 
         profileToUpdate.PerfilId = profile.ProfileId
         profileToUpdate.Nombre = profile.Name
@@ -65,7 +65,7 @@ Public Class ProfileService
         Dim entitlementList = New List(Of Permiso)
 
         For Each entitlement In profile.Entitlements
-            entitlementList.Add(unitOfWork.EntitlementRepository.GetEntitlementById(entitlement.EntitlementId))
+            entitlementList.Add(unitOfWork.PermisoRepositorio.ObtenerPermisoPorId(entitlement.EntitlementId))
         Next
 
         Return entitlementList

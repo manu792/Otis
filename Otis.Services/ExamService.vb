@@ -12,7 +12,7 @@ Public Class ExamService
 
     Public Function AddExam(exam As ExamDto) As String
         Try
-            unitOfWork.ExamRepository.AddExam(New Examen() With
+            unitOfWork.ExamenRepositorio.AgregarExamen(New Examen() With
             {
                 .Nombre = exam.Name,
                 .Descripcion = exam.Description,
@@ -20,7 +20,7 @@ Public Class ExamService
                 .CantidadPreguntas = exam.QuestionsQuantity,
                 .EstaActivo = exam.IsActive,
                 .Preguntas = exam.Questions.
-                        Select(Function(q) unitOfWork.QuestionRepository.GetQuestionById(q.QuestionId)).
+                        Select(Function(q) unitOfWork.PreguntaRepositorio.ObtenerPreguntaPorId(q.QuestionId)).
                         ToList()
             })
             Return "Examen creado correctamente."
@@ -31,7 +31,7 @@ Public Class ExamService
 
     Public Function UpdateExam(examId As Integer, exam As ExamDto) As String
         Try
-            unitOfWork.ExamRepository.UpdateExam(GetExam(examId, exam))
+            unitOfWork.ExamenRepositorio.ActualizarExamen(GetExam(examId, exam))
             Return "Examen modificado correctamente."
         Catch ex As Exception
             Return "Hubo un problema al tratar de modificar el examen. Favor contacte a soporte."
@@ -40,7 +40,7 @@ Public Class ExamService
 
     Public Function AssignUsersToExam(examId As Integer, exam As ExamDto) As String
         Try
-            unitOfWork.ExamRepository.UpdateExam(AssignUsers(examId, exam))
+            unitOfWork.ExamenRepositorio.ActualizarExamen(AssignUsers(examId, exam))
             Return "Asignacion realizada correctamente."
         Catch ex As Exception
             Return "Hubo un problema al tratar de asignar usuarios al examen. Favor contacte a soporte."
@@ -48,7 +48,7 @@ Public Class ExamService
     End Function
 
     Public Function GetAllExams() As IEnumerable(Of ExamDto)
-        Return unitOfWork.ExamRepository.GetAllExams().Select(Function(e) New ExamDto() With
+        Return unitOfWork.ExamenRepositorio.ObtenerExamenes().Select(Function(e) New ExamDto() With
         {
             .ExamId = e.ExamenId,
             .Name = e.Nombre,
@@ -66,14 +66,14 @@ Public Class ExamService
             }).ToList(),
             .ExamUsers = e.UsuarioExamenes.Select(Function(ue) New ExamUsersDto() With
             {
-                .User = ConvertUserToUserDto(unitOfWork.UserRepository.GetUser(ue.UsuarioId)),
+                .User = ConvertUserToUserDto(unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(ue.UsuarioId)),
                 .IsCompleted = ue.Completado
             }).ToList()
         }).ToList()
     End Function
 
     Public Function GetExamsForUser(userId As String) As IEnumerable(Of ExamDto)
-        Return unitOfWork.ExamRepository.GetExamsForUser(userId).Select(Function(e) New ExamDto() With
+        Return unitOfWork.ExamenRepositorio.ObtenerExamenesPorUsuarioId(userId).Select(Function(e) New ExamDto() With
         {
             .ExamId = e.ExamenId,
             .Name = e.Nombre,
@@ -84,7 +84,7 @@ Public Class ExamService
     End Function
 
     Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of QuestionDto)
-        Return unitOfWork.ExamRepository.GetQuestionsForExam(examId, questionsQuantity).Select(Function(q) New QuestionDto With
+        Return unitOfWork.ExamenRepositorio.ObtenerPreguntasPorExamenId(examId, questionsQuantity).Select(Function(q) New QuestionDto With
         {
             .QuestionId = q.PreguntaId,
             .QuestionText = q.PreguntaTexto,
@@ -99,7 +99,7 @@ Public Class ExamService
     End Function
 
     Public Sub AddTestEntry(testEntry As TestHistoryDto)
-        unitOfWork.TestHistoryRepository.AddTestEntry(New ExamenRespuestaHistorial With
+        unitOfWork.ExamenRespuestaRepositorio.AgregarExamenRespuesta(New ExamenRespuestaHistorial With
         {
             .PreguntaId = testEntry.QuestionId,
             .SesionId = testEntry.SessionId,
@@ -109,14 +109,14 @@ Public Class ExamService
     End Sub
 
     Public Sub SaveTest(sessionDto As SessionDto, examId As Integer, questionsAnsweredNumber As Integer)
-        unitOfWork.SessionRepository.AddSession(New Sesion With
+        unitOfWork.SesionRepositorio.AgregarSesion(New Sesion With
         {
             .SesionId = sessionDto.SessionId,
             .UsuarioId = sessionDto.User.Id,
             .FechaSesion = DateTime.Now
         })
-        unitOfWork.ExamsAppliedBySession.AddExamApplied(New ExamenAplicado() With {.SesionId = sessionDto.SessionId, .ExamenId = examId, .Revisado = False, .CantidadPreguntasRespondidas = questionsAnsweredNumber})
-        unitOfWork.ExamRepository.UpdateStatusForExamByUser(examId, sessionDto.User.Id, True)
+        unitOfWork.ExamenAplicadoRepositorio.AgregarExamenAplicado(New ExamenAplicado() With {.SesionId = sessionDto.SessionId, .ExamenId = examId, .Revisado = False, .CantidadPreguntasRespondidas = questionsAnsweredNumber})
+        unitOfWork.ExamenRepositorio.ActualizarExamenStatusPorUsuarioId(examId, sessionDto.User.Id, True)
         unitOfWork.SaveChanges()
     End Sub
 
@@ -153,11 +153,11 @@ Public Class ExamService
     End Function
 
     Private Function AssignUsers(examId As Integer, examDto As ExamDto) As Examen
-        Dim exam = unitOfWork.ExamRepository.GetExamById(examId)
+        Dim exam = unitOfWork.ExamenRepositorio.ObtenerExamenPorId(examId)
         Dim usersAssigned = New List(Of Usuario)
 
         For Each userAssigned In examDto.ExamUsers
-            usersAssigned.Add(unitOfWork.UserRepository.GetUser(userAssigned.User.Id))
+            usersAssigned.Add(unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userAssigned.User.Id))
         Next
 
         exam.UsuarioExamenes = usersAssigned.Select(Function(u) New UsuarioExamen() With
@@ -173,7 +173,7 @@ Public Class ExamService
     End Function
 
     Private Function GetExam(examId As Integer, exam As ExamDto) As Examen
-        Dim examToUpdate = unitOfWork.ExamRepository.GetExamById(examId)
+        Dim examToUpdate = unitOfWork.ExamenRepositorio.ObtenerExamenPorId(examId)
 
         examToUpdate.ExamenId = exam.ExamId
         examToUpdate.Nombre = exam.Name
@@ -181,7 +181,7 @@ Public Class ExamService
         examToUpdate.Tiempo = exam.Time
         examToUpdate.CantidadPreguntas = exam.QuestionsQuantity
         examToUpdate.EstaActivo = exam.IsActive
-        examToUpdate.Preguntas = exam.Questions.Select(Function(q) unitOfWork.QuestionRepository.GetQuestionById(q.QuestionId)).ToList()
+        examToUpdate.Preguntas = exam.Questions.Select(Function(q) unitOfWork.PreguntaRepositorio.ObtenerPreguntaPorId(q.QuestionId)).ToList()
 
         Return examToUpdate
     End Function

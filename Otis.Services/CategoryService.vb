@@ -11,7 +11,7 @@ Public Class CategoryService
     End Sub
 
     Public Function GetCategories() As IEnumerable(Of CategoryDto)
-        Return unitOfWork.CategoryRepository.GetCategories().Select(Function(c) New CategoryDto() With
+        Return unitOfWork.CategoriaRepositorio.ObtenerCategorias().Select(Function(c) New CategoryDto() With
         {
             .CategoryId = c.CategoriaId,
             .CategoryName = c.CategoriaNombre,
@@ -21,7 +21,7 @@ Public Class CategoryService
 
     Public Function AddCategory(category As CategoryDto) As String
         Try
-            unitOfWork.CategoryRepository.AddCategory(New Categoria() With
+            unitOfWork.CategoriaRepositorio.AgregarCategoria(New Categoria() With
             {
                 .CategoriaNombre = category.CategoryName,
                 .EstaActiva = category.IsActive
@@ -34,7 +34,7 @@ Public Class CategoryService
 
     Public Function UpdateCategory(categoryId As Integer, category As CategoryDto) As String
         Try
-            unitOfWork.CategoryRepository.UpdateCategory(GetCategories(categoryId, category))
+            unitOfWork.CategoriaRepositorio.ActualizarCategoria(GetCategories(categoryId, category))
             Return "Categoria modificada correctamente."
         Catch ex As Exception
             Return "Hubo problemas al tratar de modificar la categoria. Favor contacte a soporte."
@@ -42,7 +42,7 @@ Public Class CategoryService
     End Function
 
     Private Function GetCategories(categoryId As Integer, category As CategoryDto) As Categoria
-        Dim categoryToUpdate = unitOfWork.CategoryRepository.GetCategoryById(categoryId)
+        Dim categoryToUpdate = unitOfWork.CategoriaRepositorio.ObtenerCategoriaPorId(categoryId)
 
         categoryToUpdate.CategoriaId = category.CategoryId
         categoryToUpdate.CategoriaNombre = category.CategoryName

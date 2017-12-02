@@ -15,7 +15,7 @@ Public Class EmailService
 
     Public Function SendEmail(userName As String) As String
         Try
-            Dim user = unitOfWork.UserRepository.GetUser(userName)
+            Dim user = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userName)
             Dim newPassword As String = "Test123"
             user.Contrasena = encryptor.Encrypt(newPassword)
 
@@ -34,7 +34,7 @@ Public Class EmailService
             SmtpServer.Send(mail)
 
 
-            unitOfWork.UserRepository.SaveTemporaryPassword(user)
+            unitOfWork.UsuarioRepositorio.AgregarContrasenaTemporal(user)
 
             logService.AddLog(userName, "Se ha enviado el correo de recuperacion de contraseña exitosamente")
 
@@ -48,7 +48,7 @@ Public Class EmailService
 
     Public Sub SendSpecialistObservationToUser(userName As String, exam As String, dateApplied As Date, observation As String)
         Try
-            Dim user = unitOfWork.UserRepository.GetUser(userName)
+            Dim user = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userName)
 
             Dim mail As MailMessage = New MailMessage()
             Dim SmtpServer As SmtpClient = New SmtpClient("smtp.gmail.com")

@@ -7,7 +7,7 @@ Imports Otis.Security
 Namespace Migrations
 
     Friend NotInheritable Class Configuration
-        Inherits DbMigrationsConfiguration(Of OtisContext)
+        Inherits DbMigrationsConfiguration(Of BaseDeDatosOtis)
 
         Private encryptor As Encryptor
         Private databaseInitializer As DatabaseInitializer
@@ -18,10 +18,10 @@ Namespace Migrations
             databaseInitializer = New DatabaseInitializer()
         End Sub
 
-        Protected Overrides Sub Seed(context As OtisContext)
+        Protected Overrides Sub Seed(context As BaseDeDatosOtis)
             ' This method will be called after migrating to the latest version
             ' Below I add some data to the DB
-            databaseInitializer.SeedDatabase(context)
+            databaseInitializer.AlimentarBaseDeDatos(context)
         End Sub
     End Class
 End Namespace

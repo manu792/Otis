@@ -11,7 +11,7 @@ Public Class CareerService
     End Sub
 
     Public Function GetCareers() As IEnumerable(Of CareerDto)
-        Return unitOfWork.CareerRepository.GetCareers().Select(Function(x) New CareerDto() With
+        Return unitOfWork.CarreraRepositorio.ObtenerCarreras().Select(Function(x) New CareerDto() With
         {
             .CareerId = x.CarreraId,
             .CareerName = x.CarreraNombre,
@@ -21,7 +21,7 @@ Public Class CareerService
 
     Public Function AddCareer(career As CareerDto) As String
         Try
-            unitOfWork.CareerRepository.AddCareer(New Carrera() With
+            unitOfWork.CarreraRepositorio.AgregarCarrera(New Carrera() With
             {
                 .CarreraNombre = career.CareerName,
                 .EstaActiva = career.IsActive
@@ -34,7 +34,7 @@ Public Class CareerService
 
     Public Function UpdateCareer(careerId As Integer, career As CareerDto) As String
         Try
-            unitOfWork.CareerRepository.UpdateCareer(GetCareer(careerId, career))
+            unitOfWork.CarreraRepositorio.ActualizarCarrera(GetCareer(careerId, career))
             Return "Carrera modificada correctamente."
         Catch ex As Exception
             Return "Hubo un problema al tratar de modificar la carrera. Favor contacte a soporte."
@@ -42,7 +42,7 @@ Public Class CareerService
     End Function
 
     Private Function GetCareer(id As Integer, career As CareerDto) As Carrera
-        Dim careerToUpdate = unitOfWork.CareerRepository.GetCareerById(id)
+        Dim careerToUpdate = unitOfWork.CarreraRepositorio.ObtenerCarreraPorId(id)
 
         careerToUpdate.CarreraId = career.CareerId
         careerToUpdate.CarreraNombre = career.CareerName

@@ -10,7 +10,7 @@ Public Class TestHistoryService
     End Sub
 
     Public Function GetTestEntriesBySessionIdAndExamId(sessionId As Guid, examId As Integer) As IEnumerable(Of TestHistoryDto)
-        Return unitOfWork.TestHistoryRepository.GetTestEntriesBySessionIdAndExamId(sessionId, examId).
+        Return unitOfWork.ExamenRespuestaRepositorio.ObtenerExamenRespuestasPorSesionIdYExamenId(sessionId, examId).
             Select(Function(x) New TestHistoryDto() With
             {
                 .ExamId = x.ExamenId,

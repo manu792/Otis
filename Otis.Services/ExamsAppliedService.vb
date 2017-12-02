@@ -10,7 +10,7 @@ Public Class ExamsAppliedService
     End Sub
 
     Public Function GetPendingReviewExams() As IEnumerable(Of ExamsAppliedDto)
-        Return unitOfWork.ExamsAppliedBySession.GetPendingReviewExams().Select(Function(e) New ExamsAppliedDto() With
+        Return unitOfWork.ExamenAplicadoRepositorio.ObtenerExamenesPendientesDeRevision().Select(Function(e) New ExamsAppliedDto() With
         {
             .Exam = New ExamDto() With
             {
@@ -45,12 +45,12 @@ Public Class ExamsAppliedService
 
     Public Function UpdateExamApplied(sessionId As Guid, examId As Integer, observation As String) As String
         Try
-            Dim examAppliedToUpdate = unitOfWork.ExamsAppliedBySession.GetExamAppliedBySessionIdAndExamId(sessionId, examId)
+            Dim examAppliedToUpdate = unitOfWork.ExamenAplicadoRepositorio.ObtenerExamenAplicadoPorSesionIdYExamenId(sessionId, examId)
 
             examAppliedToUpdate.Revisado = True
             examAppliedToUpdate.Observacion = observation
 
-            unitOfWork.ExamsAppliedBySession.UpdateExamApplied(examAppliedToUpdate)
+            unitOfWork.ExamenAplicadoRepositorio.ActualizarExamenAplicado(examAppliedToUpdate)
 
             Return "Examen ha sido revisado satisfactoriamente. Observacion registrada."
         Catch ex As Exception
