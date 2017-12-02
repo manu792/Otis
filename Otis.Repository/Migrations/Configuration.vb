@@ -13,7 +13,7 @@ Namespace Migrations
         Private databaseInitializer As DatabaseInitializer
 
         Public Sub New()
-            AutomaticMigrationsEnabled = True
+            AutomaticMigrationsEnabled = False
             encryptor = New Encryptor()
             databaseInitializer = New DatabaseInitializer()
         End Sub

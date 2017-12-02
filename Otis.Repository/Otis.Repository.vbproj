@@ -71,10 +71,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseInitializer.vb" />
-    <Compile Include="Migrations\201712020244594_Initial.Designer.vb">
-      <DependentUpon>201712020244594_Initial.vb</DependentUpon>
+    <Compile Include="Migrations\201712021254056_Initial.Designer.vb">
+      <DependentUpon>201712021254056_Initial.vb</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201712020244594_Initial.vb" />
+    <Compile Include="Migrations\201712021254056_Initial.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Models\LogActividad.vb" />
     <Compile Include="Models\ExamenAplicado.vb" />
@@ -107,8 +107,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712020244594_Initial.resx">
-      <DependentUpon>201712020244594_Initial.vb</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712021254056_Initial.resx">
+      <DependentUpon>201712021254056_Initial.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
