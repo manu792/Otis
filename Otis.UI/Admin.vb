@@ -94,6 +94,7 @@ Public Class Admin
         users = retrievedUsers
         usersBindingSource.DataSource = ConvertUsersToDataTable(users)
         UsuariosGrid.DataSource = usersBindingSource
+        UsuariosGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
         ' Assign Exam Students Grid below
         assignExamsStudentsBindingSource.DataSource = ConvertUsersToDataTable(users.Where(Function(u) u.IsActive = True And (u.Profile.Name.Equals("Estudiante") Or u.Profile.Name.Equals("Primer Ingreso"))))
@@ -104,6 +105,7 @@ Public Class Admin
         questions = retrievedQuestions
         questionsBindingSource.DataSource = ConvertQuestionsToDataTable(questions)
         PreguntasGrid.DataSource = questionsBindingSource
+        PreguntasGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
 
         ' Exams tab logic below
         CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
@@ -168,6 +170,8 @@ Public Class Admin
         profiles = profilesDto
         profilesBindingSource.DataSource = ConvertProfilesToDataTable(profiles)
         PerfilesGrid.DataSource = profilesBindingSource
+        PerfilesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+
 
         ProfilesComboBox.Items.Clear()
         EditarUsuarioPerfilCombo.Items.Clear()
@@ -181,6 +185,7 @@ Public Class Admin
         careers = careersDto
         careersBindingSource.DataSource = ConvertCareersToDataTable(careers)
         CarrerasGrid.DataSource = careersBindingSource
+        CarrerasGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
         CareersComboBox.Items.Clear()
         EditarUsuarioCarreraCombo.Items.Clear()
@@ -208,6 +213,7 @@ Public Class Admin
         categories = categoriesDto
         categoriesBindingSource.DataSource = ConvertCategoriesToDataTable(categories)
         CategoriasGrid.DataSource = categoriesBindingSource
+        CategoriasGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
         categoriesComboBox.Items.Clear()
         EditarPreguntaCategoriaCombo.Items.Clear()
@@ -243,6 +249,7 @@ Public Class Admin
         entitlements = entitlementsDto
         entitlementsBindingSource.DataSource = ConvertEntitlementsToDataTable(entitlements)
         PermisosGrid.DataSource = entitlementsBindingSource
+        PermisosGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
         PermisosLista.DataSource = entitlements.Where(Function(p) p.IsActive = True).ToList()
         PermisosCrearPerfil.DataSource = entitlements.Where(Function(p) p.IsActive = True).ToList()
@@ -489,16 +496,19 @@ Public Class Admin
         logs = logsDto
         logsBindingSource.DataSource = ConvertLogsToDataTable(logs)
         LogsGrid.DataSource = logsBindingSource
+        LogsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
     End Sub
 
     Private Sub LoadExams(examsDto As IEnumerable(Of ExamDto))
         exams = examsDto
         examsBindingSource.DataSource = ConvertExamsToDataTable(exams)
         ExamenesGrid.DataSource = examsBindingSource
+        ExamenesGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
         ' Assign Exam section below
         assignExamsBindingSource.DataSource = ConvertExamsToDataTable(exams)
         AsignarExamenGrid.DataSource = assignExamsBindingSource
+        AsignarExamenGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
     End Sub
 
     Private Function ConvertLogsToDataTable(logs As IEnumerable(Of ActivityLogDto)) As DataTable
