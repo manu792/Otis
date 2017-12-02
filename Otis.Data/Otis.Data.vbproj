@@ -80,17 +80,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Repositories\LogActividadRepositorio.vb" />
-    <Compile Include="Repositories\CarreraRepositorio.vb" />
-    <Compile Include="Repositories\CategoriaRepositorio.vb" />
-    <Compile Include="Repositories\PermisoRepositorio.vb" />
-    <Compile Include="Repositories\ExamenRepositorio.vb" />
-    <Compile Include="Repositories\ExamenAplicadoRepositorio.vb" />
-    <Compile Include="Repositories\PerfilRepositorio.vb" />
-    <Compile Include="Repositories\SesionRepositorio.vb" />
-    <Compile Include="Repositories\ExamenRespuestaRepositorio.vb" />
-    <Compile Include="Repositories\UsuarioRepositorio.vb" />
-    <Compile Include="Repositories\PreguntaRepositorio.vb" />
+    <Compile Include="Repositorios\LogActividadRepositorio.vb" />
+    <Compile Include="Repositorios\CarreraRepositorio.vb" />
+    <Compile Include="Repositorios\CategoriaRepositorio.vb" />
+    <Compile Include="Repositorios\PermisoRepositorio.vb" />
+    <Compile Include="Repositorios\ExamenRepositorio.vb" />
+    <Compile Include="Repositorios\ExamenAplicadoRepositorio.vb" />
+    <Compile Include="Repositorios\PerfilRepositorio.vb" />
+    <Compile Include="Repositorios\SesionRepositorio.vb" />
+    <Compile Include="Repositorios\ExamenRespuestaRepositorio.vb" />
+    <Compile Include="Repositorios\UsuarioRepositorio.vb" />
+    <Compile Include="Repositorios\PreguntaRepositorio.vb" />
     <Compile Include="UnitOfWork.vb" />
   </ItemGroup>
   <ItemGroup>
