@@ -12,10 +12,10 @@ Public Class UnitOfWork
     Private _perfilRepositorio As PerfilRepositorio
     Private _carreraRepositorio As CarreraRepositorio
     Private _permisoRepositorio As PermisoRepositorio
-    Private bdContexto As BaseDeDatosOtis
+    Private bdContexto As OtisContexto
 
     Public Sub New()
-        bdContexto = New BaseDeDatosOtis()
+        bdContexto = New OtisContexto()
     End Sub
 
     Public ReadOnly Property UsuarioRepositorio() As UsuarioRepositorio

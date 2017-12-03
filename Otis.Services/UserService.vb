@@ -5,11 +5,11 @@ Imports Otis.Security
 
 Public Class UserService
     Private unitOfWork As UnitOfWork
-    Private encryptor As Encryptor
+    Private encryptor As Encriptador
 
     Public Sub New()
         unitOfWork = New UnitOfWork()
-        encryptor = New Encryptor()
+        encryptor = New Encriptador()
     End Sub
 
     Public Function AddUser(user As UsuarioDto) As String
@@ -21,7 +21,7 @@ Public Class UserService
                 .PrimerApellido = user.PrimerApellido,
                 .SegundoApellido = user.SegundoApellido,
                 .CarreraId = user.Carrera?.CarreraId,
-                .Contrasena = encryptor.Encrypt(user.Contrasena),
+                .Contrasena = encryptor.Encriptar(user.Contrasena),
                 .CorreoElectronico = user.CorreoElectronico,
                 .PerfilId = user.Perfil.PerfilId,
                 .EsContrasenaTemporal = user.EsContrasenaTemporal,
@@ -95,7 +95,7 @@ Public Class UserService
     Public Function ValidateUser(user As UsuarioDto) As UsuarioDto
         Dim retrievedUser = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(user.UsuarioId)
         If Not retrievedUser Is Nothing Then
-            If ArePasswordsEqual(encryptor.GetHashBytes(user.Contrasena, retrievedUser.Contrasena)) Then
+            If ArePasswordsEqual(encryptor.ObtenerHashBytes(user.Contrasena, retrievedUser.Contrasena)) Then
                 user.EsContrasenaTemporal = retrievedUser.EsContrasenaTemporal
                 Return user
             End If
@@ -115,12 +115,12 @@ Public Class UserService
     End Function
 
     Private Function EncryptPassword(password As String) As String
-        Return encryptor.Encrypt(password)
+        Return encryptor.Encriptar(password)
     End Function
 
-    Private Function ArePasswordsEqual(passwordsHash As PasswordsHash) As Boolean
+    Private Function ArePasswordsEqual(passwordsHash As ContrasenasHash) As Boolean
         For i As Integer = 0 To i > 20
-            If passwordsHash.StoredPasswordHashBytes(i + 16) <> passwordsHash.UserPasswordHashBytes(i) Then
+            If passwordsHash.HashBytesContrasenaAlmacenada(i + 16) <> passwordsHash.HashBytesUsuarioContrasena(i) Then
                 Return False
             End If
         Next

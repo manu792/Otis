@@ -3,8 +3,8 @@ Imports System.Data.Entity
 
 Public Class UsuarioRepositorio
 
-    Private bdContexto As BaseDeDatosOtis
-    Public Sub New(contexto As BaseDeDatosOtis)
+    Private bdContexto As OtisContexto
+    Public Sub New(contexto As OtisContexto)
         bdContexto = contexto
     End Sub
 

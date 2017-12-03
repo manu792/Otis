@@ -4,12 +4,12 @@ Imports Otis.Security
 
 Public Class EmailService
     Private unitOfWork As UnitOfWork
-    Private encryptor As Encryptor
+    Private encryptor As Encriptador
     Private logService As LogService
 
     Public Sub New()
         unitOfWork = New UnitOfWork()
-        encryptor = New Encryptor()
+        encryptor = New Encriptador()
         logService = New LogService()
     End Sub
 
@@ -17,7 +17,7 @@ Public Class EmailService
         Try
             Dim user = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userName)
             Dim newPassword As String = "Test123"
-            user.Contrasena = encryptor.Encrypt(newPassword)
+            user.Contrasena = encryptor.Encriptar(newPassword)
 
             Dim mail As MailMessage = New MailMessage()
             Dim SmtpServer As SmtpClient = New SmtpClient("smtp.gmail.com")

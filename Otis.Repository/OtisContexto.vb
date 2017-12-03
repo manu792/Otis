@@ -1,6 +1,6 @@
 ﻿Imports System.Data.Entity
 
-Public Class BaseDeDatosOtis
+Public Class OtisContexto
     Inherits DbContext
 
     Public Sub New()

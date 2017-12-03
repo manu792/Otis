@@ -3,20 +3,20 @@ Imports System.Data.Entity.Migrations
 Imports Otis.Security
 
 Public Class DatabaseInitializer
-    Inherits DropCreateDatabaseIfModelChanges(Of BaseDeDatosOtis)
+    Inherits DropCreateDatabaseIfModelChanges(Of OtisContexto)
 
-    Private encryptor As Encryptor
+    Private encryptor As Encriptador
 
     Public Sub New()
-        encryptor = New Encryptor()
+        encryptor = New Encriptador()
     End Sub
 
-    Protected Overrides Sub Seed(context As BaseDeDatosOtis)
+    Protected Overrides Sub Seed(context As OtisContexto)
         AlimentarBaseDeDatos(context)
         MyBase.Seed(context)
     End Sub
 
-    Public Sub AlimentarBaseDeDatos(context As BaseDeDatosOtis)
+    Public Sub AlimentarBaseDeDatos(context As OtisContexto)
         AgregarPermisosABaseDeDatos(context)
         AgregarPerfilesABaseDeDatos(context)
         AgregarCarrerasABaseDeDatos(context)
@@ -27,7 +27,7 @@ Public Class DatabaseInitializer
         AsignarExamenAUsuario(context)
     End Sub
 
-    Private Sub AgregarPermisosABaseDeDatos(context As BaseDeDatosOtis)
+    Private Sub AgregarPermisosABaseDeDatos(context As OtisContexto)
         context.Permisos.AddOrUpdate(
             New Permiso() With
             {
@@ -86,7 +86,7 @@ Public Class DatabaseInitializer
         )
         context.SaveChanges()
     End Sub
-    Private Sub AgregarPerfilesABaseDeDatos(context As BaseDeDatosOtis)
+    Private Sub AgregarPerfilesABaseDeDatos(context As OtisContexto)
         Dim entitlements = context.Permisos.ToList()
 
         context.Perfiles.AddOrUpdate(
@@ -126,12 +126,12 @@ Public Class DatabaseInitializer
         context.SaveChanges()
     End Sub
 
-    Private Sub AgregarUsuariosABaseDeDatos(context As BaseDeDatosOtis)
+    Private Sub AgregarUsuariosABaseDeDatos(context As OtisContexto)
         context.Usuarios.AddOrUpdate(
             New Usuario() With
             {
                 .UsuarioId = "115190794",
-                .Contrasena = encryptor.Encrypt("ManuRoman"),
+                .Contrasena = encryptor.Encriptar("ManuRoman"),
                 .CorreoElectronico = "manu.roman792@gmail.com",
                 .EsContrasenaTemporal = False,
                 .PerfilId = 2,
@@ -144,7 +144,7 @@ Public Class DatabaseInitializer
             New Usuario() With
             {
                 .UsuarioId = "125740692",
-                .Contrasena = encryptor.Encrypt("Test"),
+                .Contrasena = encryptor.Encriptar("Test"),
                 .CorreoElectronico = "test@gmail.com",
                 .EsContrasenaTemporal = False,
                 .PerfilId = 2,
@@ -157,7 +157,7 @@ Public Class DatabaseInitializer
             New Usuario() With
             {
                 .UsuarioId = "111111111",
-                .Contrasena = encryptor.Encrypt("Admin"),
+                .Contrasena = encryptor.Encriptar("Admin"),
                 .CorreoElectronico = "admin@gmail.com",
                 .EsContrasenaTemporal = False,
                 .PerfilId = 1,
@@ -170,7 +170,7 @@ Public Class DatabaseInitializer
             New Usuario() With
             {
                 .UsuarioId = "7777777777",
-                .Contrasena = encryptor.Encrypt("Especialista"),
+                .Contrasena = encryptor.Encriptar("Especialista"),
                 .CorreoElectronico = "especialista@gmail.com",
                 .EsContrasenaTemporal = False,
                 .PerfilId = 3,
@@ -183,7 +183,7 @@ Public Class DatabaseInitializer
             New Usuario() With
             {
                 .UsuarioId = "202020",
-                .Contrasena = encryptor.Encrypt("Admin"),
+                .Contrasena = encryptor.Encriptar("Admin"),
                 .CorreoElectronico = "admin@gmail.com",
                 .EsContrasenaTemporal = False,
                 .PerfilId = 1,
@@ -196,7 +196,7 @@ Public Class DatabaseInitializer
             New Usuario() With
             {
                 .UsuarioId = "505050",
-                .Contrasena = encryptor.Encrypt("Especialista"),
+                .Contrasena = encryptor.Encriptar("Especialista"),
                 .CorreoElectronico = "especialista@gmail.com",
                 .EsContrasenaTemporal = False,
                 .PerfilId = 3,
@@ -209,7 +209,7 @@ Public Class DatabaseInitializer
             New Usuario() With
             {
                 .UsuarioId = "606060",
-                .Contrasena = encryptor.Encrypt("PrimerIngreso"),
+                .Contrasena = encryptor.Encriptar("PrimerIngreso"),
                 .CorreoElectronico = "ocariscc@gmail.com",
                 .EsContrasenaTemporal = False,
                 .PerfilId = 3,
@@ -221,7 +221,7 @@ Public Class DatabaseInitializer
         )
         context.SaveChanges()
     End Sub
-    Private Sub AgregarCarrerasABaseDeDatos(context As BaseDeDatosOtis)
+    Private Sub AgregarCarrerasABaseDeDatos(context As OtisContexto)
         context.Carreras.AddOrUpdate(
             New Carrera() With
             {
@@ -256,7 +256,7 @@ Public Class DatabaseInitializer
         )
         context.SaveChanges()
     End Sub
-    Private Sub AgregarCategoriasABaseDeDatos(context As BaseDeDatosOtis)
+    Private Sub AgregarCategoriasABaseDeDatos(context As OtisContexto)
         context.Categorias.AddOrUpdate(
             New Categoria() With
             {
@@ -274,7 +274,7 @@ Public Class DatabaseInitializer
         context.SaveChanges()
     End Sub
 
-    Private Sub AgregarPreguntasABaseDeDatos(context As BaseDeDatosOtis)
+    Private Sub AgregarPreguntasABaseDeDatos(context As OtisContexto)
 
         context.Preguntas.AddOrUpdate(
             New Pregunta() With
@@ -396,7 +396,7 @@ Public Class DatabaseInitializer
         context.SaveChanges()
     End Sub
 
-    Private Sub AgregarExamenesABaseDeDatos(context As BaseDeDatosOtis)
+    Private Sub AgregarExamenesABaseDeDatos(context As OtisContexto)
         context.Examenes.AddOrUpdate(
             New Examen() With
             {
@@ -412,7 +412,7 @@ Public Class DatabaseInitializer
         context.SaveChanges()
     End Sub
 
-    Private Sub AsignarExamenAUsuario(context As BaseDeDatosOtis)
+    Private Sub AsignarExamenAUsuario(context As OtisContexto)
         Dim exam = context.Examenes.FirstOrDefault(Function(e) e.ExamenId = 1)
         Dim user = context.Usuarios.FirstOrDefault(Function(u) u.UsuarioId = "115190794")
         Dim user2 = context.Usuarios.FirstOrDefault(Function(u) u.UsuarioId = "125740692")

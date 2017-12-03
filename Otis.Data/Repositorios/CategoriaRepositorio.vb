@@ -2,9 +2,9 @@
 
 Public Class CategoriaRepositorio
 
-    Private bdContexto As BaseDeDatosOtis
+    Private bdContexto As OtisContexto
 
-    Public Sub New(contexto As BaseDeDatosOtis)
+    Public Sub New(contexto As OtisContexto)
         bdContexto = contexto
     End Sub
 

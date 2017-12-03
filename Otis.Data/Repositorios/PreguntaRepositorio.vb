@@ -3,9 +3,9 @@ Imports Otis.Repository
 
 Public Class PreguntaRepositorio
 
-    Private bdContexto As BaseDeDatosOtis
+    Private bdContexto As OtisContexto
 
-    Public Sub New(contexto As BaseDeDatosOtis)
+    Public Sub New(contexto As OtisContexto)
         bdContexto = contexto
     End Sub
     Public Function ObtenerPreguntas() As IEnumerable(Of Pregunta)

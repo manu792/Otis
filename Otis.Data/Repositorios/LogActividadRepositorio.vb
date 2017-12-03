@@ -3,10 +3,10 @@ Imports System.Data.Entity
 
 Public Class LogActividadRepositorio
 
-    Private bdContexto As BaseDeDatosOtis
+    Private bdContexto As OtisContexto
 
     Public Sub New()
-        bdContexto = New BaseDeDatosOtis()
+        bdContexto = New OtisContexto()
     End Sub
 
     Public Function ObtenerLogs() As IEnumerable(Of LogActividad)
