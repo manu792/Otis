@@ -10,17 +10,17 @@ Public Class ExamService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function AddExam(exam As ExamDto) As String
+    Public Function AddExam(exam As ExamenDto) As String
         Try
             unitOfWork.ExamenRepositorio.AgregarExamen(New Examen() With
             {
-                .Nombre = exam.Name,
-                .Descripcion = exam.Description,
-                .Tiempo = exam.Time,
-                .CantidadPreguntas = exam.QuestionsQuantity,
-                .EstaActivo = exam.IsActive,
-                .Preguntas = exam.Questions.
-                        Select(Function(q) unitOfWork.PreguntaRepositorio.ObtenerPreguntaPorId(q.QuestionId)).
+                .Nombre = exam.Nombre,
+                .Descripcion = exam.Descripcion,
+                .Tiempo = exam.Tiempo,
+                .CantidadPreguntas = exam.CantidadPreguntas,
+                .EstaActivo = exam.EstaActivo,
+                .Preguntas = exam.Preguntas.
+                        Select(Function(q) unitOfWork.PreguntaRepositorio.ObtenerPreguntaPorId(q.PreguntaId)).
                         ToList()
             })
             Return "Examen creado correctamente."
@@ -29,7 +29,7 @@ Public Class ExamService
         End Try
     End Function
 
-    Public Function UpdateExam(examId As Integer, exam As ExamDto) As String
+    Public Function UpdateExam(examId As Integer, exam As ExamenDto) As String
         Try
             unitOfWork.ExamenRepositorio.ActualizarExamen(GetExam(examId, exam))
             Return "Examen modificado correctamente."
@@ -38,7 +38,7 @@ Public Class ExamService
         End Try
     End Function
 
-    Public Function AssignUsersToExam(examId As Integer, exam As ExamDto) As String
+    Public Function AssignUsersToExam(examId As Integer, exam As ExamenDto) As String
         Try
             unitOfWork.ExamenRepositorio.ActualizarExamen(AssignUsers(examId, exam))
             Return "Asignacion realizada correctamente."
@@ -47,117 +47,117 @@ Public Class ExamService
         End Try
     End Function
 
-    Public Function GetAllExams() As IEnumerable(Of ExamDto)
-        Return unitOfWork.ExamenRepositorio.ObtenerExamenes().Select(Function(e) New ExamDto() With
+    Public Function GetAllExams() As IEnumerable(Of ExamenDto)
+        Return unitOfWork.ExamenRepositorio.ObtenerExamenes().Select(Function(e) New ExamenDto() With
         {
-            .ExamId = e.ExamenId,
-            .Name = e.Nombre,
-            .Description = e.Descripcion,
-            .Time = e.Tiempo,
-            .QuestionsQuantity = e.CantidadPreguntas,
-            .IsActive = e.EstaActivo,
-            .Questions = e.Preguntas.Select(Function(q) New QuestionDto() With
+            .ExamenId = e.ExamenId,
+            .Nombre = e.Nombre,
+            .Descripcion = e.Descripcion,
+            .Tiempo = e.Tiempo,
+            .CantidadPreguntas = e.CantidadPreguntas,
+            .EstaActivo = e.EstaActivo,
+            .Preguntas = e.Preguntas.Select(Function(q) New PreguntaDto() With
             {
-                .QuestionId = q.PreguntaId,
-                .QuestionText = q.PreguntaTexto,
-                .ImagePath = q.ImagenDireccion,
-                .Category = New CategoryDto() With {.CategoryId = q.Categoria.CategoriaId, .CategoryName = q.Categoria.CategoriaNombre, .IsActive = q.Categoria.EstaActiva},
-                .IsActive = q.EstaActiva
+                .PreguntaId = q.PreguntaId,
+                .PreguntaTexto = q.PreguntaTexto,
+                .ImagenDireccion = q.ImagenDireccion,
+                .Categoria = New CategoriaDto() With {.CategoriaId = q.Categoria.CategoriaId, .CategoriaNombre = q.Categoria.CategoriaNombre, .EstaActiva = q.Categoria.EstaActiva},
+                .EstaActiva = q.EstaActiva
             }).ToList(),
-            .ExamUsers = e.UsuarioExamenes.Select(Function(ue) New ExamUsersDto() With
+            .UsuarioExamenes = e.UsuarioExamenes.Select(Function(ue) New UsuarioExamenDto() With
             {
-                .User = ConvertUserToUserDto(unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(ue.UsuarioId)),
-                .IsCompleted = ue.Completado
+                .Usuario = ConvertUserToUserDto(unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(ue.UsuarioId)),
+                .Completado = ue.Completado
             }).ToList()
         }).ToList()
     End Function
 
-    Public Function GetExamsForUser(userId As String) As IEnumerable(Of ExamDto)
-        Return unitOfWork.ExamenRepositorio.ObtenerExamenesPorUsuarioId(userId).Select(Function(e) New ExamDto() With
+    Public Function GetExamsForUser(userId As String) As IEnumerable(Of ExamenDto)
+        Return unitOfWork.ExamenRepositorio.ObtenerExamenesPorUsuarioId(userId).Select(Function(e) New ExamenDto() With
         {
-            .ExamId = e.ExamenId,
-            .Name = e.Nombre,
-            .Description = e.Descripcion,
-            .Time = e.Tiempo,
-            .QuestionsQuantity = e.CantidadPreguntas
+            .ExamenId = e.ExamenId,
+            .Nombre = e.Nombre,
+            .Descripcion = e.Descripcion,
+            .Tiempo = e.Tiempo,
+            .CantidadPreguntas = e.CantidadPreguntas
         }).ToList()
     End Function
 
-    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of QuestionDto)
-        Return unitOfWork.ExamenRepositorio.ObtenerPreguntasPorExamenId(examId, questionsQuantity).Select(Function(q) New QuestionDto With
+    Public Function GetQuestionsForExam(examId As Integer, questionsQuantity As Integer) As IEnumerable(Of PreguntaDto)
+        Return unitOfWork.ExamenRepositorio.ObtenerPreguntasPorExamenId(examId, questionsQuantity).Select(Function(q) New PreguntaDto With
         {
-            .QuestionId = q.PreguntaId,
-            .QuestionText = q.PreguntaTexto,
-            .Category = New CategoryDto() With {.CategoryId = q.Categoria.CategoriaId, .CategoryName = q.Categoria.CategoriaNombre},
-            .ImagePath = q.ImagenDireccion,
-            .Answers = q.Respuestas.Select(Function(a) New AnswerDto() With
+            .PreguntaId = q.PreguntaId,
+            .PreguntaTexto = q.PreguntaTexto,
+            .Categoria = New CategoriaDto() With {.CategoriaId = q.Categoria.CategoriaId, .CategoriaNombre = q.Categoria.CategoriaNombre},
+            .ImagenDireccion = q.ImagenDireccion,
+            .Respuestas = q.Respuestas.Select(Function(a) New RespuestaDto() With
             {
-                .QuestionId = a.PreguntaId,
-                .AnswerText = a.PreguntaTexto
+                .PreguntaId = a.PreguntaId,
+                .RespuestaTexto = a.PreguntaTexto
             }).ToList()
         }).ToList()
     End Function
 
-    Public Sub AddTestEntry(testEntry As TestHistoryDto)
+    Public Sub AddTestEntry(testEntry As ExamenRespuestaDto)
         unitOfWork.ExamenRespuestaRepositorio.AgregarExamenRespuesta(New ExamenRespuestaHistorial With
         {
-            .PreguntaId = testEntry.QuestionId,
-            .SesionId = testEntry.SessionId,
-            .ExamenId = testEntry.ExamId,
-            .UsuarioRespuesta = testEntry.UserAnswer
+            .PreguntaId = testEntry.PreguntaId,
+            .SesionId = testEntry.SesionId,
+            .ExamenId = testEntry.ExamenId,
+            .UsuarioRespuesta = testEntry.UsuarioRespuesta
         })
     End Sub
 
-    Public Sub SaveTest(sessionDto As SessionDto, examId As Integer, questionsAnsweredNumber As Integer)
+    Public Sub SaveTest(sessionDto As SesionDto, examId As Integer, questionsAnsweredNumber As Integer)
         unitOfWork.SesionRepositorio.AgregarSesion(New Sesion With
         {
-            .SesionId = sessionDto.SessionId,
-            .UsuarioId = sessionDto.User.Id,
+            .SesionId = sessionDto.SesionId,
+            .UsuarioId = sessionDto.Usuario.UsuarioId,
             .FechaSesion = DateTime.Now
         })
-        unitOfWork.ExamenAplicadoRepositorio.AgregarExamenAplicado(New ExamenAplicado() With {.SesionId = sessionDto.SessionId, .ExamenId = examId, .Revisado = False, .CantidadPreguntasRespondidas = questionsAnsweredNumber})
-        unitOfWork.ExamenRepositorio.ActualizarExamenStatusPorUsuarioId(examId, sessionDto.User.Id, True)
+        unitOfWork.ExamenAplicadoRepositorio.AgregarExamenAplicado(New ExamenAplicado() With {.SesionId = sessionDto.SesionId, .ExamenId = examId, .Revisado = False, .CantidadPreguntasRespondidas = questionsAnsweredNumber})
+        unitOfWork.ExamenRepositorio.ActualizarExamenStatusPorUsuarioId(examId, sessionDto.Usuario.UsuarioId, True)
         unitOfWork.SaveChanges()
     End Sub
 
-    Private Function ConvertUserToUserDto(user As Usuario) As UserDto
-        Return New UserDto() With
+    Private Function ConvertUserToUserDto(user As Usuario) As UsuarioDto
+        Return New UsuarioDto() With
         {
-            .Id = user.UsuarioId,
-            .Name = user.Nombre,
-            .LastName = user.PrimerApellido,
-            .SecondLastName = user.SegundoApellido,
-            .EmailAddress = user.CorreoElectronico,
-            .Profile = New ProfileDto() With
+            .UsuarioId = user.UsuarioId,
+            .Nombre = user.Nombre,
+            .PrimerApellido = user.PrimerApellido,
+            .SegundoApellido = user.SegundoApellido,
+            .CorreoElectronico = user.CorreoElectronico,
+            .Perfil = New PerfilDto() With
             {
-                .ProfileId = user.Perfil.PerfilId,
-                .Name = user.Perfil.Nombre,
-                .Description = user.Perfil.Descripcion,
-                .Entitlements = user.Perfil.Permisos.Select(Function(e) New EntitlementDto() With
+                .PerfilId = user.Perfil.PerfilId,
+                .Nombre = user.Perfil.Nombre,
+                .Descripcion = user.Perfil.Descripcion,
+                .Permisos = user.Perfil.Permisos.Select(Function(e) New PermisoDto() With
                 {
-                    .EntitlementId = e.PermisoId,
-                    .Name = e.Nombre,
-                    .IsActive = e.EstaActivo
+                    .PermisoId = e.PermisoId,
+                    .Nombre = e.Nombre,
+                    .EstaActivo = e.EstaActivo
                 }).ToList(),
-                .IsActive = user.Perfil.EstaActivo
+                .EstaActivo = user.Perfil.EstaActivo
             },
-            .IsTemporaryPassword = user.EsContrasenaTemporal,
-            .Career = If(user.Carrera IsNot Nothing, New CareerDto() With
+            .EsContrasenaTemporal = user.EsContrasenaTemporal,
+            .Carrera = If(user.Carrera IsNot Nothing, New CarreraDto() With
             {
-                .CareerId = user.Carrera.CarreraId,
-                .CareerName = user.Carrera.CarreraNombre,
-                .IsActive = user.Carrera.EstaActiva
+                .CarreraId = user.Carrera.CarreraId,
+                .CarreraNombre = user.Carrera.CarreraNombre,
+                .EstaActiva = user.Carrera.EstaActiva
             }, Nothing),
-            .IsActive = user.EstaActivo
+            .EstaActivo = user.EstaActivo
         }
     End Function
 
-    Private Function AssignUsers(examId As Integer, examDto As ExamDto) As Examen
+    Private Function AssignUsers(examId As Integer, examDto As ExamenDto) As Examen
         Dim exam = unitOfWork.ExamenRepositorio.ObtenerExamenPorId(examId)
         Dim usersAssigned = New List(Of Usuario)
 
-        For Each userAssigned In examDto.ExamUsers
-            usersAssigned.Add(unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userAssigned.User.Id))
+        For Each userAssigned In examDto.UsuarioExamenes
+            usersAssigned.Add(unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userAssigned.Usuario.UsuarioId))
         Next
 
         exam.UsuarioExamenes = usersAssigned.Select(Function(u) New UsuarioExamen() With
@@ -166,22 +166,22 @@ Public Class ExamService
             .ExamenId = exam.ExamenId,
             .Usuario = u,
             .UsuarioId = u.UsuarioId,
-            .Completado = examDto.ExamUsers.FirstOrDefault(Function(eu) eu.User.Id = u.UsuarioId).IsCompleted
+            .Completado = examDto.UsuarioExamenes.FirstOrDefault(Function(eu) eu.Usuario.UsuarioId = u.UsuarioId).Completado
         }).ToList()
 
         Return exam
     End Function
 
-    Private Function GetExam(examId As Integer, exam As ExamDto) As Examen
+    Private Function GetExam(examId As Integer, exam As ExamenDto) As Examen
         Dim examToUpdate = unitOfWork.ExamenRepositorio.ObtenerExamenPorId(examId)
 
-        examToUpdate.ExamenId = exam.ExamId
-        examToUpdate.Nombre = exam.Name
-        examToUpdate.Descripcion = exam.Description
-        examToUpdate.Tiempo = exam.Time
-        examToUpdate.CantidadPreguntas = exam.QuestionsQuantity
-        examToUpdate.EstaActivo = exam.IsActive
-        examToUpdate.Preguntas = exam.Questions.Select(Function(q) unitOfWork.PreguntaRepositorio.ObtenerPreguntaPorId(q.QuestionId)).ToList()
+        examToUpdate.ExamenId = exam.ExamenId
+        examToUpdate.Nombre = exam.Nombre
+        examToUpdate.Descripcion = exam.Descripcion
+        examToUpdate.Tiempo = exam.Tiempo
+        examToUpdate.CantidadPreguntas = exam.CantidadPreguntas
+        examToUpdate.EstaActivo = exam.EstaActivo
+        examToUpdate.Preguntas = exam.Preguntas.Select(Function(q) unitOfWork.PreguntaRepositorio.ObtenerPreguntaPorId(q.PreguntaId)).ToList()
 
         Return examToUpdate
     End Function

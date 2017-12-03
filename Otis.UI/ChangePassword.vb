@@ -5,11 +5,11 @@ Public Class ChangePassword
 
     Private userService As UserService
     Private loginForm As Login
-    Private user As UserDto
+    Private user As UsuarioDto
     Private router As Router
     Private logService As LogService
 
-    Public Sub New(userDto As UserDto)
+    Public Sub New(userDto As UsuarioDto)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -25,7 +25,7 @@ Public Class ChangePassword
     Private Sub loginBtn_Click(sender As Object, e As EventArgs) Handles loginBtn.Click
 
         If NewPasswordTxt.Text.Equals(ConfirmNewPasswordTxt.Text) Then
-            user.Password = NewPasswordTxt.Text
+            user.Contrasena = NewPasswordTxt.Text
             Dim result = userService.ChangeUserPassword(user)
 
             MessageBox.Show(result)
@@ -40,14 +40,14 @@ Public Class ChangePassword
     End Sub
 
     Private Sub ReturnToLogin()
-        logService.AddLog(user.Id, "Usuario ha cancelado. Se le enviara a la pantalla de Login")
+        logService.AddLog(user.UsuarioId, "Usuario ha cancelado. Se le enviara a la pantalla de Login")
 
         loginForm.Show()
         Me.Close()
     End Sub
     Private Sub NavigateToMain()
-        logService.AddLog(user.Id, "Cambio de contraseña temporal exitoso. El usuario sera logueado")
+        logService.AddLog(user.UsuarioId, "Cambio de contraseña temporal exitoso. El usuario sera logueado")
 
-        router.RedirectToFormByUserProfile(user.Id, Me)
+        router.RedirectToFormByUserProfile(user.UsuarioId, Me)
     End Sub
 End Class

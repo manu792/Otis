@@ -3,13 +3,13 @@ Imports Otis.Services
 
 Public Class Specialist
 
-    Private user As UserDto
+    Private user As UsuarioDto
     Private examsAppliedService As ExamsAppliedService
     Private logService As LogService
 
-    Private examsApplied As IEnumerable(Of ExamsAppliedDto)
+    Private examsApplied As IEnumerable(Of ExamenAplicadoDto)
 
-    Public Sub New(userDto As UserDto)
+    Public Sub New(userDto As UsuarioDto)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -28,7 +28,7 @@ Public Class Specialist
         PendingReviewExams.Columns("Examen Id").Visible = False
     End Sub
 
-    Private Function ConvertPendingExamsToDataTable(examsApplied As IEnumerable(Of ExamsAppliedDto)) As DataTable
+    Private Function ConvertPendingExamsToDataTable(examsApplied As IEnumerable(Of ExamenAplicadoDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Sesion Id")
@@ -41,7 +41,7 @@ Public Class Specialist
         table.Columns.Add("Cantidad de Preguntas con Respuesta")
 
         For Each examApplied In examsApplied
-            table.Rows.Add(examApplied.Session.SessionId, examApplied.Exam.ExamId, examApplied.Exam.Name, examApplied.Session.User.Name, examApplied.Session.User.Id, examApplied.Session.User.Career?.CareerName, examApplied.Exam.QuestionsQuantity, examApplied.QuestionsAnsweredQuantity)
+            table.Rows.Add(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId, examApplied.Examen.Nombre, examApplied.Sesion.Usuario.Nombre, examApplied.Sesion.Usuario.UsuarioId, examApplied.Sesion.Usuario.Carrera?.CarreraNombre, examApplied.Examen.CantidadPreguntas, examApplied.CantidadPreguntasRespondidas)
         Next
 
         Return table
@@ -50,7 +50,7 @@ Public Class Specialist
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(user.Id, "Cierre de sesion exitoso")
+            logService.AddLog(user.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()
@@ -59,19 +59,19 @@ Public Class Specialist
     End Sub
 
     Private Sub BtnRevisar_Click(sender As Object, e As EventArgs) Handles BtnRevisar.Click
-        If user.Profile.Entitlements.Any(Function(en) en.Name.Equals("Revisar Test")) Then
+        If user.Perfil.Permisos.Any(Function(en) en.Nombre.Equals("Revisar Test")) Then
             If PendingReviewExams.SelectedRows.Count > 0 Then
                 Dim sessionId = Guid.Parse(PendingReviewExams.SelectedRows(0).Cells("Sesion Id").Value)
                 Dim examId = Integer.Parse(PendingReviewExams.SelectedRows(0).Cells("Examen Id").Value)
 
-                Dim examApplied = examsApplied.FirstOrDefault(Function(x) x.Session.SessionId = sessionId And x.Exam.ExamId = examId)
+                Dim examApplied = examsApplied.FirstOrDefault(Function(x) x.Sesion.SesionId = sessionId And x.Examen.ExamenId = examId)
 
                 Dim form = New TestReview(examApplied, user)
                 form.Show()
                 Close()
             End If
         Else
-            logService.AddLog(user.Id, "Acceso Denegado. Usuario no posee permiso para revisar pruebas")
+            logService.AddLog(user.UsuarioId, "Acceso Denegado. Usuario no posee permiso para revisar pruebas")
             MessageBox.Show("Permiso denegado. Contacte al administrador del sistema para obtener el permiso necesario.", "Error")
         End If
     End Sub

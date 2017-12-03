@@ -9,25 +9,25 @@ Public Class TestHistoryService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetTestEntriesBySessionIdAndExamId(sessionId As Guid, examId As Integer) As IEnumerable(Of TestHistoryDto)
+    Public Function GetTestEntriesBySessionIdAndExamId(sessionId As Guid, examId As Integer) As IEnumerable(Of ExamenRespuestaDto)
         Return unitOfWork.ExamenRespuestaRepositorio.ObtenerExamenRespuestasPorSesionIdYExamenId(sessionId, examId).
-            Select(Function(x) New TestHistoryDto() With
+            Select(Function(x) New ExamenRespuestaDto() With
             {
-                .ExamId = x.ExamenId,
-                .QuestionId = x.PreguntaId,
-                .Question = New QuestionDto() With
+                .ExamenId = x.ExamenId,
+                .PreguntaId = x.PreguntaId,
+                .Pregunta = New PreguntaDto() With
                 {
-                    .QuestionId = x.Pregunta.PreguntaId,
-                    .QuestionText = x.Pregunta.PreguntaTexto,
-                    .ImagePath = x.Pregunta.ImagenDireccion,
-                    .Answers = x.Pregunta.Respuestas.Select(Function(a) New AnswerDto() With
+                    .PreguntaId = x.Pregunta.PreguntaId,
+                    .PreguntaTexto = x.Pregunta.PreguntaTexto,
+                    .ImagenDireccion = x.Pregunta.ImagenDireccion,
+                    .Respuestas = x.Pregunta.Respuestas.Select(Function(a) New RespuestaDto() With
                     {
-                        .QuestionId = a.PreguntaId,
-                        .AnswerText = a.PreguntaTexto
+                        .PreguntaId = a.PreguntaId,
+                        .RespuestaTexto = a.PreguntaTexto
                     }).ToList()
                 },
-                .SessionId = x.SesionId,
-                .UserAnswer = x.UsuarioRespuesta
+                .SesionId = x.SesionId,
+                .UsuarioRespuesta = x.UsuarioRespuesta
             }).
             ToList()
     End Function

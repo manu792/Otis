@@ -64,19 +64,19 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\ActivityLogDto.vb" />
-    <Compile Include="Models\AnswerDto.vb" />
-    <Compile Include="Models\CareerDto.vb" />
-    <Compile Include="Models\CategoryDto.vb" />
-    <Compile Include="Models\EntitlementDto.vb" />
-    <Compile Include="Models\ExamDto.vb" />
-    <Compile Include="Models\ExamsAppliedDto.vb" />
-    <Compile Include="Models\ProfileDto.vb" />
-    <Compile Include="Models\QuestionDto.vb" />
-    <Compile Include="Models\SessionDto.vb" />
-    <Compile Include="Models\TestHistoryDto.vb" />
-    <Compile Include="Models\UserDto.vb" />
-    <Compile Include="Models\ExamUsersDto.vb" />
+    <Compile Include="Models\LogActividadDto.vb" />
+    <Compile Include="Models\RespuestaDto.vb" />
+    <Compile Include="Models\CarreraDto.vb" />
+    <Compile Include="Models\CategoriaDto.vb" />
+    <Compile Include="Models\PermisoDto.vb" />
+    <Compile Include="Models\ExamenDto.vb" />
+    <Compile Include="Models\ExamenAplicadoDto.vb" />
+    <Compile Include="Models\PerfilDto.vb" />
+    <Compile Include="Models\PreguntaDto.vb" />
+    <Compile Include="Models\SesionDto.vb" />
+    <Compile Include="Models\ExamenRespuestaDto.vb" />
+    <Compile Include="Models\UsuarioDto.vb" />
+    <Compile Include="Models\UsuarioExamenDto.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

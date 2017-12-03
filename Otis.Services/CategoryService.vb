@@ -10,21 +10,21 @@ Public Class CategoryService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetCategories() As IEnumerable(Of CategoryDto)
-        Return unitOfWork.CategoriaRepositorio.ObtenerCategorias().Select(Function(c) New CategoryDto() With
+    Public Function GetCategories() As IEnumerable(Of CategoriaDto)
+        Return unitOfWork.CategoriaRepositorio.ObtenerCategorias().Select(Function(c) New CategoriaDto() With
         {
-            .CategoryId = c.CategoriaId,
-            .CategoryName = c.CategoriaNombre,
-            .IsActive = c.EstaActiva
+            .CategoriaId = c.CategoriaId,
+            .CategoriaNombre = c.CategoriaNombre,
+            .EstaActiva = c.EstaActiva
         })
     End Function
 
-    Public Function AddCategory(category As CategoryDto) As String
+    Public Function AddCategory(category As CategoriaDto) As String
         Try
             unitOfWork.CategoriaRepositorio.AgregarCategoria(New Categoria() With
             {
-                .CategoriaNombre = category.CategoryName,
-                .EstaActiva = category.IsActive
+                .CategoriaNombre = category.CategoriaNombre,
+                .EstaActiva = category.EstaActiva
             })
             Return "Categoria creada correctamente."
         Catch ex As Exception
@@ -32,7 +32,7 @@ Public Class CategoryService
         End Try
     End Function
 
-    Public Function UpdateCategory(categoryId As Integer, category As CategoryDto) As String
+    Public Function UpdateCategory(categoryId As Integer, category As CategoriaDto) As String
         Try
             unitOfWork.CategoriaRepositorio.ActualizarCategoria(GetCategories(categoryId, category))
             Return "Categoria modificada correctamente."
@@ -41,12 +41,12 @@ Public Class CategoryService
         End Try
     End Function
 
-    Private Function GetCategories(categoryId As Integer, category As CategoryDto) As Categoria
+    Private Function GetCategories(categoryId As Integer, category As CategoriaDto) As Categoria
         Dim categoryToUpdate = unitOfWork.CategoriaRepositorio.ObtenerCategoriaPorId(categoryId)
 
-        categoryToUpdate.CategoriaId = category.CategoryId
-        categoryToUpdate.CategoriaNombre = category.CategoryName
-        categoryToUpdate.EstaActiva = category.IsActive
+        categoryToUpdate.CategoriaId = category.CategoriaId
+        categoryToUpdate.CategoriaNombre = category.CategoriaNombre
+        categoryToUpdate.EstaActiva = category.EstaActiva
 
         Return categoryToUpdate
     End Function

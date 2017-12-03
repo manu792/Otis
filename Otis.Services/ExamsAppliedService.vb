@@ -9,37 +9,37 @@ Public Class ExamsAppliedService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetPendingReviewExams() As IEnumerable(Of ExamsAppliedDto)
-        Return unitOfWork.ExamenAplicadoRepositorio.ObtenerExamenesPendientesDeRevision().Select(Function(e) New ExamsAppliedDto() With
+    Public Function GetPendingReviewExams() As IEnumerable(Of ExamenAplicadoDto)
+        Return unitOfWork.ExamenAplicadoRepositorio.ObtenerExamenesPendientesDeRevision().Select(Function(e) New ExamenAplicadoDto() With
         {
-            .Exam = New ExamDto() With
+            .Examen = New ExamenDto() With
             {
-                .ExamId = e.Examen.ExamenId,
-                .Name = e.Examen.Nombre,
-                .Description = e.Examen.Descripcion,
-                .QuestionsQuantity = e.Examen.CantidadPreguntas,
-                .Time = e.Examen.Tiempo,
-                .IsActive = e.Examen.EstaActivo
+                .ExamenId = e.Examen.ExamenId,
+                .Nombre = e.Examen.Nombre,
+                .Descripcion = e.Examen.Descripcion,
+                .CantidadPreguntas = e.Examen.CantidadPreguntas,
+                .Tiempo = e.Examen.Tiempo,
+                .EstaActivo = e.Examen.EstaActivo
             },
-            .Session = New SessionDto() With
+            .Sesion = New SesionDto() With
             {
-                .SessionId = e.Sesion.SesionId,
-                .TestDate = e.Sesion.FechaSesion,
-                .User = New UserDto() With
+                .SesionId = e.Sesion.SesionId,
+                .FechaAplicacionExamen = e.Sesion.FechaSesion,
+                .Usuario = New UsuarioDto() With
                 {
-                    .Id = e.Sesion.Usuario.UsuarioId,
-                    .Name = e.Sesion.Usuario.Nombre,
-                    .LastName = e.Sesion.Usuario.PrimerApellido,
-                    .SecondLastName = e.Sesion.Usuario.SegundoApellido,
-                    .EmailAddress = e.Sesion.Usuario.CorreoElectronico,
-                    .Career = If(e.Sesion.Usuario.Carrera IsNot Nothing, New CareerDto() With
+                    .UsuarioId = e.Sesion.Usuario.UsuarioId,
+                    .Nombre = e.Sesion.Usuario.Nombre,
+                    .PrimerApellido = e.Sesion.Usuario.PrimerApellido,
+                    .SegundoApellido = e.Sesion.Usuario.SegundoApellido,
+                    .CorreoElectronico = e.Sesion.Usuario.CorreoElectronico,
+                    .Carrera = If(e.Sesion.Usuario.Carrera IsNot Nothing, New CarreraDto() With
                     {
-                        .CareerId = e.Sesion.Usuario.Carrera.CarreraId,
-                        .CareerName = e.Sesion.Usuario.Carrera.CarreraNombre
+                        .CarreraId = e.Sesion.Usuario.Carrera.CarreraId,
+                        .CarreraNombre = e.Sesion.Usuario.Carrera.CarreraNombre
                     }, Nothing)
                 }
             },
-            .QuestionsAnsweredQuantity = e.CantidadPreguntasRespondidas
+            .CantidadPreguntasRespondidas = e.CantidadPreguntasRespondidas
         }).ToList()
     End Function
 

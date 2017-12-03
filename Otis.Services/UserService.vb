@@ -12,20 +12,20 @@ Public Class UserService
         encryptor = New Encryptor()
     End Sub
 
-    Public Function AddUser(user As UserDto) As String
+    Public Function AddUser(user As UsuarioDto) As String
         Try
             Dim registeredUser = unitOfWork.UsuarioRepositorio.AgregarUsuario(New Usuario() With
             {
-                .UsuarioId = user.Id,
-                .Nombre = user.Name,
-                .PrimerApellido = user.LastName,
-                .SegundoApellido = user.SecondLastName,
-                .CarreraId = user.Career?.CareerId,
-                .Contrasena = encryptor.Encrypt(user.Password),
-                .CorreoElectronico = user.EmailAddress,
-                .PerfilId = user.Profile.ProfileId,
-                .EsContrasenaTemporal = user.IsTemporaryPassword,
-                .EstaActivo = user.IsActive
+                .UsuarioId = user.UsuarioId,
+                .Nombre = user.Nombre,
+                .PrimerApellido = user.PrimerApellido,
+                .SegundoApellido = user.SegundoApellido,
+                .CarreraId = user.Carrera?.CarreraId,
+                .Contrasena = encryptor.Encrypt(user.Contrasena),
+                .CorreoElectronico = user.CorreoElectronico,
+                .PerfilId = user.Perfil.PerfilId,
+                .EsContrasenaTemporal = user.EsContrasenaTemporal,
+                .EstaActivo = user.EstaActivo
             })
 
             Return "Usuario creado correctamente."
@@ -33,20 +33,20 @@ Public Class UserService
             Return "Hubo un problema al tratar de guardar el usuario. Favor contacte a soporte."
         End Try
     End Function
-    Public Function UpdateUser(user As UserDto) As String
+    Public Function UpdateUser(user As UsuarioDto) As String
         Try
             unitOfWork.UsuarioRepositorio.ActualizarUsuario(New Usuario() With
             {
-                .UsuarioId = user.Id,
-                .Nombre = user.Name,
-                .PrimerApellido = user.LastName,
-                .SegundoApellido = user.SecondLastName,
-                .CorreoElectronico = user.EmailAddress,
-                .PerfilId = user.Profile.ProfileId,
-                .CarreraId = user.Career?.CareerId,
-                .Contrasena = user.Password,
-                .EstaActivo = user.IsActive,
-                .EsContrasenaTemporal = user.IsTemporaryPassword
+                .UsuarioId = user.UsuarioId,
+                .Nombre = user.Nombre,
+                .PrimerApellido = user.PrimerApellido,
+                .SegundoApellido = user.SegundoApellido,
+                .CorreoElectronico = user.CorreoElectronico,
+                .PerfilId = user.Perfil.PerfilId,
+                .CarreraId = user.Carrera?.CarreraId,
+                .Contrasena = user.Contrasena,
+                .EstaActivo = user.EstaActivo,
+                .EsContrasenaTemporal = user.EsContrasenaTemporal
             })
             Return "Usuario modificado correctamente."
         Catch ex As Exception
@@ -56,61 +56,61 @@ Public Class UserService
     Public Sub RemoveUser()
 
     End Sub
-    Public Function GetAllUsers() As IEnumerable(Of UserDto)
+    Public Function GetAllUsers() As IEnumerable(Of UsuarioDto)
         Return unitOfWork.UsuarioRepositorio.ObtenerUsuarios().ToList().
-                   Select(Function(u) New UserDto() With
+                   Select(Function(u) New UsuarioDto() With
                    {
-                        .Id = u.UsuarioId,
-                        .Name = u.Nombre,
-                        .LastName = u.PrimerApellido,
-                        .SecondLastName = u.SegundoApellido,
-                        .EmailAddress = u.CorreoElectronico,
-                        .Career = If(u.Carrera IsNot Nothing, New CareerDto() With {.CareerId = u.Carrera.CarreraId, .CareerName = u.Carrera.CarreraNombre}, New CareerDto()),
-                        .Profile = New ProfileDto() With {.ProfileId = u.Perfil.PerfilId, .Name = u.Perfil.Nombre, .Description = u.Perfil.Descripcion},
-                        .IsTemporaryPassword = u.EsContrasenaTemporal,
-                        .IsActive = u.EstaActivo,
-                        .Password = u.Contrasena
+                        .UsuarioId = u.UsuarioId,
+                        .Nombre = u.Nombre,
+                        .PrimerApellido = u.PrimerApellido,
+                        .SegundoApellido = u.SegundoApellido,
+                        .CorreoElectronico = u.CorreoElectronico,
+                        .Carrera = If(u.Carrera IsNot Nothing, New CarreraDto() With {.CarreraId = u.Carrera.CarreraId, .CarreraNombre = u.Carrera.CarreraNombre}, New CarreraDto()),
+                        .Perfil = New PerfilDto() With {.PerfilId = u.Perfil.PerfilId, .Nombre = u.Perfil.Nombre, .Descripcion = u.Perfil.Descripcion},
+                        .EsContrasenaTemporal = u.EsContrasenaTemporal,
+                        .EstaActivo = u.EstaActivo,
+                        .Contrasena = u.Contrasena
                    }).ToList()
     End Function
-    Public Function GetUserByUserName(userName As String) As UserDto
+    Public Function GetUserByUserName(userName As String) As UsuarioDto
         Dim user = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(userName)
 
         If user Is Nothing Then
             Return Nothing
         End If
 
-        Return New UserDto() With
+        Return New UsuarioDto() With
         {
-            .Id = user.UsuarioId,
-            .Password = user.Contrasena,
-            .EmailAddress = user.CorreoElectronico,
-            .IsTemporaryPassword = user.EsContrasenaTemporal,
-            .Name = user.Nombre,
-            .LastName = user.PrimerApellido,
-            .SecondLastName = user.SegundoApellido,
-            .Profile = ConvertProfileToProfileDto(user.Perfil),
-            .Career = If(user.Carrera IsNot Nothing, New CareerDto() With {.CareerId = user.Carrera.CarreraId, .CareerName = user.Carrera.CarreraNombre}, Nothing)
+            .UsuarioId = user.UsuarioId,
+            .Contrasena = user.Contrasena,
+            .CorreoElectronico = user.CorreoElectronico,
+            .EsContrasenaTemporal = user.EsContrasenaTemporal,
+            .Nombre = user.Nombre,
+            .PrimerApellido = user.PrimerApellido,
+            .SegundoApellido = user.SegundoApellido,
+            .Perfil = ConvertProfileToProfileDto(user.Perfil),
+            .Carrera = If(user.Carrera IsNot Nothing, New CarreraDto() With {.CarreraId = user.Carrera.CarreraId, .CarreraNombre = user.Carrera.CarreraNombre}, Nothing)
         }
     End Function
-    Public Function ValidateUser(user As UserDto) As UserDto
-        Dim retrievedUser = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(user.Id)
+    Public Function ValidateUser(user As UsuarioDto) As UsuarioDto
+        Dim retrievedUser = unitOfWork.UsuarioRepositorio.ObtenerUsuarioPorId(user.UsuarioId)
         If Not retrievedUser Is Nothing Then
-            If ArePasswordsEqual(encryptor.GetHashBytes(user.Password, retrievedUser.Contrasena)) Then
-                user.IsTemporaryPassword = retrievedUser.EsContrasenaTemporal
+            If ArePasswordsEqual(encryptor.GetHashBytes(user.Contrasena, retrievedUser.Contrasena)) Then
+                user.EsContrasenaTemporal = retrievedUser.EsContrasenaTemporal
                 Return user
             End If
         End If
 
         Return Nothing
     End Function
-    Public Function ChangeUserPassword(user As UserDto) As String
-        user.Password = EncryptPassword(user.Password)
+    Public Function ChangeUserPassword(user As UsuarioDto) As String
+        user.Contrasena = EncryptPassword(user.Contrasena)
 
         Return unitOfWork.UsuarioRepositorio.ActualizarContrasena(New Usuario With
         {
-            .UsuarioId = user.Id,
-            .Contrasena = user.Password,
-            .EsContrasenaTemporal = Not user.IsTemporaryPassword
+            .UsuarioId = user.UsuarioId,
+            .Contrasena = user.Contrasena,
+            .EsContrasenaTemporal = Not user.EsContrasenaTemporal
         })
     End Function
 
@@ -128,24 +128,24 @@ Public Class UserService
         Return True
     End Function
 
-    Private Function ConvertProfileToProfileDto(profile As Perfil) As ProfileDto
-        Return New ProfileDto() With
+    Private Function ConvertProfileToProfileDto(profile As Perfil) As PerfilDto
+        Return New PerfilDto() With
         {
-            .ProfileId = profile.PerfilId,
-            .Description = profile.Descripcion,
-            .Name = profile.Nombre,
-            .Entitlements = ConvertEntitlementsToEntitlementsDto(profile.Permisos)
+            .PerfilId = profile.PerfilId,
+            .Descripcion = profile.Descripcion,
+            .Nombre = profile.Nombre,
+            .Permisos = ConvertEntitlementsToEntitlementsDto(profile.Permisos)
         }
     End Function
 
-    Private Function ConvertEntitlementsToEntitlementsDto(entitlements As ICollection(Of Permiso)) As ICollection(Of EntitlementDto)
-        Dim entitlementList = New List(Of EntitlementDto)
+    Private Function ConvertEntitlementsToEntitlementsDto(entitlements As ICollection(Of Permiso)) As ICollection(Of PermisoDto)
+        Dim entitlementList = New List(Of PermisoDto)
 
         For Each entitlement As Permiso In entitlements
-            entitlementList.Add(New EntitlementDto() With
+            entitlementList.Add(New PermisoDto() With
             {
-                .EntitlementId = entitlement.PermisoId,
-                .Name = entitlement.Nombre
+                .PermisoId = entitlement.PermisoId,
+                .Nombre = entitlement.Nombre
             })
         Next
 

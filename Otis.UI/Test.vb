@@ -5,11 +5,11 @@ Public Class Test
 
     Private examService As ExamService
     Private questionId As Integer
-    Private questions As Queue(Of QuestionDto)
-    Private session As SessionDto
+    Private questions As Queue(Of PreguntaDto)
+    Private session As SesionDto
     Private stopTime As DateTime
-    Private user As UserDto
-    Private exam As ExamDto
+    Private user As UsuarioDto
+    Private exam As ExamenDto
     Private logService As LogService
     Private questionsAnsweredNumber As Integer
 
@@ -24,21 +24,21 @@ Public Class Test
         questionsAnsweredNumber = 0
     End Sub
 
-    Public Sub New(sessionDto As SessionDto, examDto As ExamDto)
+    Public Sub New(sessionDto As SesionDto, examDto As ExamenDto)
         Me.New()
         session = sessionDto
-        user = sessionDto.User
+        user = sessionDto.Usuario
         exam = examDto
         Init()
     End Sub
 
     Private Sub Init()
-        logService.AddLog(user.Id, "Obteniendo Id de sesion y preguntas del examen")
+        logService.AddLog(user.UsuarioId, "Obteniendo Id de sesion y preguntas del examen")
 
-        exam.Questions = examService.GetQuestionsForExam(exam.ExamId, exam.QuestionsQuantity)
-        questions = New Queue(Of QuestionDto)(exam.Questions)
+        exam.Preguntas = examService.GetQuestionsForExam(exam.ExamenId, exam.CantidadPreguntas)
+        questions = New Queue(Of PreguntaDto)(exam.Preguntas)
 
-        logService.AddLog(user.Id, "Id de sesion y preguntas del examen obtenidas")
+        logService.AddLog(user.UsuarioId, "Id de sesion y preguntas del examen obtenidas")
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetQuestion()
@@ -46,29 +46,29 @@ Public Class Test
     End Sub
 
     Private Sub StartTimer()
-        stopTime = DateTime.Now.AddMinutes(exam.Time)
+        stopTime = DateTime.Now.AddMinutes(exam.Tiempo)
         Timer.Enabled = True
         Timer.Start()
 
-        logService.AddLog(user.Id, "Timer iniciado y seteado a " & exam.Time & " minutos")
+        logService.AddLog(user.UsuarioId, "Timer iniciado y seteado a " & exam.Tiempo & " minutos")
     End Sub
 
     Private Sub GetQuestion()
-        Dim question As QuestionDto
+        Dim question As PreguntaDto
 
         If questions.Count = 0 Then
-            logService.AddLog(user.Id, "Examen completado dentro del tiempo establecido")
+            logService.AddLog(user.UsuarioId, "Examen completado dentro del tiempo establecido")
             SaveAndReturnToMain(False)
             Return
         End If
 
         question = questions.Dequeue()
         PrintQuestion(question)
-        logService.AddLog(user.Id, "Siguiente pregunta obtenida. Id Pregunta: " & question.QuestionId)
+        logService.AddLog(user.UsuarioId, "Siguiente pregunta obtenida. Id Pregunta: " & question.PreguntaId)
     End Sub
 
-    Private Sub PrintQuestion(question As QuestionDto)
-        questionId = question.QuestionId
+    Private Sub PrintQuestion(question As PreguntaDto)
+        questionId = question.PreguntaId
 
         Dim controlList = New List(Of Control)
         Dim y As Int32 = 105
@@ -88,10 +88,10 @@ Public Class Test
             .AutoSize = True,
             .Location = New Point(45, 44),
             .Size = New Drawing.Size(463, 46),
-            .Text = question.QuestionText
+            .Text = question.PreguntaTexto
         })
 
-        If question.ImagePath IsNot Nothing Or question.ImagePath <> String.Empty Then
+        If question.ImagenDireccion IsNot Nothing Or question.ImagenDireccion <> String.Empty Then
             ' Create element that will contain question image
             controlList.Add(New PictureBox() With
             {
@@ -99,12 +99,12 @@ Public Class Test
                 .Size = New Size(300, 160),
                 .SizeMode = PictureBoxSizeMode.StretchImage,
                 .Location = New Point(121, 67),
-                .ImageLocation = question.ImagePath
+                .ImageLocation = question.ImagenDireccion
             })
             y = y + 133
         End If
 
-        If question.Answers.Count = 0 Then
+        If question.Respuestas.Count = 0 Then
             ' Create interface that does NOT need pre-defined answers
             y = y + 43
             controlList.Add(New TextBox() With
@@ -115,13 +115,13 @@ Public Class Test
             })
         Else
             ' Create interface that DOES need pre-defined answers
-            For Each answer As AnswerDto In question.Answers
+            For Each answer As RespuestaDto In question.Respuestas
                 y = y + 23
                 controlList.Add(New RadioButton With
                 {
                     .Location = New Point(144, y),
                     .Size = New Drawing.Size(90, 17),
-                    .Text = answer.AnswerText
+                    .Text = answer.RespuestaTexto
                 })
             Next
         End If
@@ -139,15 +139,15 @@ Public Class Test
     End Sub
 
     Private Sub SaveAndReturnToMain(isTimeOut As Boolean)
-        logService.AddLog(user.Id, "Respuestas de usuario guardadas")
+        logService.AddLog(user.UsuarioId, "Respuestas de usuario guardadas")
 
         MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
-        examService.SaveTest(session, exam.ExamId, questionsAnsweredNumber)
+        examService.SaveTest(session, exam.ExamenId, questionsAnsweredNumber)
         ReturnToMain()
     End Sub
 
     Private Sub ReturnToMain()
-        logService.AddLog(user.Id, "Regresando a pantalla principal")
+        logService.AddLog(user.UsuarioId, "Regresando a pantalla principal")
 
         Dim main = New Student(user)
 
@@ -157,20 +157,20 @@ Public Class Test
 
     Private Sub SiguienteBtn_Click(sender As Object, e As EventArgs)
         questionsAnsweredNumber = questionsAnsweredNumber + 1
-        Dim testHistoryEntry = New TestHistoryDto With
+        Dim testHistoryEntry = New ExamenRespuestaDto With
         {
-            .SessionId = session.SessionId,
-            .ExamId = exam.ExamId,
-            .QuestionId = questionId
+            .SesionId = session.SesionId,
+            .ExamenId = exam.ExamenId,
+            .PreguntaId = questionId
         }
 
         If Controls.Find("answerTxt", False).Length > 0 Then
-            testHistoryEntry.UserAnswer = Controls.Find("answerTxt", False)(0).Text
+            testHistoryEntry.UsuarioRespuesta = Controls.Find("answerTxt", False)(0).Text
         Else
             Dim selectedRadioButton = Controls.OfType(Of RadioButton).
                                 FirstOrDefault(Function(c) c.Checked)
 
-            testHistoryEntry.UserAnswer = selectedRadioButton.Text
+            testHistoryEntry.UsuarioRespuesta = selectedRadioButton.Text
         End If
 
         examService.AddTestEntry(testHistoryEntry)
@@ -195,7 +195,7 @@ Public Class Test
         tiempoLabel.Text = String.Format("Tiempo restante: {0:D2} mins, {1:D2} secs", remainingTime.Minutes, remainingTime.Seconds)
         If remainingTime.Minutes = 0 And remainingTime.Seconds = 0 Then
             Timer.Stop()
-            logService.AddLog(user.Id, "Tiempo agotado")
+            logService.AddLog(user.UsuarioId, "Tiempo agotado")
             SaveAndReturnToMain(True)
         End If
     End Sub
@@ -203,7 +203,7 @@ Public Class Test
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs)
         Dim dialogResult = MessageBox.Show("Tu progreso no se guardara si cierras la sesion antes de terminar el examen. Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(user.Id, "Cierre de sesion exitoso")
+            logService.AddLog(user.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()

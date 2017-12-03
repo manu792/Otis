@@ -20,13 +20,13 @@ Public Class Login
         router = New Router()
     End Sub
 
-    Private Sub NavigateToMain(user As UserDto)
-        logService.AddLog(user.Id, "Inicio de sesion exitoso")
-        router.RedirectToFormByUserProfile(user.Id, Me)
+    Private Sub NavigateToMain(user As UsuarioDto)
+        logService.AddLog(user.UsuarioId, "Inicio de sesion exitoso")
+        router.RedirectToFormByUserProfile(user.UsuarioId, Me)
     End Sub
 
-    Private Sub NavigateToChangePassword(user As UserDto)
-        logService.AddLog(user.Id, "El usuario posee una contraseña temporal por lo tanto se le mostrara la pantalla de cambio de contraseña")
+    Private Sub NavigateToChangePassword(user As UsuarioDto)
+        logService.AddLog(user.UsuarioId, "El usuario posee una contraseña temporal por lo tanto se le mostrara la pantalla de cambio de contraseña")
         Dim registro = New ChangePassword(user)
 
         registro.Show()
@@ -35,15 +35,15 @@ Public Class Login
 
     Private Sub LoginBtn_Click(sender As Object, e As EventArgs) Handles LoginBtn.Click
         If Not UsernameTxt.Text.Equals(String.Empty) And Not PasswordTxt.Text.Equals(String.Empty) Then
-            Dim user = New UserDto With
+            Dim user = New UsuarioDto With
             {
-                .Id = UsernameTxt.Text,
-                .Password = PasswordTxt.Text
+                .UsuarioId = UsernameTxt.Text,
+                .Contrasena = PasswordTxt.Text
             }
             Dim userRetrieved = userService.ValidateUser(user)
 
             If Not userRetrieved Is Nothing Then
-                If Not userRetrieved.IsTemporaryPassword Then
+                If Not userRetrieved.EsContrasenaTemporal Then
                     'Main window after successful login
                     NavigateToMain(user)
                 Else

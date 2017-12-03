@@ -10,29 +10,29 @@ Public Class EntitlementService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetAllEntitlements() As IEnumerable(Of EntitlementDto)
+    Public Function GetAllEntitlements() As IEnumerable(Of PermisoDto)
         Return unitOfWork.PermisoRepositorio.ObtenerPermisos().
-            Select(Function(x) New EntitlementDto() With
+            Select(Function(x) New PermisoDto() With
             {
-                .EntitlementId = x.PermisoId,
-                .Name = x.Nombre,
-                .Profiles = x.Perfiles.Select(Function(p) New ProfileDto() With
+                .PermisoId = x.PermisoId,
+                .Nombre = x.Nombre,
+                .Perfiles = x.Perfiles.Select(Function(p) New PerfilDto() With
                 {
-                    .ProfileId = p.PerfilId,
-                    .Name = p.Nombre,
-                    .Description = p.Descripcion,
-                    .IsActive = p.EstaActivo
+                    .PerfilId = p.PerfilId,
+                    .Nombre = p.Nombre,
+                    .Descripcion = p.Descripcion,
+                    .EstaActivo = p.EstaActivo
                 }).ToList(),
-                .IsActive = x.EstaActivo
+                .EstaActivo = x.EstaActivo
             }).ToList()
     End Function
 
-    Public Function AddEntitlement(entitlement As EntitlementDto) As String
+    Public Function AddEntitlement(entitlement As PermisoDto) As String
         Try
             unitOfWork.PermisoRepositorio.AgregarPermiso(New Permiso() With
             {
-                .Nombre = entitlement.Name,
-                .EstaActivo = entitlement.IsActive
+                .Nombre = entitlement.Nombre,
+                .EstaActivo = entitlement.EstaActivo
             })
             Return "Permiso creado correctamente."
         Catch ex As Exception
@@ -40,7 +40,7 @@ Public Class EntitlementService
         End Try
     End Function
 
-    Public Function UpdateEntitlement(entitlementId As Integer, entitlement As EntitlementDto) As String
+    Public Function UpdateEntitlement(entitlementId As Integer, entitlement As PermisoDto) As String
         Try
             unitOfWork.PermisoRepositorio.ActualizarPermiso(GetEntitlementToUpdate(entitlementId, entitlement))
             Return "Permiso modificado correctamente."
@@ -49,12 +49,12 @@ Public Class EntitlementService
         End Try
     End Function
 
-    Private Function GetEntitlementToUpdate(entitlementId As Integer, entitlement As EntitlementDto) As Permiso
+    Private Function GetEntitlementToUpdate(entitlementId As Integer, entitlement As PermisoDto) As Permiso
         Dim entitlementToUpdate = unitOfWork.PermisoRepositorio.ObtenerPermisoPorId(entitlementId)
 
-        entitlementToUpdate.PermisoId = entitlement.EntitlementId
-        entitlementToUpdate.Nombre = entitlement.Name
-        entitlementToUpdate.EstaActivo = entitlement.IsActive
+        entitlementToUpdate.PermisoId = entitlement.PermisoId
+        entitlementToUpdate.Nombre = entitlement.Nombre
+        entitlementToUpdate.EstaActivo = entitlement.EstaActivo
 
         Return entitlementToUpdate
     End Function

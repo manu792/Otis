@@ -3,9 +3,9 @@ Imports Otis.Services
 
 Public Class TestReview
 
-    Private examApplied As ExamsAppliedDto
-    Private testEntries As Queue(Of TestHistoryDto)
-    Private loggedUser As UserDto
+    Private examApplied As ExamenAplicadoDto
+    Private testEntries As Queue(Of ExamenRespuestaDto)
+    Private loggedUser As UsuarioDto
 
     Private testHistoryService As TestHistoryService
     Private examsAppliedService As ExamsAppliedService
@@ -13,7 +13,7 @@ Public Class TestReview
     Private logService As LogService
 
 
-    Public Sub New(examAppliedDto As ExamsAppliedDto, userDto As UserDto)
+    Public Sub New(examAppliedDto As ExamenAplicadoDto, userDto As UsuarioDto)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -28,9 +28,9 @@ Public Class TestReview
     End Sub
 
     Private Sub TestReview_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim testEntriesHistory = testHistoryService.GetTestEntriesBySessionIdAndExamId(examApplied.Session.SessionId, examApplied.Exam.ExamId)
-        testEntries = New Queue(Of TestHistoryDto)(testEntriesHistory)
-        logService.AddLog(loggedUser.Id, "Respuestas de examen obtenidas. Examen: " & examApplied.ExamId)
+        Dim testEntriesHistory = testHistoryService.GetTestEntriesBySessionIdAndExamId(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId)
+        testEntries = New Queue(Of ExamenRespuestaDto)(testEntriesHistory)
+        logService.AddLog(loggedUser.UsuarioId, "Respuestas de examen obtenidas. Examen: " & examApplied.ExamenId)
 
         GetNextEntry()
     End Sub
@@ -88,13 +88,13 @@ Public Class TestReview
         controlList.Add(button)
         Controls.AddRange(controlList.ToArray())
 
-        logService.AddLog(loggedUser.Id, "Observacion solictada al especialista")
+        logService.AddLog(loggedUser.UsuarioId, "Observacion solictada al especialista")
     End Sub
 
-    Private Sub PrintEntry(testEntry As TestHistoryDto)
-        logService.AddLog(loggedUser.Id, "Obteniendo siguiente respuesta de examen")
+    Private Sub PrintEntry(testEntry As ExamenRespuestaDto)
+        logService.AddLog(loggedUser.UsuarioId, "Obteniendo siguiente respuesta de examen")
 
-        Dim question = testEntry.Question
+        Dim question = testEntry.Pregunta
 
         Dim controlList = New List(Of Control)
         Dim y As Int32 = 105
@@ -104,10 +104,10 @@ Public Class TestReview
             .AutoSize = True,
             .Location = New Point(45, 44),
             .Size = New Drawing.Size(463, 46),
-            .Text = question.QuestionText
+            .Text = question.PreguntaTexto
         })
 
-        If question.ImagePath IsNot Nothing Or question.ImagePath <> String.Empty Then
+        If question.ImagenDireccion IsNot Nothing Or question.ImagenDireccion <> String.Empty Then
             ' Create element that will contain question image
             controlList.Add(New PictureBox() With
             {
@@ -115,12 +115,12 @@ Public Class TestReview
                 .Size = New Size(300, 160),
                 .SizeMode = PictureBoxSizeMode.StretchImage,
                 .Location = New Point(121, 67),
-                .ImageLocation = question.ImagePath
+                .ImageLocation = question.ImagenDireccion
             })
             y = y + 133
         End If
 
-        If question.Answers.Count = 0 Then
+        If question.Respuestas.Count = 0 Then
             ' Create interface that does NOT need pre-defined answers
             y = y + 43
             controlList.Add(New TextBox() With
@@ -128,21 +128,21 @@ Public Class TestReview
                 .Location = New Point(171, y),
                 .Name = "answerTxt",
                 .Size = New Drawing.Size(216, 20),
-                .Text = testEntry.UserAnswer,
+                .Text = testEntry.UsuarioRespuesta,
                 .Enabled = False
             })
         Else
             ' Create interface that DOES need pre-defined answers
-            For Each answer As AnswerDto In question.Answers
+            For Each answer As RespuestaDto In question.Respuestas
                 y = y + 23
                 Dim radioButton = New RadioButton With
                 {
                     .Location = New Point(144, y),
                     .Size = New Drawing.Size(90, 17),
-                    .Text = answer.AnswerText,
+                    .Text = answer.RespuestaTexto,
                     .Enabled = False
                 }
-                If testEntry.UserAnswer.Equals(answer.AnswerText) Then
+                If testEntry.UsuarioRespuesta.Equals(answer.RespuestaTexto) Then
                     radioButton.Checked = True
                 End If
                 controlList.Add(radioButton)
@@ -168,18 +168,18 @@ Public Class TestReview
     Private Sub BtnGuardarObservacion_Click(sender As Object, e As EventArgs)
         Dim TxtObservacion As TextBox = Controls.Find("TxtObservacion", False)(0)
         If Not TxtObservacion.Text.Equals(String.Empty) Then
-            emailService.SendSpecialistObservationToUser(examApplied.Session.User.Id, examApplied.Exam.Name, examApplied.Session.TestDate, TxtObservacion.Text)
+            emailService.SendSpecialistObservationToUser(examApplied.Sesion.Usuario.UsuarioId, examApplied.Examen.Nombre, examApplied.Sesion.FechaAplicacionExamen, TxtObservacion.Text)
 
-            Dim message = examsAppliedService.UpdateExamApplied(examApplied.Session.SessionId, examApplied.Exam.ExamId, TxtObservacion.Text.Trim())
+            Dim message = examsAppliedService.UpdateExamApplied(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId, TxtObservacion.Text.Trim())
             MessageBox.Show(message)
 
-            logService.AddLog(loggedUser.Id, message & " Se ha enviado la observacion del especialista al correo del estudiante: " & examApplied.Session.User.EmailAddress)
+            logService.AddLog(loggedUser.UsuarioId, message & " Se ha enviado la observacion del especialista al correo del estudiante: " & examApplied.Sesion.Usuario.CorreoElectronico)
             ReturnToMain()
         End If
     End Sub
 
     Private Sub ReturnToMain()
-        logService.AddLog(loggedUser.Id, "Enviando a pantalla principal de Especialista")
+        logService.AddLog(loggedUser.UsuarioId, "Enviando a pantalla principal de Especialista")
 
         Dim form = New Specialist(loggedUser)
         form.Show()
@@ -202,7 +202,7 @@ Public Class TestReview
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs)
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(loggedUser.Id, "Cierre de sesion exitoso")
+            logService.AddLog(loggedUser.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()

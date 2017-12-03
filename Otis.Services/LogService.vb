@@ -10,40 +10,40 @@ Public Class LogService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetLogs() As IEnumerable(Of ActivityLogDto)
+    Public Function GetLogs() As IEnumerable(Of LogActividadDto)
         Return unitOfWork.LogActividadRepositorio.ObtenerLogs.ToList().
-                   Select(Function(x) New ActivityLogDto() With
+                   Select(Function(x) New LogActividadDto() With
                    {
-                        .ActivityLogId = x.LogActividadId,
-                        .User = New UserDto() With
+                        .LogActividadId = x.LogActividadId,
+                        .Usuario = New UsuarioDto() With
                         {
-                            .Id = x.Usuario.UsuarioId,
-                            .Name = x.Usuario.Nombre,
-                            .LastName = x.Usuario.PrimerApellido,
-                            .SecondLastName = x.Usuario.SegundoApellido,
-                            .EmailAddress = x.Usuario.CorreoElectronico,
-                            .Career = If(x.Usuario.Carrera IsNot Nothing, New CareerDto() With
+                            .UsuarioId = x.Usuario.UsuarioId,
+                            .Nombre = x.Usuario.Nombre,
+                            .PrimerApellido = x.Usuario.PrimerApellido,
+                            .SegundoApellido = x.Usuario.SegundoApellido,
+                            .CorreoElectronico = x.Usuario.CorreoElectronico,
+                            .Carrera = If(x.Usuario.Carrera IsNot Nothing, New CarreraDto() With
                             {
-                                .CareerId = x.Usuario.Carrera.CarreraId,
-                                .CareerName = x.Usuario.Carrera.CarreraNombre,
-                                .IsActive = x.Usuario.Carrera.EstaActiva
-                            }, New CareerDto()),
-                            .Profile = New ProfileDto() With
+                                .CarreraId = x.Usuario.Carrera.CarreraId,
+                                .CarreraNombre = x.Usuario.Carrera.CarreraNombre,
+                                .EstaActiva = x.Usuario.Carrera.EstaActiva
+                            }, New CarreraDto()),
+                            .Perfil = New PerfilDto() With
                             {
-                                .ProfileId = x.Usuario.Perfil.PerfilId,
-                                .Name = x.Usuario.Perfil.Nombre,
-                                .Description = x.Usuario.Perfil.Descripcion,
-                                .IsActive = x.Usuario.Perfil.EstaActivo
+                                .PerfilId = x.Usuario.Perfil.PerfilId,
+                                .Nombre = x.Usuario.Perfil.Nombre,
+                                .Descripcion = x.Usuario.Perfil.Descripcion,
+                                .EstaActivo = x.Usuario.Perfil.EstaActivo
                             },
-                            .IsActive = x.Usuario.EstaActivo
+                            .EstaActivo = x.Usuario.EstaActivo
                         },
-                        .Activity = x.Actividad,
-                        .ActivityDate = x.FechaActividad,
-                        .IsActive = x.EstaActivo
+                        .Actividad = x.Actividad,
+                        .FechaActividad = x.FechaActividad,
+                        .EstaActiva = x.EstaActivo
                    }).ToList()
     End Function
 
-    Public Function GetLogsByUserAndDateRange(userId As String, FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of ActivityLogDto)
+    Public Function GetLogsByUserAndDateRange(userId As String, FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of LogActividadDto)
         Dim logs As List(Of LogActividad)
 
         If userId.Equals(String.Empty) Then
@@ -53,34 +53,34 @@ Public Class LogService
         End If
 
         Return logs.
-                   Select(Function(x) New ActivityLogDto() With
+                   Select(Function(x) New LogActividadDto() With
                    {
-                        .ActivityLogId = x.LogActividadId,
-                        .User = New UserDto() With
+                        .LogActividadId = x.LogActividadId,
+                        .Usuario = New UsuarioDto() With
                         {
-                            .Id = x.Usuario.UsuarioId,
-                            .Name = x.Usuario.Nombre,
-                            .LastName = x.Usuario.PrimerApellido,
-                            .SecondLastName = x.Usuario.SegundoApellido,
-                            .EmailAddress = x.Usuario.CorreoElectronico,
-                            .Career = If(x.Usuario.Carrera IsNot Nothing, New CareerDto() With
+                            .UsuarioId = x.Usuario.UsuarioId,
+                            .Nombre = x.Usuario.Nombre,
+                            .PrimerApellido = x.Usuario.PrimerApellido,
+                            .SegundoApellido = x.Usuario.SegundoApellido,
+                            .CorreoElectronico = x.Usuario.CorreoElectronico,
+                            .Carrera = If(x.Usuario.Carrera IsNot Nothing, New CarreraDto() With
                             {
-                                .CareerId = x.Usuario.Carrera.CarreraId,
-                                .CareerName = x.Usuario.Carrera.CarreraNombre,
-                                .IsActive = x.Usuario.Carrera.EstaActiva
-                            }, New CareerDto()),
-                            .Profile = New ProfileDto() With
+                                .CarreraId = x.Usuario.Carrera.CarreraId,
+                                .CarreraNombre = x.Usuario.Carrera.CarreraNombre,
+                                .EstaActiva = x.Usuario.Carrera.EstaActiva
+                            }, New CarreraDto()),
+                            .Perfil = New PerfilDto() With
                             {
-                                .ProfileId = x.Usuario.Perfil.PerfilId,
-                                .Name = x.Usuario.Perfil.Nombre,
-                                .Description = x.Usuario.Perfil.Descripcion,
-                                .IsActive = x.Usuario.Perfil.EstaActivo
+                                .PerfilId = x.Usuario.Perfil.PerfilId,
+                                .Nombre = x.Usuario.Perfil.Nombre,
+                                .Descripcion = x.Usuario.Perfil.Descripcion,
+                                .EstaActivo = x.Usuario.Perfil.EstaActivo
                             },
-                            .IsActive = x.Usuario.EstaActivo
+                            .EstaActivo = x.Usuario.EstaActivo
                         },
-                        .Activity = x.Actividad,
-                        .ActivityDate = x.FechaActividad,
-                        .IsActive = x.EstaActivo
+                        .Actividad = x.Actividad,
+                        .FechaActividad = x.FechaActividad,
+                        .EstaActiva = x.EstaActivo
                    }).ToList()
     End Function
 

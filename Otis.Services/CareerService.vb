@@ -10,21 +10,21 @@ Public Class CareerService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetCareers() As IEnumerable(Of CareerDto)
-        Return unitOfWork.CarreraRepositorio.ObtenerCarreras().Select(Function(x) New CareerDto() With
+    Public Function GetCareers() As IEnumerable(Of CarreraDto)
+        Return unitOfWork.CarreraRepositorio.ObtenerCarreras().Select(Function(x) New CarreraDto() With
         {
-            .CareerId = x.CarreraId,
-            .CareerName = x.CarreraNombre,
-            .IsActive = x.EstaActiva
+            .CarreraId = x.CarreraId,
+            .CarreraNombre = x.CarreraNombre,
+            .EstaActiva = x.EstaActiva
         }).ToList()
     End Function
 
-    Public Function AddCareer(career As CareerDto) As String
+    Public Function AddCareer(career As CarreraDto) As String
         Try
             unitOfWork.CarreraRepositorio.AgregarCarrera(New Carrera() With
             {
-                .CarreraNombre = career.CareerName,
-                .EstaActiva = career.IsActive
+                .CarreraNombre = career.CarreraNombre,
+                .EstaActiva = career.EstaActiva
             })
             Return "Carrera creada correctamente."
         Catch ex As Exception
@@ -32,7 +32,7 @@ Public Class CareerService
         End Try
     End Function
 
-    Public Function UpdateCareer(careerId As Integer, career As CareerDto) As String
+    Public Function UpdateCareer(careerId As Integer, career As CarreraDto) As String
         Try
             unitOfWork.CarreraRepositorio.ActualizarCarrera(GetCareer(careerId, career))
             Return "Carrera modificada correctamente."
@@ -41,12 +41,12 @@ Public Class CareerService
         End Try
     End Function
 
-    Private Function GetCareer(id As Integer, career As CareerDto) As Carrera
+    Private Function GetCareer(id As Integer, career As CarreraDto) As Carrera
         Dim careerToUpdate = unitOfWork.CarreraRepositorio.ObtenerCarreraPorId(id)
 
-        careerToUpdate.CarreraId = career.CareerId
-        careerToUpdate.CarreraNombre = career.CareerName
-        careerToUpdate.EstaActiva = career.IsActive
+        careerToUpdate.CarreraId = career.CarreraId
+        careerToUpdate.CarreraNombre = career.CarreraNombre
+        careerToUpdate.EstaActiva = career.EstaActiva
 
         Return careerToUpdate
     End Function

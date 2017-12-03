@@ -14,16 +14,16 @@ Public Class Admin
     Private examService As ExamService
     Private logService As LogService
 
-    Private loggedUser As UserDto
+    Private loggedUser As UsuarioDto
 
-    Private categories As IEnumerable(Of CategoryDto)
-    Private users As IEnumerable(Of UserDto)
-    Private questions As IEnumerable(Of QuestionDto)
-    Private profiles As IEnumerable(Of ProfileDto)
-    Private entitlements As IEnumerable(Of EntitlementDto)
-    Private careers As IEnumerable(Of CareerDto)
-    Private exams As IEnumerable(Of ExamDto)
-    Private logs As IEnumerable(Of ActivityLogDto)
+    Private categories As IEnumerable(Of CategoriaDto)
+    Private users As IEnumerable(Of UsuarioDto)
+    Private questions As IEnumerable(Of PreguntaDto)
+    Private profiles As IEnumerable(Of PerfilDto)
+    Private entitlements As IEnumerable(Of PermisoDto)
+    Private careers As IEnumerable(Of CarreraDto)
+    Private exams As IEnumerable(Of ExamenDto)
+    Private logs As IEnumerable(Of LogActividadDto)
 
     Private usersBindingSource As BindingSource
     Private questionsBindingSource As BindingSource
@@ -38,7 +38,7 @@ Public Class Admin
     Private logsBindingSource As BindingSource
 #End Region
 
-    Public Sub New(userDto As UserDto)
+    Public Sub New(userDto As UsuarioDto)
 
         ' This call is required by the designer.
         InitializeComponent()
@@ -81,38 +81,38 @@ Public Class Admin
     End Sub
 
     Private Sub ValidateAdminEntitlements()
-        Dim entitlements = loggedUser.Profile.Entitlements
+        Dim entitlements = loggedUser.Perfil.Permisos
 
         For Each entitlement As TabPage In AdminTabs.TabPages
-            If Not entitlements.Select(Function(e) e.Name).Contains(entitlement.Name) Then
+            If Not entitlements.Select(Function(e) e.Nombre).Contains(entitlement.Name) Then
                 AdminTabs.TabPages.RemoveByKey(entitlement.Name)
             End If
         Next
     End Sub
 
-    Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UserDto))
+    Private Sub LoadUsers(retrievedUsers As IEnumerable(Of UsuarioDto))
         users = retrievedUsers
         usersBindingSource.DataSource = ConvertUsersToDataTable(users)
         UsuariosGrid.DataSource = usersBindingSource
         UsuariosGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
         ' Assign Exam Students Grid below
-        assignExamsStudentsBindingSource.DataSource = ConvertUsersToDataTable(users.Where(Function(u) u.IsActive = True And (u.Profile.Name.Equals("Estudiante") Or u.Profile.Name.Equals("Primer Ingreso"))))
+        assignExamsStudentsBindingSource.DataSource = ConvertUsersToDataTable(users.Where(Function(u) u.EstaActivo = True And (u.Perfil.Nombre.Equals("Estudiante") Or u.Perfil.Nombre.Equals("Primer Ingreso"))))
         AsignarExamenEstudiantesGrid.DataSource = assignExamsStudentsBindingSource
     End Sub
 
-    Private Sub LoadQuestions(retrievedQuestions As IEnumerable(Of QuestionDto))
+    Private Sub LoadQuestions(retrievedQuestions As IEnumerable(Of PreguntaDto))
         questions = retrievedQuestions
         questionsBindingSource.DataSource = ConvertQuestionsToDataTable(questions)
         PreguntasGrid.DataSource = questionsBindingSource
         PreguntasGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
 
         ' Exams tab logic below
-        CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
-        EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
+        CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.EstaActiva = True).ToList()
+        EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.EstaActiva = True).ToList()
     End Sub
 
-    Private Function ConvertUsersToDataTable(users As IEnumerable(Of UserDto)) As DataTable
+    Private Function ConvertUsersToDataTable(users As IEnumerable(Of UsuarioDto)) As DataTable
         Dim table = New DataTable()
         If users.Any() Then
             table.Columns.Add("Cedula")
@@ -125,15 +125,15 @@ Public Class Admin
             table.Columns.Add("Tiene Contraseña Temporal")
             table.Columns.Add("Esta Activo")
 
-            For Each user As UserDto In users
-                table.Rows.Add(user.Id, user.Name, user.LastName, user.SecondLastName, user.EmailAddress, user.Profile.Name, user.Career.CareerName, user.IsTemporaryPassword, user.IsActive.ToString())
+            For Each user As UsuarioDto In users
+                table.Rows.Add(user.UsuarioId, user.Nombre, user.PrimerApellido, user.SegundoApellido, user.CorreoElectronico, user.Perfil.Nombre, user.Carrera.CarreraNombre, user.EsContrasenaTemporal, user.EstaActivo.ToString())
             Next
         End If
 
         Return table
     End Function
 
-    Private Function ConvertQuestionsToDataTable(questions As IEnumerable(Of QuestionDto)) As DataTable
+    Private Function ConvertQuestionsToDataTable(questions As IEnumerable(Of PreguntaDto)) As DataTable
         Dim table = New DataTable()
         If questions.Any() Then
             table.Columns.Add("Id")
@@ -142,15 +142,15 @@ Public Class Admin
             table.Columns.Add("Categoria")
             table.Columns.Add("Esta Activa")
 
-            For Each question As QuestionDto In questions
-                table.Rows.Add(question.QuestionId, question.QuestionText, question.ImagePath, question.Category.CategoryName, question.IsActive)
+            For Each question As PreguntaDto In questions
+                table.Rows.Add(question.PreguntaId, question.PreguntaTexto, question.ImagenDireccion, question.Categoria.CategoriaNombre, question.EstaActiva)
             Next
         End If
 
         Return table
     End Function
 
-    Private Function ConvertProfilesToDataTable(profiles As IEnumerable(Of ProfileDto)) As DataTable
+    Private Function ConvertProfilesToDataTable(profiles As IEnumerable(Of PerfilDto)) As DataTable
         Dim table = New DataTable()
         If profiles.Any() Then
             table.Columns.Add("Id")
@@ -158,15 +158,15 @@ Public Class Admin
             table.Columns.Add("Descripcion")
             table.Columns.Add("Esta Activo")
 
-            For Each profile As ProfileDto In profiles
-                table.Rows.Add(profile.ProfileId, profile.Name, profile.Description, profile.IsActive)
+            For Each profile As PerfilDto In profiles
+                table.Rows.Add(profile.PerfilId, profile.Nombre, profile.Descripcion, profile.EstaActivo)
             Next
         End If
 
         Return table
     End Function
 
-    Private Sub LoadProfiles(profilesDto As IEnumerable(Of ProfileDto))
+    Private Sub LoadProfiles(profilesDto As IEnumerable(Of PerfilDto))
         profiles = profilesDto
         profilesBindingSource.DataSource = ConvertProfilesToDataTable(profiles)
         PerfilesGrid.DataSource = profilesBindingSource
@@ -175,13 +175,13 @@ Public Class Admin
 
         ProfilesComboBox.Items.Clear()
         EditarUsuarioPerfilCombo.Items.Clear()
-        For Each item As ProfileDto In profiles.Where(Function(p) p.IsActive = True)
+        For Each item As PerfilDto In profiles.Where(Function(p) p.EstaActivo = True)
             ProfilesComboBox.Items.Add(item)
             EditarUsuarioPerfilCombo.Items.Add(item)
         Next
     End Sub
 
-    Private Sub LoadCareers(careersDto As IEnumerable(Of CareerDto))
+    Private Sub LoadCareers(careersDto As IEnumerable(Of CarreraDto))
         careers = careersDto
         careersBindingSource.DataSource = ConvertCareersToDataTable(careers)
         CarrerasGrid.DataSource = careersBindingSource
@@ -189,13 +189,13 @@ Public Class Admin
 
         CareersComboBox.Items.Clear()
         EditarUsuarioCarreraCombo.Items.Clear()
-        For Each item As CareerDto In careers.Where(Function(c) c.IsActive = True)
+        For Each item As CarreraDto In careers.Where(Function(c) c.EstaActiva = True)
             CareersComboBox.Items.Add(item)
             EditarUsuarioCarreraCombo.Items.Add(item)
         Next
     End Sub
 
-    Private Function ConvertCareersToDataTable(careers As IEnumerable(Of CareerDto)) As DataTable
+    Private Function ConvertCareersToDataTable(careers As IEnumerable(Of CarreraDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Id")
@@ -203,13 +203,13 @@ Public Class Admin
         table.Columns.Add("Esta activa")
 
         For Each career In careers
-            table.Rows.Add(career.CareerId, career.CareerName, career.IsActive)
+            table.Rows.Add(career.CarreraId, career.CarreraNombre, career.EstaActiva)
         Next
 
         Return table
     End Function
 
-    Private Sub LoadCategories(categoriesDto As IEnumerable(Of CategoryDto))
+    Private Sub LoadCategories(categoriesDto As IEnumerable(Of CategoriaDto))
         categories = categoriesDto
         categoriesBindingSource.DataSource = ConvertCategoriesToDataTable(categories)
         CategoriasGrid.DataSource = categoriesBindingSource
@@ -219,9 +219,9 @@ Public Class Admin
         EditarPreguntaCategoriaCombo.Items.Clear()
         CrearExamenFiltrarCombo.Items.Clear()
         EditarExamenFiltrarCombo.Items.Clear()
-        CrearExamenFiltrarCombo.Items.Add(New CategoryDto() With {.CategoryName = "Todas las Categorias"})
-        EditarExamenFiltrarCombo.Items.Add(New CategoryDto() With {.CategoryName = "Todas las Categorias"})
-        For Each item As CategoryDto In categories.Where(Function(c) c.IsActive = True)
+        CrearExamenFiltrarCombo.Items.Add(New CategoriaDto() With {.CategoriaNombre = "Todas las Categorias"})
+        EditarExamenFiltrarCombo.Items.Add(New CategoriaDto() With {.CategoriaNombre = "Todas las Categorias"})
+        For Each item As CategoriaDto In categories.Where(Function(c) c.EstaActiva = True)
             categoriesComboBox.Items.Add(item)
             EditarPreguntaCategoriaCombo.Items.Add(item)
             CrearExamenFiltrarCombo.Items.Add(item)
@@ -231,7 +231,7 @@ Public Class Admin
         EditarExamenFiltrarCombo.SelectedIndex = 0
     End Sub
 
-    Private Function ConvertCategoriesToDataTable(categories As IEnumerable(Of CategoryDto)) As DataTable
+    Private Function ConvertCategoriesToDataTable(categories As IEnumerable(Of CategoriaDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Id")
@@ -239,23 +239,23 @@ Public Class Admin
         table.Columns.Add("Esta activa")
 
         For Each category In categories
-            table.Rows.Add(category.CategoryId, category.CategoryName, category.IsActive)
+            table.Rows.Add(category.CategoriaId, category.CategoriaNombre, category.EstaActiva)
         Next
 
         Return table
     End Function
 
-    Private Sub LoadEntitlements(entitlementsDto As IEnumerable(Of EntitlementDto))
+    Private Sub LoadEntitlements(entitlementsDto As IEnumerable(Of PermisoDto))
         entitlements = entitlementsDto
         entitlementsBindingSource.DataSource = ConvertEntitlementsToDataTable(entitlements)
         PermisosGrid.DataSource = entitlementsBindingSource
         PermisosGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
 
-        PermisosLista.DataSource = entitlements.Where(Function(p) p.IsActive = True).ToList()
-        PermisosCrearPerfil.DataSource = entitlements.Where(Function(p) p.IsActive = True).ToList()
+        PermisosLista.DataSource = entitlements.Where(Function(p) p.EstaActivo = True).ToList()
+        PermisosCrearPerfil.DataSource = entitlements.Where(Function(p) p.EstaActivo = True).ToList()
     End Sub
 
-    Private Function ConvertEntitlementsToDataTable(entitlements As IEnumerable(Of EntitlementDto)) As DataTable
+    Private Function ConvertEntitlementsToDataTable(entitlements As IEnumerable(Of PermisoDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Id")
@@ -263,17 +263,17 @@ Public Class Admin
         table.Columns.Add("Esta activo")
 
         For Each entitlement In entitlements
-            table.Rows.Add(entitlement.EntitlementId, entitlement.Name, entitlement.IsActive)
+            table.Rows.Add(entitlement.PermisoId, entitlement.Nombre, entitlement.EstaActivo)
         Next
 
         Return table
     End Function
 
-    Private Function GetPossibleAnswers() As ICollection(Of AnswerDto)
-        Dim answers = New List(Of AnswerDto)
+    Private Function GetPossibleAnswers() As ICollection(Of RespuestaDto)
+        Dim answers = New List(Of RespuestaDto)
 
         For Each answer As String In possibleAnswersCheckBox.Items
-            Dim answerDto = New AnswerDto() With {.AnswerText = answer}
+            Dim answerDto = New RespuestaDto() With {.RespuestaTexto = answer}
             answers.Add(answerDto)
         Next
 
@@ -304,19 +304,19 @@ Public Class Admin
     Private Sub BtnGuardar_Click(sender As Object, e As EventArgs) Handles BtnGuardar.Click
         ' Saves new question with its respective possible answers to the DB
         If Not String.IsNullOrEmpty(txtQuestionText.Text) And categoriesComboBox.SelectedIndex <> -1 Then
-            Dim category = CType(categoriesComboBox.SelectedItem, CategoryDto)
+            Dim category = CType(categoriesComboBox.SelectedItem, CategoriaDto)
 
-            Dim questionDto As QuestionDto = New QuestionDto() With
+            Dim questionDto As PreguntaDto = New PreguntaDto() With
             {
-                .QuestionText = txtQuestionText.Text,
-                .Category = New CategoryDto() With {.CategoryId = category.CategoryId, .CategoryName = category.CategoryName},
-                .ImagePath = If(TxtImagePath.Text.Equals(String.Empty), Nothing, TxtImagePath.Text),
-                .IsActive = True,
-                .Answers = GetPossibleAnswers()
+                .PreguntaTexto = txtQuestionText.Text,
+                .Categoria = New CategoriaDto() With {.CategoriaId = category.CategoriaId, .CategoriaNombre = category.CategoriaNombre},
+                .ImagenDireccion = If(TxtImagePath.Text.Equals(String.Empty), Nothing, TxtImagePath.Text),
+                .EstaActiva = True,
+                .Respuestas = GetPossibleAnswers()
             }
             Dim message = questionService.SaveQuestion(questionDto)
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Pregunta: " & questionDto.QuestionId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Pregunta: " & questionDto.PreguntaId)
             UpdateQuestions()
             ClearQuestionFields()
         End If
@@ -333,22 +333,22 @@ Public Class Admin
     Private Sub BtnGuardarUsuario_Click(sender As Object, e As EventArgs) Handles BtnGuardarUsuario.Click
         If Not String.IsNullOrEmpty(TxtCedula.Text) And Not String.IsNullOrEmpty(TxtNombre.Text) And Not String.IsNullOrEmpty(TxtCorreo.Text) And ProfilesComboBox.SelectedIndex <> -1 And Not String.IsNullOrEmpty(TxtContrasena.Text) And Not String.IsNullOrEmpty(TxtConfirmarContrasena.Text) Then
             If TxtContrasena.Text.Equals(TxtConfirmarContrasena.Text) Then
-                Dim user = New UserDto() With
+                Dim user = New UsuarioDto() With
                 {
-                    .Id = TxtCedula.Text,
-                    .Name = TxtNombre.Text,
-                    .LastName = If(String.IsNullOrEmpty(TxtPrimerApe.Text), Nothing, TxtPrimerApe.Text),
-                    .SecondLastName = If(String.IsNullOrEmpty(TxtSegundoApe.Text), Nothing, TxtSegundoApe.Text),
-                    .EmailAddress = TxtCorreo.Text,
-                    .Profile = CType(ProfilesComboBox.SelectedItem, ProfileDto),
-                    .Career = If(CareersComboBox.Enabled, CType(CareersComboBox.SelectedItem, CareerDto), Nothing),
-                    .Password = TxtContrasena.Text,
-                    .IsTemporaryPassword = True,
-                    .IsActive = True
+                    .UsuarioId = TxtCedula.Text,
+                    .Nombre = TxtNombre.Text,
+                    .PrimerApellido = If(String.IsNullOrEmpty(TxtPrimerApe.Text), Nothing, TxtPrimerApe.Text),
+                    .SegundoApellido = If(String.IsNullOrEmpty(TxtSegundoApe.Text), Nothing, TxtSegundoApe.Text),
+                    .CorreoElectronico = TxtCorreo.Text,
+                    .Perfil = CType(ProfilesComboBox.SelectedItem, PerfilDto),
+                    .Carrera = If(CareersComboBox.Enabled, CType(CareersComboBox.SelectedItem, CarreraDto), Nothing),
+                    .Contrasena = TxtContrasena.Text,
+                    .EsContrasenaTemporal = True,
+                    .EstaActivo = True
                 }
                 Dim message = userService.AddUser(user)
                 MessageBox.Show(message)
-                logService.AddLog(loggedUser.Id, message & " Usuario: " & user.Id)
+                logService.AddLog(loggedUser.UsuarioId, message & " Usuario: " & user.UsuarioId)
                 UpdateUsers()
                 ClearUserFields()
             Else
@@ -379,7 +379,7 @@ Public Class Admin
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(loggedUser.Id, "Cierre de sesion exitoso")
+            logService.AddLog(loggedUser.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()
@@ -403,15 +403,15 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Cedula").Value.ToString()
-            TxtEditarUsuarioCedula.Text = users.FirstOrDefault(Function(u) u.Id = id).Id
-            TxtEditarUsuarioNombre.Text = users.FirstOrDefault(Function(u) u.Id = id).Name
-            TxtEditarUsuarioApe1.Text = users.FirstOrDefault(Function(u) u.Id = id).LastName
-            TxtEditarUsuarioApe2.Text = users.FirstOrDefault(Function(u) u.Id = id).SecondLastName
-            TxtEditarUsuarioCorreo.Text = users.FirstOrDefault(Function(u) u.Id = id).EmailAddress
-            EditarUsuarioPerfilCombo.Text = users.FirstOrDefault(Function(u) u.Id = id).Profile.Name
-            EditarUsuarioCarreraCombo.Text = users.FirstOrDefault(Function(u) u.Id = id).Career.CareerName
-            EditarUsuarioCarreraCombo.Enabled = If(users.FirstOrDefault(Function(u) u.Id = id).Career.CareerName Is Nothing, False, True)
-            EditarUsuarioActivoCombo.Text = users.FirstOrDefault(Function(u) u.Id = id).IsActive.ToString()
+            TxtEditarUsuarioCedula.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).UsuarioId
+            TxtEditarUsuarioNombre.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).Nombre
+            TxtEditarUsuarioApe1.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).PrimerApellido
+            TxtEditarUsuarioApe2.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).SegundoApellido
+            TxtEditarUsuarioCorreo.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).CorreoElectronico
+            EditarUsuarioPerfilCombo.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).Perfil.Nombre
+            EditarUsuarioCarreraCombo.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).Carrera.CarreraNombre
+            EditarUsuarioCarreraCombo.Enabled = If(users.FirstOrDefault(Function(u) u.UsuarioId = id).Carrera.CarreraNombre Is Nothing, False, True)
+            EditarUsuarioActivoCombo.Text = users.FirstOrDefault(Function(u) u.UsuarioId = id).EstaActivo.ToString()
         End If
     End Sub
 
@@ -425,81 +425,81 @@ Public Class Admin
 
     Private Sub BtnActualizarUsuario_Click(sender As Object, e As EventArgs) Handles BtnActualizarUsuario.Click
         If Not String.IsNullOrEmpty(TxtEditarUsuarioCedula.Text) And Not String.IsNullOrEmpty(TxtEditarUsuarioNombre.Text) And Not String.IsNullOrEmpty(TxtEditarUsuarioCorreo.Text) And EditarUsuarioPerfilCombo.SelectedIndex <> -1 And EditarUsuarioActivoCombo.SelectedIndex <> -1 Then
-            Dim career As CareerDto = Nothing
-            Dim profile = CType(EditarUsuarioPerfilCombo.SelectedItem, ProfileDto)
+            Dim career As CarreraDto = Nothing
+            Dim profile = CType(EditarUsuarioPerfilCombo.SelectedItem, PerfilDto)
 
-            If profile.Name.Equals("Estudiante") Then
-                career = CType(EditarUsuarioCarreraCombo.SelectedItem, CareerDto)
+            If profile.Nombre.Equals("Estudiante") Then
+                career = CType(EditarUsuarioCarreraCombo.SelectedItem, CarreraDto)
             End If
 
-            Dim user = New UserDto() With
+            Dim user = New UsuarioDto() With
             {
-                .Id = TxtEditarUsuarioCedula.Text,
-                .Name = TxtEditarUsuarioNombre.Text,
-                .LastName = If(String.IsNullOrEmpty(TxtEditarUsuarioApe1.Text), Nothing, TxtEditarUsuarioApe1.Text),
-                .SecondLastName = If(String.IsNullOrEmpty(TxtEditarUsuarioApe2.Text), Nothing, TxtEditarUsuarioApe2.Text),
-                .EmailAddress = TxtEditarUsuarioCorreo.Text,
-                .Profile = profile,
-                .Career = career,
-                .Password = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).Password,
-                .IsActive = CType(EditarUsuarioActivoCombo.Text, Boolean),
-                .IsTemporaryPassword = users.FirstOrDefault(Function(u) u.Id.Equals(TxtEditarUsuarioCedula.Text)).IsTemporaryPassword
+                .UsuarioId = TxtEditarUsuarioCedula.Text,
+                .Nombre = TxtEditarUsuarioNombre.Text,
+                .PrimerApellido = If(String.IsNullOrEmpty(TxtEditarUsuarioApe1.Text), Nothing, TxtEditarUsuarioApe1.Text),
+                .SegundoApellido = If(String.IsNullOrEmpty(TxtEditarUsuarioApe2.Text), Nothing, TxtEditarUsuarioApe2.Text),
+                .CorreoElectronico = TxtEditarUsuarioCorreo.Text,
+                .Perfil = profile,
+                .Carrera = career,
+                .Contrasena = users.FirstOrDefault(Function(u) u.UsuarioId.Equals(TxtEditarUsuarioCedula.Text)).Contrasena,
+                .EstaActivo = CType(EditarUsuarioActivoCombo.Text, Boolean),
+                .EsContrasenaTemporal = users.FirstOrDefault(Function(u) u.UsuarioId.Equals(TxtEditarUsuarioCedula.Text)).EsContrasenaTemporal
             }
             Dim message = userService.UpdateUser(user)
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Usuario: " & user.Id)
+            logService.AddLog(loggedUser.UsuarioId, message & " Usuario: " & user.UsuarioId)
             UpdateUsers()
         End If
     End Sub
 
     Private Sub UpdateCategories()
         LoadCategories(categoryService.GetCategories())
-        logService.AddLog(loggedUser.Id, "Categorias obtenidas de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Categorias obtenidas de la Base de Datos")
     End Sub
 
     Private Sub UpdateProfiles()
         LoadProfiles(profileService.GetProfiles())
-        logService.AddLog(loggedUser.Id, "Perfiles obtenidos de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Perfiles obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateCareers()
         LoadCareers(careerService.GetCareers())
-        logService.AddLog(loggedUser.Id, "Carreras obtenidas de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Carreras obtenidas de la Base de Datos")
     End Sub
 
     Private Sub UpdateUsers()
         LoadUsers(userService.GetAllUsers())
-        logService.AddLog(loggedUser.Id, "Usuarios obtenidos de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Usuarios obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateQuestions()
         LoadQuestions(questionService.GetAllQuestions())
-        logService.AddLog(loggedUser.Id, "Preguntas obtenidas de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Preguntas obtenidas de la Base de Datos")
     End Sub
 
     Private Sub UpdateEntitlements()
         LoadEntitlements(entitlementService.GetAllEntitlements())
-        logService.AddLog(loggedUser.Id, "Permisos obtenidos de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Permisos obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateExams()
         LoadExams(examService.GetAllExams())
-        logService.AddLog(loggedUser.Id, "Examenes obtenidos de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Examenes obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateLogs()
         LoadLogs(logService.GetLogs())
-        logService.AddLog(loggedUser.Id, "Logs obtenidos de la Base de Datos")
+        logService.AddLog(loggedUser.UsuarioId, "Logs obtenidos de la Base de Datos")
     End Sub
 
-    Private Sub LoadLogs(logsDto As IEnumerable(Of ActivityLogDto))
+    Private Sub LoadLogs(logsDto As IEnumerable(Of LogActividadDto))
         logs = logsDto
         logsBindingSource.DataSource = ConvertLogsToDataTable(logs)
         LogsGrid.DataSource = logsBindingSource
         LogsGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
     End Sub
 
-    Private Sub LoadExams(examsDto As IEnumerable(Of ExamDto))
+    Private Sub LoadExams(examsDto As IEnumerable(Of ExamenDto))
         exams = examsDto
         examsBindingSource.DataSource = ConvertExamsToDataTable(exams)
         ExamenesGrid.DataSource = examsBindingSource
@@ -511,7 +511,7 @@ Public Class Admin
         AsignarExamenGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
     End Sub
 
-    Private Function ConvertLogsToDataTable(logs As IEnumerable(Of ActivityLogDto)) As DataTable
+    Private Function ConvertLogsToDataTable(logs As IEnumerable(Of LogActividadDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Log Id")
@@ -521,14 +521,14 @@ Public Class Admin
         table.Columns.Add("Actividad")
         table.Columns.Add("Fecha")
 
-        For Each log As ActivityLogDto In logs
-            table.Rows.Add(log.ActivityLogId, log.User.Name, log.User.Id, log.User.Profile.Name, log.Activity, log.ActivityDate)
+        For Each log As LogActividadDto In logs
+            table.Rows.Add(log.LogActividadId, log.Usuario.Nombre, log.Usuario.UsuarioId, log.Usuario.Perfil.Nombre, log.Actividad, log.FechaActividad)
         Next
 
         Return table
     End Function
 
-    Private Function ConvertExamsToDataTable(exams As IEnumerable(Of ExamDto)) As DataTable
+    Private Function ConvertExamsToDataTable(exams As IEnumerable(Of ExamenDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Id")
@@ -539,7 +539,7 @@ Public Class Admin
         table.Columns.Add("Esta activo")
 
         For Each exam In exams
-            table.Rows.Add(exam.ExamId, exam.Name, exam.Description, exam.Time, exam.QuestionsQuantity, exam.IsActive)
+            table.Rows.Add(exam.ExamenId, exam.Nombre, exam.Descripcion, exam.Tiempo, exam.CantidadPreguntas, exam.EstaActivo)
         Next
 
         Return table
@@ -566,27 +566,27 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
-            TxtEditarPreguntaId.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).QuestionId
-            TxtEditarPreguntaTexto.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).QuestionText
-            TxtEditarPreguntaImagen.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).ImagePath
-            EditarPreguntaCategoriaCombo.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).Category.CategoryName
-            EditarPreguntaActivaCombo.Text = questions.FirstOrDefault(Function(u) u.QuestionId = id).IsActive
-            UpdateRespuestasGrid(questions.FirstOrDefault(Function(u) u.QuestionId = id).Answers)
+            TxtEditarPreguntaId.Text = questions.FirstOrDefault(Function(u) u.PreguntaId = id).PreguntaId
+            TxtEditarPreguntaTexto.Text = questions.FirstOrDefault(Function(u) u.PreguntaId = id).PreguntaTexto
+            TxtEditarPreguntaImagen.Text = questions.FirstOrDefault(Function(u) u.PreguntaId = id).ImagenDireccion
+            EditarPreguntaCategoriaCombo.Text = questions.FirstOrDefault(Function(u) u.PreguntaId = id).Categoria.CategoriaNombre
+            EditarPreguntaActivaCombo.Text = questions.FirstOrDefault(Function(u) u.PreguntaId = id).EstaActiva
+            UpdateRespuestasGrid(questions.FirstOrDefault(Function(u) u.PreguntaId = id).Respuestas)
         End If
     End Sub
 
-    Private Sub UpdateRespuestasGrid(answers As IEnumerable(Of AnswerDto))
+    Private Sub UpdateRespuestasGrid(answers As IEnumerable(Of RespuestaDto))
         RespuestasGrid.DataSource = If(answers.Any(), GetAnswersGrid(answers), Nothing)
     End Sub
 
-    Private Function GetAnswersGrid(answers As IEnumerable(Of AnswerDto)) As DataTable
+    Private Function GetAnswersGrid(answers As IEnumerable(Of RespuestaDto)) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Pregunta Id")
         table.Columns.Add("Pregunta Texto")
 
-        For Each answer As AnswerDto In answers
-            table.Rows.Add(answer.QuestionId, answer.AnswerText)
+        For Each answer As RespuestaDto In answers
+            table.Rows.Add(answer.PreguntaId, answer.RespuestaTexto)
         Next
 
         Return table
@@ -601,16 +601,16 @@ Public Class Admin
 
     Private Sub BtnEditarPreguntaActualizar_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaActualizar.Click
         If Not String.IsNullOrEmpty(TxtEditarPreguntaId.Text) And Not String.IsNullOrEmpty(TxtEditarPreguntaTexto.Text) And EditarPreguntaCategoriaCombo.SelectedIndex <> -1 And EditarPreguntaActivaCombo.SelectedIndex <> -1 Then
-            Dim questionToModify = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text))
-            questionToModify.QuestionText = TxtEditarPreguntaTexto.Text
-            questionToModify.ImagePath = If(TxtEditarPreguntaImagen.Text.Equals(String.Empty), Nothing, TxtEditarPreguntaImagen.Text)
-            questionToModify.Category = CType(EditarPreguntaCategoriaCombo.SelectedItem, CategoryDto)
-            questionToModify.IsActive = Boolean.Parse(EditarPreguntaActivaCombo.Text)
+            Dim questionToModify = questions.FirstOrDefault(Function(q) q.PreguntaId = Integer.Parse(TxtEditarPreguntaId.Text))
+            questionToModify.PreguntaTexto = TxtEditarPreguntaTexto.Text
+            questionToModify.ImagenDireccion = If(TxtEditarPreguntaImagen.Text.Equals(String.Empty), Nothing, TxtEditarPreguntaImagen.Text)
+            questionToModify.Categoria = CType(EditarPreguntaCategoriaCombo.SelectedItem, CategoriaDto)
+            questionToModify.EstaActiva = Boolean.Parse(EditarPreguntaActivaCombo.Text)
 
-            Dim message = questionService.UpdateQuestion(questionToModify.QuestionId, questionToModify)
+            Dim message = questionService.UpdateQuestion(questionToModify.PreguntaId, questionToModify)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Pregunta: " & questionToModify.QuestionId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Pregunta: " & questionToModify.PreguntaId)
             UpdateQuestions()
         End If
     End Sub
@@ -619,7 +619,7 @@ Public Class Admin
         Dim answerList = ConvertRespuestasGridToList()
         'Dim answers = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text)).Answers
 
-        answerList.Remove(answerList.FirstOrDefault(Function(a) a.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text) And a.AnswerText.Equals(RespuestasGrid.SelectedRows(0).Cells("Pregunta Texto").Value.ToString())))
+        answerList.Remove(answerList.FirstOrDefault(Function(a) a.PreguntaId = Integer.Parse(TxtEditarPreguntaId.Text) And a.RespuestaTexto.Equals(RespuestasGrid.SelectedRows(0).Cells("Pregunta Texto").Value.ToString())))
         UpdateRespuestasGrid(answerList)
     End Sub
 
@@ -629,10 +629,10 @@ Public Class Admin
         If answerForm.ShowDialog(Me) = DialogResult.OK Then
 
             Dim answerList = ConvertRespuestasGridToList()
-            answerList.Add(New AnswerDto() With
+            answerList.Add(New RespuestaDto() With
             {
-                .QuestionId = Integer.Parse(TxtEditarPreguntaId.Text),
-                .AnswerText = answerForm.TxtNewAnswer.Text
+                .PreguntaId = Integer.Parse(TxtEditarPreguntaId.Text),
+                .RespuestaTexto = answerForm.TxtNewAnswer.Text
             })
 
             UpdateRespuestasGrid(answerList)
@@ -644,15 +644,15 @@ Public Class Admin
         End If
     End Sub
 
-    Private Function ConvertRespuestasGridToList() As List(Of AnswerDto)
-        Dim answerList = New List(Of AnswerDto)
+    Private Function ConvertRespuestasGridToList() As List(Of RespuestaDto)
+        Dim answerList = New List(Of RespuestaDto)
 
         For Each row As DataGridViewRow In RespuestasGrid.Rows
             If row.Cells("Pregunta Texto").Value IsNot Nothing Then
-                answerList.Add(New AnswerDto() With
+                answerList.Add(New RespuestaDto() With
                 {
-                    .QuestionId = Integer.Parse(row.Cells("Pregunta Id").Value),
-                    .AnswerText = row.Cells("Pregunta Texto").Value.ToString()
+                    .PreguntaId = Integer.Parse(row.Cells("Pregunta Id").Value),
+                    .RespuestaTexto = row.Cells("Pregunta Texto").Value.ToString()
                 })
             End If
         Next
@@ -668,9 +668,9 @@ Public Class Admin
         If answerForm.ShowDialog(Me) = DialogResult.OK Then
             Dim answerList = ConvertRespuestasGridToList()
             'Dim answers = questions.FirstOrDefault(Function(q) q.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text)).Answers
-            Dim answerToUpdate = answerList.FirstOrDefault(Function(a) a.QuestionId = Integer.Parse(TxtEditarPreguntaId.Text) And a.AnswerText.Equals(answer))
+            Dim answerToUpdate = answerList.FirstOrDefault(Function(a) a.PreguntaId = Integer.Parse(TxtEditarPreguntaId.Text) And a.RespuestaTexto.Equals(answer))
 
-            answerToUpdate.AnswerText = answerForm.TxtNewAnswer.Text
+            answerToUpdate.RespuestaTexto = answerForm.TxtNewAnswer.Text
 
             UpdateRespuestasGrid(answerList)
         End If
@@ -685,27 +685,27 @@ Public Class Admin
 
     Private Sub BtnPerfilGuardar_Click(sender As Object, e As EventArgs) Handles BtnPerfilGuardar.Click
         If Not String.IsNullOrEmpty(TxtPerfilId.Text) And Not String.IsNullOrEmpty(TxtPerfilNombre.Text) And PerfilActivoCombo.SelectedIndex <> -1 And PermisosSeleccionadosLista.Items.Count > 0 Then
-            Dim profile = profiles.FirstOrDefault(Function(p) p.ProfileId = Integer.Parse(TxtPerfilId.Text))
+            Dim profile = profiles.FirstOrDefault(Function(p) p.PerfilId = Integer.Parse(TxtPerfilId.Text))
 
-            profile.ProfileId = Integer.Parse(TxtPerfilId.Text)
-            profile.Name = TxtPerfilNombre.Text
-            profile.Description = If(TxtPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtPerfilDescripcion.Text)
-            profile.IsActive = PerfilActivoCombo.Text
-            profile.Entitlements = PermisosSeleccionadosLista.Items.Cast(Of EntitlementDto).ToList()
+            profile.PerfilId = Integer.Parse(TxtPerfilId.Text)
+            profile.Nombre = TxtPerfilNombre.Text
+            profile.Descripcion = If(TxtPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtPerfilDescripcion.Text)
+            profile.EstaActivo = PerfilActivoCombo.Text
+            profile.Permisos = PermisosSeleccionadosLista.Items.Cast(Of PermisoDto).ToList()
 
             Dim message = profileService.UpdateProfile(Integer.Parse(TxtPerfilId.Text), profile)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Perfil: " & profile.ProfileId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Perfil: " & profile.PerfilId)
             UpdateProfiles()
         End If
     End Sub
 
     Private Sub BtnAddEntitlement_Click(sender As Object, e As EventArgs) Handles BtnAddEntitlement.Click
         For Each item In PermisosLista.CheckedItems
-            Dim entitlement = CType(item, EntitlementDto)
+            Dim entitlement = CType(item, PermisoDto)
 
-            If Not PermisosSeleccionadosLista.Items.Cast(Of EntitlementDto).Contains(entitlement) Then
+            If Not PermisosSeleccionadosLista.Items.Cast(Of PermisoDto).Contains(entitlement) Then
                 PermisosSeleccionadosLista.Items.Add(entitlement)
             End If
         Next
@@ -722,10 +722,10 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
-            TxtPerfilId.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).ProfileId
-            TxtPerfilNombre.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).Name
-            TxtPerfilDescripcion.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).Description
-            PerfilActivoCombo.Text = profiles.FirstOrDefault(Function(u) u.ProfileId = id).IsActive
+            TxtPerfilId.Text = profiles.FirstOrDefault(Function(u) u.PerfilId = id).PerfilId
+            TxtPerfilNombre.Text = profiles.FirstOrDefault(Function(u) u.PerfilId = id).Nombre
+            TxtPerfilDescripcion.Text = profiles.FirstOrDefault(Function(u) u.PerfilId = id).Descripcion
+            PerfilActivoCombo.Text = profiles.FirstOrDefault(Function(u) u.PerfilId = id).EstaActivo
             UpdatePermisosSeleccionadosLista(id)
         End If
     End Sub
@@ -733,17 +733,17 @@ Public Class Admin
     Private Sub UpdatePermisosSeleccionadosLista(id As Integer)
         PermisosSeleccionadosLista.Items.Clear()
 
-        Dim profile = profiles.FirstOrDefault(Function(u) u.ProfileId = id)
+        Dim profile = profiles.FirstOrDefault(Function(u) u.PerfilId = id)
 
-        For Each entitlement In profile.Entitlements.Where(Function(e) e.IsActive = True)
+        For Each entitlement In profile.Permisos.Where(Function(e) e.EstaActivo = True)
             PermisosSeleccionadosLista.Items.Add(entitlement)
         Next
     End Sub
 
     Private Sub BtnCrearPerfilAgregarPermiso_Click(sender As Object, e As EventArgs) Handles BtnCrearPerfilAgregarPermiso.Click
         For Each item In PermisosCrearPerfil.CheckedItems
-            Dim entitlement = CType(item, EntitlementDto)
-            If Not PermisosSeleccionadosCrearPerfil.Items.Cast(Of EntitlementDto).Contains(entitlement) Then
+            Dim entitlement = CType(item, PermisoDto)
+            If Not PermisosSeleccionadosCrearPerfil.Items.Cast(Of PermisoDto).Contains(entitlement) Then
                 PermisosSeleccionadosCrearPerfil.Items.Add(entitlement)
             End If
         Next
@@ -758,18 +758,18 @@ Public Class Admin
 
     Private Sub BtnCrearPerfilGuardar_Click(sender As Object, e As EventArgs) Handles BtnCrearPerfilGuardar.Click
         If Not String.IsNullOrEmpty(TxtCrearPerfilNombre.Text) And PermisosSeleccionadosCrearPerfil.Items.Count > 0 Then
-            Dim profile = New ProfileDto() With
+            Dim profile = New PerfilDto() With
             {
-                .Name = TxtCrearPerfilNombre.Text,
-                .Description = If(TxtCrearPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtCrearPerfilDescripcion.Text),
-                .Entitlements = PermisosSeleccionadosCrearPerfil.Items.Cast(Of EntitlementDto).ToList(),
-                .IsActive = True
+                .Nombre = TxtCrearPerfilNombre.Text,
+                .Descripcion = If(TxtCrearPerfilDescripcion.Text.Equals(String.Empty), Nothing, TxtCrearPerfilDescripcion.Text),
+                .Permisos = PermisosSeleccionadosCrearPerfil.Items.Cast(Of PermisoDto).ToList(),
+                .EstaActivo = True
             }
 
             Dim message = profileService.AddProfile(profile)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Perfil: " & profile.ProfileId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Perfil: " & profile.PerfilId)
             UpdateProfiles()
             ClearProfileFields()
         End If
@@ -789,17 +789,17 @@ Public Class Admin
 
     Private Sub BtnPermisosActualizar_Click(sender As Object, e As EventArgs) Handles BtnPermisosActualizar.Click
         If Not String.IsNullOrEmpty(TxtPermisosId.Text) And Not String.IsNullOrEmpty(TxtPermisosNombre.Text) And PermisosActivoCombo.SelectedIndex <> -1 Then
-            Dim entitlement = New EntitlementDto() With
+            Dim entitlement = New PermisoDto() With
             {
-                .EntitlementId = Integer.Parse(TxtPermisosId.Text),
-                .Name = TxtPermisosNombre.Text,
-                .IsActive = PermisosActivoCombo.Text
+                .PermisoId = Integer.Parse(TxtPermisosId.Text),
+                .Nombre = TxtPermisosNombre.Text,
+                .EstaActivo = PermisosActivoCombo.Text
             }
 
             Dim message = entitlementService.UpdateEntitlement(Integer.Parse(TxtPermisosId.Text), entitlement)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Permiso: " & entitlement.EntitlementId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Permiso: " & entitlement.PermisoId)
             UpdateEntitlements()
         End If
     End Sub
@@ -808,9 +808,9 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
-            TxtPermisosId.Text = entitlements.FirstOrDefault(Function(u) u.EntitlementId = id).EntitlementId
-            TxtPermisosNombre.Text = entitlements.FirstOrDefault(Function(u) u.EntitlementId = id).Name
-            PermisosActivoCombo.Text = entitlements.FirstOrDefault(Function(u) u.EntitlementId = id).IsActive
+            TxtPermisosId.Text = entitlements.FirstOrDefault(Function(u) u.PermisoId = id).PermisoId
+            TxtPermisosNombre.Text = entitlements.FirstOrDefault(Function(u) u.PermisoId = id).Nombre
+            PermisosActivoCombo.Text = entitlements.FirstOrDefault(Function(u) u.PermisoId = id).EstaActivo
         End If
     End Sub
 
@@ -818,16 +818,16 @@ Public Class Admin
         Dim newEntitlementForm = New NewDataForm("Nombre del Permiso:", "Nuevo Permiso")
 
         If newEntitlementForm.ShowDialog(Me) = DialogResult.OK Then
-            Dim entitlement = New EntitlementDto() With
+            Dim entitlement = New PermisoDto() With
             {
-                .Name = newEntitlementForm.TxtNewData.Text,
-                .IsActive = True
+                .Nombre = newEntitlementForm.TxtNewData.Text,
+                .EstaActivo = True
             }
 
             Dim message = entitlementService.AddEntitlement(entitlement)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Permiso: " & entitlement.EntitlementId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Permiso: " & entitlement.PermisoId)
             UpdateEntitlements()
         End If
     End Sub
@@ -850,25 +850,25 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
-            TxtCategoriasId.Text = categories.FirstOrDefault(Function(u) u.CategoryId = id).CategoryId
-            TxtCategoriasNombre.Text = categories.FirstOrDefault(Function(u) u.CategoryId = id).CategoryName
-            CategoriasActivaCombo.Text = categories.FirstOrDefault(Function(u) u.CategoryId = id).IsActive
+            TxtCategoriasId.Text = categories.FirstOrDefault(Function(u) u.CategoriaId = id).CategoriaId
+            TxtCategoriasNombre.Text = categories.FirstOrDefault(Function(u) u.CategoriaId = id).CategoriaNombre
+            CategoriasActivaCombo.Text = categories.FirstOrDefault(Function(u) u.CategoriaId = id).EstaActiva
         End If
     End Sub
 
     Private Sub BtnCategoriasActualizar_Click(sender As Object, e As EventArgs) Handles BtnCategoriasActualizar.Click
         If Not String.IsNullOrEmpty(TxtCategoriasId.Text) And Not String.IsNullOrEmpty(TxtCategoriasNombre.Text) And CategoriasActivaCombo.SelectedIndex <> -1 Then
-            Dim category = New CategoryDto() With
+            Dim category = New CategoriaDto() With
             {
-                .CategoryId = Integer.Parse(TxtCategoriasId.Text),
-                .CategoryName = TxtCategoriasNombre.Text,
-                .IsActive = CategoriasActivaCombo.Text
+                .CategoriaId = Integer.Parse(TxtCategoriasId.Text),
+                .CategoriaNombre = TxtCategoriasNombre.Text,
+                .EstaActiva = CategoriasActivaCombo.Text
             }
 
             Dim message = categoryService.UpdateCategory(Integer.Parse(TxtCategoriasId.Text), category)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Categoria: " & category.CategoryId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Categoria: " & category.CategoriaId)
             UpdateCategories()
         End If
     End Sub
@@ -877,16 +877,16 @@ Public Class Admin
         Dim newCategoryForm = New NewDataForm("Nombre de la Categoria:", "Nueva Categoria")
 
         If newCategoryForm.ShowDialog(Me) = DialogResult.OK Then
-            Dim category = New CategoryDto() With
+            Dim category = New CategoriaDto() With
             {
-                .CategoryName = newCategoryForm.TxtNewData.Text,
-                .IsActive = True
+                .CategoriaNombre = newCategoryForm.TxtNewData.Text,
+                .EstaActiva = True
             }
 
             Dim message = categoryService.AddCategory(category)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Categoria: " & category.CategoryId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Categoria: " & category.CategoriaId)
             UpdateCategories()
         End If
     End Sub
@@ -901,25 +901,25 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
-            TxtCarrerasId.Text = careers.FirstOrDefault(Function(u) u.CareerId = id).CareerId
-            TxtCarrerasNombre.Text = careers.FirstOrDefault(Function(u) u.CareerId = id).CareerName
-            CarrerasActivaCombo.Text = careers.FirstOrDefault(Function(u) u.CareerId = id).IsActive
+            TxtCarrerasId.Text = careers.FirstOrDefault(Function(u) u.CarreraId = id).CarreraId
+            TxtCarrerasNombre.Text = careers.FirstOrDefault(Function(u) u.CarreraId = id).CarreraNombre
+            CarrerasActivaCombo.Text = careers.FirstOrDefault(Function(u) u.CarreraId = id).EstaActiva
         End If
     End Sub
 
     Private Sub BtnCarrerasActualizar_Click(sender As Object, e As EventArgs) Handles BtnCarrerasActualizar.Click
         If Not String.IsNullOrEmpty(TxtCarrerasId.Text) And Not String.IsNullOrEmpty(TxtCarrerasNombre.Text) And CarrerasActivaCombo.SelectedIndex <> -1 Then
-            Dim career = New CareerDto() With
+            Dim career = New CarreraDto() With
             {
-                .CareerId = Integer.Parse(TxtCarrerasId.Text),
-                .CareerName = TxtCarrerasNombre.Text,
-                .IsActive = CarrerasActivaCombo.Text
+                .CarreraId = Integer.Parse(TxtCarrerasId.Text),
+                .CarreraNombre = TxtCarrerasNombre.Text,
+                .EstaActiva = CarrerasActivaCombo.Text
             }
 
             Dim message = careerService.UpdateCareer(Integer.Parse(TxtCarrerasId.Text), career)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Carrera: " & career.CareerId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Carrera: " & career.CarreraId)
             UpdateCareers()
         End If
     End Sub
@@ -928,24 +928,24 @@ Public Class Admin
         Dim newCareerForm = New NewDataForm("Nombre de la Carrera:", "Nueva Carrera")
 
         If newCareerForm.ShowDialog(Me) = DialogResult.OK Then
-            Dim career = New CareerDto() With
+            Dim career = New CarreraDto() With
             {
-                .CareerName = newCareerForm.TxtNewData.Text,
-                .IsActive = True
+                .CarreraNombre = newCareerForm.TxtNewData.Text,
+                .EstaActiva = True
             }
 
             Dim message = careerService.AddCareer(career)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.Id, message & " Carrera: " & career.CareerId)
+            logService.AddLog(loggedUser.UsuarioId, message & " Carrera: " & career.CarreraId)
             UpdateCareers()
         End If
     End Sub
 
     Private Sub BtnCrearExamenAgregarPregunta_Click(sender As Object, e As EventArgs) Handles BtnCrearExamenAgregarPregunta.Click
         For Each item In CrearExamenPreguntasLista.CheckedItems
-            Dim question = CType(item, QuestionDto)
-            If Not CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).Contains(question) Then
+            Dim question = CType(item, PreguntaDto)
+            If Not CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of PreguntaDto).Contains(question) Then
                 CrearExamenPreguntasSeleccionadasLista.Items.Add(question)
             End If
         Next
@@ -961,20 +961,20 @@ Public Class Admin
     Private Sub BtnCrearExamenGuardar_Click(sender As Object, e As EventArgs) Handles BtnCrearExamenGuardar.Click
         If Not String.IsNullOrEmpty(TxtCrearExamenNombre.Text) And NumericTiempo.Value > 0 And NumericCantidadPreguntas.Value > 0 And CrearExamenPreguntasSeleccionadasLista.Items.Count > 0 Then
             If CrearExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericCantidadPreguntas.Value) Then
-                Dim exam = New ExamDto() With
+                Dim exam = New ExamenDto() With
                 {
-                   .Name = TxtCrearExamenNombre.Text,
-                   .Description = If(String.IsNullOrEmpty(TxtCrearPerfilDescripcion.Text), Nothing, TxtCrearExamenDescripcion.Text),
-                   .Time = NumericTiempo.Value,
-                   .QuestionsQuantity = NumericCantidadPreguntas.Value,
-                   .Questions = CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
-                   .IsActive = True
+                   .Nombre = TxtCrearExamenNombre.Text,
+                   .Descripcion = If(String.IsNullOrEmpty(TxtCrearPerfilDescripcion.Text), Nothing, TxtCrearExamenDescripcion.Text),
+                   .Tiempo = NumericTiempo.Value,
+                   .CantidadPreguntas = NumericCantidadPreguntas.Value,
+                   .Preguntas = CrearExamenPreguntasSeleccionadasLista.Items.Cast(Of PreguntaDto).ToList(),
+                   .EstaActivo = True
                 }
 
                 Dim message = examService.AddExam(exam)
 
                 MessageBox.Show(message)
-                logService.AddLog(loggedUser.Id, message & " Examen: " & exam.ExamId)
+                logService.AddLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
                 UpdateExams()
                 ClearExamFields()
             Else
@@ -995,9 +995,9 @@ Public Class Admin
     Private Sub CrearExamenFiltrarCombo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles CrearExamenFiltrarCombo.SelectedIndexChanged
         UnCheckItemsCrearExamenFiltrar()
         If CrearExamenFiltrarCombo.SelectedIndex = 0 Then
-            CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
+            CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.EstaActiva = True).ToList()
         Else
-            CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True And q.Category.CategoryName.Equals(CrearExamenFiltrarCombo.Text)).ToList()
+            CrearExamenPreguntasLista.DataSource = questions.Where(Function(q) q.EstaActiva = True And q.Categoria.CategoriaNombre.Equals(CrearExamenFiltrarCombo.Text)).ToList()
         End If
     End Sub
 
@@ -1011,12 +1011,12 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
-            TxtEditarExamenId.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).ExamId
-            TxtEditarExamenNombre.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).Name
-            TxtEditarExamenDescripcion.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).Description
-            NumericEditarExamenTiempo.Value = exams.FirstOrDefault(Function(u) u.ExamId = id).Time
-            NumericEditarExamenCantidadPreguntas.Value = exams.FirstOrDefault(Function(u) u.ExamId = id).QuestionsQuantity
-            EditarExamenActivoCombo.Text = exams.FirstOrDefault(Function(u) u.ExamId = id).IsActive
+            TxtEditarExamenId.Text = exams.FirstOrDefault(Function(u) u.ExamenId = id).ExamenId
+            TxtEditarExamenNombre.Text = exams.FirstOrDefault(Function(u) u.ExamenId = id).Nombre
+            TxtEditarExamenDescripcion.Text = exams.FirstOrDefault(Function(u) u.ExamenId = id).Descripcion
+            NumericEditarExamenTiempo.Value = exams.FirstOrDefault(Function(u) u.ExamenId = id).Tiempo
+            NumericEditarExamenCantidadPreguntas.Value = exams.FirstOrDefault(Function(u) u.ExamenId = id).CantidadPreguntas
+            EditarExamenActivoCombo.Text = exams.FirstOrDefault(Function(u) u.ExamenId = id).EstaActivo
             UpdatePreguntasSeleccionadasLista(id)
         End If
     End Sub
@@ -1024,9 +1024,9 @@ Public Class Admin
     Private Sub UpdatePreguntasSeleccionadasLista(id As Integer)
         EditarExamenPreguntasSeleccionadasLista.Items.Clear()
 
-        Dim exam = exams.FirstOrDefault(Function(u) u.ExamId = id)
+        Dim exam = exams.FirstOrDefault(Function(u) u.ExamenId = id)
 
-        For Each question In exam.Questions.Where(Function(q) q.IsActive = True)
+        For Each question In exam.Preguntas.Where(Function(q) q.EstaActiva = True)
             EditarExamenPreguntasSeleccionadasLista.Items.Add(question)
         Next
     End Sub
@@ -1034,9 +1034,9 @@ Public Class Admin
     Private Sub EditarExamenFiltrarCombo_SelectedIndexChanged(sender As Object, e As EventArgs) Handles EditarExamenFiltrarCombo.SelectedIndexChanged
         UnCheckItemsEditarExamenFiltrar()
         If EditarExamenFiltrarCombo.SelectedIndex = 0 Then
-            EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True).ToList()
+            EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.EstaActiva = True).ToList()
         Else
-            EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.IsActive = True And q.Category.CategoryName.Equals(EditarExamenFiltrarCombo.Text)).ToList()
+            EditarExamenPreguntasLista.DataSource = questions.Where(Function(q) q.EstaActiva = True And q.Categoria.CategoriaNombre.Equals(EditarExamenFiltrarCombo.Text)).ToList()
         End If
     End Sub
 
@@ -1048,8 +1048,8 @@ Public Class Admin
 
     Private Sub BtnEditarExamenAgregarPregunta_Click(sender As Object, e As EventArgs) Handles BtnEditarExamenAgregarPregunta.Click
         For Each item In EditarExamenPreguntasLista.CheckedItems
-            Dim question = CType(item, QuestionDto)
-            If Not EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).Contains(question) Then
+            Dim question = CType(item, PreguntaDto)
+            If Not EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of PreguntaDto).Contains(question) Then
                 EditarExamenPreguntasSeleccionadasLista.Items.Add(question)
             End If
         Next
@@ -1065,21 +1065,21 @@ Public Class Admin
     Private Sub BtnEditarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnEditarExamenActualizar.Click
         If Not String.IsNullOrEmpty(TxtEditarExamenId.Text) And Not String.IsNullOrEmpty(TxtEditarExamenNombre.Text) And NumericEditarExamenTiempo.Value > 0 And NumericEditarExamenCantidadPreguntas.Value > 0 And EditarExamenActivoCombo.SelectedIndex <> -1 And EditarExamenPreguntasSeleccionadasLista.Items.Count > 0 Then
             If EditarExamenPreguntasSeleccionadasLista.Items.Count >= Integer.Parse(NumericEditarExamenCantidadPreguntas.Value) Then
-                Dim exam = New ExamDto() With
+                Dim exam = New ExamenDto() With
                 {
-                    .ExamId = Integer.Parse(TxtEditarExamenId.Text),
-                    .Name = If(String.IsNullOrEmpty(TxtEditarExamenNombre.Text), Nothing, TxtEditarExamenNombre.Text),
-                    .Description = TxtEditarExamenDescripcion.Text,
-                    .Time = NumericEditarExamenTiempo.Value,
-                    .QuestionsQuantity = NumericEditarExamenCantidadPreguntas.Value,
-                    .Questions = EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of QuestionDto).ToList(),
-                    .IsActive = EditarExamenActivoCombo.Text
+                    .ExamenId = Integer.Parse(TxtEditarExamenId.Text),
+                    .Nombre = If(String.IsNullOrEmpty(TxtEditarExamenNombre.Text), Nothing, TxtEditarExamenNombre.Text),
+                    .Descripcion = TxtEditarExamenDescripcion.Text,
+                    .Tiempo = NumericEditarExamenTiempo.Value,
+                    .CantidadPreguntas = NumericEditarExamenCantidadPreguntas.Value,
+                    .Preguntas = EditarExamenPreguntasSeleccionadasLista.Items.Cast(Of PreguntaDto).ToList(),
+                    .EstaActivo = EditarExamenActivoCombo.Text
                 }
 
                 Dim message = examService.UpdateExam(Integer.Parse(TxtEditarExamenId.Text), exam)
 
                 MessageBox.Show(message)
-                logService.AddLog(loggedUser.Id, message & " Examen: " & exam.ExamId)
+                logService.AddLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
                 UpdateExams()
             Else
                 MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
@@ -1091,13 +1091,13 @@ Public Class Admin
         Dim grid = CType(sender, DataGridView)
         If grid.SelectedRows.Count > 0 Then
             Dim id = grid.SelectedRows(0).Cells("Id").Value.ToString()
-            Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = id)
+            Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamenId = id)
 
             ShowAssignedUsersToExam(exam)
         End If
     End Sub
 
-    Private Sub ShowAssignedUsersToExam(exam As ExamDto)
+    Private Sub ShowAssignedUsersToExam(exam As ExamenDto)
         selectedStudentsBindingSource.DataSource = ConvertExamUsersToDataTable(exam)
 
         Dim IsCompletedComboBox = New DataGridViewComboBoxColumn() With
@@ -1128,7 +1128,7 @@ Public Class Admin
         AsignarExamenEstudiantesSeleccionadosGrid.Columns("CompletadoComboBoxPropertyName").Visible = False
     End Sub
 
-    Private Function ConvertExamUsersToDataTable(exam As ExamDto) As DataTable
+    Private Function ConvertExamUsersToDataTable(exam As ExamenDto) As DataTable
         Dim table = New DataTable()
 
         table.Columns.Add("Cedula")
@@ -1138,8 +1138,8 @@ Public Class Admin
         table.Columns.Add("Examen")
         table.Columns.Add("CompletadoComboBoxPropertyName", GetType(String))
 
-        For Each examUser In exam.ExamUsers
-            table.Rows.Add(examUser.User.Id, examUser.User.Name, examUser.User.LastName, examUser.User.SecondLastName, exam.Name, examUser.IsCompleted.ToString())
+        For Each examUser In exam.UsuarioExamenes
+            table.Rows.Add(examUser.Usuario.UsuarioId, examUser.Usuario.Nombre, examUser.Usuario.PrimerApellido, examUser.Usuario.SegundoApellido, exam.Nombre, examUser.Completado.ToString())
         Next
 
         Return table
@@ -1155,33 +1155,33 @@ Public Class Admin
     End Sub
 
     Private Sub BtnAsignarExamenAgregarEstudiante_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenAgregarEstudiante.Click
-        Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
+        Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamenId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
 
-        Dim newExam = New ExamDto() With
+        Dim newExam = New ExamenDto() With
         {
-            .ExamId = exam.ExamId,
-            .Name = exam.Name,
-            .Description = exam.Description,
-            .Questions = exam.Questions,
-            .Time = exam.Time,
-            .IsActive = exam.IsActive,
-            .QuestionsQuantity = exam.QuestionsQuantity,
-            .ExamUsers = exam.ExamUsers.Select(Function(eu) New ExamUsersDto() With
+            .ExamenId = exam.ExamenId,
+            .Nombre = exam.Nombre,
+            .Descripcion = exam.Descripcion,
+            .Preguntas = exam.Preguntas,
+            .Tiempo = exam.Tiempo,
+            .EstaActivo = exam.EstaActivo,
+            .CantidadPreguntas = exam.CantidadPreguntas,
+            .UsuarioExamenes = exam.UsuarioExamenes.Select(Function(eu) New UsuarioExamenDto() With
             {
-                .User = eu.User,
-                .IsCompleted = eu.IsCompleted
+                .Usuario = eu.Usuario,
+                .Completado = eu.Completado
             }).ToList()
         }
 
         For Each item As DataGridViewRow In AsignarExamenEstudiantesGrid.SelectedRows
-            Dim newExamUser = New ExamUsersDto() With
+            Dim newExamUser = New UsuarioExamenDto() With
             {
-                .User = users.FirstOrDefault(Function(u) u.Id = item.Cells("Cedula").Value.ToString()),
-                .IsCompleted = False
+                .Usuario = users.FirstOrDefault(Function(u) u.UsuarioId = item.Cells("Cedula").Value.ToString()),
+                .Completado = False
             }
 
-            If Not newExam.ExamUsers.Contains(newExamUser) Then
-                newExam.ExamUsers.Add(newExamUser)
+            If Not newExam.UsuarioExamenes.Contains(newExamUser) Then
+                newExam.UsuarioExamenes.Add(newExamUser)
             End If
         Next
         ShowAssignedUsersToExam(newExam)
@@ -1189,38 +1189,38 @@ Public Class Admin
 
     Private Sub BtnAsignarExamenRemoverEstudiante_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenRemoverEstudiante.Click
 
-        Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
+        Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamenId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
 
-        Dim newExam = New ExamDto() With
+        Dim newExam = New ExamenDto() With
         {
-            .ExamId = exam.ExamId,
-            .Name = exam.Name,
-            .Description = exam.Description,
-            .Questions = exam.Questions,
-            .Time = exam.Time,
-            .IsActive = exam.IsActive,
-            .QuestionsQuantity = exam.QuestionsQuantity,
-            .ExamUsers = GetExamUsers()
+            .ExamenId = exam.ExamenId,
+            .Nombre = exam.Nombre,
+            .Descripcion = exam.Descripcion,
+            .Preguntas = exam.Preguntas,
+            .Tiempo = exam.Tiempo,
+            .EstaActivo = exam.EstaActivo,
+            .CantidadPreguntas = exam.CantidadPreguntas,
+            .UsuarioExamenes = GetExamUsers()
         }
 
         For Each item As DataGridViewRow In AsignarExamenEstudiantesSeleccionadosGrid.SelectedRows
-            Dim userExam = New ExamUsersDto() With
+            Dim userExam = New UsuarioExamenDto() With
             {
-                .User = users.FirstOrDefault(Function(u) u.Id = item.Cells("Cedula").Value.ToString())
+                .Usuario = users.FirstOrDefault(Function(u) u.UsuarioId = item.Cells("Cedula").Value.ToString())
             }
-            newExam.ExamUsers.Remove(userExam)
+            newExam.UsuarioExamenes.Remove(userExam)
         Next
         ShowAssignedUsersToExam(newExam)
     End Sub
 
-    Private Function GetExamUsers() As IEnumerable(Of ExamUsersDto)
-        Dim examUsersList = New List(Of ExamUsersDto)
+    Private Function GetExamUsers() As IEnumerable(Of UsuarioExamenDto)
+        Dim examUsersList = New List(Of UsuarioExamenDto)
 
         For Each item As DataGridViewRow In AsignarExamenEstudiantesSeleccionadosGrid.Rows
-            Dim newUserExam = New ExamUsersDto() With
+            Dim newUserExam = New UsuarioExamenDto() With
             {
-                .User = users.FirstOrDefault(Function(u) u.Id = item.Cells("Cedula").Value.ToString()),
-                .IsCompleted = item.Cells("Completado").Value
+                .Usuario = users.FirstOrDefault(Function(u) u.UsuarioId = item.Cells("Cedula").Value.ToString()),
+                .Completado = item.Cells("Completado").Value
             }
             examUsersList.Add(newUserExam)
         Next
@@ -1229,13 +1229,13 @@ Public Class Admin
     End Function
 
     Private Sub BtnAsignarExamenActualizar_Click(sender As Object, e As EventArgs) Handles BtnAsignarExamenActualizar.Click
-        Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
-        exam.ExamUsers = GetExamUsers()
+        Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamenId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
+        exam.UsuarioExamenes = GetExamUsers()
 
         Dim message = examService.AssignUsersToExam(Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value), exam)
 
         MessageBox.Show(message)
-        logService.AddLog(loggedUser.Id, message & " Examen: " & exam.ExamId)
+        logService.AddLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
     End Sub
 
     Private Sub TxtAsignarExamenEstudiantesBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtAsignarExamenEstudiantesBuscar.TextChanged

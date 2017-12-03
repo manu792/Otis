@@ -12,19 +12,19 @@ Public Class Router
         Dim user = userService.GetUserByUserName(userId)
         Dim form As Form
 
-        If user.Profile.Name.Equals("Administrador") Then
+        If user.Perfil.Nombre.Equals("Administrador") Then
             ' admin
             form = New Admin(user)
 
             form.Show()
             previousForm.Close()
-        ElseIf user.Profile.Name.Equals("Estudiante") Or user.Profile.Name.Equals("Primer Ingreso") Then
+        ElseIf user.Perfil.Nombre.Equals("Estudiante") Or user.Perfil.Nombre.Equals("Primer Ingreso") Then
             ' student
             form = New Student(user)
 
             form.Show()
             previousForm.Close()
-        ElseIf user.Profile.Name.Equals("Especialista") Then
+        ElseIf user.Perfil.Nombre.Equals("Especialista") Then
             ' espec
             form = New Specialist(user)
 
