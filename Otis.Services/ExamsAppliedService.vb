@@ -39,6 +39,7 @@ Public Class ExamsAppliedService
                     }, Nothing)
                 }
             },
+            .CantidadPreguntasExamen = e.Examen.CantidadPreguntas,
             .CantidadPreguntasRespondidas = e.CantidadPreguntasRespondidas
         }).ToList()
     End Function

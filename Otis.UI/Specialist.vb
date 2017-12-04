@@ -41,9 +41,10 @@ Public Class Specialist
         table.Columns.Add("Carrera")
         table.Columns.Add("Cantidad de Preguntas de Examen")
         table.Columns.Add("Cantidad de Preguntas con Respuesta")
+        table.Columns.Add("Fecha Aplicacion")
 
         For Each examApplied In examsApplied
-            table.Rows.Add(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId, examApplied.Examen.Nombre, examApplied.Sesion.Usuario.Nombre, examApplied.Sesion.Usuario.UsuarioId, examApplied.Sesion.Usuario.Carrera?.CarreraNombre, examApplied.Examen.CantidadPreguntas, examApplied.CantidadPreguntasRespondidas)
+            table.Rows.Add(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId, examApplied.Examen.Nombre, examApplied.Sesion.Usuario.Nombre, examApplied.Sesion.Usuario.UsuarioId, examApplied.Sesion.Usuario.Carrera?.CarreraNombre, examApplied.CantidadPreguntasExamen, examApplied.CantidadPreguntasRespondidas, examApplied.Sesion.FechaAplicacionExamen)
         Next
 
         Return table

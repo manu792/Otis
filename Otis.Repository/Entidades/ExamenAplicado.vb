@@ -10,6 +10,8 @@ Public Class ExamenAplicado
     <Column(Order:=1)>
     Property ExamenId As Integer
     <Required>
+    Property CantidadPreguntasExamen As Integer
+    <Required>
     Property CantidadPreguntasRespondidas As Integer
     <Required>
     Property Revisado As Boolean

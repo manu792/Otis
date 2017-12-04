@@ -108,14 +108,14 @@ Public Class ExamService
         })
     End Sub
 
-    Public Sub SaveTest(sessionDto As SesionDto, examId As Integer, questionsAnsweredNumber As Integer)
+    Public Sub SaveTest(sessionDto As SesionDto, examId As Integer, examQuestionsQuantity As Integer, questionsAnsweredNumber As Integer)
         unitOfWork.SesionRepositorio.AgregarSesion(New Sesion With
         {
             .SesionId = sessionDto.SesionId,
             .UsuarioId = sessionDto.Usuario.UsuarioId,
             .FechaSesion = DateTime.Now
         })
-        unitOfWork.ExamenAplicadoRepositorio.AgregarExamenAplicado(New ExamenAplicado() With {.SesionId = sessionDto.SesionId, .ExamenId = examId, .Revisado = False, .CantidadPreguntasRespondidas = questionsAnsweredNumber})
+        unitOfWork.ExamenAplicadoRepositorio.AgregarExamenAplicado(New ExamenAplicado() With {.SesionId = sessionDto.SesionId, .ExamenId = examId, .Revisado = False, .CantidadPreguntasExamen = examQuestionsQuantity, .CantidadPreguntasRespondidas = questionsAnsweredNumber})
         unitOfWork.ExamenRepositorio.ActualizarExamenStatusPorUsuarioId(examId, sessionDto.Usuario.UsuarioId, True)
         unitOfWork.SaveChanges()
     End Sub

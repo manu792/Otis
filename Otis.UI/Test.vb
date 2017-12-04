@@ -85,9 +85,9 @@ Public Class Test
 
         controlList.Add(New Label() With
         {
-            .AutoSize = True,
+            .AutoSize = False,
             .Location = New Point(45, 80),
-            .Size = New Drawing.Size(463, 46),
+            .Size = New Drawing.Size(463, 50),
             .Text = question.PreguntaTexto
         })
 
@@ -101,7 +101,7 @@ Public Class Test
                 .Location = New Point(121, 67),
                 .ImageLocation = question.ImagenDireccion
             })
-            y = y + 133
+            y = y + 160
         End If
 
         If question.Respuestas.Count = 0 Then
@@ -142,7 +142,7 @@ Public Class Test
         logService.AddLog(user.UsuarioId, "Respuestas de usuario guardadas")
 
         MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
-        examService.SaveTest(session, exam.ExamenId, questionsAnsweredNumber)
+        examService.SaveTest(session, exam.ExamenId, exam.CantidadPreguntas, questionsAnsweredNumber)
         ReturnToMain()
     End Sub
 

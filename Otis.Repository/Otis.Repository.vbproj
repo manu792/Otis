@@ -75,6 +75,10 @@
       <DependentUpon>201712021254056_Initial.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201712021254056_Initial.vb" />
+    <Compile Include="Migrations\201712041819011_AddExamTotalQuestionQuantity.Designer.vb">
+      <DependentUpon>201712041819011_AddExamTotalQuestionQuantity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712041819011_AddExamTotalQuestionQuantity.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Entidades\LogActividad.vb" />
     <Compile Include="Entidades\ExamenAplicado.vb" />
@@ -109,6 +113,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712021254056_Initial.resx">
       <DependentUpon>201712021254056_Initial.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712041819011_AddExamTotalQuestionQuantity.resx">
+      <DependentUpon>201712041819011_AddExamTotalQuestionQuantity.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
