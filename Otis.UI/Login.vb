@@ -56,7 +56,17 @@ Public Class Login
         End If
     End Sub
 
-    Private Sub BtnGetNewPassword_Click(sender As Object, e As EventArgs) Handles BtnGetNewPassword.Click
+    Private Sub BtnGetNewPassword_Click(sender As Object, e As EventArgs)
+        If UsernameTxt.Text <> String.Empty Then
+            logService.AddLog(UsernameTxt.Text, "El usuario con cedula " &
+                              UsernameTxt.Text & " hizo click en 'He olvidado mi contraseña'")
+            MessageBox.Show(emailService.SendEmail(UsernameTxt.Text))
+        Else
+            MessageBox.Show("Debes ingresar tu usuario para enviar el correo y recuperar tu contraseña.")
+        End If
+    End Sub
+
+    Private Sub PasswordForgottenLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PasswordForgottenLink.LinkClicked
         If UsernameTxt.Text <> String.Empty Then
             logService.AddLog(UsernameTxt.Text, "El usuario con cedula " &
                               UsernameTxt.Text & " hizo click en 'He olvidado mi contraseña'")

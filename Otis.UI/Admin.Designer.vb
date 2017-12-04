@@ -258,6 +258,7 @@ Partial Class Admin
         Me.Label73 = New System.Windows.Forms.Label()
         Me.LogsGrid = New System.Windows.Forms.DataGridView()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
+        Me.WelcomeLabel = New System.Windows.Forms.Label()
         Me.AdminTabs.SuspendLayout()
         Me.Usuarios.SuspendLayout()
         Me.TabControl3.SuspendLayout()
@@ -2611,11 +2612,21 @@ Partial Class Admin
         Me.BtnCerrarSesion.Text = "Cerrar Sesion"
         Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
+        'WelcomeLabel
+        '
+        Me.WelcomeLabel.AutoSize = True
+        Me.WelcomeLabel.Location = New System.Drawing.Point(16, 13)
+        Me.WelcomeLabel.Name = "WelcomeLabel"
+        Me.WelcomeLabel.Size = New System.Drawing.Size(63, 13)
+        Me.WelcomeLabel.TabIndex = 5
+        Me.WelcomeLabel.Text = "Bienvenido!"
+        '
         'Admin
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(987, 673)
+        Me.Controls.Add(Me.WelcomeLabel)
         Me.Controls.Add(Me.BtnCerrarSesion)
         Me.Controls.Add(Me.AdminTabs)
         Me.Name = "Admin"
@@ -2700,6 +2711,7 @@ Partial Class Admin
         Me.Log.PerformLayout()
         CType(Me.LogsGrid, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents OpenFileDialog As OpenFileDialog
@@ -2939,4 +2951,5 @@ Partial Class Admin
     Friend WithEvents Label73 As Label
     Friend WithEvents LogsGrid As DataGridView
     Friend WithEvents BtnLogsRemoverFiltro As Button
+    Friend WithEvents WelcomeLabel As Label
 End Class

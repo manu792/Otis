@@ -27,7 +27,7 @@ Partial Class Login
         Me.PasswordTxt = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.LoginBtn = New System.Windows.Forms.Button()
-        Me.BtnGetNewPassword = New System.Windows.Forms.Button()
+        Me.PasswordForgottenLink = New System.Windows.Forms.LinkLabel()
         Me.SuspendLayout()
         '
         'Label1
@@ -65,28 +65,29 @@ Partial Class Login
         '
         'LoginBtn
         '
-        Me.LoginBtn.Location = New System.Drawing.Point(122, 138)
+        Me.LoginBtn.Location = New System.Drawing.Point(133, 139)
         Me.LoginBtn.Name = "LoginBtn"
         Me.LoginBtn.Size = New System.Drawing.Size(75, 23)
         Me.LoginBtn.TabIndex = 4
         Me.LoginBtn.Text = "Entrar"
         Me.LoginBtn.UseVisualStyleBackColor = True
         '
-        'BtnGetNewPassword
+        'PasswordForgottenLink
         '
-        Me.BtnGetNewPassword.Location = New System.Drawing.Point(84, 167)
-        Me.BtnGetNewPassword.Name = "BtnGetNewPassword"
-        Me.BtnGetNewPassword.Size = New System.Drawing.Size(156, 23)
-        Me.BtnGetNewPassword.TabIndex = 6
-        Me.BtnGetNewPassword.Text = "He olvidado mi contraseña"
-        Me.BtnGetNewPassword.UseVisualStyleBackColor = True
+        Me.PasswordForgottenLink.AutoSize = True
+        Me.PasswordForgottenLink.Location = New System.Drawing.Point(102, 177)
+        Me.PasswordForgottenLink.Name = "PasswordForgottenLink"
+        Me.PasswordForgottenLink.Size = New System.Drawing.Size(133, 13)
+        Me.PasswordForgottenLink.TabIndex = 8
+        Me.PasswordForgottenLink.TabStop = True
+        Me.PasswordForgottenLink.Text = "He olvidado mi contraseña"
         '
         'Login
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(340, 267)
-        Me.Controls.Add(Me.BtnGetNewPassword)
+        Me.Controls.Add(Me.PasswordForgottenLink)
         Me.Controls.Add(Me.LoginBtn)
         Me.Controls.Add(Me.PasswordTxt)
         Me.Controls.Add(Me.Label2)
@@ -105,5 +106,5 @@ Partial Class Login
     Friend WithEvents PasswordTxt As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents LoginBtn As Button
-    Friend WithEvents BtnGetNewPassword As Button
+    Friend WithEvents PasswordForgottenLink As LinkLabel
 End Class

@@ -21,6 +21,8 @@ Public Class Specialist
     End Sub
 
     Private Sub Specialist_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        WelcomeLabel.Text = "Bienvenido, " & user.Nombre & " " & user.PrimerApellido
+
         examsApplied = examsAppliedService.GetPendingReviewExams()
         PendingReviewExams.DataSource = ConvertPendingExamsToDataTable(examsApplied)
 

@@ -26,6 +26,7 @@ Partial Class Specialist
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PendingReviewExams = New System.Windows.Forms.DataGridView()
         Me.BtnRevisar = New System.Windows.Forms.Button()
+        Me.WelcomeLabel = New System.Windows.Forms.Label()
         CType(Me.PendingReviewExams, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -69,11 +70,21 @@ Partial Class Specialist
         Me.BtnRevisar.Text = "Revisar"
         Me.BtnRevisar.UseVisualStyleBackColor = True
         '
+        'WelcomeLabel
+        '
+        Me.WelcomeLabel.AutoSize = True
+        Me.WelcomeLabel.Location = New System.Drawing.Point(41, 29)
+        Me.WelcomeLabel.Name = "WelcomeLabel"
+        Me.WelcomeLabel.Size = New System.Drawing.Size(63, 13)
+        Me.WelcomeLabel.TabIndex = 8
+        Me.WelcomeLabel.Text = "Bienvenido!"
+        '
         'Specialist
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(671, 486)
+        Me.Controls.Add(Me.WelcomeLabel)
         Me.Controls.Add(Me.BtnCerrarSesion)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PendingReviewExams)
@@ -91,4 +102,5 @@ Partial Class Specialist
     Friend WithEvents Label1 As Label
     Friend WithEvents PendingReviewExams As DataGridView
     Friend WithEvents BtnRevisar As Button
+    Friend WithEvents WelcomeLabel As Label
 End Class

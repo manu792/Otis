@@ -69,6 +69,7 @@ Public Class Admin
     End Sub
 
     Private Sub Mantenimiento_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        WelcomeLabel.Text = "Bienvenido, " & loggedUser.Nombre & " " & loggedUser.PrimerApellido
         ValidateAdminEntitlements()
         UpdateQuestions()
         UpdateCategories()
@@ -606,6 +607,7 @@ Public Class Admin
             questionToModify.ImagenDireccion = If(TxtEditarPreguntaImagen.Text.Equals(String.Empty), Nothing, TxtEditarPreguntaImagen.Text)
             questionToModify.Categoria = CType(EditarPreguntaCategoriaCombo.SelectedItem, CategoriaDto)
             questionToModify.EstaActiva = Boolean.Parse(EditarPreguntaActivaCombo.Text)
+            questionToModify.Respuestas = ObtenerRespuestasDto()
 
             Dim message = questionService.UpdateQuestion(questionToModify.PreguntaId, questionToModify)
 
@@ -614,6 +616,22 @@ Public Class Admin
             UpdateQuestions()
         End If
     End Sub
+
+    Private Function ObtenerRespuestasDto() As IEnumerable(Of RespuestaDto)
+        Dim lista = New List(Of RespuestaDto)
+
+        For Each respuesta As DataGridViewRow In RespuestasGrid.Rows
+            If respuesta.Cells("Pregunta Id").Value IsNot Nothing Then
+                lista.Add(New RespuestaDto() With
+                {
+                    .PreguntaId = Integer.Parse(respuesta.Cells("Pregunta Id").Value),
+                    .RespuestaTexto = respuesta.Cells("Pregunta Texto").Value
+                })
+            End If
+        Next
+
+        Return lista
+    End Function
 
     Private Sub BtnEditarPreguntaEliminarRespuesta_Click(sender As Object, e As EventArgs) Handles BtnEditarPreguntaEliminarRespuesta.Click
         Dim answerList = ConvertRespuestasGridToList()

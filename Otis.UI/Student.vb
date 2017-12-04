@@ -44,6 +44,7 @@ Public Class Student
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         logService.AddLog(user.UsuarioId, "Obteniendo examenes pendientes del usuario")
 
+        WelcomeLabel.Text = "Bienvenido, " & user.Nombre & " " & user.PrimerApellido
         pendingExamsList = examService.GetExamsForUser(user.UsuarioId)
         PendingExams.DataSource = GetExamDataTable(pendingExamsList)
 

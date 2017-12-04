@@ -26,6 +26,7 @@ Partial Class Student
         Me.PendingExams = New System.Windows.Forms.DataGridView()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.BtnCerrarSesion = New System.Windows.Forms.Button()
+        Me.WelcomeLabel = New System.Windows.Forms.Label()
         CType(Me.PendingExams, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -69,16 +70,26 @@ Partial Class Student
         Me.BtnCerrarSesion.Text = "Cerrar Sesion"
         Me.BtnCerrarSesion.UseVisualStyleBackColor = True
         '
-        'Main
+        'WelcomeLabel
+        '
+        Me.WelcomeLabel.AutoSize = True
+        Me.WelcomeLabel.Location = New System.Drawing.Point(38, 22)
+        Me.WelcomeLabel.Name = "WelcomeLabel"
+        Me.WelcomeLabel.Size = New System.Drawing.Size(63, 13)
+        Me.WelcomeLabel.TabIndex = 4
+        Me.WelcomeLabel.Text = "Bienvenido!"
+        '
+        'Student
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(671, 486)
+        Me.Controls.Add(Me.WelcomeLabel)
         Me.Controls.Add(Me.BtnCerrarSesion)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PendingExams)
         Me.Controls.Add(Me.testBtn)
-        Me.Name = "Main"
+        Me.Name = "Student"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Main"
         CType(Me.PendingExams, System.ComponentModel.ISupportInitialize).EndInit()
@@ -91,4 +102,5 @@ Partial Class Student
     Friend WithEvents PendingExams As DataGridView
     Friend WithEvents Label1 As Label
     Friend WithEvents BtnCerrarSesion As Button
+    Friend WithEvents WelcomeLabel As Label
 End Class
