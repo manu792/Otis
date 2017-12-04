@@ -60,8 +60,8 @@ Public Class TestReview
         controlList.Add(New Label() With
         {
             .AutoSize = True,
-            .Location = New Point(45, 44),
-            .Size = New Drawing.Size(463, 46),
+            .Location = New Point(45, 80),
+            .Size = New Drawing.Size(463, 50),
             .Text = "Ingrese su observacion final"
         })
 
@@ -99,10 +99,20 @@ Public Class TestReview
         Dim controlList = New List(Of Control)
         Dim y As Int32 = 105
 
+        Dim BtnCerrarSesion = New Button() With
+        {
+            .Size = New Size(91, 28),
+            .Location = New Point(435, 12),
+            .Text = "Cerrar Sesion",
+            .Name = "BtnCerrarSesion"
+        }
+        AddHandler BtnCerrarSesion.Click, AddressOf BtnCerrarSesion_Click
+        controlList.Add(BtnCerrarSesion)
+
         controlList.Add(New Label() With
         {
             .AutoSize = True,
-            .Location = New Point(45, 44),
+            .Location = New Point(45, 80),
             .Size = New Drawing.Size(463, 46),
             .Text = question.PreguntaTexto
         })
@@ -123,29 +133,28 @@ Public Class TestReview
         If question.Respuestas.Count = 0 Then
             ' Create interface that does NOT need pre-defined answers
             y = y + 43
-            controlList.Add(New TextBox() With
+            controlList.Add(New Label() With
             {
                 .Location = New Point(171, y),
                 .Name = "answerTxt",
                 .Size = New Drawing.Size(216, 20),
-                .Text = testEntry.UsuarioRespuesta,
-                .Enabled = False
+                .Text = "R/: " & testEntry.UsuarioRespuesta,
+                .ForeColor = Color.Blue
             })
         Else
             ' Create interface that DOES need pre-defined answers
             For Each answer As RespuestaDto In question.Respuestas
                 y = y + 23
-                Dim radioButton = New RadioButton With
+                Dim answerLabel = New Label With
                 {
                     .Location = New Point(144, y),
                     .Size = New Drawing.Size(90, 17),
-                    .Text = answer.RespuestaTexto,
-                    .Enabled = False
+                    .Text = answer.RespuestaTexto
                 }
                 If testEntry.UsuarioRespuesta.Equals(answer.RespuestaTexto) Then
-                    radioButton.Checked = True
+                    answerLabel.ForeColor = Color.Blue
                 End If
-                controlList.Add(radioButton)
+                controlList.Add(answerLabel)
             Next
         End If
         Dim button = New Button() With

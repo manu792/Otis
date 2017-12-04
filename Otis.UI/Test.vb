@@ -86,7 +86,7 @@ Public Class Test
         controlList.Add(New Label() With
         {
             .AutoSize = True,
-            .Location = New Point(45, 44),
+            .Location = New Point(45, 80),
             .Size = New Drawing.Size(463, 46),
             .Text = question.PreguntaTexto
         })
