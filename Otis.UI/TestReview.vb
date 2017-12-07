@@ -80,12 +80,24 @@ Public Class TestReview
         {
             .Location = New Point(231, y + 150),
             .Text = "Guardar Revision",
-            .Size = New Drawing.Size(95, 36),
+            .Size = New Drawing.Size(95, 42),
             .Name = "BtnGuardarObservacion"
         }
         AddHandler button.Click, AddressOf BtnGuardarObservacion_Click
 
         controlList.Add(button)
+
+        Dim reporteBtn = New Button() With
+        {
+            .Location = New Point(228, y + 200),
+            .Text = "Exportar A Excel",
+            .Size = New Drawing.Size(110, 40),
+            .Name = "BtnReporteExcel"
+        }
+        AddHandler reporteBtn.Click, AddressOf BtnReporteExcel_Click
+
+        controlList.Add(reporteBtn)
+
         Controls.AddRange(controlList.ToArray())
 
         logService.AddLog(loggedUser.UsuarioId, "Observacion solictada al especialista")
@@ -185,6 +197,10 @@ Public Class TestReview
             logService.AddLog(loggedUser.UsuarioId, message & " Se ha enviado la observacion del especialista al correo del estudiante: " & examApplied.Sesion.Usuario.CorreoElectronico)
             ReturnToMain()
         End If
+    End Sub
+
+    Private Sub BtnReporteExcel_Click(sender As Object, e As EventArgs)
+
     End Sub
 
     Private Sub ReturnToMain()
