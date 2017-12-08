@@ -6,11 +6,15 @@ Public Class TestReview
     Private examApplied As ExamenAplicadoDto
     Private testEntries As Queue(Of ExamenRespuestaDto)
     Private loggedUser As UsuarioDto
+    Private testEntriesHistory As IEnumerable(Of ExamenRespuestaDto)
 
     Private testHistoryService As TestHistoryService
     Private examsAppliedService As ExamsAppliedService
     Private emailService As EmailService
     Private logService As LogService
+    Private reportService As ReportService
+
+    Dim TxtObservacion As TextBox
 
 
     Public Sub New(examAppliedDto As ExamenAplicadoDto, userDto As UsuarioDto)
@@ -25,10 +29,11 @@ Public Class TestReview
         examsAppliedService = New ExamsAppliedService()
         emailService = New EmailService()
         logService = New LogService()
+        reportService = New ReportService()
     End Sub
 
     Private Sub TestReview_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim testEntriesHistory = testHistoryService.GetTestEntriesBySessionIdAndExamId(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId)
+        testEntriesHistory = testHistoryService.GetTestEntriesBySessionIdAndExamId(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId)
         testEntries = New Queue(Of ExamenRespuestaDto)(testEntriesHistory)
         logService.AddLog(loggedUser.UsuarioId, "Respuestas de examen obtenidas. Examen: " & examApplied.ExamenId)
 
@@ -67,13 +72,14 @@ Public Class TestReview
 
         ' Create interface that does NOT need pre-defined answers
         y = y + 30
-        controlList.Add(New TextBox() With
+        TxtObservacion = New TextBox() With
         {
             .Location = New Point(100, y),
             .Name = "TxtObservacion",
             .Size = New Drawing.Size(350, 100),
             .Multiline = True
-        })
+        }
+        controlList.Add(TxtObservacion)
 
 
         Dim button = New Button() With
@@ -187,7 +193,6 @@ Public Class TestReview
     End Sub
 
     Private Sub BtnGuardarObservacion_Click(sender As Object, e As EventArgs)
-        Dim TxtObservacion As TextBox = Controls.Find("TxtObservacion", False)(0)
         If Not TxtObservacion.Text.Equals(String.Empty) Then
             emailService.SendSpecialistObservationToUser(examApplied.Sesion.Usuario.UsuarioId, examApplied.Examen.Nombre, examApplied.Sesion.FechaAplicacionExamen, TxtObservacion.Text)
 
@@ -200,7 +205,10 @@ Public Class TestReview
     End Sub
 
     Private Sub BtnReporteExcel_Click(sender As Object, e As EventArgs)
-
+        ' Logic to export to Excel goes here
+        If Not TxtObservacion.Text.Equals(String.Empty) Then
+            MessageBox.Show(reportService.GenerateReport(examApplied.Examen.Nombre, testEntriesHistory, TxtObservacion.Text))
+        End If
     End Sub
 
     Private Sub ReturnToMain()
