@@ -42,13 +42,13 @@ Public Class CarreraServicio
     End Function
 
     Private Function ObtenerCarrera(carreraId As Integer, carrera As CarreraDto) As Carrera
-        Dim careerToUpdate = unitOfWork.CarreraRepositorio.ObtenerCarreraPorId(carreraId)
+        Dim carreraAActualizar = unitOfWork.CarreraRepositorio.ObtenerCarreraPorId(carreraId)
 
-        careerToUpdate.CarreraId = carrera.CarreraId
-        careerToUpdate.CarreraNombre = carrera.CarreraNombre
-        careerToUpdate.EstaActiva = carrera.EstaActiva
+        carreraAActualizar.CarreraId = carrera.CarreraId
+        carreraAActualizar.CarreraNombre = carrera.CarreraNombre
+        carreraAActualizar.EstaActiva = carrera.EstaActiva
 
-        Return careerToUpdate
+        Return carreraAActualizar
     End Function
 
 End Class

@@ -42,12 +42,12 @@ Public Class CategoriaServicio
     End Function
 
     Private Function ObtenerCategoria(categoriaId As Integer, categoria As CategoriaDto) As Categoria
-        Dim categoryToUpdate = unitOfWork.CategoriaRepositorio.ObtenerCategoriaPorId(categoriaId)
+        Dim categoriaAActualizar = unitOfWork.CategoriaRepositorio.ObtenerCategoriaPorId(categoriaId)
 
-        categoryToUpdate.CategoriaId = categoria.CategoriaId
-        categoryToUpdate.CategoriaNombre = categoria.CategoriaNombre
-        categoryToUpdate.EstaActiva = categoria.EstaActiva
+        categoriaAActualizar.CategoriaId = categoria.CategoriaId
+        categoriaAActualizar.CategoriaNombre = categoria.CategoriaNombre
+        categoriaAActualizar.EstaActiva = categoria.EstaActiva
 
-        Return categoryToUpdate
+        Return categoriaAActualizar
     End Function
 End Class

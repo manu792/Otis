@@ -50,13 +50,13 @@ Public Class PermisoServicio
     End Function
 
     Private Function ObtenerPermisoAActualizar(permisoId As Integer, permiso As PermisoDto) As Permiso
-        Dim entitlementToUpdate = unitOfWork.PermisoRepositorio.ObtenerPermisoPorId(permisoId)
+        Dim permisoAActualizar = unitOfWork.PermisoRepositorio.ObtenerPermisoPorId(permisoId)
 
-        entitlementToUpdate.PermisoId = permiso.PermisoId
-        entitlementToUpdate.Nombre = permiso.Nombre
-        entitlementToUpdate.EstaActivo = permiso.EstaActivo
+        permisoAActualizar.PermisoId = permiso.PermisoId
+        permisoAActualizar.Nombre = permiso.Nombre
+        permisoAActualizar.EstaActivo = permiso.EstaActivo
 
-        Return entitlementToUpdate
+        Return permisoAActualizar
     End Function
 
 End Class
