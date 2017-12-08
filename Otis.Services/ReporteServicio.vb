@@ -1,7 +1,7 @@
 ﻿Imports Otis.Commons
 Imports Microsoft.Office.Interop.Excel
 
-Public Class ReportService
+Public Class ReporteServicio
 
     Private xla As Application = Nothing
     Private workbooks As Workbooks = Nothing
@@ -11,7 +11,7 @@ Public Class ReportService
     Private range As Range = Nothing
     Private font As Font = Nothing
 
-    Public Function GenerateReport(nombreExamen As String, preguntasRespuestas As IEnumerable(Of ExamenRespuestaDto), observacion As String) As String
+    Public Function GenerarReporte(nombreExamen As String, preguntasRespuestas As IEnumerable(Of ExamenRespuestaDto), observacion As String) As String
         'Create Excel file below
         xla = New Application()
 

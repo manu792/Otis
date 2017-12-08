@@ -3,14 +3,14 @@ Imports Otis.Services
 
 Public Class Test
 
-    Private examService As ExamService
+    Private examService As ExamenServicio
     Private questionId As Integer
     Private questions As Queue(Of PreguntaDto)
     Private session As SesionDto
     Private stopTime As DateTime
     Private user As UsuarioDto
     Private exam As ExamenDto
-    Private logService As LogService
+    Private logService As LogServicio
     Private questionsAnsweredNumber As Integer
 
     Private Sub New()
@@ -19,8 +19,8 @@ Public Class Test
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        examService = New ExamService()
-        logService = New LogService()
+        examService = New ExamenServicio()
+        logService = New LogServicio()
         questionsAnsweredNumber = 0
     End Sub
 
@@ -33,12 +33,12 @@ Public Class Test
     End Sub
 
     Private Sub Init()
-        logService.AddLog(user.UsuarioId, "Obteniendo Id de sesion y preguntas del examen")
+        logService.AgregarLog(user.UsuarioId, "Obteniendo Id de sesion y preguntas del examen")
 
-        exam.Preguntas = examService.GetQuestionsForExam(exam.ExamenId, exam.CantidadPreguntas)
+        exam.Preguntas = examService.ObtenerPreguntasPorExamen(exam.ExamenId, exam.CantidadPreguntas)
         questions = New Queue(Of PreguntaDto)(exam.Preguntas)
 
-        logService.AddLog(user.UsuarioId, "Id de sesion y preguntas del examen obtenidas")
+        logService.AgregarLog(user.UsuarioId, "Id de sesion y preguntas del examen obtenidas")
     End Sub
     Private Sub Test_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         GetQuestion()
@@ -50,21 +50,21 @@ Public Class Test
         Timer.Enabled = True
         Timer.Start()
 
-        logService.AddLog(user.UsuarioId, "Timer iniciado y seteado a " & exam.Tiempo & " minutos")
+        logService.AgregarLog(user.UsuarioId, "Timer iniciado y seteado a " & exam.Tiempo & " minutos")
     End Sub
 
     Private Sub GetQuestion()
         Dim question As PreguntaDto
 
         If questions.Count = 0 Then
-            logService.AddLog(user.UsuarioId, "Examen completado dentro del tiempo establecido")
+            logService.AgregarLog(user.UsuarioId, "Examen completado dentro del tiempo establecido")
             SaveAndReturnToMain(False)
             Return
         End If
 
         question = questions.Dequeue()
         PrintQuestion(question)
-        logService.AddLog(user.UsuarioId, "Siguiente pregunta obtenida. Id Pregunta: " & question.PreguntaId)
+        logService.AgregarLog(user.UsuarioId, "Siguiente pregunta obtenida. Id Pregunta: " & question.PreguntaId)
     End Sub
 
     Private Sub PrintQuestion(question As PreguntaDto)
@@ -139,15 +139,15 @@ Public Class Test
     End Sub
 
     Private Sub SaveAndReturnToMain(isTimeOut As Boolean)
-        logService.AddLog(user.UsuarioId, "Respuestas de usuario guardadas")
+        logService.AgregarLog(user.UsuarioId, "Respuestas de usuario guardadas")
 
         MessageBox.Show(If(isTimeOut, "El tiempo se ha agotado. ", "Has completado el cuestionario. ") + "Los datos seran guardados.")
-        examService.SaveTest(session, exam.ExamenId, exam.CantidadPreguntas, questionsAnsweredNumber)
+        examService.GuardarExamen(session, exam.ExamenId, exam.CantidadPreguntas, questionsAnsweredNumber)
         ReturnToMain()
     End Sub
 
     Private Sub ReturnToMain()
-        logService.AddLog(user.UsuarioId, "Regresando a pantalla principal")
+        logService.AgregarLog(user.UsuarioId, "Regresando a pantalla principal")
 
         Dim main = New Student(user)
 
@@ -173,7 +173,7 @@ Public Class Test
             testHistoryEntry.UsuarioRespuesta = selectedRadioButton.Text
         End If
 
-        examService.AddTestEntry(testHistoryEntry)
+        examService.AgregarExamenRespuesta(testHistoryEntry)
         UpdateForm()
     End Sub
 
@@ -195,7 +195,7 @@ Public Class Test
         tiempoLabel.Text = String.Format("Tiempo restante: {0:D2} mins, {1:D2} secs", remainingTime.Minutes, remainingTime.Seconds)
         If remainingTime.Minutes = 0 And remainingTime.Seconds = 0 Then
             Timer.Stop()
-            logService.AddLog(user.UsuarioId, "Tiempo agotado")
+            logService.AgregarLog(user.UsuarioId, "Tiempo agotado")
             SaveAndReturnToMain(True)
         End If
     End Sub
@@ -203,7 +203,7 @@ Public Class Test
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs)
         Dim dialogResult = MessageBox.Show("Tu progreso no se guardara si cierras la sesion antes de terminar el examen. Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(user.UsuarioId, "Cierre de sesion exitoso")
+            logService.AgregarLog(user.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()

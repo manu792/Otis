@@ -2,7 +2,7 @@
 Imports Otis.Data
 Imports Otis.Repository
 
-Public Class EntitlementService
+Public Class PermisoServicio
 
     Private unitOfWork As UnitOfWork
 
@@ -10,7 +10,7 @@ Public Class EntitlementService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetAllEntitlements() As IEnumerable(Of PermisoDto)
+    Public Function ObtenerPermisos() As IEnumerable(Of PermisoDto)
         Return unitOfWork.PermisoRepositorio.ObtenerPermisos().
             Select(Function(x) New PermisoDto() With
             {
@@ -27,12 +27,12 @@ Public Class EntitlementService
             }).ToList()
     End Function
 
-    Public Function AddEntitlement(entitlement As PermisoDto) As String
+    Public Function AgregarPermiso(permiso As PermisoDto) As String
         Try
             unitOfWork.PermisoRepositorio.AgregarPermiso(New Permiso() With
             {
-                .Nombre = entitlement.Nombre,
-                .EstaActivo = entitlement.EstaActivo
+                .Nombre = permiso.Nombre,
+                .EstaActivo = permiso.EstaActivo
             })
             Return "Permiso creado correctamente."
         Catch ex As Exception
@@ -40,21 +40,21 @@ Public Class EntitlementService
         End Try
     End Function
 
-    Public Function UpdateEntitlement(entitlementId As Integer, entitlement As PermisoDto) As String
+    Public Function ActualizarPermiso(permisoId As Integer, permiso As PermisoDto) As String
         Try
-            unitOfWork.PermisoRepositorio.ActualizarPermiso(GetEntitlementToUpdate(entitlementId, entitlement))
+            unitOfWork.PermisoRepositorio.ActualizarPermiso(ObtenerPermisoAActualizar(permisoId, permiso))
             Return "Permiso modificado correctamente."
         Catch ex As Exception
             Return "Hubo un problema al tratar de modificar el permiso. Favor contacte a soporte."
         End Try
     End Function
 
-    Private Function GetEntitlementToUpdate(entitlementId As Integer, entitlement As PermisoDto) As Permiso
-        Dim entitlementToUpdate = unitOfWork.PermisoRepositorio.ObtenerPermisoPorId(entitlementId)
+    Private Function ObtenerPermisoAActualizar(permisoId As Integer, permiso As PermisoDto) As Permiso
+        Dim entitlementToUpdate = unitOfWork.PermisoRepositorio.ObtenerPermisoPorId(permisoId)
 
-        entitlementToUpdate.PermisoId = entitlement.PermisoId
-        entitlementToUpdate.Nombre = entitlement.Nombre
-        entitlementToUpdate.EstaActivo = entitlement.EstaActivo
+        entitlementToUpdate.PermisoId = permiso.PermisoId
+        entitlementToUpdate.Nombre = permiso.Nombre
+        entitlementToUpdate.EstaActivo = permiso.EstaActivo
 
         Return entitlementToUpdate
     End Function

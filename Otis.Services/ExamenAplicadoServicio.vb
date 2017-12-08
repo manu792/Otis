@@ -1,7 +1,7 @@
 ﻿Imports Otis.Commons
 Imports Otis.Data
 
-Public Class ExamsAppliedService
+Public Class ExamenAplicadoServicio
 
     Private unitOfWork As UnitOfWork
 
@@ -9,7 +9,7 @@ Public Class ExamsAppliedService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetPendingReviewExams() As IEnumerable(Of ExamenAplicadoDto)
+    Public Function ObtenerExamenesPendientesRevision() As IEnumerable(Of ExamenAplicadoDto)
         Return unitOfWork.ExamenAplicadoRepositorio.ObtenerExamenesPendientesDeRevision().Select(Function(e) New ExamenAplicadoDto() With
         {
             .Examen = New ExamenDto() With
@@ -44,14 +44,14 @@ Public Class ExamsAppliedService
         }).ToList()
     End Function
 
-    Public Function UpdateExamApplied(sessionId As Guid, examId As Integer, observation As String) As String
+    Public Function ActualizarExamenAplicado(sesionId As Guid, examenId As Integer, observacion As String) As String
         Try
-            Dim examAppliedToUpdate = unitOfWork.ExamenAplicadoRepositorio.ObtenerExamenAplicadoPorSesionIdYExamenId(sessionId, examId)
+            Dim examenAplicadoAActualizar = unitOfWork.ExamenAplicadoRepositorio.ObtenerExamenAplicadoPorSesionIdYExamenId(sesionId, examenId)
 
-            examAppliedToUpdate.Revisado = True
-            examAppliedToUpdate.Observacion = observation
+            examenAplicadoAActualizar.Revisado = True
+            examenAplicadoAActualizar.Observacion = observacion
 
-            unitOfWork.ExamenAplicadoRepositorio.ActualizarExamenAplicado(examAppliedToUpdate)
+            unitOfWork.ExamenAplicadoRepositorio.ActualizarExamenAplicado(examenAplicadoAActualizar)
 
             Return "Examen ha sido revisado satisfactoriamente. Observacion registrada."
         Catch ex As Exception

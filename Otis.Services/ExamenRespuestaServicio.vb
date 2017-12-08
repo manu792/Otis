@@ -1,7 +1,7 @@
 ﻿Imports Otis.Commons
 Imports Otis.Data
 
-Public Class TestHistoryService
+Public Class ExamenRespuestaServicio
 
     Private unitOfWork As UnitOfWork
 
@@ -9,8 +9,8 @@ Public Class TestHistoryService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetTestEntriesBySessionIdAndExamId(sessionId As Guid, examId As Integer) As IEnumerable(Of ExamenRespuestaDto)
-        Return unitOfWork.ExamenRespuestaRepositorio.ObtenerExamenRespuestasPorSesionIdYExamenId(sessionId, examId).
+    Public Function ObtenerExamenRespuestasPorSesionYExamen(sesionId As Guid, examenId As Integer) As IEnumerable(Of ExamenRespuestaDto)
+        Return unitOfWork.ExamenRespuestaRepositorio.ObtenerExamenRespuestasPorSesionIdYExamenId(sesionId, examenId).
             Select(Function(x) New ExamenRespuestaDto() With
             {
                 .ExamenId = x.ExamenId,

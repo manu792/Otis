@@ -2,14 +2,14 @@
 
 Public Class Router
 
-    Private userService As UserService
+    Private userService As UsuarioServicio
 
     Public Sub New()
-        userService = New UserService()
+        userService = New UsuarioServicio()
     End Sub
 
     Public Sub RedirectToFormByUserProfile(userId As String, previousForm As Form)
-        Dim user = userService.GetUserByUserName(userId)
+        Dim user = userService.ObtenerUsuarioPorUsuarioId(userId)
         Dim form As Form
 
         If user.Perfil.Nombre.Equals("Administrador") Then

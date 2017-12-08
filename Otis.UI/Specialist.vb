@@ -4,8 +4,8 @@ Imports Otis.Services
 Public Class Specialist
 
     Private user As UsuarioDto
-    Private examsAppliedService As ExamsAppliedService
-    Private logService As LogService
+    Private examsAppliedService As ExamenAplicadoServicio
+    Private logService As LogServicio
 
     Private examsApplied As IEnumerable(Of ExamenAplicadoDto)
 
@@ -16,14 +16,14 @@ Public Class Specialist
 
         ' Add any initialization after the InitializeComponent() call.
         user = userDto
-        examsAppliedService = New ExamsAppliedService()
-        logService = New LogService()
+        examsAppliedService = New ExamenAplicadoServicio()
+        logService = New LogServicio()
     End Sub
 
     Private Sub Specialist_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         WelcomeLabel.Text = "Bienvenido, " & user.Nombre & " " & user.PrimerApellido
 
-        examsApplied = examsAppliedService.GetPendingReviewExams()
+        examsApplied = examsAppliedService.ObtenerExamenesPendientesRevision()
         PendingReviewExams.DataSource = ConvertPendingExamsToDataTable(examsApplied)
 
         PendingReviewExams.Columns("Sesion Id").Visible = False
@@ -53,7 +53,7 @@ Public Class Specialist
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(user.UsuarioId, "Cierre de sesion exitoso")
+            logService.AgregarLog(user.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()
@@ -74,7 +74,7 @@ Public Class Specialist
                 Close()
             End If
         Else
-            logService.AddLog(user.UsuarioId, "Acceso Denegado. Usuario no posee permiso para revisar pruebas")
+            logService.AgregarLog(user.UsuarioId, "Acceso Denegado. Usuario no posee permiso para revisar pruebas")
             MessageBox.Show("Permiso denegado. Contacte al administrador del sistema para obtener el permiso necesario.", "Error")
         End If
     End Sub

@@ -3,10 +3,10 @@ Imports Otis.Services
 
 Public Class Student
     Private user As UsuarioDto
-    Private examService As ExamService
+    Private examService As ExamenServicio
     Private pendingExamsList As IEnumerable(Of ExamenDto)
     Private session As SesionDto
-    Private logService As LogService
+    Private logService As LogServicio
 
     Public Sub New(loggedUser As UsuarioDto)
 
@@ -14,13 +14,13 @@ Public Class Student
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        examService = New ExamService()
+        examService = New ExamenServicio()
         user = loggedUser
         If user.Sesion Is Nothing Then
             user.Sesion = New SesionDto With {.SesionId = Guid.NewGuid(), .Usuario = user, .ExamenesAplicados = New List(Of ExamenAplicadoDto)}
         End If
         session = user.Sesion
-        logService = New LogService()
+        logService = New LogServicio()
     End Sub
 
     Private Sub TestBtn_Click(sender As Object, e As EventArgs) Handles testBtn.Click
@@ -29,32 +29,32 @@ Public Class Student
                 Dim examId = Convert.ToInt32(PendingExams.SelectedRows(0).Cells("Id").Value)
                 Dim exam = pendingExamsList.FirstOrDefault(Function(ex) ex.ExamenId = examId)
 
-                logService.AddLog(user.UsuarioId, "Acceso Confirmado. Usuario sera enviado a realizar la prueba " & exam.Nombre)
+                logService.AgregarLog(user.UsuarioId, "Acceso Confirmado. Usuario sera enviado a realizar la prueba " & exam.Nombre)
 
                 Dim test = New Test(session, exam)
                 test.Show()
                 Me.Close()
             End If
         Else
-            logService.AddLog(user.UsuarioId, "Acceso Denegado. Usuario no posee permiso para realizar pruebas")
+            logService.AgregarLog(user.UsuarioId, "Acceso Denegado. Usuario no posee permiso para realizar pruebas")
             MessageBox.Show("Permiso denegado. Contacte al administrador del sistema para obtener el permiso necesario.", "Error")
         End If
     End Sub
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        logService.AddLog(user.UsuarioId, "Obteniendo examenes pendientes del usuario")
+        logService.AgregarLog(user.UsuarioId, "Obteniendo examenes pendientes del usuario")
 
         WelcomeLabel.Text = "Bienvenido, " & user.Nombre & " " & user.PrimerApellido
-        pendingExamsList = examService.GetExamsForUser(user.UsuarioId)
+        pendingExamsList = examService.ObtenerExamenesPorUsuario(user.UsuarioId)
         PendingExams.DataSource = GetExamDataTable(pendingExamsList)
 
-        logService.AddLog(user.UsuarioId, "Examenes pendientes del usuario obtenidos exitosamente")
+        logService.AgregarLog(user.UsuarioId, "Examenes pendientes del usuario obtenidos exitosamente")
     End Sub
 
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(user.UsuarioId, "Cierre de sesion exitoso")
+            logService.AgregarLog(user.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()

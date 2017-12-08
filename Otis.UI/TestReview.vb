@@ -8,11 +8,11 @@ Public Class TestReview
     Private loggedUser As UsuarioDto
     Private testEntriesHistory As IEnumerable(Of ExamenRespuestaDto)
 
-    Private testHistoryService As TestHistoryService
-    Private examsAppliedService As ExamsAppliedService
-    Private emailService As EmailService
-    Private logService As LogService
-    Private reportService As ReportService
+    Private testHistoryService As ExamenRespuestaServicio
+    Private examsAppliedService As ExamenAplicadoServicio
+    Private emailService As CorreoServicio
+    Private logService As LogServicio
+    Private reportService As ReporteServicio
 
     Dim TxtObservacion As TextBox
 
@@ -25,17 +25,17 @@ Public Class TestReview
         ' Add any initialization after the InitializeComponent() call.
         examApplied = examAppliedDto
         loggedUser = userDto
-        testHistoryService = New TestHistoryService()
-        examsAppliedService = New ExamsAppliedService()
-        emailService = New EmailService()
-        logService = New LogService()
-        reportService = New ReportService()
+        testHistoryService = New ExamenRespuestaServicio()
+        examsAppliedService = New ExamenAplicadoServicio()
+        emailService = New CorreoServicio()
+        logService = New LogServicio()
+        reportService = New ReporteServicio()
     End Sub
 
     Private Sub TestReview_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        testEntriesHistory = testHistoryService.GetTestEntriesBySessionIdAndExamId(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId)
+        testEntriesHistory = testHistoryService.ObtenerExamenRespuestasPorSesionYExamen(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId)
         testEntries = New Queue(Of ExamenRespuestaDto)(testEntriesHistory)
-        logService.AddLog(loggedUser.UsuarioId, "Respuestas de examen obtenidas. Examen: " & examApplied.ExamenId)
+        logService.AgregarLog(loggedUser.UsuarioId, "Respuestas de examen obtenidas. Examen: " & examApplied.ExamenId)
 
         GetNextEntry()
     End Sub
@@ -106,11 +106,11 @@ Public Class TestReview
 
         Controls.AddRange(controlList.ToArray())
 
-        logService.AddLog(loggedUser.UsuarioId, "Observacion solictada al especialista")
+        logService.AgregarLog(loggedUser.UsuarioId, "Observacion solictada al especialista")
     End Sub
 
     Private Sub PrintEntry(testEntry As ExamenRespuestaDto)
-        logService.AddLog(loggedUser.UsuarioId, "Obteniendo siguiente respuesta de examen")
+        logService.AgregarLog(loggedUser.UsuarioId, "Obteniendo siguiente respuesta de examen")
 
         Dim question = testEntry.Pregunta
 
@@ -194,12 +194,12 @@ Public Class TestReview
 
     Private Sub BtnGuardarObservacion_Click(sender As Object, e As EventArgs)
         If Not TxtObservacion.Text.Equals(String.Empty) Then
-            emailService.SendSpecialistObservationToUser(examApplied.Sesion.Usuario.UsuarioId, examApplied.Examen.Nombre, examApplied.Sesion.FechaAplicacionExamen, TxtObservacion.Text)
+            emailService.EnviarObservacionACorreoUsuario(examApplied.Sesion.Usuario.UsuarioId, examApplied.Examen.Nombre, examApplied.Sesion.FechaAplicacionExamen, TxtObservacion.Text)
 
-            Dim message = examsAppliedService.UpdateExamApplied(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId, TxtObservacion.Text.Trim())
+            Dim message = examsAppliedService.ActualizarExamenAplicado(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId, TxtObservacion.Text.Trim())
             MessageBox.Show(message)
 
-            logService.AddLog(loggedUser.UsuarioId, message & " Se ha enviado la observacion del especialista al correo del estudiante: " & examApplied.Sesion.Usuario.CorreoElectronico)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Se ha enviado la observacion del especialista al correo del estudiante: " & examApplied.Sesion.Usuario.CorreoElectronico)
             ReturnToMain()
         End If
     End Sub
@@ -207,12 +207,12 @@ Public Class TestReview
     Private Sub BtnReporteExcel_Click(sender As Object, e As EventArgs)
         ' Logic to export to Excel goes here
         If Not TxtObservacion.Text.Equals(String.Empty) Then
-            MessageBox.Show(reportService.GenerateReport(examApplied.Examen.Nombre, testEntriesHistory, TxtObservacion.Text))
+            MessageBox.Show(reportService.GenerarReporte(examApplied.Examen.Nombre, testEntriesHistory, TxtObservacion.Text))
         End If
     End Sub
 
     Private Sub ReturnToMain()
-        logService.AddLog(loggedUser.UsuarioId, "Enviando a pantalla principal de Especialista")
+        logService.AgregarLog(loggedUser.UsuarioId, "Enviando a pantalla principal de Especialista")
 
         Dim form = New Specialist(loggedUser)
         form.Show()
@@ -235,7 +235,7 @@ Public Class TestReview
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs)
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(loggedUser.UsuarioId, "Cierre de sesion exitoso")
+            logService.AgregarLog(loggedUser.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()

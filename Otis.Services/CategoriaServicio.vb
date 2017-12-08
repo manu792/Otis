@@ -2,7 +2,7 @@
 Imports Otis.Data
 Imports Otis.Repository
 
-Public Class CategoryService
+Public Class CategoriaServicio
 
     Private unitOfWork As UnitOfWork
 
@@ -10,7 +10,7 @@ Public Class CategoryService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetCategories() As IEnumerable(Of CategoriaDto)
+    Public Function ObtenerCategorias() As IEnumerable(Of CategoriaDto)
         Return unitOfWork.CategoriaRepositorio.ObtenerCategorias().Select(Function(c) New CategoriaDto() With
         {
             .CategoriaId = c.CategoriaId,
@@ -19,12 +19,12 @@ Public Class CategoryService
         })
     End Function
 
-    Public Function AddCategory(category As CategoriaDto) As String
+    Public Function AgregarCategoria(categoria As CategoriaDto) As String
         Try
             unitOfWork.CategoriaRepositorio.AgregarCategoria(New Categoria() With
             {
-                .CategoriaNombre = category.CategoriaNombre,
-                .EstaActiva = category.EstaActiva
+                .CategoriaNombre = categoria.CategoriaNombre,
+                .EstaActiva = categoria.EstaActiva
             })
             Return "Categoria creada correctamente."
         Catch ex As Exception
@@ -32,21 +32,21 @@ Public Class CategoryService
         End Try
     End Function
 
-    Public Function UpdateCategory(categoryId As Integer, category As CategoriaDto) As String
+    Public Function ActualizarCategoria(categoriaId As Integer, categoria As CategoriaDto) As String
         Try
-            unitOfWork.CategoriaRepositorio.ActualizarCategoria(GetCategories(categoryId, category))
+            unitOfWork.CategoriaRepositorio.ActualizarCategoria(ObtenerCategoria(categoriaId, categoria))
             Return "Categoria modificada correctamente."
         Catch ex As Exception
             Return "Hubo problemas al tratar de modificar la categoria. Favor contacte a soporte."
         End Try
     End Function
 
-    Private Function GetCategories(categoryId As Integer, category As CategoriaDto) As Categoria
-        Dim categoryToUpdate = unitOfWork.CategoriaRepositorio.ObtenerCategoriaPorId(categoryId)
+    Private Function ObtenerCategoria(categoriaId As Integer, categoria As CategoriaDto) As Categoria
+        Dim categoryToUpdate = unitOfWork.CategoriaRepositorio.ObtenerCategoriaPorId(categoriaId)
 
-        categoryToUpdate.CategoriaId = category.CategoriaId
-        categoryToUpdate.CategoriaNombre = category.CategoriaNombre
-        categoryToUpdate.EstaActiva = category.EstaActiva
+        categoryToUpdate.CategoriaId = categoria.CategoriaId
+        categoryToUpdate.CategoriaNombre = categoria.CategoriaNombre
+        categoryToUpdate.EstaActiva = categoria.EstaActiva
 
         Return categoryToUpdate
     End Function

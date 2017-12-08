@@ -3,9 +3,9 @@ Imports Otis.Services
 
 Public Class Login
 
-    Private userService As UserService
-    Private emailService As EmailService
-    Private logService As LogService
+    Private userService As UsuarioServicio
+    Private emailService As CorreoServicio
+    Private logService As LogServicio
     Private router As Router
 
     Public Sub New()
@@ -14,19 +14,19 @@ Public Class Login
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        userService = New UserService()
-        emailService = New EmailService()
-        logService = New LogService()
+        userService = New UsuarioServicio()
+        emailService = New CorreoServicio()
+        logService = New LogServicio()
         router = New Router()
     End Sub
 
     Private Sub NavigateToMain(user As UsuarioDto)
-        logService.AddLog(user.UsuarioId, "Inicio de sesion exitoso")
+        logService.AgregarLog(user.UsuarioId, "Inicio de sesion exitoso")
         router.RedirectToFormByUserProfile(user.UsuarioId, Me)
     End Sub
 
     Private Sub NavigateToChangePassword(user As UsuarioDto)
-        logService.AddLog(user.UsuarioId, "El usuario posee una contraseña temporal por lo tanto se le mostrara la pantalla de cambio de contraseña")
+        logService.AgregarLog(user.UsuarioId, "El usuario posee una contraseña temporal por lo tanto se le mostrara la pantalla de cambio de contraseña")
         Dim registro = New ChangePassword(user)
 
         registro.Show()
@@ -40,7 +40,7 @@ Public Class Login
                 .UsuarioId = UsernameTxt.Text,
                 .Contrasena = PasswordTxt.Text
             }
-            Dim userRetrieved = userService.ValidateUser(user)
+            Dim userRetrieved = userService.ValidarUsuario(user)
 
             If Not userRetrieved Is Nothing Then
                 If Not userRetrieved.EsContrasenaTemporal Then
@@ -58,9 +58,9 @@ Public Class Login
 
     Private Sub BtnGetNewPassword_Click(sender As Object, e As EventArgs)
         If UsernameTxt.Text <> String.Empty Then
-            logService.AddLog(UsernameTxt.Text, "El usuario con cedula " &
+            logService.AgregarLog(UsernameTxt.Text, "El usuario con cedula " &
                               UsernameTxt.Text & " hizo click en 'He olvidado mi contraseña'")
-            MessageBox.Show(emailService.SendEmail(UsernameTxt.Text))
+            MessageBox.Show(emailService.EnviarCorreo(UsernameTxt.Text))
         Else
             MessageBox.Show("Debes ingresar tu usuario para enviar el correo y recuperar tu contraseña.")
         End If
@@ -68,9 +68,9 @@ Public Class Login
 
     Private Sub PasswordForgottenLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PasswordForgottenLink.LinkClicked
         If UsernameTxt.Text <> String.Empty Then
-            logService.AddLog(UsernameTxt.Text, "El usuario con cedula " &
+            logService.AgregarLog(UsernameTxt.Text, "El usuario con cedula " &
                               UsernameTxt.Text & " hizo click en 'He olvidado mi contraseña'")
-            MessageBox.Show(emailService.SendEmail(UsernameTxt.Text))
+            MessageBox.Show(emailService.EnviarCorreo(UsernameTxt.Text))
         Else
             MessageBox.Show("Debes ingresar tu usuario para enviar el correo y recuperar tu contraseña.")
         End If

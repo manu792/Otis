@@ -2,7 +2,7 @@
 Imports Otis.Data
 Imports Otis.Repository
 
-Public Class LogService
+Public Class LogServicio
 
     Private unitOfWork As UnitOfWork
 
@@ -10,7 +10,7 @@ Public Class LogService
         unitOfWork = New UnitOfWork()
     End Sub
 
-    Public Function GetLogs() As IEnumerable(Of LogActividadDto)
+    Public Function ObtenerLogs() As IEnumerable(Of LogActividadDto)
         Return unitOfWork.LogActividadRepositorio.ObtenerLogs.ToList().
                    Select(Function(x) New LogActividadDto() With
                    {
@@ -43,7 +43,7 @@ Public Class LogService
                    }).ToList()
     End Function
 
-    Public Function GetLogsByUserAndDateRange(userId As String, FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of LogActividadDto)
+    Public Function ObtenerLogsPorUsuarioYFechas(userId As String, FromDate As DateTime, ToDate As DateTime) As IEnumerable(Of LogActividadDto)
         Dim logs As List(Of LogActividad)
 
         If userId.Equals(String.Empty) Then
@@ -84,7 +84,7 @@ Public Class LogService
                    }).ToList()
     End Function
 
-    Public Sub AddLog(userId As String, activity As String)
+    Public Sub AgregarLog(userId As String, activity As String)
         unitOfWork.LogActividadRepositorio.AgregarLog(New LogActividad() With
         {
             .UsuarioId = userId,

@@ -5,14 +5,14 @@ Public Class Admin
 
 #Region "Instance Variables"
 
-    Private questionService As QuestionService
-    Private categoryService As CategoryService
-    Private profileService As ProfileService
-    Private careerService As CareerService
-    Private userService As UserService
-    Private entitlementService As EntitlementService
-    Private examService As ExamService
-    Private logService As LogService
+    Private questionService As PreguntaServicio
+    Private categoryService As CategoriaServicio
+    Private profileService As PerfilServicio
+    Private careerService As CarreraServicio
+    Private userService As UsuarioServicio
+    Private entitlementService As PermisoServicio
+    Private examService As ExamenServicio
+    Private logService As LogServicio
 
     Private loggedUser As UsuarioDto
 
@@ -46,14 +46,14 @@ Public Class Admin
         ' Add any initialization after the InitializeComponent() call.
         loggedUser = userDto
 
-        questionService = New QuestionService()
-        categoryService = New CategoryService()
-        profileService = New ProfileService()
-        careerService = New CareerService()
-        userService = New UserService()
-        entitlementService = New EntitlementService()
-        examService = New ExamService()
-        logService = New LogService()
+        questionService = New PreguntaServicio()
+        categoryService = New CategoriaServicio()
+        profileService = New PerfilServicio()
+        careerService = New CarreraServicio()
+        userService = New UsuarioServicio()
+        entitlementService = New PermisoServicio()
+        examService = New ExamenServicio()
+        logService = New LogServicio()
 
         usersBindingSource = New BindingSource()
         questionsBindingSource = New BindingSource()
@@ -315,9 +315,9 @@ Public Class Admin
                 .EstaActiva = True,
                 .Respuestas = GetPossibleAnswers()
             }
-            Dim message = questionService.SaveQuestion(questionDto)
+            Dim message = questionService.AgregarPregunta(questionDto)
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Pregunta: " & questionDto.PreguntaId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Pregunta: " & questionDto.PreguntaId)
             UpdateQuestions()
             ClearQuestionFields()
         End If
@@ -347,9 +347,9 @@ Public Class Admin
                     .EsContrasenaTemporal = True,
                     .EstaActivo = True
                 }
-                Dim message = userService.AddUser(user)
+                Dim message = userService.AgregarUsuario(user)
                 MessageBox.Show(message)
-                logService.AddLog(loggedUser.UsuarioId, message & " Usuario: " & user.UsuarioId)
+                logService.AgregarLog(loggedUser.UsuarioId, message & " Usuario: " & user.UsuarioId)
                 UpdateUsers()
                 ClearUserFields()
             Else
@@ -380,7 +380,7 @@ Public Class Admin
     Private Sub BtnCerrarSesion_Click(sender As Object, e As EventArgs) Handles BtnCerrarSesion.Click
         Dim dialogResult = MessageBox.Show("Deseas cerrar sesion?", "Cerrar Sesion", MessageBoxButtons.YesNo)
         If dialogResult = DialogResult.Yes Then
-            logService.AddLog(loggedUser.UsuarioId, "Cierre de sesion exitoso")
+            logService.AgregarLog(loggedUser.UsuarioId, "Cierre de sesion exitoso")
 
             Dim login = New Login()
             login.Show()
@@ -446,51 +446,51 @@ Public Class Admin
                 .EstaActivo = CType(EditarUsuarioActivoCombo.Text, Boolean),
                 .EsContrasenaTemporal = users.FirstOrDefault(Function(u) u.UsuarioId.Equals(TxtEditarUsuarioCedula.Text)).EsContrasenaTemporal
             }
-            Dim message = userService.UpdateUser(user)
+            Dim message = userService.ActualizarUsuario(user)
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Usuario: " & user.UsuarioId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Usuario: " & user.UsuarioId)
             UpdateUsers()
         End If
     End Sub
 
     Private Sub UpdateCategories()
-        LoadCategories(categoryService.GetCategories())
-        logService.AddLog(loggedUser.UsuarioId, "Categorias obtenidas de la Base de Datos")
+        LoadCategories(categoryService.ObtenerCategorias())
+        logService.AgregarLog(loggedUser.UsuarioId, "Categorias obtenidas de la Base de Datos")
     End Sub
 
     Private Sub UpdateProfiles()
-        LoadProfiles(profileService.GetProfiles())
-        logService.AddLog(loggedUser.UsuarioId, "Perfiles obtenidos de la Base de Datos")
+        LoadProfiles(profileService.ObtenerPerfiles())
+        logService.AgregarLog(loggedUser.UsuarioId, "Perfiles obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateCareers()
-        LoadCareers(careerService.GetCareers())
-        logService.AddLog(loggedUser.UsuarioId, "Carreras obtenidas de la Base de Datos")
+        LoadCareers(careerService.ObtenerCarreras())
+        logService.AgregarLog(loggedUser.UsuarioId, "Carreras obtenidas de la Base de Datos")
     End Sub
 
     Private Sub UpdateUsers()
-        LoadUsers(userService.GetAllUsers())
-        logService.AddLog(loggedUser.UsuarioId, "Usuarios obtenidos de la Base de Datos")
+        LoadUsers(userService.ObtenerUsuarios())
+        logService.AgregarLog(loggedUser.UsuarioId, "Usuarios obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateQuestions()
-        LoadQuestions(questionService.GetAllQuestions())
-        logService.AddLog(loggedUser.UsuarioId, "Preguntas obtenidas de la Base de Datos")
+        LoadQuestions(questionService.ObtenerPreguntas())
+        logService.AgregarLog(loggedUser.UsuarioId, "Preguntas obtenidas de la Base de Datos")
     End Sub
 
     Private Sub UpdateEntitlements()
-        LoadEntitlements(entitlementService.GetAllEntitlements())
-        logService.AddLog(loggedUser.UsuarioId, "Permisos obtenidos de la Base de Datos")
+        LoadEntitlements(entitlementService.ObtenerPermisos())
+        logService.AgregarLog(loggedUser.UsuarioId, "Permisos obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateExams()
-        LoadExams(examService.GetAllExams())
-        logService.AddLog(loggedUser.UsuarioId, "Examenes obtenidos de la Base de Datos")
+        LoadExams(examService.ObtenerExamenes())
+        logService.AgregarLog(loggedUser.UsuarioId, "Examenes obtenidos de la Base de Datos")
     End Sub
 
     Private Sub UpdateLogs()
-        LoadLogs(logService.GetLogs())
-        logService.AddLog(loggedUser.UsuarioId, "Logs obtenidos de la Base de Datos")
+        LoadLogs(logService.ObtenerLogs())
+        logService.AgregarLog(loggedUser.UsuarioId, "Logs obtenidos de la Base de Datos")
     End Sub
 
     Private Sub LoadLogs(logsDto As IEnumerable(Of LogActividadDto))
@@ -609,10 +609,10 @@ Public Class Admin
             questionToModify.EstaActiva = Boolean.Parse(EditarPreguntaActivaCombo.Text)
             questionToModify.Respuestas = ObtenerRespuestasDto()
 
-            Dim message = questionService.UpdateQuestion(questionToModify.PreguntaId, questionToModify)
+            Dim message = questionService.ActualizarPregunta(questionToModify.PreguntaId, questionToModify)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Pregunta: " & questionToModify.PreguntaId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Pregunta: " & questionToModify.PreguntaId)
             UpdateQuestions()
         End If
     End Sub
@@ -711,10 +711,10 @@ Public Class Admin
             profile.EstaActivo = PerfilActivoCombo.Text
             profile.Permisos = PermisosSeleccionadosLista.Items.Cast(Of PermisoDto).ToList()
 
-            Dim message = profileService.UpdateProfile(Integer.Parse(TxtPerfilId.Text), profile)
+            Dim message = profileService.ActualizarPerfil(Integer.Parse(TxtPerfilId.Text), profile)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Perfil: " & profile.PerfilId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Perfil: " & profile.PerfilId)
             UpdateProfiles()
         End If
     End Sub
@@ -784,10 +784,10 @@ Public Class Admin
                 .EstaActivo = True
             }
 
-            Dim message = profileService.AddProfile(profile)
+            Dim message = profileService.AgregarPerfil(profile)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Perfil: " & profile.PerfilId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Perfil: " & profile.PerfilId)
             UpdateProfiles()
             ClearProfileFields()
         End If
@@ -814,10 +814,10 @@ Public Class Admin
                 .EstaActivo = PermisosActivoCombo.Text
             }
 
-            Dim message = entitlementService.UpdateEntitlement(Integer.Parse(TxtPermisosId.Text), entitlement)
+            Dim message = entitlementService.ActualizarPermiso(Integer.Parse(TxtPermisosId.Text), entitlement)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Permiso: " & entitlement.PermisoId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Permiso: " & entitlement.PermisoId)
             UpdateEntitlements()
         End If
     End Sub
@@ -842,10 +842,10 @@ Public Class Admin
                 .EstaActivo = True
             }
 
-            Dim message = entitlementService.AddEntitlement(entitlement)
+            Dim message = entitlementService.AgregarPermiso(entitlement)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Permiso: " & entitlement.PermisoId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Permiso: " & entitlement.PermisoId)
             UpdateEntitlements()
         End If
     End Sub
@@ -883,10 +883,10 @@ Public Class Admin
                 .EstaActiva = CategoriasActivaCombo.Text
             }
 
-            Dim message = categoryService.UpdateCategory(Integer.Parse(TxtCategoriasId.Text), category)
+            Dim message = categoryService.ActualizarCategoria(Integer.Parse(TxtCategoriasId.Text), category)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Categoria: " & category.CategoriaId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Categoria: " & category.CategoriaId)
             UpdateCategories()
         End If
     End Sub
@@ -901,10 +901,10 @@ Public Class Admin
                 .EstaActiva = True
             }
 
-            Dim message = categoryService.AddCategory(category)
+            Dim message = categoryService.AgregarCategoria(category)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Categoria: " & category.CategoriaId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Categoria: " & category.CategoriaId)
             UpdateCategories()
         End If
     End Sub
@@ -934,10 +934,10 @@ Public Class Admin
                 .EstaActiva = CarrerasActivaCombo.Text
             }
 
-            Dim message = careerService.UpdateCareer(Integer.Parse(TxtCarrerasId.Text), career)
+            Dim message = careerService.ActualizarCarrera(Integer.Parse(TxtCarrerasId.Text), career)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Carrera: " & career.CarreraId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Carrera: " & career.CarreraId)
             UpdateCareers()
         End If
     End Sub
@@ -952,10 +952,10 @@ Public Class Admin
                 .EstaActiva = True
             }
 
-            Dim message = careerService.AddCareer(career)
+            Dim message = careerService.AgregarCarrera(career)
 
             MessageBox.Show(message)
-            logService.AddLog(loggedUser.UsuarioId, message & " Carrera: " & career.CarreraId)
+            logService.AgregarLog(loggedUser.UsuarioId, message & " Carrera: " & career.CarreraId)
             UpdateCareers()
         End If
     End Sub
@@ -989,10 +989,10 @@ Public Class Admin
                    .EstaActivo = True
                 }
 
-                Dim message = examService.AddExam(exam)
+                Dim message = examService.AgregarExamen(exam)
 
                 MessageBox.Show(message)
-                logService.AddLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
+                logService.AgregarLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
                 UpdateExams()
                 ClearExamFields()
             Else
@@ -1094,10 +1094,10 @@ Public Class Admin
                     .EstaActivo = EditarExamenActivoCombo.Text
                 }
 
-                Dim message = examService.UpdateExam(Integer.Parse(TxtEditarExamenId.Text), exam)
+                Dim message = examService.ActualizarExamen(Integer.Parse(TxtEditarExamenId.Text), exam)
 
                 MessageBox.Show(message)
-                logService.AddLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
+                logService.AgregarLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
                 UpdateExams()
             Else
                 MessageBox.Show("La cantidad de preguntas seleccionadas debe ser mayor o igual al numero elegido para el examen", "Cantidad invalida")
@@ -1250,10 +1250,10 @@ Public Class Admin
         Dim exam = exams.FirstOrDefault(Function(ex) ex.ExamenId = Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value))
         exam.UsuarioExamenes = GetExamUsers()
 
-        Dim message = examService.AssignUsersToExam(Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value), exam)
+        Dim message = examService.AsignarUsuariosAExamen(Integer.Parse(AsignarExamenGrid.SelectedRows(0).Cells("Id").Value), exam)
 
         MessageBox.Show(message)
-        logService.AddLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
+        logService.AgregarLog(loggedUser.UsuarioId, message & " Examen: " & exam.ExamenId)
     End Sub
 
     Private Sub TxtAsignarExamenEstudiantesBuscar_TextChanged(sender As Object, e As EventArgs) Handles TxtAsignarExamenEstudiantesBuscar.TextChanged
@@ -1279,7 +1279,7 @@ Public Class Admin
     End Sub
 
     Private Sub BtnLogsBuscar_Click(sender As Object, e As EventArgs) Handles BtnLogsBuscar.Click
-        Dim filteredLogs = logService.GetLogsByUserAndDateRange(TxtLogsUsuarioId.Text, LogsDesdeFecha.Value, LogsHastaFecha.Value)
+        Dim filteredLogs = logService.ObtenerLogsPorUsuarioYFechas(TxtLogsUsuarioId.Text, LogsDesdeFecha.Value, LogsHastaFecha.Value)
 
         LoadLogs(filteredLogs)
     End Sub

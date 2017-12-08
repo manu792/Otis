@@ -63,12 +63,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CareerService.vb" />
-    <Compile Include="CategoryService.vb" />
-    <Compile Include="EmailService.vb" />
-    <Compile Include="EntitlementService.vb" />
-    <Compile Include="ExamsAppliedService.vb" />
-    <Compile Include="LogService.vb" />
+    <Compile Include="CarreraServicio.vb" />
+    <Compile Include="CategoriaServicio.vb" />
+    <Compile Include="CorreoServicio.vb" />
+    <Compile Include="PermisoServicio.vb" />
+    <Compile Include="ExamenAplicadoServicio.vb" />
+    <Compile Include="LogServicio.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -84,12 +84,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ExamService.vb" />
-    <Compile Include="ProfileService.vb" />
-    <Compile Include="QuestionService.vb" />
-    <Compile Include="ReportService.vb" />
-    <Compile Include="TestHistoryService.vb" />
-    <Compile Include="UserService.vb" />
+    <Compile Include="ExamenServicio.vb" />
+    <Compile Include="PerfilServicio.vb" />
+    <Compile Include="PreguntaServicio.vb" />
+    <Compile Include="ReporteServicio.vb" />
+    <Compile Include="ExamenRespuestaServicio.vb" />
+    <Compile Include="UsuarioServicio.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
