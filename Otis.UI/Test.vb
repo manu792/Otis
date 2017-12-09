@@ -120,7 +120,7 @@ Public Class Test
                 controlList.Add(New RadioButton With
                 {
                     .Location = New Point(144, y),
-                    .Size = New Drawing.Size(90, 17),
+                    .Size = New Drawing.Size(400, 17),
                     .Text = answer.RespuestaTexto
                 })
             Next
