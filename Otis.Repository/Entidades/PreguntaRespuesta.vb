@@ -8,7 +8,7 @@ Public Class PreguntaRespuesta
     Property PreguntaId As Int32
     <Key>
     <Column(Order:=1)>
-    Property PreguntaTexto As String
+    Property Respuesta As String
 
     'Navigation Property
     Overridable Property Pregunta As Pregunta

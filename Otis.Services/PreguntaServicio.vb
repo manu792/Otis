@@ -21,7 +21,7 @@ Public Class PreguntaServicio
             .Respuestas = q.Respuestas.Select(Function(a) New RespuestaDto() With
             {
                 .PreguntaId = a.PreguntaId,
-                .RespuestaTexto = a.PreguntaTexto
+                .RespuestaTexto = a.Respuesta
             }).ToList()
         }).ToList()
     End Function
@@ -46,7 +46,7 @@ Public Class PreguntaServicio
                 .EstaActiva = pregunta.EstaActiva,
                 .Respuestas = pregunta.Respuestas.Select(Function(a) New PreguntaRespuesta() With
                 {
-                    .PreguntaTexto = a.RespuestaTexto
+                    .Respuesta = a.RespuestaTexto
                 }).ToList()
             })
             Return "Pregunta guardada correctamente."
@@ -66,7 +66,7 @@ Public Class PreguntaServicio
         preguntaAActualizar.Respuestas = pregunta.Respuestas.Select(Function(a) New PreguntaRespuesta() With
         {
             .PreguntaId = a.PreguntaId,
-            .PreguntaTexto = a.RespuestaTexto
+            .Respuesta = a.RespuestaTexto
         }).ToList()
 
         Return preguntaAActualizar

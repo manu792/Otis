@@ -79,6 +79,14 @@
       <DependentUpon>201712041819011_AddExamTotalQuestionQuantity.vb</DependentUpon>
     </Compile>
     <Compile Include="Migrations\201712041819011_AddExamTotalQuestionQuantity.vb" />
+    <Compile Include="Migrations\201712092309064_ChangeColumnName.Designer.vb">
+      <DependentUpon>201712092309064_ChangeColumnName.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712092309064_ChangeColumnName.vb" />
+    <Compile Include="Migrations\201712092317152_ChangeColumnAgain.Designer.vb">
+      <DependentUpon>201712092317152_ChangeColumnAgain.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712092317152_ChangeColumnAgain.vb" />
     <Compile Include="Migrations\Configuration.vb" />
     <Compile Include="Entidades\LogActividad.vb" />
     <Compile Include="Entidades\ExamenAplicado.vb" />
@@ -116,6 +124,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712041819011_AddExamTotalQuestionQuantity.resx">
       <DependentUpon>201712041819011_AddExamTotalQuestionQuantity.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712092309064_ChangeColumnName.resx">
+      <DependentUpon>201712092309064_ChangeColumnName.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712092317152_ChangeColumnAgain.resx">
+      <DependentUpon>201712092317152_ChangeColumnAgain.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

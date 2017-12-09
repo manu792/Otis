@@ -269,6 +269,12 @@ Public Class DatabaseInitializer
                 .CategoriaId = 2,
                 .CategoriaNombre = "Razonamiento Verbal",
                 .EstaActiva = True
+            },
+            New Categoria() With
+            {
+                .CategoriaId = 3,
+                .CategoriaNombre = "Logica",
+                .EstaActiva = True
             }
         )
         context.SaveChanges()
@@ -280,6 +286,41 @@ Public Class DatabaseInitializer
             New Pregunta() With
             {
                 .PreguntaId = 1,
+                .PreguntaTexto = "Lo opuesto al odio es:",
+                .CategoriaId = 2,
+                .Respuestas = New List(Of PreguntaRespuesta) From
+                {
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 1,
+                        .Respuesta = "Enemigo"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 1,
+                        .Respuesta = "Temor"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 1,
+                        .Respuesta = "Amor"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 1,
+                        .Respuesta = "Amigo"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 1,
+                        .Respuesta = "Alegria"
+                    }
+                },
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 3,
                 .PreguntaTexto = "Si tres lapices cuestan cinco pesos. Cuantos lapices podre comprar con cincuenta pesos?",
                 .CategoriaId = 1,
                 .EstaActiva = True
@@ -287,41 +328,34 @@ Public Class DatabaseInitializer
             New Pregunta() With
             {
                 .PreguntaId = 2,
-                .PreguntaTexto = "Si dos metros y medio de tela cuestan 30 pesos. Cuanto cuestan 10 metros?",
-                .CategoriaId = 1,
-                .EstaActiva = True
-            },
-            New Pregunta() With
-            {
-                .PreguntaId = 3,
-                .PreguntaTexto = "Lo opuesto al odio es:",
+                .PreguntaTexto = "Un pajaro no siempre tiene:",
                 .CategoriaId = 2,
                 .Respuestas = New List(Of PreguntaRespuesta) From
                 {
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 3,
-                        .PreguntaTexto = "Enemigo"
+                        .PreguntaId = 2,
+                        .Respuesta = "Alas"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 3,
-                        .PreguntaTexto = "Temor"
+                        .PreguntaId = 2,
+                        .Respuesta = "Ojos"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 3,
-                        .PreguntaTexto = "Amor"
+                        .PreguntaId = 2,
+                        .Respuesta = "Patas"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 3,
-                        .PreguntaTexto = "Amigo"
+                        .PreguntaId = 2,
+                        .Respuesta = "Nido"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 3,
-                        .PreguntaTexto = "Alegria"
+                        .PreguntaId = 2,
+                        .Respuesta = "Pico"
                     }
                 },
                 .EstaActiva = True
@@ -329,65 +363,201 @@ Public Class DatabaseInitializer
             New Pregunta() With
             {
                 .PreguntaId = 4,
+                .PreguntaTexto = "Si dos metros y medio de tela cuestan 30 pesos. Cuanto cuestan 10 metros?",
+                .CategoriaId = 1,
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 5,
                 .PreguntaTexto = "Que numero esta en el espacio que pertenece al rectangulo y al triangulo, pero no en el circulo?",
                 .CategoriaId = 1,
                 .ImagenDireccion = "C:\Users\MRoman\Documents\Projects\Otis\Otis\Images\PreguntaID4.png",
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 6,
+                .PreguntaTexto = "Lo opuesto a honor es:",
+                .CategoriaId = 2,
                 .Respuestas = New List(Of PreguntaRespuesta) From
                 {
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "3"
+                        .PreguntaId = 6,
+                        .Respuesta = "Derrota"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "4"
+                        .PreguntaId = 6,
+                        .Respuesta = "Villania"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "5"
+                        .PreguntaId = 6,
+                        .Respuesta = "Humillacion"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "6"
+                        .PreguntaId = 6,
+                        .Respuesta = "Cobardia"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "7"
+                        .PreguntaId = 6,
+                        .Respuesta = "Miedo"
+                    }
+                },
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 7,
+                .PreguntaTexto = "El zorro se parece mas a:",
+                .CategoriaId = 2,
+                .Respuestas = New List(Of PreguntaRespuesta) From
+                {
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 7,
+                        .Respuesta = "El lobo"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "8"
+                        .PreguntaId = 7,
+                        .Respuesta = "La cabra"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "9"
+                        .PreguntaId = 7,
+                        .Respuesta = "El cerdo"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "10"
+                        .PreguntaId = 7,
+                        .Respuesta = "El tigre"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "11"
+                        .PreguntaId = 7,
+                        .Respuesta = "El gato"
+                    }
+                },
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 8,
+                .PreguntaTexto = "El silencio tiene la misma relacion con el sonido que la oscuridad con:",
+                .CategoriaId = 2,
+                .Respuestas = New List(Of PreguntaRespuesta) From
+                {
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 8,
+                        .Respuesta = "Sotano"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "12"
+                        .PreguntaId = 8,
+                        .Respuesta = "Luz"
                     },
                     New PreguntaRespuesta() With
                     {
-                        .PreguntaId = 4,
-                        .PreguntaTexto = "13"
+                        .PreguntaId = 8,
+                        .Respuesta = "Ruido"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 8,
+                        .Respuesta = "Quietud"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 8,
+                        .Respuesta = "Noche"
+                    }
+                },
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 9,
+                .PreguntaTexto = "Un grupo consistia en dos matrimonios, dos hermanos y dos hermanas. Cual es el numero minimo de personas que podrian componer el grupo?",
+                .CategoriaId = 1,
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 10,
+                .PreguntaTexto = "Un arbol siempre tiene:",
+                .CategoriaId = 2,
+                .Respuestas = New List(Of PreguntaRespuesta) From
+                {
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 10,
+                        .Respuesta = "Hojas"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 10,
+                        .Respuesta = "Fruto"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 10,
+                        .Respuesta = "Yemas"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 10,
+                        .Respuesta = "Raices"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 10,
+                        .Respuesta = "Sombra"
+                    }
+                },
+                .EstaActiva = True
+            },
+            New Pregunta() With
+            {
+                .PreguntaId = 11,
+                .PreguntaTexto = "Cual de las seis razones expresa el significado del refran?: 'Comida hecha, compañia desecha'",
+                .CategoriaId = 3,
+                .Respuestas = New List(Of PreguntaRespuesta) From
+                {
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 11,
+                        .Respuesta = "No hay q separarse de los amigos despues de comer"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 11,
+                        .Respuesta = "No se debe olvidar el beneficio recibido y alejarse de aquel de quien se recibio"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 11,
+                        .Respuesta = "A nada conduce prolongar demasiado un asunto"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 11,
+                        .Respuesta = "La mayor dificultad en cualquier cosa consiste, por lo comun en los principios"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 11,
+                        .Respuesta = "Es peligroso prolongar la sobremesa"
+                    },
+                    New PreguntaRespuesta() With
+                    {
+                        .PreguntaId = 11,
+                        .Respuesta = "Cada uno debe mirar antes por si mismo que por los otros"
                     }
                 },
                 .EstaActiva = True
@@ -404,7 +574,7 @@ Public Class DatabaseInitializer
                 .Nombre = "Otis",
                 .Descripcion = "Examen Otis",
                 .Tiempo = 30,
-                .CantidadPreguntas = 3,
+                .CantidadPreguntas = 10,
                 .EstaActivo = True,
                 .Preguntas = context.Preguntas.ToList()
             }

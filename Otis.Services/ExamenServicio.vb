@@ -93,7 +93,7 @@ Public Class ExamenServicio
             .Respuestas = q.Respuestas.Select(Function(a) New RespuestaDto() With
             {
                 .PreguntaId = a.PreguntaId,
-                .RespuestaTexto = a.PreguntaTexto
+                .RespuestaTexto = a.Respuesta
             }).ToList()
         }).ToList()
     End Function
