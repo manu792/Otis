@@ -76,7 +76,7 @@ Public Class TestReview
         {
             .Location = New Point(100, y),
             .Name = "TxtObservacion",
-            .Size = New Drawing.Size(350, 100),
+            .Size = New Drawing.Size(350, 140),
             .Multiline = True
         }
         controlList.Add(TxtObservacion)
@@ -84,9 +84,9 @@ Public Class TestReview
 
         Dim button = New Button() With
         {
-            .Location = New Point(231, y + 150),
+            .Location = New Point(150, y + 150),
             .Text = "Guardar Revision",
-            .Size = New Drawing.Size(95, 42),
+            .Size = New Drawing.Size(110, 40),
             .Name = "BtnGuardarObservacion"
         }
         AddHandler button.Click, AddressOf BtnGuardarObservacion_Click
@@ -95,7 +95,7 @@ Public Class TestReview
 
         Dim reporteBtn = New Button() With
         {
-            .Location = New Point(228, y + 200),
+            .Location = New Point(265, y + 150),
             .Text = "Exportar A Excel",
             .Size = New Drawing.Size(110, 40),
             .Name = "BtnReporteExcel"
@@ -120,7 +120,7 @@ Public Class TestReview
         Dim BtnCerrarSesion = New Button() With
         {
             .Size = New Size(91, 28),
-            .Location = New Point(435, 12),
+            .Location = New Point(470, 12),
             .Text = "Cerrar Sesion",
             .Name = "BtnCerrarSesion"
         }
@@ -155,7 +155,7 @@ Public Class TestReview
             {
                 .Location = New Point(171, y),
                 .Name = "answerTxt",
-                .Size = New Drawing.Size(216, 20),
+                .Size = New Drawing.Size(400, 20),
                 .Text = "R/: " & testEntry.UsuarioRespuesta,
                 .ForeColor = Color.Blue
             })
@@ -166,7 +166,7 @@ Public Class TestReview
                 Dim answerLabel = New Label With
                 {
                     .Location = New Point(144, y),
-                    .Size = New Drawing.Size(90, 17),
+                    .Size = New Drawing.Size(400, 17),
                     .Text = answer.RespuestaTexto
                 }
                 If testEntry.UsuarioRespuesta.Equals(answer.RespuestaTexto) Then
@@ -186,6 +186,7 @@ Public Class TestReview
 
         controlList.Add(button)
         Controls.AddRange(controlList.ToArray())
+        Me.AutoSize = True
     End Sub
 
     Private Sub SiguienteBtn_Click(sender As Object, e As EventArgs)

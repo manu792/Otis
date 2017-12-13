@@ -136,6 +136,7 @@ Public Class Test
 
         controlList.Add(button)
         Controls.AddRange(controlList.ToArray())
+        Me.AutoSize = True
     End Sub
 
     Private Sub SaveAndReturnToMain(isTimeOut As Boolean)
