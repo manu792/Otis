@@ -367,6 +367,7 @@ Public Class Admin
         ProfilesComboBox.SelectedItem = Nothing
         CareersComboBox.SelectedItem = Nothing
         TxtContrasena.Clear()
+        TxtConfirmarContrasena.Clear()
     End Sub
 
     Private Sub ProfilesComboBox_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ProfilesComboBox.SelectedIndexChanged
