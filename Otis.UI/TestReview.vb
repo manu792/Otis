@@ -4,7 +4,7 @@ Imports Otis.Services
 Public Class TestReview
 
     Private examApplied As ExamenAplicadoDto
-    Private testEntries As Queue(Of ExamenRespuestaDto)
+    Private testEntries As List(Of ExamenRespuestaDto)
     Private loggedUser As UsuarioDto
     Private testEntriesHistory As IEnumerable(Of ExamenRespuestaDto)
 
@@ -13,6 +13,8 @@ Public Class TestReview
     Private emailService As CorreoServicio
     Private logService As LogServicio
     Private reportService As ReporteServicio
+
+    Private testEntriesIndex As Integer
 
     Dim TxtObservacion As TextBox
 
@@ -30,19 +32,20 @@ Public Class TestReview
         emailService = New CorreoServicio()
         logService = New LogServicio()
         reportService = New ReporteServicio()
+        testEntriesIndex = -1
     End Sub
 
     Private Sub TestReview_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         testEntriesHistory = testHistoryService.ObtenerExamenRespuestasPorSesionYExamen(examApplied.Sesion.SesionId, examApplied.Examen.ExamenId)
-        testEntries = New Queue(Of ExamenRespuestaDto)(testEntriesHistory)
+        testEntries = New List(Of ExamenRespuestaDto)(testEntriesHistory)
         logService.AgregarLog(loggedUser.UsuarioId, "Respuestas de examen obtenidas. Examen: " & examApplied.ExamenId)
 
-        GetNextEntry()
+        GetSiguiente()
     End Sub
 
     Private Sub GetNextEntry()
-        If testEntries.Count <> 0 Then
-            PrintEntry(testEntries.Dequeue())
+        If testEntriesIndex < testEntries.Count Then
+            PrintEntry(testEntries(testEntriesIndex))
         Else
             PrintObservationRequest()
         End If
@@ -175,10 +178,23 @@ Public Class TestReview
                 controlList.Add(answerLabel)
             Next
         End If
+
+
+        Dim backButton = New Button() With
+        {
+            .Location = New Point(170, y + 100),
+            .Text = "Anterior",
+            .Size = New Drawing.Size(95, 36),
+            .Name = "backBtn",
+            .Enabled = Not testEntriesIndex = 0
+        }
+        AddHandler backButton.Click, AddressOf BackBtn_Click
+        controlList.Add(backButton)
+
         Dim button = New Button() With
         {
-            .Location = New Point(231, y + 100),
-            .Text = If(testEntries.Count = 0, "Terminar Revision", "Siguiente"),
+            .Location = New Point(280, y + 100),
+            .Text = If(testEntriesIndex = testEntries.Count - 1, "Terminar Revision", "Siguiente"),
             .Size = New Drawing.Size(95, 36),
             .Name = "siguienteBtn"
         }
@@ -189,7 +205,17 @@ Public Class TestReview
         Me.AutoSize = True
     End Sub
 
+    Private Sub GetSiguiente()
+        testEntriesIndex = testEntriesIndex + 1
+        UpdateForm()
+    End Sub
+
     Private Sub SiguienteBtn_Click(sender As Object, e As EventArgs)
+        GetSiguiente()
+    End Sub
+
+    Private Sub BackBtn_Click(sender As Object, e As EventArgs)
+        testEntriesIndex = testEntriesIndex - 1
         UpdateForm()
     End Sub
 
