@@ -215,16 +215,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Otis.Commons\Otis.Commons.vbproj">
-      <Project>{453555e3-bbc1-4d3b-aafa-1ca39fd78185}</Project>
-      <Name>Otis.Commons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Otis.Services\Otis.Services.vbproj">
-      <Project>{6CEF1DB5-C681-46CB-92E0-8D16BB9B232F}</Project>
-      <Name>Otis.Services</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
@@ -255,6 +245,16 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Otis.Commons\Otis.Commons.vbproj">
+      <Project>{453555e3-bbc1-4d3b-aafa-1ca39fd78185}</Project>
+      <Name>Otis.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Otis.Services\Otis.Services.vbproj">
+      <Project>{6cef1db5-c681-46cb-92e0-8d16bb9b232f}</Project>
+      <Name>Otis.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

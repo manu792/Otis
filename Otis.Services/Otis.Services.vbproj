@@ -111,24 +111,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Otis.Commons\Otis.Commons.vbproj">
-      <Project>{453555e3-bbc1-4d3b-aafa-1ca39fd78185}</Project>
-      <Name>Otis.Commons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Otis.Data\Otis.Data.vbproj">
-      <Project>{A67426B7-7ED5-43CD-9D96-D5D5CB03D65C}</Project>
-      <Name>Otis.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Otis.Repository\Otis.Repository.vbproj">
-      <Project>{529C0057-D06F-47C7-AB5A-9D34B4D158B2}</Project>
-      <Name>Otis.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Otis.Security\Otis.Security.vbproj">
-      <Project>{3FE0988D-DED7-4BEA-AC1B-F29BFD17752D}</Project>
-      <Name>Otis.Security</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
@@ -156,6 +138,24 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Otis.Commons\Otis.Commons.vbproj">
+      <Project>{453555e3-bbc1-4d3b-aafa-1ca39fd78185}</Project>
+      <Name>Otis.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Otis.Data\Otis.Data.vbproj">
+      <Project>{a67426b7-7ed5-43cd-9d96-d5d5cb03d65c}</Project>
+      <Name>Otis.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Otis.Repository\Otis.Repository.vbproj">
+      <Project>{529c0057-d06f-47c7-ab5a-9d34b4d158b2}</Project>
+      <Name>Otis.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Otis.Security\Otis.Security.vbproj">
+      <Project>{3fe0988d-ded7-4bea-ac1b-f29bfd17752d}</Project>
+      <Name>Otis.Security</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
