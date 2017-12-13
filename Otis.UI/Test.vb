@@ -96,9 +96,9 @@ Public Class Test
             controlList.Add(New PictureBox() With
             {
                 .Name = "pictureBox",
-                .Size = New Size(300, 160),
-                .SizeMode = PictureBoxSizeMode.StretchImage,
-                .Location = New Point(121, 67),
+                .Size = New Size(300, 180),
+                .SizeMode = PictureBoxSizeMode.Normal,
+                .Location = New Point(135, 120),
                 .ImageLocation = question.ImagenDireccion
             })
             y = y + 160
@@ -168,14 +168,17 @@ Public Class Test
         If Controls.Find("answerTxt", False).Length > 0 Then
             testHistoryEntry.UsuarioRespuesta = Controls.Find("answerTxt", False)(0).Text
         Else
-            Dim selectedRadioButton = Controls.OfType(Of RadioButton).
+            If Controls.OfType(Of RadioButton).FirstOrDefault(Function(c) c.Checked) IsNot Nothing Then
+                Dim selectedRadioButton = Controls.OfType(Of RadioButton).
                                 FirstOrDefault(Function(c) c.Checked)
 
-            testHistoryEntry.UsuarioRespuesta = selectedRadioButton.Text
+                testHistoryEntry.UsuarioRespuesta = selectedRadioButton.Text
+            End If
         End If
-
-        examService.AgregarExamenRespuesta(testHistoryEntry)
-        UpdateForm()
+        If Not String.IsNullOrEmpty(testHistoryEntry.UsuarioRespuesta) Then
+            examService.AgregarExamenRespuesta(testHistoryEntry)
+            UpdateForm()
+        End If
     End Sub
 
     Private Sub UpdateForm()

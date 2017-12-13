@@ -84,7 +84,7 @@ Public Class TestReview
 
         Dim button = New Button() With
         {
-            .Location = New Point(150, y + 150),
+            .Location = New Point(155, y + 150),
             .Text = "Guardar Revision",
             .Size = New Drawing.Size(110, 40),
             .Name = "BtnGuardarObservacion"
@@ -95,7 +95,7 @@ Public Class TestReview
 
         Dim reporteBtn = New Button() With
         {
-            .Location = New Point(265, y + 150),
+            .Location = New Point(270, y + 150),
             .Text = "Exportar A Excel",
             .Size = New Drawing.Size(110, 40),
             .Name = "BtnReporteExcel"
@@ -140,9 +140,9 @@ Public Class TestReview
             controlList.Add(New PictureBox() With
             {
                 .Name = "pictureBox",
-                .Size = New Size(300, 160),
-                .SizeMode = PictureBoxSizeMode.StretchImage,
-                .Location = New Point(121, 67),
+                .Size = New Size(300, 180),
+                .SizeMode = PictureBoxSizeMode.Normal,
+                .Location = New Point(135, 120),
                 .ImageLocation = question.ImagenDireccion
             })
             y = y + 160
