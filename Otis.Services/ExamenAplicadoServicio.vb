@@ -53,7 +53,7 @@ Public Class ExamenAplicadoServicio
 
             unitOfWork.ExamenAplicadoRepositorio.ActualizarExamenAplicado(examenAplicadoAActualizar)
 
-            Return "Examen ha sido revisado satisfactoriamente. Observacion registrada."
+            Return "Examen revisado satisfactoriamente. Observacion registrada y enviada al correo del estudiante."
         Catch ex As Exception
             Return "Hubo un problema al tratar de guardar la revision del examen. Favor contacte al administrador."
         End Try
